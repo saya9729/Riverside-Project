@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 #endif
 
-namespace StarterAssets
+namespace FirstPerson
 {
 	[RequireComponent(typeof(CharacterController))]
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
@@ -66,7 +66,7 @@ namespace StarterAssets
 
 		private PlayerInput _playerInput;
 		private CharacterController _controller;
-		private StarterAssetsInputs _input;
+		private FirstPersonInputs _input;
 		private GameObject _mainCamera;
 
 		private const float _threshold = 0.01f;
@@ -85,7 +85,7 @@ namespace StarterAssets
 		private void Start()
 		{
 			_controller = GetComponent<CharacterController>();
-			_input = GetComponent<StarterAssetsInputs>();
+			_input = GetComponent<FirstPersonInputs>();
 			_playerInput = GetComponent<PlayerInput>();
 
 			// reset our timeouts on start

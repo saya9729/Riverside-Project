@@ -98,11 +98,22 @@ namespace FirstPerson
 			JumpAndGravity();
 			GroundedCheck();
 			Move();
+			Inspect();
 		}
 
 		private void LateUpdate()
 		{
 			CameraRotation();
+		}
+
+		private void Inspect()
+		{
+			// set Debug log for testing inspect, use left mouse
+			if(_input.inspect)
+			{
+				Debug.Log("Inpect just been pressed");
+				_input.inspect = false;
+			}
 		}
 
 		private void GroundedCheck()

@@ -12,6 +12,7 @@ namespace FirstPerson
 		public Vector2 look;
 		public bool jump;
 		public bool sprint;
+		public bool inspect;
 
 		[Header("Movement Settings")]
 		public bool analogMovement;
@@ -45,6 +46,11 @@ namespace FirstPerson
 		{
 			SprintInput(value.isPressed);
 		}
+
+		public void OnInspect(InputValue value)
+		{
+			InspectInput(value.isPressed);
+		}
 #else
 	// old input sys if we do decide to have it (most likely wont)...
 #endif
@@ -68,6 +74,11 @@ namespace FirstPerson
 		public void SprintInput(bool newSprintState)
 		{
 			sprint = newSprintState;
+		}
+
+		public void InspectInput(bool newInspectState)
+		{
+			inspect = newInspectState;
 		}
 
 #if !UNITY_IOS || !UNITY_ANDROID

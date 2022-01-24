@@ -8,27 +8,28 @@ namespace FirstPerson
 {
     public class ObjectConroller : MonoBehaviour
     {
-        [Header("Object hold")]
-        [Tooltip("This is the object player hold")]
-        [SerializeField]
-        private GameObject objectPrefab;
+        private SelectionManager _selectionManager;
 
         private GameObject currrentPlaceObject;
 
         private float mouseWheelRotation;
         public Transform theDest;
 
+        private void Start()
+        {
+            _selectionManager = GetComponent<SelectionManager>();
+        }
 
         public void ControlObject()
         {
             if (!currrentPlaceObject)
             {
-                currrentPlaceObject = Instantiate(objectPrefab);
+                currrentPlaceObject = _selectionManager.GetObjectInFront();
             }
             else
             {
-                //currrentPlaceObject.GetComponent<BoxCollider>().enabled = false;
-                //currrentPlaceObject.GetComponent<Rigidbody>().useGravity = false;
+                currrentPlaceObject.transform.GetComponent<BoxCollider>().enabled = false;
+                currrentPlaceObject.transform.GetComponent<Rigidbody>().useGravity = false;
                 currrentPlaceObject.transform.position = theDest.position;
                 currrentPlaceObject.transform.parent = GameObject.Find("Destination").transform;
             }
@@ -38,8 +39,9 @@ namespace FirstPerson
         {
             if (currrentPlaceObject)
             {
-               //currrentPlaceObject.GetComponent<Rigidbody>().useGravity = true;
-               currrentPlaceObject.transform.parent = null;
+                currrentPlaceObject.transform.GetComponent<BoxCollider>().enabled = true;
+                currrentPlaceObject.GetComponent<Rigidbody>().useGravity = true;
+               currrentPlaceObject.transform.parent = GameObject.Find("Greybox").transform;
                currrentPlaceObject = null;
             }
         }

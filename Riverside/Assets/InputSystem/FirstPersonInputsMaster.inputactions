@@ -43,12 +43,21 @@
                 },
                 {
                     "name": "Inspect",
-                    "type": "Button",
-                    "id": "088e3270-a2d4-48c4-b429-edca4846a4ee",
-                    "expectedControlType": "Button",
+                    "type": "PassThrough",
+                    "id": "13bb9af5-7144-4efa-af7b-f6fbbc6d5d9f",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Rotate",
+                    "type": "Value",
+                    "id": "6fef620c-20ed-4162-890a-0f0ed341c715",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -230,12 +239,23 @@
                 },
                 {
                     "name": "",
-                    "id": "d4030265-208f-41fd-aafd-de61228e779c",
-                    "path": "<Mouse>/press",
+                    "id": "dbc88794-2148-4fad-a78f-da20771ca20a",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "KeyboardMouse",
                     "action": "Inspect",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a8587432-eada-44b6-93d4-ee4aaa3c92a8",
+                    "path": "<Mouse>/scroll",
+                    "interactions": "",
+                    "processors": "NormalizeVector2",
+                    "groups": "KeyboardMouse",
+                    "action": "Rotate",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

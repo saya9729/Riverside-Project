@@ -5,16 +5,16 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637781960586885926
-    m_Hash: 2365599805
+      ticks: 637782875457271927
+    m_Hash: 2817310003
   m_LockFileStatus:
     m_FilePath: D:/Riverside/Riverside-Project/Riverside/Packages/packages-lock.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637781961206655092
-    m_Hash: 2102816033
+      ticks: 637782875457281472
+    m_Hash: 4052901728
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
 m_PackageAssets:

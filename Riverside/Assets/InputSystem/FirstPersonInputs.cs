@@ -10,6 +10,7 @@ namespace FirstPerson
 		[Header("Character Input Values")]
 		public Vector2 move;
 		public Vector2 look;
+		public Vector2 rotate;
 		public bool jump;
 		public bool sprint;
 		public bool inspect;
@@ -51,6 +52,11 @@ namespace FirstPerson
 		{
 			InspectInput(value.isPressed);
 		}
+
+		public void OnRotate(InputValue value)
+		{
+			RotateInput(value.Get<Vector2>());
+		}
 #else
 	// old input sys if we do decide to have it (most likely wont)...
 #endif
@@ -80,6 +86,12 @@ namespace FirstPerson
 		{
 			inspect = newInspectState;
 		}
+
+		public void RotateInput(Vector2 newRotateDirection)
+		{
+			rotate = newRotateDirection;
+		}
+
 
 #if !UNITY_IOS || !UNITY_ANDROID
 

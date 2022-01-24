@@ -9,6 +9,7 @@ namespace FirstPerson
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 	[RequireComponent(typeof(PlayerInput))]
 #endif
+	[RequireComponent(typeof(ObjectConroller))]
 	public class FirstPersonController : MonoBehaviour
 	{
 		[Header("Player")]
@@ -51,6 +52,10 @@ namespace FirstPerson
 		[Tooltip("How far in degrees can you move the camera down")]
 		public float BottomClamp = -90.0f;
 
+		[Header("Object")]
+		[Tooltip("Set Rotation speed for object")]
+		public float rotateAngle = 10.0f;
+
 		// cinemachine
 		private float _cinemachineTargetPitch;
 
@@ -67,6 +72,7 @@ namespace FirstPerson
 		private PlayerInput _playerInput;
 		private CharacterController _controller;
 		private FirstPersonInputs _input;
+		private ObjectConroller _objectController;
 		private GameObject _mainCamera;
 
 		private const float _threshold = 0.01f;
@@ -87,6 +93,7 @@ namespace FirstPerson
 			_controller = GetComponent<CharacterController>();
 			_input = GetComponent<FirstPersonInputs>();
 			_playerInput = GetComponent<PlayerInput>();
+			_objectController = GetComponent<ObjectConroller>();
 
 			// reset our timeouts on start
 			_jumpTimeoutDelta = JumpTimeout;
@@ -108,11 +115,21 @@ namespace FirstPerson
 
 		private void Inspect()
 		{
-			// set Debug log for testing inspect, use left mouse
-			if(_input.inspect)
+			bool mousePressed = _input.inspect ? true : false;
+			float mouseScrollDelta;
+			if (mousePressed)
 			{
-				Debug.Log("Inpect just been pressed");
-				_input.inspect = false;
+				_objectController.ControlObject();
+				if (_input.rotate == Vector2.zero) mouseScrollDelta = 0.0f;
+				else
+				{
+					mouseScrollDelta = _input.rotate.y;
+				}
+				_objectController.RotateFromMouseWheel(mouseScrollDelta, rotateAngle);
+			}
+			else
+			{
+				_objectController.DestroyObject();
 			}
 		}
 

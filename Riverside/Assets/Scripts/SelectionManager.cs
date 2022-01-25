@@ -10,18 +10,16 @@ namespace FirstPerson
         [SerializeField] private string selectableTag = "Selectable";
         [SerializeField] private float selectableRadius = 20.0f;
 
-        public GameObject GetObjectInFront()
+        public GameObject GetObjectAtScreenCenter()
         {
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
             {
-                Transform selection = hit.transform;
+                var selection = hit.transform.gameObject;
                 if (hit.distance < selectableRadius && selection.CompareTag(selectableTag))
                 {
-                    //do something
-                    return selection.gameObject;
-                    Debug.Log("Selectable");
+                    return selection;
                 }
             }
             return null;

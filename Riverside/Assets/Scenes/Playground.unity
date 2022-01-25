@@ -1558,6 +1558,10 @@ PrefabInstance:
       propertyPath: objectPrefab
       value: 
       objectReference: {fileID: 899428459418414007, guid: e5f4daf24146ee040b5a2d7a73b30aa0, type: 3}
+    - target: {fileID: -5699604691691415123, guid: c5efc39a8aaf6e64ea40e9ad573e9b47, type: 3}
+      propertyPath: pickUpDestination
+      value: 
+      objectReference: {fileID: 442628448}
     - target: {fileID: -5115555031703066211, guid: c5efc39a8aaf6e64ea40e9ad573e9b47, type: 3}
       propertyPath: objectPrefab
       value: 
@@ -1566,6 +1570,10 @@ PrefabInstance:
       propertyPath: rotateAngle
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 8616685848737228371, guid: c5efc39a8aaf6e64ea40e9ad573e9b47, type: 3}
+      propertyPath: selectionManager
+      value: 
+      objectReference: {fileID: 1978263389}
     - target: {fileID: 8616685848737228371, guid: c5efc39a8aaf6e64ea40e9ad573e9b47, type: 3}
       propertyPath: RotationObjectSpeed
       value: 60

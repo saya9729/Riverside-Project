@@ -9,7 +9,7 @@ namespace FirstPerson
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 	[RequireComponent(typeof(PlayerInput))]
 #endif
-	[RequireComponent(typeof(ObjectConroller))]
+	[RequireComponent(typeof(ObjectManipulatorMananger))]
 	public class FirstPersonController : MonoBehaviour
 	{
 		[Header("Player")]
@@ -52,9 +52,10 @@ namespace FirstPerson
 		[Tooltip("How far in degrees can you move the camera down")]
 		[SerializeField] private float BottomClamp = -90.0f;
 
-		[Header("Object")]
-		[Tooltip("Set Rotation speed for object")]
-		[SerializeField] private float rotateAngle = 10.0f;
+		[Header("Manager")]
+		[SerializeField] private SelectionManager selectionManager;
+
+
 
 		// cinemachine
 		private float _cinemachineTargetPitch;
@@ -72,12 +73,15 @@ namespace FirstPerson
 		private PlayerInput _playerInput;
 		private CharacterController _controller;
 		private FirstPersonInputs _input;
-		private ObjectConroller _objectController;
+		private ObjectManipulatorMananger _objectController;
 		private GameObject _mainCamera;
 
 		private const float _threshold = 0.01f;
 		
 		private bool IsCurrentDeviceMouse => _playerInput.currentControlScheme == "KeyboardMouse";
+
+		// select objecy
+		private GameObject _currentCenterScreenObject=null;
 
 		private void Awake()
 		{
@@ -93,7 +97,7 @@ namespace FirstPerson
 			_controller = GetComponent<CharacterController>();
 			_input = GetComponent<FirstPersonInputs>();
 			_playerInput = GetComponent<PlayerInput>();
-			_objectController = GetComponent<ObjectConroller>();
+			_objectController = GetComponent<ObjectManipulatorMananger>();
 
 			// reset our timeouts on start
 			_jumpTimeoutDelta = JumpTimeout;
@@ -102,34 +106,43 @@ namespace FirstPerson
 
 		private void Update()
 		{
+			UpdateCenterScreenObject();
 			JumpAndGravity();
 			GroundedCheck();
 			Move();
-			Inspect();
+			Interact();
 		}
+
+		private void UpdateCenterScreenObject()
+        {
+			_currentCenterScreenObject = selectionManager.GetObjectAtScreenCenter();
+        }
 
 		private void LateUpdate()
 		{
 			CameraRotation();
 		}
 
-		private void Inspect()
+		private void Interact()
 		{
 			bool mousePressed = _input.inspect ? true : false;
 			float mouseScrollDelta;
 			if (mousePressed)
 			{
-				_objectController.ControlObject();
-				if (_input.rotate == Vector2.zero) mouseScrollDelta = 0.0f;
+				_objectController.PickUpObject(_currentCenterScreenObject);
+				if (_input.rotate == Vector2.zero)
+				{
+					mouseScrollDelta = 0.0f;
+				}
 				else
 				{
 					mouseScrollDelta = _input.rotate.y;
 				}
-				_objectController.RotateFromMouseWheel(mouseScrollDelta, rotateAngle);
+				_objectController.RotateFromMouseWheel(mouseScrollDelta);
 			}
 			else
 			{
-				_objectController.DestroyObject();
+				_objectController.DropObject();
 			}
 		}
 

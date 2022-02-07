@@ -28,21 +28,10 @@ namespace Player
 
 		private void Interact()
 		{
-			bool mousePressed = inputManager.Player.Interact.IsPressed();
-			float mouseScrollDelta;
-			if (mousePressed)
+			if (inputManager.interact)
 			{
-				objectManipulatorManager.PickUpObject(_currentCenterScreenObject);
-				mouseScrollDelta = inputManager.Player.Rotate.ReadValue<float>();
-				//if (inputManager.rotate == Vector2.zero)
-				//{
-				//	mouseScrollDelta = 0.0f;
-				//}
-				//else
-				//{
-				//	mouseScrollDelta = inputManager.rotate.y;
-				//}
-				objectManipulatorManager.RotateFromMouseWheel(mouseScrollDelta);
+				objectManipulatorManager.PickUpObject(_currentCenterScreenObject);                
+                objectManipulatorManager.RotateFromMouseWheel(inputManager.mouseScrollDelta);
 			}
 			else
 			{

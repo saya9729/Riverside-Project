@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,22 +9,23 @@ namespace Player
     public class SelectionManager : MonoBehaviour
     {
         //Variables
-        [SerializeField] private string selectableTag = "Selectable";
         [SerializeField] private float selectableRadius = 20.0f;
+        private PlayerManager _playerManager;
 
-        [Header("Manager")]
-        [SerializeField] private InputManager inputManager;
+        public void SetPlayerManager(PlayerManager p_playerManager)
+        {
+            _playerManager = p_playerManager;
+        }
 
         public GameObject GetObjectAtScreenCenter()
         {
-            var ray = Camera.main.ScreenPointToRay(inputManager.mousePosition);
+            var ray = Camera.main.ScreenPointToRay(_playerManager.inputManager.mousePosition);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
             {
-                var selection = hit.transform.gameObject;
-                if (hit.distance < selectableRadius && selection.CompareTag(selectableTag))
+                if (hit.distance < selectableRadius)
                 {
-                    return selection;
+                    return hit.transform.gameObject;
                 }
             }
             return null;

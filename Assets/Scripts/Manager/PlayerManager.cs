@@ -1,3 +1,5 @@
+using JetBrains.Annotations;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,36 +9,23 @@ namespace Player
 	public class PlayerManager : MonoBehaviour
 	{
 		[Header("Manager")]
-		[SerializeField] private SelectionManager selectionManager;
-		[SerializeField] private ObjectManipulatorManager objectManipulatorManager;
-		[SerializeField] private InputManager inputManager;
+		public SelectionManager selectionManager;
+		public ObjectManipulatorManager objectManipulatorManager;
+		public InputManager inputManager;
+		public PlayerStateManager playerStateManager;
 
-		// select objecy
-		private GameObject _currentCenterScreenObject = null;
+		// select object
+		[NonSerialized] public GameObject currentCenterScreenObject = null;
 
 		// Update is called once per frame
 		void Update()
 		{
-			UpdateCenterScreenObject();
-			Interact();
+			UpdateCenterScreenObject();			
 		}
 
 		private void UpdateCenterScreenObject()
 		{
-			_currentCenterScreenObject = selectionManager.GetObjectAtScreenCenter();
-		}
-
-		private void Interact()
-		{
-			if (inputManager.interact)
-			{
-				objectManipulatorManager.PickUpObject(_currentCenterScreenObject);                
-                objectManipulatorManager.RotateFromMouseWheel(inputManager.mouseScrollDelta);
-			}
-			else
-			{
-				objectManipulatorManager.DropObject();
-			}
+			currentCenterScreenObject = selectionManager.GetObjectAtScreenCenter();
 		}
 	}
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,9 +8,10 @@ namespace Player
 {
     public class InputManager : MonoBehaviour
     {
-        public bool interact;
-        public float mouseScrollDelta;
-        public Vector2 mousePosition;
+        [NonSerialized] public bool interact;
+        [NonSerialized] public bool exit;
+        [NonSerialized] public float mouseScrollDelta;
+        [NonSerialized] public Vector2 mousePosition;
         public void OnInteract(InputValue p_value)
         {
             interact = p_value.isPressed;
@@ -21,6 +23,11 @@ namespace Player
         public void OnMousePosition(InputValue p_value)
         {
             mousePosition = p_value.Get<Vector2>();
+        }
+
+        public void OnExit(InputValue p_value)
+        {
+            exit = p_value.isPressed;
         }
     }
 }

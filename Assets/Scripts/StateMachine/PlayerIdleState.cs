@@ -14,18 +14,21 @@ namespace Player
         public override void UpdateState()
         {
             if (_playerManager.inputManager.interact) {
-                if (_playerManager.currentCenterScreenObject.CompareTag(_playerManager.playerStateManager.DragableTag))
+                if (_playerManager.currentCenterScreenObject != null)
                 {
-                    _playerManager.playerStateManager.SwitchState(_playerManager.playerStateManager.playerDragState);
+                    if (_playerManager.currentCenterScreenObject.CompareTag(_playerManager.playerStateManager.DragableTag))
+                    {
+                        _playerManager.playerStateManager.SwitchState(_playerManager.playerStateManager.playerDragState);
+                    }
+                    //else if (_playerManager.currentCenterScreenObject.CompareTag(_playerManager.playerStateManager.InspectableTag))
+                    //{
+                    //    _playerManager.playerStateManager.SwitchState(_playerManager.playerStateManager.playerInspectState);
+                    //}
                 }
-                //else if (_playerManager.currentCenterScreenObject.CompareTag(_playerManager.playerStateManager.InspectableTag))
-                //{
-                //    _playerManager.playerStateManager.SwitchState(_playerManager.playerStateManager.playerInspectState);
-                //}
             }
             else
             {
-                Debug.Log("Unhandled input");
+                //Debug.Log("Unhandled input");
             }
         }
 

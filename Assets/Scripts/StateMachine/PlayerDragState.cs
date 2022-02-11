@@ -17,6 +17,10 @@ namespace Player
             {
                 _playerManager.playerStateManager.SwitchState(_playerManager.playerStateManager.playerIdleState);
             }
+            else
+            {
+                _playerManager.objectManipulatorManager.UpdateObjectPosition();
+            }
         }
 
         public override void ExitState()

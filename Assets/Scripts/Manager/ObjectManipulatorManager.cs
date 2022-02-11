@@ -11,16 +11,19 @@ namespace Player
         [Tooltip("Set Rotation speed for object")]
         [SerializeField] private float rotateAngle = 10.0f;
         [SerializeField] private Transform pickUpDestination;
+        [SerializeField] private Transform destinationParent;
 
         private GameObject _currentPickUpObject;
+        private Transform _originalParent;
         
         public void PickUpObject(GameObject p_currentSelectObject)
         {
             _currentPickUpObject = p_currentSelectObject;
             _currentPickUpObject.GetComponent<BoxCollider>().enabled = false;
-            _currentPickUpObject.GetComponent<Rigidbody>().useGravity = false;
+            //_currentPickUpObject.GetComponent<Rigidbody>().useGravity = false;
             _currentPickUpObject.transform.position = pickUpDestination.position;
-            _currentPickUpObject.transform.parent = GameObject.Find("Destination").transform;
+            _originalParent = _currentPickUpObject.transform.parent;
+            _currentPickUpObject.transform.parent = destinationParent;
 
             //if (_currentPickUpObject==null)
             //{
@@ -35,12 +38,17 @@ namespace Player
             //}
         }
 
+        public void UpdateObjectPosition()
+        {
+            _currentPickUpObject.transform.position = pickUpDestination.position;
+        }
+
         public void DropObject() 
         {
             _currentPickUpObject.GetComponent<BoxCollider>().enabled = true;
-            _currentPickUpObject.GetComponent<Rigidbody>().useGravity = true;
-            _currentPickUpObject.transform.parent = GameObject.Find("Greybox").transform;
-            _currentPickUpObject = null;
+            //_currentPickUpObject.GetComponent<Rigidbody>().useGravity = true;
+            _currentPickUpObject.transform.parent = _originalParent;
+            //_currentPickUpObject = null;
 
             //if (_currentPickUpObject!=null)
             //{

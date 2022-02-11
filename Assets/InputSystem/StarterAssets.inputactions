@@ -40,6 +40,42 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Interact",
+                    "type": "PassThrough",
+                    "id": "6280b5d2-7d66-44c8-973a-95bacc927778",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Rotate",
+                    "type": "PassThrough",
+                    "id": "b4228662-ee8e-4a7e-b7ab-450aa59ee25d",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Mouse Position",
+                    "type": "PassThrough",
+                    "id": "109cfe16-12a2-48b3-a02e-e574cb571de8",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Exit",
+                    "type": "Button",
+                    "id": "30f4b26a-69bd-46fd-a802-0f05db0e02e5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -218,54 +254,10 @@
                     "action": "Sprint",
                     "isComposite": false,
                     "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "Action",
-            "id": "32cd147e-7546-4a31-99fc-6b1264401bd5",
-            "actions": [
-                {
-                    "name": "Interact",
-                    "type": "PassThrough",
-                    "id": "9c4c9120-6d71-4bf6-bbd2-0aeb71b5f922",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 },
-                {
-                    "name": "Rotate",
-                    "type": "PassThrough",
-                    "id": "4948a7e6-cd8d-4321-89fe-bbcad0c3c91d",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Mouse Position",
-                    "type": "PassThrough",
-                    "id": "c6955710-0ea7-43ac-96b7-8350703df746",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Exit",
-                    "type": "PassThrough",
-                    "id": "e9ff791a-0430-4a15-9321-406f12891026",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
                 {
                     "name": "",
-                    "id": "a0fb9d98-812b-411f-8fa5-9c651bc71a7c",
+                    "id": "be9c5766-593c-4f8e-8e3c-573dacf6b36c",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
@@ -276,7 +268,7 @@
                 },
                 {
                     "name": "",
-                    "id": "8d8a2ad2-3b2e-4ae7-83c9-bef756eb8593",
+                    "id": "ac9d3b39-3333-468f-85df-c38ce75004ce",
                     "path": "<Mouse>/scroll",
                     "interactions": "",
                     "processors": "",
@@ -287,7 +279,7 @@
                 },
                 {
                     "name": "",
-                    "id": "7344f8f6-89d7-4802-a78c-fbbd03ec44e1",
+                    "id": "6ec69771-b921-4b54-b9c9-0f678ecf3983",
                     "path": "<Mouse>/position",
                     "interactions": "",
                     "processors": "",
@@ -298,7 +290,7 @@
                 },
                 {
                     "name": "",
-                    "id": "2982782a-1b6a-40c9-9e6b-0f4d9ea408ce",
+                    "id": "8d7beef5-2226-4678-87d9-6277cf555b22",
                     "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",

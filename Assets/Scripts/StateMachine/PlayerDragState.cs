@@ -6,6 +6,7 @@ namespace Player
     public class PlayerDragState : State
     {
         private PlayerManager _playerManager;
+
         public override void EnterState()
         {
             _playerManager.objectManipulatorManager.PickUpObject(_playerManager.currentCenterScreenObject);
@@ -30,6 +31,6 @@ namespace Player
         public void SetPlayerManager(PlayerManager p_playerManager)
         {
             _playerManager = p_playerManager;
-        }        
+        }
     }
 }

@@ -6,6 +6,7 @@ namespace Player
     public class PlayerIdleState : State
     {
         private PlayerManager _playerManager;
+
         public override void EnterState()
         {
             

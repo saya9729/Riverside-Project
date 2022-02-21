@@ -12,10 +12,15 @@ namespace Player
         [SerializeField] private float selectableRadius = 20.0f;
         private PlayerManager _playerManager;
 
-        public void SetPlayerManager(PlayerManager p_playerManager)
+        private void Start()
         {
-            _playerManager = p_playerManager;
+            _playerManager = GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
         }
+
+        //public void SetPlayerManager(PlayerManager p_playerManager)
+        //{
+        //    _playerManager = p_playerManager;
+        //}
 
         public GameObject GetObjectAtScreenCenter()
         {

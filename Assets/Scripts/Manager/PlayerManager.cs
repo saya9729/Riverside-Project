@@ -26,14 +26,7 @@ namespace Player
 			inputManager = GameObject.Find("PlayerCapsule").GetComponent<InputManager>();
             
 			playerStateManager = GameObject.Find("PlayerStateManager").GetComponent<PlayerStateManager>();
-            //SetPlayerManagerForAll(this);
         }
-
-		//void SetPlayerManagerForAll(PlayerManager p_playerManager)
-  //      {
-		//	selectionManager.SetPlayerManager(p_playerManager);
-		//	playerStateManager.SetPlayerManager(p_playerManager);
-  //      }
 
 
 		void Update()

@@ -17,11 +17,6 @@ namespace Player
             _playerManager = GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
         }
 
-        //public void SetPlayerManager(PlayerManager p_playerManager)
-        //{
-        //    _playerManager = p_playerManager;
-        //}
-
         public GameObject GetObjectAtScreenCenter()
         {
             var ray = Camera.main.ScreenPointToRay(_playerManager.inputManager.mousePosition);

@@ -24,7 +24,7 @@ namespace Player
             _currentPickUpObject.transform.position = pickUpDestination.position;
             _originalParent = _currentPickUpObject.transform.parent;
             _currentPickUpObject.transform.parent = destinationParent;
-
+            //use later
             //if (_currentPickUpObject==null)
             //{
             //    _currentPickUpObject = p_currentSelectObject;
@@ -49,7 +49,7 @@ namespace Player
             //_currentPickUpObject.GetComponent<Rigidbody>().useGravity = true;
             _currentPickUpObject.transform.parent = _originalParent;
             //_currentPickUpObject = null;
-
+            //use later
             //if (_currentPickUpObject!=null)
             //{
             //    _currentPickUpObject.GetComponent<BoxCollider>().enabled = true;
@@ -62,7 +62,7 @@ namespace Player
         public void RotateFromMouseWheel(float p_mouseScrollDelta)
         {
             _currentPickUpObject.transform.Rotate(Vector3.up, p_mouseScrollDelta * rotateAngle);
-
+            //use later
             //if (_currentPickUpObject != null)
             //{
             //    _mouseWheelRotation = p_mouseScrollDelta * rotateAngle;

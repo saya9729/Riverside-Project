@@ -21,6 +21,7 @@ namespace Player
                     {
                         _playerManager.playerStateManager.SwitchState(_playerManager.playerStateManager.playerDragState);
                     }
+                    //use later
                     //else if (_playerManager.currentCenterScreenObject.CompareTag(_playerManager.playerStateManager.InspectableTag))
                     //{
                     //    _playerManager.playerStateManager.SwitchState(_playerManager.playerStateManager.playerInspectState);

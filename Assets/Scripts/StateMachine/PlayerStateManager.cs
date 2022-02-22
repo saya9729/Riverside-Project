@@ -22,12 +22,6 @@ namespace Player
             _currentState.EnterState();
         }
 
-        //public void SetPlayerManager(PlayerManager p_playerManager)
-        //{
-        //    _playerManager = p_playerManager;
-        //    SetPlayerManagerForAllState(p_playerManager);
-        //}
-
         void Update()
         {
             _currentState.UpdateState();

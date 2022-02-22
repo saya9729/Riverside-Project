@@ -14,15 +14,12 @@ namespace Player
         [NonSerialized] public PlayerIdleState playerIdleState = new PlayerIdleState();
         [NonSerialized] public PlayerDragState playerDragState = new PlayerDragState();
 
-        private void Start()        {
-            
+        private void Start()
+        {
+            _playerManager = GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
+            SetPlayerManagerForAllState(_playerManager);
             _currentState = playerIdleState;
             _currentState.EnterState();
-        }
-        public void SetPlayerManager(PlayerManager p_playerManager)
-        {
-            _playerManager = p_playerManager;
-            SetPlayerManagerForAllState(p_playerManager);
         }
 
         void Update()

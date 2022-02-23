@@ -10,16 +10,17 @@ namespace Player
     {
         //Variables
         [SerializeField] private float selectableRadius = 20.0f;
-        private PlayerManager _playerManager;
+
+        private PlayerStateManager _playerStateManager;
 
         private void Start()
         {
-            _playerManager = GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
+            _playerStateManager = GameObject.Find("PlayerStateManager").GetComponent<PlayerStateManager>();
         }
 
         public GameObject GetObjectAtScreenCenter()
         {
-            var ray = Camera.main.ScreenPointToRay(_playerManager.inputManager.mousePosition);
+            var ray = Camera.main.ScreenPointToRay(_playerStateManager.inputManager.mousePosition);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
             {

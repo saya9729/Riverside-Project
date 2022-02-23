@@ -1211,6 +1211,10 @@ PrefabInstance:
       propertyPath: pickUpDestination
       value: 
       objectReference: {fileID: 501031674}
+    - target: {fileID: 5004313048499539811, guid: 29969f4a50bcaaf4b83335e3b1e6be0d, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 29969f4a50bcaaf4b83335e3b1e6be0d, type: 3}
 --- !u!1001 &5393215579111688471

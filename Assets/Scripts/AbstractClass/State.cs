@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Player
 {
-    public abstract class State
+    public abstract class State : MonoBehaviour
     {
         public abstract void EnterState();
         public abstract void UpdateState();

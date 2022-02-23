@@ -5,7 +5,12 @@ namespace Player
 {
     public class PlayerIdleState : State
     {
-        private PlayerManager _playerManager;
+        private PlayerStateManager _playerStateManager;
+
+        private void Start()
+        {
+            _playerStateManager = GameObject.Find("PlayerStateManager").GetComponent<PlayerStateManager>();
+        }
 
         public override void EnterState()
         {
@@ -14,12 +19,12 @@ namespace Player
 
         public override void UpdateState()
         {
-            if (_playerManager.inputManager.interact) {
-                if (_playerManager.currentCenterScreenObject != null)
+            if (_playerStateManager.inputManager.interact) {
+                if (_playerStateManager.currentCenterScreenObject != null)
                 {
-                    if (_playerManager.currentCenterScreenObject.CompareTag(_playerManager.playerStateManager.DragableTag))
+                    if (_playerStateManager.currentCenterScreenObject.CompareTag(_playerStateManager.DragableTag))
                     {
-                        _playerManager.playerStateManager.SwitchState(_playerManager.playerStateManager.playerDragState);
+                        _playerStateManager.SwitchState(_playerStateManager.playerDragState);
                     }
                     //use later
                     //else if (_playerManager.currentCenterScreenObject.CompareTag(_playerManager.playerStateManager.InspectableTag))
@@ -37,10 +42,6 @@ namespace Player
         public override void ExitState()
         {
 
-        }
-        public void SetPlayerManager(PlayerManager p_playerManager)
-        {
-            _playerManager = p_playerManager;
-        }
+        }        
     }
 }

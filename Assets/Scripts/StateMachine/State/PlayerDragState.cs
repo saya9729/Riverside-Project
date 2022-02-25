@@ -7,6 +7,9 @@ namespace Player
     {
         private PlayerStateManager _playerStateManager;
 
+        public float distanceFromPlayerToObject = 5.0f;
+        public float catchUpVelocity = 10.0f;
+
         private void Start()
         {
             _playerStateManager = GameObject.Find("PlayerStateManager").GetComponent<PlayerStateManager>();
@@ -27,6 +30,11 @@ namespace Player
             {
                 // object manipulator automatic update state
             }
+        }
+
+        public override void PhysicsUpdateState()
+        {
+
         }
 
         public override void ExitState()

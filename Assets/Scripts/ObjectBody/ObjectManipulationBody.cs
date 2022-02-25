@@ -30,16 +30,14 @@ namespace Player
             _boxCollider.enabled = false;
             _rigidbody.useGravity = false;
             _rigidbody.freezeRotation = true;
-            _transform.position = _playerStateManager.objectManipulatorStateManager.objectDragState.pickUpDestination.position;
-            _transform.parent = _playerStateManager.objectManipulatorStateManager.objectDragState.destinationParent;
         }
 
         public void UpdateObjectPosition()
         {
-            Vector3 nextPosision = Camera.main.transform.position + _playerStateManager.selectionManager.currentPlayerAim.direction * _playerStateManager.objectManipulatorStateManager.objectDragState.distanceFromPlayerToObject;
+            Vector3 nextPosision = Camera.main.transform.position + _playerStateManager.selectionManager.currentPlayerAim.direction * _playerStateManager.playerDragState.distanceFromPlayerToObject;
             Vector3 currPosision = _transform.position;
 
-            _rigidbody.velocity = (nextPosision - currPosision) * _playerStateManager.objectManipulatorStateManager.objectDragState.catchUpVelocity;
+            _rigidbody.velocity = (nextPosision - currPosision) * _playerStateManager.playerDragState.catchUpVelocity;
         }
 
         public void StopDragObject()
@@ -62,9 +60,5 @@ namespace Player
         {
             Destroy(_gameObjectInstant, _playerStateManager.playerInspectState.delayTimeUntilDestroyObject);
         }
-
-
-
-
     }
 }

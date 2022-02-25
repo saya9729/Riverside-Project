@@ -7,6 +7,7 @@ namespace Player
     {
         private PlayerStateManager _playerStateManager;
         private ObjectManipulationBody _currentObjectBody;
+
         public override void EnterState()
         {
             _currentObjectBody = _playerStateManager.selectionManager.currentCenterScreenObject.GetComponent<ObjectManipulationBody>();
@@ -22,6 +23,11 @@ namespace Player
         {
             _currentObjectBody.StopInspectObject();
             _currentObjectBody = null;
+        }
+
+        public override void PhysicsUpdateState()
+        {
+
         }
 
         private void Start()

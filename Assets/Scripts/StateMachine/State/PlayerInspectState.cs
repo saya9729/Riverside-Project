@@ -38,5 +38,10 @@ namespace Player
             _playerStateManager.timeManager.ContinueTime();
             _playerStateManager.objectManipulatorStateManager.SwitchState(_playerStateManager.objectManipulatorStateManager.objectIdleState);
         }
+
+        public override void PhysicsUpdateState()
+        {
+
+        }
     }
 }

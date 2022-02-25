@@ -41,6 +41,10 @@ namespace Player
         public override void ExitState()
         {
 
-        }        
+        }
+        public override void PhysicsUpdateState()
+        {
+
+        }
     }
 }

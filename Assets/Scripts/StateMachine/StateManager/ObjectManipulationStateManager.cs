@@ -7,10 +7,6 @@ namespace Player
 {
     public class ObjectManipulationStateManager : StateMachineManager
     {
-        [Header("Object")]
-        [Tooltip("Set Rotation speed for object")]
-        [SerializeField] private float rotateAngle = 10.0f;
-
         [NonSerialized] public ObjectIdleState objectIdleState;
         [NonSerialized] public ObjectDragState objectDragState;
         [NonSerialized] public ObjectInspectState objectInspectState;
@@ -37,6 +33,11 @@ namespace Player
         private void Update()
         {
             _currentState.UpdateState();
+        }
+
+        private void FixedUpdate()
+        {
+            _currentState.PhysicsUpdateState();
         }
     }
 }

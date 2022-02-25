@@ -7,6 +7,10 @@ namespace Player
     {
         private PlayerStateManager _playerStateManager;
 
+        public Transform inspectDestination;
+        public float rotateAngle = 10.0f;
+        public float delayTimeUntilDestroyObject = 0.0f;
+
         private void Start()
         {
             _playerStateManager = GameObject.Find("PlayerStateManager").GetComponent<PlayerStateManager>();

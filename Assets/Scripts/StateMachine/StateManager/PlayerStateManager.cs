@@ -20,9 +20,6 @@ namespace Player
         [NonSerialized] public PlayerDragState playerDragState;
         [NonSerialized] public PlayerInspectState playerInspectState;
 
-        // select object
-        [NonSerialized] public GameObject currentCenterScreenObject = null;
-
         private void Start()
         {
             InitializeManager();
@@ -52,8 +49,6 @@ namespace Player
 
         void Update()
         {
-            currentCenterScreenObject = selectionManager.GetObjectAtScreenCenter();
-
             _currentState.UpdateState();
         }
     }

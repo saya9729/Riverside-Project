@@ -20,7 +20,7 @@ namespace Player
 
         public override void UpdateState()
         {
-            _currentObjectBody.UpdateObjectPosition();
+
         }
 
         public override void ExitState()

@@ -33,11 +33,6 @@ namespace Player
             _transform.parent = _playerStateManager.objectManipulatorStateManager.objectDragState.destinationParent;
         }
 
-        public void UpdateObjectPosition()
-        {
-            _transform.position = _playerStateManager.objectManipulatorStateManager.objectDragState.pickUpDestination.position;
-        }
-
         public void StopDragObject()
         {
             _boxCollider.enabled = true;

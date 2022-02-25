@@ -70,7 +70,7 @@
                 },
                 {
                     "name": "Exit",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "30f4b26a-69bd-46fd-a802-0f05db0e02e5",
                     "expectedControlType": "Button",
                     "processors": "",
@@ -291,7 +291,7 @@
                 {
                     "name": "",
                     "id": "8d7beef5-2226-4678-87d9-6277cf555b22",
-                    "path": "<Keyboard>/escape",
+                    "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

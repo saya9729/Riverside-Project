@@ -20,7 +20,12 @@ namespace Player
         {
             
         }
-                
+
+        public override void PhysicsUpdateState()
+        {
+
+        }
+
 
         private void Start()
         {

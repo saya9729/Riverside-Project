@@ -5,15 +5,12 @@ namespace Player
 {
     public class ObjectInspectState : State
     {
-        public Transform inspectDestination;
-        public float rotateAngle = 10.0f;
-        public float delayTimeUntilDestroyObject = 1.0f;
-
         private PlayerStateManager _playerStateManager;
         private ObjectManipulationBody _currentObjectBody;
+
         public override void EnterState()
         {
-            _currentObjectBody = _playerStateManager.currentCenterScreenObject.GetComponent<ObjectManipulationBody>();
+            _currentObjectBody = _playerStateManager.selectionManager.currentCenterScreenObject.GetComponent<ObjectManipulationBody>();
             _currentObjectBody.StartInspectObject();
         }
 
@@ -26,6 +23,11 @@ namespace Player
         {
             _currentObjectBody.StopInspectObject();
             _currentObjectBody = null;
+        }
+
+        public override void PhysicsUpdateState()
+        {
+
         }
 
         private void Start()

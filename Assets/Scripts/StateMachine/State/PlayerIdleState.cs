@@ -20,17 +20,16 @@ namespace Player
         public override void UpdateState()
         {
             if (_playerStateManager.inputManager.interact) {
-                if (_playerStateManager.currentCenterScreenObject != null)
+                if (_playerStateManager.selectionManager.currentCenterScreenObject != null)
                 {
-                    if (_playerStateManager.currentCenterScreenObject.CompareTag(_playerStateManager.DragableTag))
+                    if (_playerStateManager.selectionManager.currentCenterScreenObject.CompareTag(_playerStateManager.DragableTag))
                     {
                         _playerStateManager.SwitchState(_playerStateManager.playerDragState);
                     }
-                    //use later
-                    //else if (_playerManager.currentCenterScreenObject.CompareTag(_playerManager.playerStateManager.InspectableTag))
-                    //{
-                    //    _playerManager.playerStateManager.SwitchState(_playerManager.playerStateManager.playerInspectState);
-                    //}
+                    else if (_playerStateManager.selectionManager.currentCenterScreenObject.CompareTag(_playerStateManager.InspectableTag))
+                    {
+                        _playerStateManager.SwitchState(_playerStateManager.playerInspectState);
+                    }
                 }
             }
             else
@@ -42,6 +41,10 @@ namespace Player
         public override void ExitState()
         {
 
-        }        
+        }
+        public override void PhysicsUpdateState()
+        {
+
+        }
     }
 }

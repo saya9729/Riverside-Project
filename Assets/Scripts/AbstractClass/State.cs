@@ -9,5 +9,6 @@ namespace Player
         public abstract void EnterState();
         public abstract void UpdateState();
         public abstract void ExitState();
+        public abstract void PhysicsUpdateState();
     }
 }

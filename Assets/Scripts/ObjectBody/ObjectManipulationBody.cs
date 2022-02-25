@@ -25,41 +25,40 @@ namespace Player
             _originalParent = _transform.parent;
         }
 
-        public void PickUpObject()
+        public void StartDragObject()
         {
             _boxCollider.enabled = false;
-            //_rigidbody.useGravity = false;
-            _transform.position = _playerStateManager.objectManipulatorStateManager.objectDragState.pickUpDestination.position;
-            _transform.parent = _playerStateManager.objectManipulatorStateManager.objectDragState.destinationParent;
+            _rigidbody.useGravity = false;
+            _rigidbody.freezeRotation = true;
         }
 
         public void UpdateObjectPosition()
         {
-            _transform.position = _playerStateManager.objectManipulatorStateManager.objectDragState.pickUpDestination.position;
+            Vector3 nextPosision = Camera.main.transform.position + _playerStateManager.selectionManager.currentPlayerAim.direction * _playerStateManager.playerDragState.distanceFromPlayerToObject;
+            Vector3 currPosision = _transform.position;
+
+            _rigidbody.velocity = (nextPosision - currPosision) * _playerStateManager.playerDragState.catchUpVelocity;
         }
 
-        public void DropObject()
+        public void StopDragObject()
         {
             _boxCollider.enabled = true;
-            //_rigidbody.useGravity = true;
+            _rigidbody.freezeRotation = false;
+            _rigidbody.useGravity = true;
             _transform.parent = _originalParent;
         }
 
         public void StartInspectObject()
         {
-            _gameObjectInstant = Instantiate(inspectObjectModel, _playerStateManager.objectManipulatorStateManager.objectInspectState.inspectDestination);
+            _gameObjectInstant = Instantiate(inspectObjectModel, _playerStateManager.playerInspectState.inspectDestination);
         }
         public void RotateInspectingObject()
         {
-            _gameObjectInstant.transform.Rotate(Vector3.up, _playerStateManager.inputManager.mouseScrollDelta * _playerStateManager.objectManipulatorStateManager.objectInspectState.rotateAngle);
+            _gameObjectInstant.transform.Rotate(Vector3.up, _playerStateManager.inputManager.mouseScrollDelta * _playerStateManager.playerInspectState.rotateAngle);
         }
         public void StopInspectObject()
         {
-            Destroy(_gameObjectInstant, _playerStateManager.objectManipulatorStateManager.objectInspectState.delayTimeUntilDestroyObject);
+            Destroy(_gameObjectInstant, _playerStateManager.playerInspectState.delayTimeUntilDestroyObject);
         }
-
-
-
-
     }
 }

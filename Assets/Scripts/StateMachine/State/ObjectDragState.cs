@@ -15,7 +15,7 @@ namespace Player
         public override void EnterState()
         {
             _currentObjectBody = _playerStateManager.currentCenterScreenObject.GetComponent<ObjectManipulationBody>();
-            _currentObjectBody.PickUpObject();
+            _currentObjectBody.StartDragObject();
         }
 
         public override void UpdateState()
@@ -25,7 +25,7 @@ namespace Player
 
         public override void ExitState()
         {
-            _currentObjectBody.DropObject();
+            _currentObjectBody.StopDragObject();
             _currentObjectBody = null;
         }        
 

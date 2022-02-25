@@ -17,6 +17,7 @@ namespace Player
 
         [NonSerialized] public PlayerIdleState playerIdleState;
         [NonSerialized] public PlayerDragState playerDragState;
+        [NonSerialized] public PlayerInspectState playerInspectState;
 
         // select object
         [NonSerialized] public GameObject currentCenterScreenObject = null;
@@ -44,6 +45,7 @@ namespace Player
         {
             playerIdleState = GameObject.Find("PlayerState").GetComponent<PlayerIdleState>();
             playerDragState = GameObject.Find("PlayerState").GetComponent<PlayerDragState>();
+            playerInspectState = GameObject.Find("PlayerState").GetComponent<PlayerInspectState>();
         }
 
         void Update()

@@ -25,7 +25,7 @@ namespace Player
             _originalParent = _transform.parent;
         }
 
-        public void PickUpObject()
+        public void StartDragObject()
         {
             _boxCollider.enabled = false;
             //_rigidbody.useGravity = false;
@@ -38,7 +38,7 @@ namespace Player
             _transform.position = _playerStateManager.objectManipulatorStateManager.objectDragState.pickUpDestination.position;
         }
 
-        public void DropObject()
+        public void StopDragObject()
         {
             _boxCollider.enabled = true;
             //_rigidbody.useGravity = true;

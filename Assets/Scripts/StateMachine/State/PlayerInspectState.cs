@@ -1,0 +1,36 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+namespace Player
+{
+    public class PlayerInspectState : State
+    {
+        private PlayerStateManager _playerStateManager;
+
+        private void Start()
+        {
+            _playerStateManager = GameObject.Find("PlayerStateManager").GetComponent<PlayerStateManager>();
+        }
+        public override void EnterState()
+        {
+            _playerStateManager.objectManipulatorStateManager.SwitchState(_playerStateManager.objectManipulatorStateManager.objectInspectState);
+        }
+
+        public override void UpdateState()
+        {
+            if (_playerStateManager.inputManager.exit)
+            {
+                _playerStateManager.SwitchState(_playerStateManager.playerIdleState);
+            }
+            else
+            {
+                // object manipulator automatic update state
+            }
+        }
+
+        public override void ExitState()
+        {
+            _playerStateManager.objectManipulatorStateManager.SwitchState(_playerStateManager.objectManipulatorStateManager.objectIdleState);
+        }
+    }
+}

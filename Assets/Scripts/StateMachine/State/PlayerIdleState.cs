@@ -26,11 +26,10 @@ namespace Player
                     {
                         _playerStateManager.SwitchState(_playerStateManager.playerDragState);
                     }
-                    //use later
-                    //else if (_playerManager.currentCenterScreenObject.CompareTag(_playerManager.playerStateManager.InspectableTag))
-                    //{
-                    //    _playerManager.playerStateManager.SwitchState(_playerManager.playerStateManager.playerInspectState);
-                    //}
+                    else if (_playerStateManager.currentCenterScreenObject.CompareTag(_playerStateManager.InspectableTag))
+                    {
+                        _playerStateManager.SwitchState(_playerStateManager.playerInspectState);
+                    }
                 }
             }
             else

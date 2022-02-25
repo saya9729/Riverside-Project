@@ -14,6 +14,7 @@ namespace Player
         [NonSerialized] public ObjectIdleState objectIdleState;
         [NonSerialized] public ObjectDragState objectDragState;
         [NonSerialized] public ObjectInspectState objectInspectState;
+        [NonSerialized] public ObjectItemState objectItemState;
 
         private PlayerStateManager _playerStateManager;
 
@@ -32,6 +33,7 @@ namespace Player
             objectIdleState = GameObject.Find("ObjectManipulationState").GetComponent<ObjectIdleState>();
             objectDragState = GameObject.Find("ObjectManipulationState").GetComponent<ObjectDragState>();
             objectInspectState = GameObject.Find("ObjectManipulationState").GetComponent<ObjectInspectState>();
+            objectItemState = GameObject.Find("ObjectManipulationState").GetComponent<ObjectItemState>();
         }
 
         private void Update()

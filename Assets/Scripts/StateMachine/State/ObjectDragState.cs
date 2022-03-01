@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Player
 {
-    public class ObjectDragState : State
+    public class ObjectDragState : AbstractClass.State
     {
         private PlayerStateManager _playerStateManager;
         private ObjectManipulationBody _currentObjectBody;

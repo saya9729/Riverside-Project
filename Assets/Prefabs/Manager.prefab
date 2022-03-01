@@ -124,7 +124,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27186f70ca4b5744989873a6362f9f13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateAngle: 10
 --- !u!1 &3252639175857230115
 GameObject:
   m_ObjectHideFlags: 0
@@ -226,8 +225,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2027f916e5f4a4049b77e911e380fa2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickUpDestination: {fileID: 0}
-  destinationParent: {fileID: 0}
 --- !u!114 &650959451178281207
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -240,9 +237,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb82327a7cecdbf4b9d91324b48bbf59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inspectDestination: {fileID: 0}
-  rotateAngle: 10
-  delayTimeUntilDestroyObject: 1
 --- !u!1 &6826400103739956285
 GameObject:
   m_ObjectHideFlags: 0
@@ -343,6 +337,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c22179689d7038e4a92fec5e0010d205, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  distanceFromPlayerToObject: 5
+  catchUpVelocity: 10
 --- !u!114 &3278806174908629488
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -355,3 +351,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: facad631164abf14290a97c0609a2c1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inspectDestination: {fileID: 0}
+  rotateAngle: 10
+  delayTimeUntilDestroyObject: 0

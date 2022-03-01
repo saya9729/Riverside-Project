@@ -5,7 +5,7 @@ using System;
 
 namespace Player
 {
-    public class PlayerStateManager : StateMachineManager
+    public class PlayerStateManager : AbstractClass.StateMachineManager
     {
         //Manager
         [NonSerialized] public SelectionManager selectionManager;

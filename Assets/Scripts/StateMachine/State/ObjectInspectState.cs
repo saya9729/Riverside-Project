@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace Player
 {
-    public class ObjectInspectState : State
+    public class ObjectInspectState : AbstractClass.State
     {
         private PlayerStateManager _playerStateManager;
         private ObjectManipulationBody _currentObjectBody;

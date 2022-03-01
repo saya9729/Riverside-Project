@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Player
+namespace AbstractClass
 {
     public abstract class State : MonoBehaviour
     {

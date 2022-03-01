@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace Player
 {
-    public class PlayerDragState : State
+    public class PlayerDragState : AbstractClass.State
     {
         private PlayerStateManager _playerStateManager;
 

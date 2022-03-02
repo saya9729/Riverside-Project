@@ -7,9 +7,10 @@ namespace Player
     {
         private PlayerStateManager _playerStateManager;
 
-        public Transform inspectDestination;
         public float rotateAngle = 10.0f;
         public float delayTimeUntilDestroyObject = 0.0f;
+        public float inspectRange = 5.0f;
+        public float distanceFromPlayerToObject = 5.0f;
 
         private void Start()
         {

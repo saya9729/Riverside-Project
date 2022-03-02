@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,8 +8,10 @@ namespace Player
     {
         private PlayerStateManager _playerStateManager;
 
-        public float distanceFromPlayerToObject = 5.0f;
+        public float dragRange = 5.0f;
         public float catchUpVelocity = 10.0f;
+
+        [NonSerialized] public float distanceFromPlayerToObject = 5.0f;        
 
         private void Start()
         {
@@ -18,6 +21,7 @@ namespace Player
         public override void EnterState()
         {
             _playerStateManager.objectManipulatorStateManager.SwitchState(_playerStateManager.objectManipulatorStateManager.objectDragState);
+            distanceFromPlayerToObject = _playerStateManager.selectionManager.distanceToCenterScreenObject;
         }
 
         public override void UpdateState()
@@ -39,6 +43,7 @@ namespace Player
 
         public override void ExitState()
         {
+            distanceFromPlayerToObject = 5.0f;
             _playerStateManager.objectManipulatorStateManager.SwitchState(_playerStateManager.objectManipulatorStateManager.objectIdleState);
         }        
     }

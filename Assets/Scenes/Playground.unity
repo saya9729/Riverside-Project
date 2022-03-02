@@ -420,36 +420,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inspectObjectModel: {fileID: 899428459418414007, guid: e5f4daf24146ee040b5a2d7a73b30aa0, type: 3}
---- !u!1 &501031673
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 501031674}
-  m_Layer: 3
-  m_Name: PickUpDestination
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &501031674
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 501031673}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.53, z: 3.24}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 890799989}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &525182038 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4918499915152233632, guid: 09aade0ecefd01e4b8f7661acf64f5c2, type: 3}
@@ -1848,8 +1818,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   playerTransform: {fileID: 890799989}
-  enemyTransform: {fileID: 1115790546}
-  navMeshAgent: {fileID: 1115790551}
   walkPointRange: 5
 --- !u!1001 &1979352518
 PrefabInstance:
@@ -2307,7 +2275,7 @@ PrefabInstance:
     - target: {fileID: 650959451178281207, guid: 29969f4a50bcaaf4b83335e3b1e6be0d, type: 3}
       propertyPath: inspectDestination
       value: 
-      objectReference: {fileID: 501031674}
+      objectReference: {fileID: 0}
     - target: {fileID: 1241271801554059657, guid: 29969f4a50bcaaf4b83335e3b1e6be0d, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -2367,7 +2335,7 @@ PrefabInstance:
     - target: {fileID: 3252639175629965928, guid: 29969f4a50bcaaf4b83335e3b1e6be0d, type: 3}
       propertyPath: pickUpDestination
       value: 
-      objectReference: {fileID: 501031674}
+      objectReference: {fileID: 0}
     - target: {fileID: 3278806174908629488, guid: 29969f4a50bcaaf4b83335e3b1e6be0d, type: 3}
       propertyPath: inspectDestination
       value: 
@@ -2383,7 +2351,7 @@ PrefabInstance:
     - target: {fileID: 6224788442906455881, guid: 29969f4a50bcaaf4b83335e3b1e6be0d, type: 3}
       propertyPath: pickUpDestination
       value: 
-      objectReference: {fileID: 501031674}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 29969f4a50bcaaf4b83335e3b1e6be0d, type: 3}
 --- !u!1001 &5393215579111688471

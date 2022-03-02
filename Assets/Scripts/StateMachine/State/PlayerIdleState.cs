@@ -22,11 +22,11 @@ namespace Player
             if (_playerStateManager.inputManager.interact) {
                 if (_playerStateManager.selectionManager.currentCenterScreenObject != null)
                 {
-                    if (_playerStateManager.selectionManager.currentCenterScreenObject.CompareTag(_playerStateManager.DragableTag))
+                    if (_playerStateManager.selectionManager.currentCenterScreenObject.CompareTag(_playerStateManager.DragableTag) && _playerStateManager.selectionManager.distanceToCenterScreenObject<_playerStateManager.playerDragState.dragRange)
                     {
                         _playerStateManager.SwitchState(_playerStateManager.playerDragState);
                     }
-                    else if (_playerStateManager.selectionManager.currentCenterScreenObject.CompareTag(_playerStateManager.InspectableTag))
+                    else if (_playerStateManager.selectionManager.currentCenterScreenObject.CompareTag(_playerStateManager.InspectableTag) && _playerStateManager.selectionManager.distanceToCenterScreenObject < _playerStateManager.playerInspectState.inspectRange)
                     {
                         _playerStateManager.SwitchState(_playerStateManager.playerInspectState);
                     }

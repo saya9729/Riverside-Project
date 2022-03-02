@@ -8,12 +8,10 @@ namespace Player
 {
     public class SelectionManager : MonoBehaviour
     {
-        //Variables
-        [SerializeField] private float selectableRadius = 20.0f;
-
         private PlayerStateManager _playerStateManager;
         [NonSerialized] public Ray currentPlayerAim;
         [NonSerialized] public GameObject currentCenterScreenObject;
+        [NonSerialized] public float distanceToCenterScreenObject;
 
         private void Start()
         {
@@ -32,10 +30,8 @@ namespace Player
             RaycastHit hit;
             if (Physics.Raycast(currentPlayerAim, out hit))
             {
-                if (hit.distance < selectableRadius)
-                {
-                    return hit.transform.gameObject;
-                }
+                distanceToCenterScreenObject = Vector3.Distance(Camera.main.transform.position,hit.transform.position);
+                return hit.transform.gameObject;                
             }
             return null;
         }

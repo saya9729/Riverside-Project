@@ -27,9 +27,11 @@ namespace Player
 
         public void StartDragObject()
         {
-            _boxCollider.enabled = false;
+            //_boxCollider.enabled = false;
             _rigidbody.useGravity = false;
-            _rigidbody.freezeRotation = true;
+            //_rigidbody.freezeRotation = true;
+            //need to change how this work
+            //_transform.parent = GameObject.Find("PlayerCapsule").GetComponent<Transform>();
         }
 
         public void UpdateObjectPosition()
@@ -42,15 +44,15 @@ namespace Player
 
         public void StopDragObject()
         {
-            _boxCollider.enabled = true;
-            _rigidbody.freezeRotation = false;
+            //_boxCollider.enabled = true;            
             _rigidbody.useGravity = true;
-            _transform.parent = _originalParent;
+            //_rigidbody.freezeRotation = false;
+            //_transform.parent = _originalParent;
         }
 
         public void StartInspectObject()
         {
-            _gameObjectInstant = Instantiate(inspectObjectModel, _playerStateManager.playerInspectState.inspectDestination);
+            _gameObjectInstant = Instantiate(inspectObjectModel, Camera.main.transform.position + _playerStateManager.selectionManager.currentPlayerAim.direction * _playerStateManager.playerInspectState.distanceFromPlayerToObject,new Quaternion());
         }
         public void RotateInspectingObject()
         {

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Player
 {
-    public class ObjectManipulationStateManager : StateMachineManager
+    public class ObjectManipulationStateManager : AbstractClass.StateMachineManager
     {
         [NonSerialized] public ObjectIdleState objectIdleState;
         [NonSerialized] public ObjectDragState objectDragState;

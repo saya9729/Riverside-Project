@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace Player
 {
-    public class PlayerIdleState : State
+    public class PlayerIdleState : AbstractClass.State
     {
         private PlayerStateManager _playerStateManager;
 

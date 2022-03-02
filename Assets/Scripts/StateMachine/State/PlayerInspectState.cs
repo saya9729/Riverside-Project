@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace Player
 {
-    public class PlayerInspectState : State
+    public class PlayerInspectState : AbstractClass.State
     {
         private PlayerStateManager _playerStateManager;
 

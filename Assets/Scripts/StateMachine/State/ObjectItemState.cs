@@ -8,8 +8,6 @@ namespace Player
     {
         private PlayerStateManager _playerStateManager;
 
-        private string itemUseType; //comsume or throw or turn on/off . . .
-
         private ObjectManipulationBody _currentObjectBody;
         public override void EnterState()
         {

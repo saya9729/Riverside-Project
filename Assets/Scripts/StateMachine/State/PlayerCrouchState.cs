@@ -3,21 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace Player
 {
-    public class PlayerItemState : State
+    public class PlayerCrouchState : State
     {
         private PlayerStateManager _playerStateManager;
+
+        private Animator anim;
 
         private void Start()
         {
             _playerStateManager = GameObject.Find("PlayerStateManager").GetComponent<PlayerStateManager>();
+            anim = GameObject.Find("PlayerCapsule").GetComponent<Animator>(); //testing crouch
         }
 
         public override void EnterState()
         {
-            Debug.Log("item");
-            //Use an item from list/inventory by calling UseThisItem() from ItemUseBody attached to the item
-
-            //_playerStateManager.objectManipulatorStateManager.SwitchState(_playerStateManager.objectManipulatorStateManager.objectItemState);
+            anim.SetBool("crouch", true);
         }
 
         public override void UpdateState()
@@ -34,7 +34,7 @@ namespace Player
 
         public override void ExitState()
         {
-            _playerStateManager.objectManipulatorStateManager.SwitchState(_playerStateManager.objectManipulatorStateManager.objectIdleState);
+            anim.SetBool("crouch", false);
         }
     }
 }

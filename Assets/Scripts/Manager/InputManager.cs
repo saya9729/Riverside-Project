@@ -12,6 +12,10 @@ namespace Player
         [NonSerialized] public bool exit;
         [NonSerialized] public float mouseScrollDelta;
         [NonSerialized] public Vector2 mousePosition;
+        [NonSerialized] public bool attack;
+        [NonSerialized] public bool item;
+        [NonSerialized] public bool crouch;
+
         public void OnInteract(InputValue p_value)
         {
             interact = p_value.isPressed;
@@ -23,6 +27,18 @@ namespace Player
         public void OnMousePosition(InputValue p_value)
         {
             mousePosition = p_value.Get<Vector2>();
+        }
+        public void OnAttack(InputValue p_value)
+        {
+            attack = p_value.isPressed;
+        }
+        public void OnItem(InputValue p_value)
+        {
+            item = p_value.isPressed;
+        }
+        public void OnCrouch(InputValue p_value)
+        {
+            crouch = p_value.isPressed;
         }
 
         public void OnExit(InputValue p_value)

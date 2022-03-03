@@ -19,6 +19,7 @@ namespace Player
         [NonSerialized] public PlayerDragState playerDragState;
         [NonSerialized] public PlayerItemState playerItemState;
         [NonSerialized] public PlayerAttackState playerAttackState;
+        [NonSerialized] public PlayerCrouchState playerCrouchState;
 
         // select object
         [NonSerialized] public GameObject currentCenterScreenObject = null;
@@ -48,13 +49,50 @@ namespace Player
             playerDragState = GameObject.Find("PlayerState").GetComponent<PlayerDragState>();
             playerItemState = GameObject.Find("PlayerState").GetComponent<PlayerItemState>();
             playerAttackState = GameObject.Find("PlayerState").GetComponent<PlayerAttackState>();
+            playerCrouchState = GameObject.Find("PlayerState").GetComponent<PlayerCrouchState>();
         }
 
         void Update()
         {
             currentCenterScreenObject = selectionManager.GetObjectAtScreenCenter();
+            Attack();
+            Item();
+            Crouch();
 
             _currentState.UpdateState();
+        }
+
+        void Attack()
+        {
+            if (inputManager.attack)
+            {
+                if (_currentState != playerAttackState)
+                {
+                    SwitchState(playerAttackState);
+                }
+            }
+        }
+
+        void Item()
+        {
+            if (inputManager.item)
+            {
+                if (_currentState != playerItemState)
+                {
+                    SwitchState(playerItemState);
+                }
+            }
+        }
+
+        void Crouch()
+        {
+            if (inputManager.crouch)
+            {
+                if (_currentState != playerCrouchState)
+                {
+                    SwitchState(playerCrouchState);
+                }
+           }
         }
     }
 }

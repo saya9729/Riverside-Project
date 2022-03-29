@@ -14,7 +14,7 @@ namespace Player
 
         public override void EnterState()
         {
-
+            Debug.Log("enter block state"); 
         }
 
         public override void UpdateState()
@@ -24,7 +24,7 @@ namespace Player
 
         public override void ExitState()
         {
-
+            Debug.Log("exit block state");
         }
         public override void PhysicsUpdateState()
         {

@@ -14,6 +14,7 @@ namespace Player
 
         public override void EnterState()
         {
+            Debug.Log("enter secondary attack state");
 
         }
 
@@ -24,6 +25,7 @@ namespace Player
 
         public override void ExitState()
         {
+            Debug.Log("exit secondary attack state");
 
         }
         public override void PhysicsUpdateState()

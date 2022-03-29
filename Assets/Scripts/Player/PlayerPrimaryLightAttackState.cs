@@ -14,6 +14,7 @@ namespace Player
 
         public override void EnterState()
         {
+            Debug.Log("enter primary light attack state");
 
         }
 
@@ -24,6 +25,7 @@ namespace Player
 
         public override void ExitState()
         {
+            Debug.Log("exit primary light attack state");
 
         }
         public override void PhysicsUpdateState()

@@ -14,6 +14,7 @@ namespace Player
 
         public override void EnterState()
         {
+            Debug.Log("enter pocket watch state state");
 
         }
 
@@ -24,7 +25,7 @@ namespace Player
 
         public override void ExitState()
         {
-
+            Debug.Log("exit pocket watch state");
         }
         public override void PhysicsUpdateState()
         {

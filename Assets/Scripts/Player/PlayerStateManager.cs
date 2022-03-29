@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
@@ -9,16 +9,14 @@ namespace Player
     {
         //Manager
         [NonSerialized] public SelectionManager selectionManager;
-        [NonSerialized] public ObjectManipulationStateManager objectManipulatorStateManager;
         [NonSerialized] public InputManager inputManager;
         [NonSerialized] public TimeManager timeManager;
 
-        public string DragableTag = "Dragable";
-        public string InspectableTag = "Inspectable";
-
         [NonSerialized] public PlayerIdleState playerIdleState;
-        [NonSerialized] public PlayerDragState playerDragState;
-        [NonSerialized] public PlayerInspectState playerInspectState;
+        [NonSerialized] public PlayerPrimaryLightAttackState playerPrimaryLightAttackState;
+        [NonSerialized] public PlayerSecondaryAttackState playerSecondaryAttackState;
+        [NonSerialized] public PlayerBlockState playerBlockState;
+        [NonSerialized] public PlayerPocketWatchState playerPocketWatchState;
 
         private void Start()
         {
@@ -34,7 +32,6 @@ namespace Player
         void InitializeManager()
         {
             selectionManager = GameObject.Find("SelectionManager").GetComponent<SelectionManager>();
-            objectManipulatorStateManager = GameObject.Find("ObjectManipulationStateManager").GetComponent<ObjectManipulationStateManager>();
             //PlayerCapsule is the name of the object contain Player Input Component and cannot be change because of the Starter assets script
             inputManager = GameObject.Find("PlayerCapsule").GetComponent<InputManager>();
             timeManager = GameObject.Find("TimeManager").GetComponent<TimeManager>();
@@ -42,9 +39,16 @@ namespace Player
 
         void InitializeState()
         {
-            playerIdleState = GameObject.Find("PlayerState").GetComponent<PlayerIdleState>();
-            playerDragState = GameObject.Find("PlayerState").GetComponent<PlayerDragState>();
-            playerInspectState = GameObject.Find("PlayerState").GetComponent<PlayerInspectState>();
+            playerIdleState = GetComponent<PlayerIdleState>();
+            playerPrimaryLightAttackState = GetComponent<PlayerPrimaryLightAttackState>();
+            playerSecondaryAttackState = GetComponent<PlayerSecondaryAttackState>();
+            playerBlockState = GetComponent<PlayerBlockState>();
+            playerPocketWatchState = GetComponent<PlayerPocketWatchState>();
+        }
+
+        private void FixedUpdate()
+        {
+            _currentState.PhysicsUpdateState();
         }
 
         void Update()

@@ -1,14 +1,20 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 namespace Player
 {
-    public class ObjectIdleState : AbstractClass.State
+    public class PlayerBlockState : AbstractClass.State
     {
         private PlayerStateManager _playerStateManager;
+
+        private void Start()
+        {
+            _playerStateManager = GameObject.Find("PlayerStateManager").GetComponent<PlayerStateManager>();
+        }
+
         public override void EnterState()
         {
-            
+
         }
 
         public override void UpdateState()
@@ -18,18 +24,11 @@ namespace Player
 
         public override void ExitState()
         {
-            
-        }
 
+        }
         public override void PhysicsUpdateState()
         {
 
-        }
-
-
-        private void Start()
-        {
-            _playerStateManager = GameObject.Find("PlayerStateManager").GetComponent<PlayerStateManager>();
         }
     }
 }

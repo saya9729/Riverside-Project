@@ -6,7 +6,7 @@ namespace Player
 {
     public class PlayerDragState : AbstractClass.State
     {
-        private PlayerStateManager _playerStateManager;
+        private PlayerStateManagerOld _playerStateManager;
 
         public float dragRange = 5.0f;
         public float catchUpVelocity = 10.0f;
@@ -15,7 +15,7 @@ namespace Player
 
         private void Start()
         {
-            _playerStateManager = GameObject.Find("PlayerStateManager").GetComponent<PlayerStateManager>();
+            _playerStateManager = GameObject.Find("PlayerStateManager").GetComponent<PlayerStateManagerOld>();
         }
 
         public override void EnterState()

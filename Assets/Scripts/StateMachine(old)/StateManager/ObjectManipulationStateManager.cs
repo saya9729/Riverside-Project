@@ -11,11 +11,11 @@ namespace Player
         [NonSerialized] public ObjectDragState objectDragState;
         [NonSerialized] public ObjectInspectState objectInspectState;
 
-        private PlayerStateManager _playerStateManager;
+        private PlayerStateManagerOld _playerStateManager;
 
         private void Start()
         {
-            _playerStateManager = GameObject.Find("PlayerStateManager").GetComponent<PlayerStateManager>();
+            _playerStateManager = GameObject.Find("PlayerStateManager").GetComponent<PlayerStateManagerOld>();
 
             InitializeState();
 

@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 namespace Enemy
 {
-    public class EnemyStateManager : AbstractClass.StateMachineManager
+    public class EnemyStateManagerOld : AbstractClass.StateMachineManager
     {
 
         public LayerMask groundLayer;
@@ -21,10 +21,10 @@ namespace Enemy
         [NonSerialized] public Vector3 walkPoint;
         
 
-        [NonSerialized] public EnemyIdleState enemyIdleState;
-        [NonSerialized] public EnemyPatrolState enemyPatrolState;
-        [NonSerialized] public EnemyChaseState enemyChaseState;
-        [NonSerialized] public EnemyAttackState enemyAttackState;
+        [NonSerialized] public EnemyIdleStateOld enemyIdleState;
+        [NonSerialized] public EnemyPatrolStateOld enemyPatrolState;
+        [NonSerialized] public EnemyChaseStateOld enemyChaseState;
+        [NonSerialized] public EnemyAttackStateOld enemyAttackState;
 
         private void Start()
         {
@@ -45,10 +45,10 @@ namespace Enemy
 
         void InitializeState()
         {
-            enemyIdleState = GameObject.Find("EnemyState").GetComponent<EnemyIdleState>();
-            enemyPatrolState = GameObject.Find("EnemyState").GetComponent<EnemyPatrolState>();
-            enemyChaseState = GameObject.Find("EnemyState").GetComponent<EnemyChaseState>();
-            enemyAttackState = GameObject.Find("EnemyState").GetComponent<EnemyAttackState>();
+            enemyIdleState = GameObject.Find("EnemyState").GetComponent<EnemyIdleStateOld>();
+            enemyPatrolState = GameObject.Find("EnemyState").GetComponent<EnemyPatrolStateOld>();
+            enemyChaseState = GameObject.Find("EnemyState").GetComponent<EnemyChaseStateOld>();
+            enemyAttackState = GameObject.Find("EnemyState").GetComponent<EnemyAttackStateOld>();
         }
 
         void Update()

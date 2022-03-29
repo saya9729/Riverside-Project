@@ -2,10 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
+
 namespace Enemy
 {
     public class EnemyStateManager : AbstractClass.StateMachineManager
     {
+        public float sightRadius;
+
         [NonSerialized] public EnemyPatrolState enemyPatrolState;
         [NonSerialized] public EnemyChaseState enemyChaseState;
         [NonSerialized] public EnemyAttackState enemyAttackState;
@@ -13,6 +17,9 @@ namespace Enemy
         [NonSerialized] public EnemyDeadState enemyDeadState;
 
         private EnemyStatisticManager _enemyStatisticManager;
+        [NonSerialized] public NavMeshAgent _navMeshAgent;
+        public LayerMask playerLayerMask;
+
 
         private void Start()
         {
@@ -28,7 +35,8 @@ namespace Enemy
         }
         void InitializeVariable()
         {
-            
+            _navMeshAgent = GetComponent<NavMeshAgent>();
+            playerLayerMask = LayerMask.GetMask("Player");
         }
 
         void InitializeState()

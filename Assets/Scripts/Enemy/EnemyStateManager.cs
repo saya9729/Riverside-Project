@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
+
 namespace Enemy
 {
     public class EnemyStateManager : AbstractClass.StateMachineManager
@@ -13,6 +15,8 @@ namespace Enemy
         [NonSerialized] public EnemyDeadState enemyDeadState;
 
         private EnemyStatisticManager _enemyStatisticManager;
+        [NonSerialized] public NavMeshAgent _navMeshAgent;
+
 
         private void Start()
         {
@@ -28,7 +32,7 @@ namespace Enemy
         }
         void InitializeVariable()
         {
-            
+            _navMeshAgent = GetComponent<NavMeshAgent>();
         }
 
         void InitializeState()

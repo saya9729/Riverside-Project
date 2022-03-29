@@ -7,6 +7,10 @@ namespace Enemy
     {
         private EnemyStateManager _enemyStateManager;
 
+        [SerializeField] private Transform[] waypoints;
+        private int _waypointIndex;
+        private Vector3 _targetDestination; 
+
         private void Start()
         {
             _enemyStateManager = GameObject.Find("EnemyStateManager").GetComponent<EnemyStateManager>();
@@ -14,10 +18,16 @@ namespace Enemy
         public override void EnterState()
         {
             Debug.Log("Enter Patrol State");
+            UpdateDestination();
         }
 
         public override void UpdateState()
         {
+            if (Vector3.Distance(transform.position, _targetDestination) < 1)
+            {
+                UpdateDestination();
+            }
+
             if (IsPlayerVisible())
             {
                 _enemyStateManager.SwitchState(_enemyStateManager.enemyChaseState);
@@ -26,6 +36,13 @@ namespace Enemy
             {
                 //continue patroling
             }
+        }
+
+        void UpdateDestination()
+        {
+            _targetDestination = waypoints[_waypointIndex].position;
+            _enemyStateManager._navMeshAgent.SetDestination(_targetDestination);
+            _waypointIndex = waypoints.Length != 0 ? (_waypointIndex + 1) % waypoints.Length : 0;
         }
 
         private bool IsPlayerVisible()

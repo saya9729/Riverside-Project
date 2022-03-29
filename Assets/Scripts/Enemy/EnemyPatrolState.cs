@@ -9,11 +9,17 @@ namespace Enemy
 
         [SerializeField] private Transform[] waypoints;
         private int _waypointIndex;
-        private Vector3 _targetDestination; 
+        private Vector3 _targetDestination;
 
         private void Start()
         {
             _enemyStateManager = GameObject.Find("EnemyStateManager").GetComponent<EnemyStateManager>();
+            InitializeVariable();
+        }
+
+        private void InitializeVariable()
+        {
+            
         }
         public override void EnterState()
         {
@@ -46,8 +52,8 @@ namespace Enemy
         }
 
         private bool IsPlayerVisible()
-        {
-            return false;
+        {            
+            return Physics.CheckSphere(transform.position,_enemyStateManager.sightRadius,_enemyStateManager.playerLayerMask);
         }
 
         public override void ExitState()

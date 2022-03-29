@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 namespace AbstractClass
 {
     public abstract class StateMachineManager : MonoBehaviour

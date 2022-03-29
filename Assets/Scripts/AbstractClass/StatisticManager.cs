@@ -1,0 +1,39 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+namespace AbstractClass
+{
+    public abstract class StatisticManager : MonoBehaviour
+    {
+        protected float _health;
+        [SerializeField] protected float maxHealth;
+        protected float _movementSpeed;
+        [SerializeField] protected float _normalMovementSpeed;
+
+        private void Start()
+        {
+            InitializeVariable();
+        }
+
+        protected void InitializeVariable()
+        {
+            _health = maxHealth;
+            _movementSpeed = _normalMovementSpeed;
+        }
+
+        public void DecreaseHealth(float p_decreaseAmount)
+        {
+            _health -= p_decreaseAmount;
+        }
+
+        public void IncreaseHealth( float p_increaseAmount)
+        {
+            _health += p_increaseAmount;
+        }
+
+        public void ChangeMovementSpeed(float p_changeMultiplier)
+        {
+            _movementSpeed = _normalMovementSpeed * p_changeMultiplier;
+        }
+    }
+}

@@ -10,6 +10,9 @@ namespace Enemy
         [NonSerialized] public EnemyChaseState enemyChaseState;
         [NonSerialized] public EnemyAttackState enemyAttackState;
         [NonSerialized] public EnemyStaggerState enemyStaggerState;
+        [NonSerialized] public EnemyDeadState enemyDeadState;
+
+        private EnemyStatisticManager _enemyStatisticManager;
 
         private void Start()
         {
@@ -17,13 +20,15 @@ namespace Enemy
 
             InitializeState();
 
+            InitializeManager();
+
 
             _currentState = enemyPatrolState;
             _currentState.EnterState();
         }
         void InitializeVariable()
         {
-
+            
         }
 
         void InitializeState()
@@ -32,11 +37,22 @@ namespace Enemy
             enemyPatrolState = GameObject.Find("EnemyState").GetComponent<EnemyPatrolState>();
             enemyChaseState = GameObject.Find("EnemyState").GetComponent<EnemyChaseState>();
             enemyAttackState = GameObject.Find("EnemyState").GetComponent<EnemyAttackState>();
+            enemyDeadState = GameObject.Find("EnemyState").GetComponent<EnemyDeadState>();
+        }
+
+        void InitializeManager()
+        {
+            _enemyStatisticManager = GetComponent<EnemyStatisticManager>();
         }
 
         void Update()
         {
             _currentState.UpdateState();
+        }
+
+        private void FixedUpdate()
+        {
+            _currentState.PhysicsUpdateState();
         }
     }
 }

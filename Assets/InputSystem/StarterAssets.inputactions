@@ -33,33 +33,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Sprint",
-                    "type": "PassThrough",
-                    "id": "980e881e-182c-404c-8cbf-3d09fdb48fef",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Interact",
-                    "type": "PassThrough",
-                    "id": "6280b5d2-7d66-44c8-973a-95bacc927778",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Rotate",
-                    "type": "PassThrough",
-                    "id": "b4228662-ee8e-4a7e-b7ab-450aa59ee25d",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Mouse Position",
                     "type": "PassThrough",
                     "id": "109cfe16-12a2-48b3-a02e-e574cb571de8",
@@ -72,6 +45,60 @@
                     "name": "Exit",
                     "type": "PassThrough",
                     "id": "30f4b26a-69bd-46fd-a802-0f05db0e02e5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Crouch",
+                    "type": "PassThrough",
+                    "id": "66f82bcd-8b0c-446c-b025-51b4348d5d9b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Dodge",
+                    "type": "PassThrough",
+                    "id": "70c5f2b0-57a2-4f31-a31a-59d7e2bd3d30",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Block",
+                    "type": "PassThrough",
+                    "id": "b32d1771-e665-40e1-b14c-2f6b3505d78f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Primary Light Attack",
+                    "type": "PassThrough",
+                    "id": "0c096761-8418-46ee-aede-e314b79bb79b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Secondary Attack",
+                    "type": "PassThrough",
+                    "id": "b7e1f615-2e68-414e-b029-374e0b5f4591",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Using Pocket Watch",
+                    "type": "Button",
+                    "id": "157d1037-da32-4a6b-808b-ad76fc4a4561",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -235,50 +262,6 @@
                 },
                 {
                     "name": "",
-                    "id": "dc65b89f-9bd3-43fb-92af-d0d87ba5faa4",
-                    "path": "<Keyboard>/leftShift",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "KeyboardMouse",
-                    "action": "Sprint",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "c8fcd86e-dcfd-4f88-8e93-b638cdbf3320",
-                    "path": "<Gamepad>/leftTrigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Sprint",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "be9c5766-593c-4f8e-8e3c-573dacf6b36c",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Interact",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "ac9d3b39-3333-468f-85df-c38ce75004ce",
-                    "path": "<Mouse>/scroll",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Rotate",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "6ec69771-b921-4b54-b9c9-0f678ecf3983",
                     "path": "<Mouse>/position",
                     "interactions": "",
@@ -296,6 +279,72 @@
                     "processors": "",
                     "groups": "",
                     "action": "Exit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "20e092cb-d5a5-499c-8282-6a54b760544b",
+                    "path": "<Keyboard>/ctrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Crouch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "267cc1b1-4d9a-403e-bb9d-9395d3092d48",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Dodge",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c11cc89c-daf0-46b6-b813-616f4ed7b534",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Block",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c39fa3ed-2a4e-4f87-b90a-8eb97a172340",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Primary Light Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "320669d0-7a0a-4b46-8cc8-209cf6a583b0",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Secondary Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "504a02f6-934a-446c-a7f1-4b28b6521804",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Using Pocket Watch",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

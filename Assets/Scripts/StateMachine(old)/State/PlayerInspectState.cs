@@ -5,7 +5,7 @@ namespace Player
 {
     public class PlayerInspectState : AbstractClass.State
     {
-        private PlayerStateManager _playerStateManager;
+        private PlayerStateManagerOld _playerStateManager;
 
         public float rotateAngle = 10.0f;
         public float delayTimeUntilDestroyObject = 0.0f;
@@ -14,7 +14,7 @@ namespace Player
 
         private void Start()
         {
-            _playerStateManager = GameObject.Find("PlayerStateManager").GetComponent<PlayerStateManager>();
+            _playerStateManager = GameObject.Find("PlayerStateManager").GetComponent<PlayerStateManagerOld>();
         }
         public override void EnterState()
         {            

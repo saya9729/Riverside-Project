@@ -10,7 +10,7 @@ namespace Player
 
         [SerializeField] private GameObject inspectObjectModel;
 
-        private PlayerStateManager _playerStateManager;
+        private PlayerStateManagerOld _playerStateManager;
         private BoxCollider _boxCollider;
         private Rigidbody _rigidbody;
         private Transform _transform;
@@ -18,7 +18,7 @@ namespace Player
 
         private void Start()
         {
-            _playerStateManager = GameObject.Find("PlayerStateManager").GetComponent<PlayerStateManager>();
+            _playerStateManager = GameObject.Find("PlayerStateManager").GetComponent<PlayerStateManagerOld>();
             _boxCollider = GetComponent<BoxCollider>();
             _rigidbody= GetComponent<Rigidbody>();
             _transform = GetComponent<Transform>();

@@ -6,7 +6,7 @@ namespace Player
 {
     public class ObjectDragState : AbstractClass.State
     {
-        private PlayerStateManager _playerStateManager;
+        private PlayerStateManagerOld _playerStateManager;
         private ObjectManipulationBody _currentObjectBody;
 
         public override void EnterState()
@@ -28,7 +28,7 @@ namespace Player
 
         private void Start()
         {
-            _playerStateManager = GameObject.Find("PlayerStateManager").GetComponent<PlayerStateManager>();
+            _playerStateManager = GameObject.Find("PlayerStateManager").GetComponent<PlayerStateManagerOld>();
         }
 
         public override void PhysicsUpdateState()

@@ -8,14 +8,14 @@ namespace Player
 {
     public class SelectionManager : MonoBehaviour
     {
-        private PlayerStateManager _playerStateManager;
+        private PlayerStateManagerOld _playerStateManager;
         [NonSerialized] public Ray currentPlayerAim;
         [NonSerialized] public GameObject currentCenterScreenObject;
         [NonSerialized] public float distanceToCenterScreenObject;
 
         private void Start()
         {
-            _playerStateManager = GameObject.Find("PlayerStateManager").GetComponent<PlayerStateManager>();
+            _playerStateManager = GameObject.Find("PlayerStateManager").GetComponent<PlayerStateManagerOld>();
         }
 
         private void Update()

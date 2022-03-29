@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace Player
 {
-    public class PlayerIdleState : AbstractClass.State
+    public class PlayerIdleStateOld : AbstractClass.State
     {
-        private PlayerStateManager _playerStateManager;
+        private PlayerStateManagerOld _playerStateManager;
 
         private void Start()
         {
-            _playerStateManager = GameObject.Find("PlayerStateManager").GetComponent<PlayerStateManager>();
+            _playerStateManager = GameObject.Find("PlayerStateManager").GetComponent<PlayerStateManagerOld>();
         }
 
         public override void EnterState()

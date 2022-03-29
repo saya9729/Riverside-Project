@@ -4,13 +4,13 @@ using UnityEngine;
 
 namespace Enemy
 {
-    public class EnemyChaseState : AbstractClass.State
+    public class EnemyAttackStateOld : AbstractClass.State
     {
-        private EnemyStateManager _enemyStateManager;
+        private EnemyStateManagerOld _enemyStateManager;
 
         private void Start()
         {
-            _enemyStateManager = GameObject.Find("EnemyStateManager").GetComponent<EnemyStateManager>();
+            _enemyStateManager = GameObject.Find("EnemyStateManager").GetComponent<EnemyStateManagerOld>();
         }
         public override void EnterState()
         {
@@ -24,9 +24,9 @@ namespace Enemy
         public override void ExitState()
         {
         }
-
         public override void PhysicsUpdateState()
         {
+        
         }
     }
 }

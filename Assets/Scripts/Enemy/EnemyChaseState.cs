@@ -8,6 +8,7 @@ namespace Enemy
     {
         private EnemyStateManager _enemyStateManager;
         [SerializeField] private float _rangeToStartAttacking = 1f;
+        [SerializeField] private Transform[] objectToChase;
 
         private void Start()
         {
@@ -26,7 +27,7 @@ namespace Enemy
             }
             else
             {
-                _enemyStateManager.navMeshAgent.SetDestination(_enemyStateManager.player.transform.position);
+                _enemyStateManager.navMeshAgent.SetDestination(objectToChase[0].position);
             }
         }        
 

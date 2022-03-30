@@ -7,6 +7,7 @@ namespace Enemy
     public class EnemyChaseState : AbstractClass.State
     {
         private EnemyStateManager _enemyStateManager;
+        [SerializeField] private float _rangeToStartAttacking = 1f;
 
         private void Start()
         {
@@ -25,30 +26,13 @@ namespace Enemy
             }
             else
             {
-                UpdatePlayerPosition();
-                CalculateRoute();
-                Chase();
+                _enemyStateManager.navMeshAgent.SetDestination(_enemyStateManager.player.transform.position);
             }
-        }
-
-        private void Chase()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void CalculateRoute()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void UpdatePlayerPosition()
-        {
-            throw new NotImplementedException();
-        }
+        }        
 
         private bool IsPlayerInRangeToStartAttacking()
         {
-            throw new NotImplementedException();
+            return Vector3.Distance(transform.position, _enemyStateManager.player.transform.position) < _rangeToStartAttacking;
         }
 
         public override void ExitState()

@@ -8,8 +8,6 @@ namespace Enemy
 {
     public class EnemyStateManager : AbstractClass.StateMachineManager
     {
-        public float sightRadius;
-
         [NonSerialized] public EnemyPatrolState enemyPatrolState;
         [NonSerialized] public EnemyChaseState enemyChaseState;
         [NonSerialized] public EnemyAttackState enemyAttackState;
@@ -17,8 +15,9 @@ namespace Enemy
         [NonSerialized] public EnemyDeadState enemyDeadState;
 
         private EnemyStatisticManager _enemyStatisticManager;
-        [NonSerialized] public NavMeshAgent _navMeshAgent;
-        public LayerMask playerLayerMask;
+        [NonSerialized] public NavMeshAgent navMeshAgent;
+        [NonSerialized] public LayerMask playerLayerMask;
+        [NonSerialized] public GameObject player;
 
 
         private void Start()
@@ -35,17 +34,18 @@ namespace Enemy
         }
         void InitializeVariable()
         {
-            _navMeshAgent = GetComponent<NavMeshAgent>();
+            navMeshAgent = GetComponent<NavMeshAgent>();
             playerLayerMask = LayerMask.GetMask("Player");
+            player = GameObject.Find("Player");
         }
 
         void InitializeState()
         {
-            enemyStaggerState = GameObject.Find("EnemyState").GetComponent<EnemyStaggerState>();
-            enemyPatrolState = GameObject.Find("EnemyState").GetComponent<EnemyPatrolState>();
-            enemyChaseState = GameObject.Find("EnemyState").GetComponent<EnemyChaseState>();
-            enemyAttackState = GameObject.Find("EnemyState").GetComponent<EnemyAttackState>();
-            enemyDeadState = GameObject.Find("EnemyState").GetComponent<EnemyDeadState>();
+            enemyStaggerState = GetComponent<EnemyStaggerState>();
+            enemyPatrolState = GetComponent<EnemyPatrolState>();
+            enemyChaseState = GetComponent<EnemyChaseState>();
+            enemyAttackState = GetComponent<EnemyAttackState>();
+            enemyDeadState = GetComponent<EnemyDeadState>();
         }
 
         void InitializeManager()

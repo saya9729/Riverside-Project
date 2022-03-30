@@ -6,9 +6,9 @@ namespace AbstractClass
     public abstract class StatisticManager : MonoBehaviour
     {
         protected float _health;
-        [SerializeField] protected float maxHealth;
+        [SerializeField] protected float maxHealth = 100;
         protected float _movementSpeed;
-        [SerializeField] protected float _normalMovementSpeed;
+        [SerializeField] protected float _normalMovementSpeed = 100;
 
         private void Start()
         {

@@ -10,6 +10,7 @@ namespace Enemy
         [SerializeField] private Transform[] waypoints;
         private int _waypointIndex;
         private Vector3 _targetDestination;
+        private float _sightRadius;
 
         private void Start()
         {
@@ -47,13 +48,13 @@ namespace Enemy
         void UpdateDestination()
         {
             _targetDestination = waypoints[_waypointIndex].position;
-            _enemyStateManager._navMeshAgent.SetDestination(_targetDestination);
+            _enemyStateManager.navMeshAgent.SetDestination(_targetDestination);
             _waypointIndex = waypoints.Length != 0 ? (_waypointIndex + 1) % waypoints.Length : 0;
         }
 
         private bool IsPlayerVisible()
         {            
-            return Physics.CheckSphere(transform.position,_enemyStateManager.sightRadius,_enemyStateManager.playerLayerMask);
+            return Physics.CheckSphere(transform.position,_sightRadius,_enemyStateManager.playerLayerMask);
         }
 
         public override void ExitState()

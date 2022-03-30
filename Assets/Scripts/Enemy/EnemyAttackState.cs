@@ -6,11 +6,11 @@ namespace Enemy
     public class EnemyAttackState : AbstractClass.State
     {
         private EnemyStateManager _enemyStateManager;
-        [SerializeField] private float attackRange;
+        [SerializeField] private float attackRange = 1f;
 
         private void Start()
         {
-            _enemyStateManager = GameObject.Find("EnemyStateManager").GetComponent<EnemyStateManager>();
+            _enemyStateManager = GetComponent<EnemyStateManager>();
         }
         public override void EnterState()
         {

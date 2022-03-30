@@ -1,15 +1,10 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-#if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
-#endif
 
-namespace StarterAssets
-{
-	[RequireComponent(typeof(CharacterController))]
-#if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
-	[RequireComponent(typeof(PlayerInput))]
-#endif
-	public class FirstPersonController : MonoBehaviour
+namespace Player
+{	public class PlayerMovement : MonoBehaviour
 	{
 		[Header("Player")]
 		[Tooltip("Move speed of the character in m/s")]
@@ -66,11 +61,12 @@ namespace StarterAssets
 
 		private PlayerInput _playerInput;
 		private CharacterController _controller;
-		private StarterAssetsInputs _input;
+		private Rigidbody _playerRigidbody;
+		private InputManager _input;
 		private GameObject _mainCamera;
 
 		private const float _threshold = 0.01f;
-		
+
 		private bool IsCurrentDeviceMouse => _playerInput.currentControlScheme == "KeyboardMouse";
 
 		private void Awake()
@@ -85,8 +81,9 @@ namespace StarterAssets
 		private void Start()
 		{
 			_controller = GetComponent<CharacterController>();
-			_input = GetComponent<StarterAssetsInputs>();
+			_input = GetComponent<InputManager>();
 			_playerInput = GetComponent<PlayerInput>();
+			_playerRigidbody = GetComponent<Rigidbody>();
 
 			// reset our timeouts on start
 			_jumpTimeoutDelta = JumpTimeout;
@@ -119,7 +116,7 @@ namespace StarterAssets
 			{
 				//Don't multiply mouse input by Time.deltaTime
 				float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
-				
+
 				_cinemachineTargetPitch += _input.look.y * RotationSpeed * deltaTimeMultiplier;
 				_rotationVelocity = _input.look.x * RotationSpeed * deltaTimeMultiplier;
 
@@ -250,3 +247,4 @@ namespace StarterAssets
 		}
 	}
 }
+

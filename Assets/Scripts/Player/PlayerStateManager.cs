@@ -9,14 +9,13 @@ namespace Player
     {
         //Manager
         [NonSerialized] public SelectionManager selectionManager;
+        [NonSerialized] public PlayerSkillManager playerSkillManager;
         [NonSerialized] public InputManager inputManager;
-        [NonSerialized] public TimeManager timeManager;
 
         [NonSerialized] public PlayerIdleState playerIdleState;
         [NonSerialized] public PlayerPrimaryLightAttackState playerPrimaryLightAttackState;
         [NonSerialized] public PlayerSecondaryAttackState playerSecondaryAttackState;
         [NonSerialized] public PlayerBlockState playerBlockState;
-        [NonSerialized] public PlayerPocketWatchState playerPocketWatchState;
 
         private void Start()
         {
@@ -31,10 +30,10 @@ namespace Player
 
         void InitializeManager()
         {
-            selectionManager = GameObject.Find("SelectionManager").GetComponent<SelectionManager>();
+            //selectionManager = GameObject.Find("SelectionManager").GetComponent<SelectionManager>();
             //PlayerCapsule is the name of the object contain Player Input Component and cannot be change because of the Starter assets script
             inputManager = GameObject.Find("PlayerCapsule").GetComponent<InputManager>();
-            timeManager = GameObject.Find("TimeManager").GetComponent<TimeManager>();
+            playerSkillManager = GameObject.Find("Manager").GetComponent<PlayerSkillManager>();
         }
 
         void InitializeState()
@@ -43,7 +42,6 @@ namespace Player
             playerPrimaryLightAttackState = GetComponent<PlayerPrimaryLightAttackState>();
             playerSecondaryAttackState = GetComponent<PlayerSecondaryAttackState>();
             playerBlockState = GetComponent<PlayerBlockState>();
-            playerPocketWatchState = GetComponent<PlayerPocketWatchState>();
         }
 
         private void FixedUpdate()
@@ -54,6 +52,10 @@ namespace Player
         void Update()
         {
             _currentState.UpdateState();
+            if (inputManager.usingPocketWatch)
+            {
+                playerSkillManager.SlowTime();
+            }
         }
     }
 }

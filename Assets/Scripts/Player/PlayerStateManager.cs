@@ -33,7 +33,7 @@ namespace Player
         {
             selectionManager = GameObject.Find("SelectionManager").GetComponent<SelectionManager>();
             //PlayerCapsule is the name of the object contain Player Input Component and cannot be change because of the Starter assets script
-            inputManager = GameObject.Find("PlayerCapsule").GetComponent<InputManager>();
+            inputManager = GetComponentInParent<InputManager>();
             timeManager = GameObject.Find("TimeManager").GetComponent<TimeManager>();
         }
 

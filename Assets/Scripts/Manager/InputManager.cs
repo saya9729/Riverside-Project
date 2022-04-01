@@ -10,6 +10,7 @@ namespace Player
     {
         [NonSerialized] public bool interact;
         [NonSerialized] public bool exit;
+        [NonSerialized] public bool usingPocketWatch;
         [NonSerialized] public float mouseScrollDelta;
         [NonSerialized] public Vector2 mousePosition;
 
@@ -88,6 +89,10 @@ namespace Player
         public void OnExit(InputValue p_value)
         {
             exit = p_value.isPressed;
+        }
+        public void OnUsingPocketWatch(InputValue p_value)
+        {
+            usingPocketWatch = p_value.isPressed;
         }
 
 #if !UNITY_IOS || !UNITY_ANDROID

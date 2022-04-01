@@ -11,13 +11,11 @@ namespace Player
         [NonSerialized] public SelectionManager selectionManager;
         [NonSerialized] public PlayerSkillManager playerSkillManager;
         [NonSerialized] public InputManager inputManager;
-        [NonSerialized] public TimeManager timeManager;
 
         [NonSerialized] public PlayerIdleState playerIdleState;
         [NonSerialized] public PlayerPrimaryLightAttackState playerPrimaryLightAttackState;
         [NonSerialized] public PlayerSecondaryAttackState playerSecondaryAttackState;
         [NonSerialized] public PlayerBlockState playerBlockState;
-        [NonSerialized] public PlayerPocketWatchState playerPocketWatchState;
 
         private void Start()
         {

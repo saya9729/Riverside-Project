@@ -3,18 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace Player
 {
-    public class PlayerIdleState : AbstractClass.State
+    public class PlayerIdleMovementState : AbstractClass.State
     {
         private PlayerStateManager _playerStateManager;
+        private PMovementStateMachine _pMovementStateMachine;
 
         private void Start()
         {
-            _playerStateManager = GameObject.Find("PlayerStateManager").GetComponent<PlayerStateManager>();
+            _playerStateManager = GetComponentInChildren<PlayerStateManager>();
+            _pMovementStateMachine = GetComponent<PMovementStateMachine>();
         }
 
         public override void EnterState()
         {
-            Debug.Log("enter idle state");
+            Debug.Log("enter run state");
 
         }
 
@@ -25,10 +27,15 @@ namespace Player
 
         public override void ExitState()
         {
-            Debug.Log("exit idle state");
+            Debug.Log("exit run state");
 
         }
         public override void PhysicsUpdateState()
+        {
+            RunHandled();
+        }
+
+        void RunHandled()
         {
 
         }

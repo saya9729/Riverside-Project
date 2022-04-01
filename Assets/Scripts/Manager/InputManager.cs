@@ -17,6 +17,8 @@ namespace Player
         public Vector2 move;
         public Vector2 look;
         public bool jump;
+        public bool dodge;
+        public bool crouch;
 
         [Header("Movement Settings")]
         public bool analogMovement;
@@ -26,7 +28,6 @@ namespace Player
         public bool cursorLocked = true;
         public bool cursorInputForLook = true;
 #endif
-
         public void OnMove(InputValue value)
         {
             MoveInput(value.Get<Vector2>());
@@ -44,6 +45,17 @@ namespace Player
         {
             JumpInput(value.isPressed);
         }
+
+        public void OnDodge(InputValue value)
+        {
+            dodge = value.isPressed;
+        }
+
+        void OnCrouch(InputValue value)
+        {
+            crouch = value.isPressed;
+        }
+
 
         public void MoveInput(Vector2 newMoveDirection)
         {

@@ -118,7 +118,7 @@ namespace StarterAssets
 			if (_input.look.sqrMagnitude >= _threshold)
 			{
 				//Don't multiply mouse input by Time.deltaTime
-				float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
+				float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.unscaledDeltaTime;
 				
 				_cinemachineTargetPitch += _input.look.y * RotationSpeed * deltaTimeMultiplier;
 				_rotationVelocity = _input.look.x * RotationSpeed * deltaTimeMultiplier;
@@ -145,29 +145,7 @@ namespace StarterAssets
 			// if there is no input, set the target speed to 0
 			if (_input.move == Vector2.zero) targetSpeed = 0.0f;
 
-			// a reference to the players current horizontal velocity
-			float currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z).magnitude;
-
-			float speedOffset = 0.1f;
-			float inputMagnitude = _input.analogMovement ? _input.move.magnitude : 1f;
-
-			// accelerate or decelerate to target speed
-			if (currentHorizontalSpeed < targetSpeed - speedOffset || currentHorizontalSpeed > targetSpeed + speedOffset)
-			{
-				// creates curved result rather than a linear one giving a more organic speed change
-				// note T in Lerp is clamped, so we don't need to clamp our speed
-				Debug.Log("asdasasdasdasd  speed before " + _speed);
-				_speed = Mathf.Lerp(currentHorizontalSpeed, targetSpeed * inputMagnitude, Time.unscaledDeltaTime * SpeedChangeRate);
-				
-
-				// round speed to 3 decimal places
-				_speed = Mathf.Round(_speed * 1000f) / 1000f;
-				Debug.Log("asdasasdasdasd  speed after " + _speed);
-			}
-			else
-			{
-				_speed = targetSpeed;
-			}
+			_speed = targetSpeed;
 
 			// normalise input direction
 			Vector3 inputDirection = new Vector3(_input.move.x, 0.0f, _input.move.y).normalized;
@@ -179,7 +157,6 @@ namespace StarterAssets
 				// move
 				inputDirection = transform.right * _input.move.x + transform.forward * _input.move.y;
 			}
-
 			// move the player
 			_controller.Move(inputDirection.normalized * (_speed * Time.unscaledDeltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.unscaledDeltaTime);
 		}
@@ -207,7 +184,7 @@ namespace StarterAssets
 				// jump timeout
 				if (_jumpTimeoutDelta >= 0.0f)
 				{
-					_jumpTimeoutDelta -= Time.deltaTime;
+					_jumpTimeoutDelta -= Time.unscaledDeltaTime;
 				}
 			}
 			else
@@ -218,7 +195,7 @@ namespace StarterAssets
 				// fall timeout
 				if (_fallTimeoutDelta >= 0.0f)
 				{
-					_fallTimeoutDelta -= Time.deltaTime;
+					_fallTimeoutDelta -= Time.unscaledDeltaTime;
 				}
 
 				// if we are not grounded, do not jump

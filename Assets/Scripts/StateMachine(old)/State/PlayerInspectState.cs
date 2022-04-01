@@ -19,7 +19,6 @@ namespace Player
         public override void EnterState()
         {            
             _playerStateManager.objectManipulatorStateManager.SwitchState(_playerStateManager.objectManipulatorStateManager.objectInspectState);
-            _playerStateManager.timeManager.StopTime();
         }
 
         public override void UpdateState()
@@ -36,7 +35,6 @@ namespace Player
 
         public override void ExitState()
         {
-            _playerStateManager.timeManager.ContinueTime();
             _playerStateManager.objectManipulatorStateManager.SwitchState(_playerStateManager.objectManipulatorStateManager.objectIdleState);
         }
 

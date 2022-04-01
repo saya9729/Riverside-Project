@@ -65,7 +65,7 @@ namespace Player
         private float _verticalVelocity;
         private float _terminalVelocity = 53.0f;
 
-        // timeout deltatime
+        // timeout unscaledDeltaTime
         private float _jumpTimeoutDelta;
         private float _fallTimeoutDelta;
         private float _dashTimeoutDelta;
@@ -127,11 +127,11 @@ namespace Player
             // if there is an input
             if (_input.look.sqrMagnitude >= _threshold)
             {
-                //Don't multiply mouse input by Time.deltaTime
-                float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
+                //Don't multiply mouse input by Time.unscaledDeltaTime
+                float unscaledDeltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.unscaledDeltaTime;
 
-                _cinemachineTargetPitch += _input.look.y * RotationSpeed * deltaTimeMultiplier;
-                _rotationVelocity = _input.look.x * RotationSpeed * deltaTimeMultiplier;
+                _cinemachineTargetPitch += _input.look.y * RotationSpeed * unscaledDeltaTimeMultiplier;
+                _rotationVelocity = _input.look.x * RotationSpeed * unscaledDeltaTimeMultiplier;
 
                 // clamp our pitch rotation
                 _cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
@@ -168,7 +168,7 @@ namespace Player
             {
                 // creates curved result rather than a linear one giving a more organic speed change
                 // note T in Lerp is clamped, so we don't need to clamp our speed
-                _speed = Mathf.Lerp(currentHorizontalSpeed, targetSpeed * inputMagnitude, Time.deltaTime * SpeedChangeRate);
+                _speed = Mathf.Lerp(currentHorizontalSpeed, targetSpeed * inputMagnitude, Time.unscaledDeltaTime * SpeedChangeRate);
 
                 // round speed to 3 decimal places
                 _speed = Mathf.Round(_speed * 1000f) / 1000f;
@@ -190,8 +190,8 @@ namespace Player
             }
 
             // move the player
-            _controller.Move(inputDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
-            //_playerRigidbody.AddForce(inputDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+            _controller.Move(inputDirection.normalized * (_speed * Time.unscaledDeltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.unscaledDeltaTime);
+            //_playerRigidbody.AddForce(inputDirection.normalized * (_speed * Time.unscaledDeltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.unscaledDeltaTime);
         }
 
         private void JumpAndGravity()
@@ -217,7 +217,7 @@ namespace Player
                 // jump timeout
                 if (_jumpTimeoutDelta >= 0.0f)
                 {
-                    _jumpTimeoutDelta -= Time.deltaTime;
+                    _jumpTimeoutDelta -= Time.unscaledDeltaTime;
                 }
             }
             else
@@ -228,7 +228,7 @@ namespace Player
                 // fall timeout
                 if (_fallTimeoutDelta >= 0.0f)
                 {
-                    _fallTimeoutDelta -= Time.deltaTime;
+                    _fallTimeoutDelta -= Time.unscaledDeltaTime;
                 }
 
                 // if we are not grounded, do not jump
@@ -238,7 +238,7 @@ namespace Player
             // apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
             if (_verticalVelocity < _terminalVelocity)
             {
-                _verticalVelocity += Gravity * Time.deltaTime;
+                _verticalVelocity += Gravity * Time.unscaledDeltaTime;
             }
         }
 
@@ -246,7 +246,7 @@ namespace Player
         {
             if (_dashTimeoutDelta >= 0.0f)
             {
-                _dashTimeoutDelta -= Time.deltaTime;
+                _dashTimeoutDelta -= Time.unscaledDeltaTime;
                 Debug.Log(_dashTimeoutDelta);
             }
             if (_input.dodge)
@@ -264,7 +264,7 @@ namespace Player
             float startTime = Time.time;
             while (Time.time < startTime + DashDuration)
             {
-                _controller.Move(inputDirection * DashSpeed * Time.deltaTime);
+                _controller.Move(inputDirection * DashSpeed * Time.unscaledDeltaTime);
                 yield return null;
             }
             _dashTimeoutDelta = DashTimeout;

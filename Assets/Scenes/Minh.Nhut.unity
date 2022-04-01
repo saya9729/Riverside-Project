@@ -1723,8 +1723,9 @@ MonoBehaviour:
   SprintSpeed: 6
   RotationSpeed: 1
   SpeedChangeRate: 1000
-  DashSpeed: 0.5
-  DashTimeout: 0.25
+  DashSpeed: 1
+  DashDuration: 0.25
+  DashTimeout: 1
   JumpHeight: 1.2
   Gravity: -30
   JumpTimeout: 0

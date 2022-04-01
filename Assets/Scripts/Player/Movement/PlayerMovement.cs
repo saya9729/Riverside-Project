@@ -1,6 +1,6 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using System.Collections;
 
 namespace Player
 {
@@ -17,8 +17,12 @@ namespace Player
         public float SpeedChangeRate = 10.0f;
 
         [Space(10)]
-        public float DashSpeed = 20f;
-        public float DashTimeout = 0.25f;
+        [Tooltip("Dash speed of the character in m/s")]
+        public float DashSpeed = 2f;
+        [Tooltip("Dashing duration of each dash")]
+        public float DashDuration = 0.25f;
+        [Tooltip("Time required to pass before being able to dash again")]
+        public float DashTimeout = 1f;
 
 
         [Space(10)]
@@ -64,6 +68,7 @@ namespace Player
         // timeout deltatime
         private float _jumpTimeoutDelta;
         private float _fallTimeoutDelta;
+        private float _dashTimeoutDelta;
 
         private PlayerInput _playerInput;
         private CharacterController _controller;
@@ -94,6 +99,7 @@ namespace Player
             // reset our timeouts on start
             _jumpTimeoutDelta = JumpTimeout;
             _fallTimeoutDelta = FallTimeout;
+            _dashTimeoutDelta = DashTimeout;
         }
 
         private void Update()
@@ -101,7 +107,7 @@ namespace Player
             JumpAndGravity();
             GroundedCheck();
             Move();
-            Dash();
+            Dodge();
         }
 
         private void LateUpdate()
@@ -236,25 +242,34 @@ namespace Player
             }
         }
 
-        void Dash()
+        void Dodge()
         {
-            if (_speed > _speed/2 && _input.dodge)
+            if (_dashTimeoutDelta >= 0.0f)
             {
-                StartCoroutine(DashHandling());
-                _input.dodge = false;
+                _dashTimeoutDelta -= Time.deltaTime;
+                Debug.Log(_dashTimeoutDelta);
+            }
+            if (_input.dodge)
+            {
+                Debug.Log("dash" + _dashTimeoutDelta);
+                if (_dashTimeoutDelta <= 0.0f)
+                {
+                    StartCoroutine(DodgeHandling());
+                }
             }
         }
 
-        IEnumerator DashHandling()
+        IEnumerator DodgeHandling()
         {
             float startTime = Time.time;
-            while (Time.time < startTime + DashTimeout)
+            while (Time.time < startTime + DashDuration)
             {
                 _controller.Move(inputDirection * DashSpeed * Time.deltaTime);
                 yield return null;
-            }           
-
-        }         
+            }
+            _dashTimeoutDelta = DashTimeout;
+            _input.dodge = false;
+        }
 
         private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
         {

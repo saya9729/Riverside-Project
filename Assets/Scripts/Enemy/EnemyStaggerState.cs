@@ -16,11 +16,20 @@ namespace Enemy
         {
             Debug.Log("Enter Stagger State");
             //start stagger animation once
+            _enemyStateManager.animator.SetBool("isStagger", true);
             StartCoroutine(WaitAndBackToPatrol());
         }
         IEnumerator WaitAndBackToPatrol()
         {
-            yield return new WaitForSeconds(_enemyStateManager.animator.GetCurrentAnimatorClipInfo(0)[0].clip.length);
+            float staggerLength = 0;
+            foreach(AnimationClip clip in _enemyStateManager.animationClips)
+            {
+                if (clip.name == "Stagger")
+                {
+                    staggerLength = clip.length;
+                }
+            }
+            yield return new WaitForSeconds(staggerLength);            
             _enemyStateManager.SwitchState(_enemyStateManager.enemyPatrolState);
         }
 
@@ -32,6 +41,7 @@ namespace Enemy
         public override void ExitState()
         {
             Debug.Log("Exit Stagger State");
+            _enemyStateManager.animator.SetBool("isStagger", false);
         }
         public override void PhysicsUpdateState()
         {

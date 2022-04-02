@@ -103,6 +103,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Use Health Potion ",
+                    "type": "Button",
+                    "id": "8da24479-d09e-4f33-805b-083270ee61c5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -345,6 +354,17 @@
                     "processors": "",
                     "groups": "KeyboardMouse",
                     "action": "Using Pocket Watch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7a3d03ad-3b5a-4b20-8c21-81f6838cbfcb",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Use Health Potion ",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

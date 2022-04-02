@@ -13,6 +13,7 @@ namespace Player
         [NonSerialized] public bool usingPocketWatch;
         [NonSerialized] public float mouseScrollDelta;
         [NonSerialized] public Vector2 mousePosition;
+        [NonSerialized] public bool useHealthPot;
 
         [Header("Character Input Values")]
         public Vector2 move;
@@ -55,6 +56,11 @@ namespace Player
         void OnCrouch(InputValue value)
         {
             crouch = value.isPressed;
+        }
+
+        void OnUseHealthPotion (InputValue value)
+        {
+            useHealthPot = value.isPressed;
         }
 
 

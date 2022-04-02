@@ -20,14 +20,17 @@ namespace Enemy
         [NonSerialized] public NavMeshAgent navMeshAgent;
         [NonSerialized] public LayerMask playerLayerMask;
         [NonSerialized] public GameObject player;
+        [NonSerialized] public AnimationClip[] animationClips;
 
         private void Start()
         {
+            InitializeManager();
+
             InitializeVariable();
 
             InitializeState();
 
-            InitializeManager();
+            
 
 
             _currentState = enemyPatrolState;
@@ -38,6 +41,7 @@ namespace Enemy
             navMeshAgent = GetComponent<NavMeshAgent>();
             playerLayerMask = LayerMask.GetMask("Player");
             player = GameObject.Find("Player");
+            animationClips = animator.runtimeAnimatorController.animationClips;
         }
 
         void InitializeState()

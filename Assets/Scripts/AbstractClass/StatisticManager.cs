@@ -29,6 +29,10 @@ namespace AbstractClass
         public void IncreaseHealth(float p_increaseAmount)
         {
             _health += p_increaseAmount;
+            if (_health > maxHealth)
+            {
+                _health = maxHealth;
+            }
         }
 
         public float HealthPercentage()

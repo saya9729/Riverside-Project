@@ -11,6 +11,7 @@ namespace Player
         [NonSerialized] public SelectionManager selectionManager;
         [NonSerialized] public PlayerSkillManager playerSkillManager;
         [NonSerialized] public InputManager inputManager;
+        [NonSerialized] public PlayerStatisticManager playerStatisticManager;
 
         [NonSerialized] public PlayerIdleState playerIdleState;
         [NonSerialized] public PlayerPrimaryLightAttackState playerPrimaryLightAttackState;
@@ -32,6 +33,7 @@ namespace Player
         {
             inputManager = GetComponentInParent<InputManager>();
             playerSkillManager = GameObject.Find("Manager").GetComponent<PlayerSkillManager>();
+            playerStatisticManager= GetComponent<PlayerStatisticManager>();
         }
 
         void InitializeState()

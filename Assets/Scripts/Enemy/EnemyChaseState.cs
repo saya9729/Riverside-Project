@@ -12,7 +12,7 @@ namespace Enemy
 
         private void Start()
         {
-            _enemyStateManager = GameObject.Find("EnemyStateManager").GetComponent<EnemyStateManager>();
+            _enemyStateManager = GetComponent<EnemyStateManager>();
         }
         public override void EnterState()
         {

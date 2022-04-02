@@ -10,11 +10,11 @@ namespace Enemy
         [SerializeField] private Transform[] waypoints;
         private int _waypointIndex;
         private Vector3 _targetDestination;
-        private float _sightRadius;
+        public float sightRadius = 1f;
 
         private void Start()
         {
-            _enemyStateManager = GameObject.Find("EnemyStateManager").GetComponent<EnemyStateManager>();
+            _enemyStateManager =GetComponent<EnemyStateManager>();
             InitializeVariable();
         }
 
@@ -47,14 +47,14 @@ namespace Enemy
 
         void UpdateDestination()
         {
-            _targetDestination = waypoints[_waypointIndex].position;
+            _targetDestination = _waypointIndex != 0 ? waypoints[_waypointIndex].position : Vector3.zero;
             _enemyStateManager.navMeshAgent.SetDestination(_targetDestination);
             _waypointIndex = waypoints.Length != 0 ? (_waypointIndex + 1) % waypoints.Length : 0;
         }
 
         private bool IsPlayerVisible()
         {            
-            return Physics.CheckSphere(transform.position,_sightRadius,_enemyStateManager.playerLayerMask);
+            return Physics.CheckSphere(transform.position,sightRadius,_enemyStateManager.playerLayerMask);
         }
 
         public override void ExitState()

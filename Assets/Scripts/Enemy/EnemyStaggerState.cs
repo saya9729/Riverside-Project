@@ -6,6 +6,7 @@ namespace Enemy
     public class EnemyStaggerState : AbstractClass.State
     {
         private EnemyStateManager _enemyStateManager;
+        public float healthStaggerThreshold = 80;
 
         private void Start()
         {

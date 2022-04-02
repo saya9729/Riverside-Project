@@ -19,7 +19,6 @@ namespace Enemy
         [NonSerialized] public LayerMask playerLayerMask;
         [NonSerialized] public GameObject player;
 
-
         private void Start()
         {
             InitializeVariable();
@@ -52,6 +51,20 @@ namespace Enemy
         {
             _enemyStatisticManager = GetComponent<EnemyStatisticManager>();
         }
+
+        public void ReceiveDamage(float p_damage)
+        {
+            _enemyStatisticManager.DecreaseHealth(p_damage);
+            if (_enemyStatisticManager.HealthPercentage() < 0)
+            {
+                SwitchState(enemyDeadState);
+            }
+            else if (_enemyStatisticManager.HealthPercentage() < enemyStaggerState.healthStaggerThreshold)
+            {
+                SwitchState(enemyStaggerState);
+            }
+        }
+
 
         void Update()
         {

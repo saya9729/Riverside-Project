@@ -26,9 +26,14 @@ namespace AbstractClass
             _health -= p_decreaseAmount;
         }
 
-        public void IncreaseHealth( float p_increaseAmount)
+        public void IncreaseHealth(float p_increaseAmount)
         {
             _health += p_increaseAmount;
+        }
+
+        public float HealthPercentage()
+        {
+            return _health / maxHealth * 100;
         }
 
         public void ChangeMovementSpeed(float p_changeMultiplier)

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace Player
 {
-    public class PlayerPocketWatchState : AbstractClass.State
+    public class PlayerCrouchState : AbstractClass.State
     {
         private PlayerStateManager _playerStateManager;
 
@@ -14,7 +14,7 @@ namespace Player
 
         public override void EnterState()
         {
-            Debug.Log("enter pocket watch state state");
+            Debug.Log("enter idle state");
 
         }
 
@@ -25,7 +25,8 @@ namespace Player
 
         public override void ExitState()
         {
-            Debug.Log("exit pocket watch state");
+            Debug.Log("exit idle state");
+
         }
         public override void PhysicsUpdateState()
         {

@@ -11,7 +11,6 @@ namespace Player
         [NonSerialized] public SelectionManager selectionManager;
         [NonSerialized] public ObjectManipulationStateManager objectManipulatorStateManager;
         [NonSerialized] public InputManager inputManager;
-        [NonSerialized] public TimeManager timeManager;
 
         public string DragableTag = "Dragable";
         public string InspectableTag = "Inspectable";
@@ -37,7 +36,6 @@ namespace Player
             objectManipulatorStateManager = GameObject.Find("ObjectManipulationStateManager").GetComponent<ObjectManipulationStateManager>();
             //PlayerCapsule is the name of the object contain Player Input Component and cannot be change because of the Starter assets script
             inputManager = GameObject.Find("PlayerCapsule").GetComponent<InputManager>();
-            timeManager = GameObject.Find("TimeManager").GetComponent<TimeManager>();
         }
 
         void InitializeState()

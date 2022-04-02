@@ -15,6 +15,8 @@ namespace Enemy
         [NonSerialized] public EnemyDeadState enemyDeadState;
 
         private EnemyStatisticManager _enemyStatisticManager;
+        [NonSerialized] public Animator animator;
+
         [NonSerialized] public NavMeshAgent navMeshAgent;
         [NonSerialized] public LayerMask playerLayerMask;
         [NonSerialized] public GameObject player;
@@ -50,6 +52,7 @@ namespace Enemy
         void InitializeManager()
         {
             _enemyStatisticManager = GetComponent<EnemyStatisticManager>();
+            animator = GetComponent<Animator>();
         }
 
         public void ReceiveDamage(float p_damage)

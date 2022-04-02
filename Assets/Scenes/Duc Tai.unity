@@ -919,6 +919,11 @@ MonoBehaviour:
   analogMovement: 0
   cursorLocked: 1
   cursorInputForLook: 1
+--- !u!4 &890799991 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8997996947095583982, guid: c5efc39a8aaf6e64ea40e9ad573e9b47, type: 3}
+  m_PrefabInstance: {fileID: 5393215579111688471}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &987720245 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5532980554037997042, guid: 09aade0ecefd01e4b8f7661acf64f5c2, type: 3}
@@ -2359,10 +2364,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 178485438}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd0d21e0b423f614695d409d09c65010, type: 3}
+  m_Script: {fileID: 11500000, guid: 24d0dcf3c45c5ca4da79d46ede2f3d52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyStateManager: {fileID: 0}
+  healthStaggerThreshold: 80
 --- !u!4 &1564860334016457733
 Transform:
   m_ObjectHideFlags: 0
@@ -2472,7 +2477,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rangeToStartAttacking: 1
-  objectToChase: []
+  objectToChase:
+  - {fileID: 890799991}
 --- !u!4 &2003599735733289772
 Transform:
   m_ObjectHideFlags: 0
@@ -3783,10 +3789,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 178485438}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b31c35ebf8da034188983d7bb6ae7db, type: 3}
+  m_Script: {fileID: 11500000, guid: 84e789e0f8ab46947971a097e92d768c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyStateManager: {fileID: 0}
+  timeBeforeDisappear: 0
 --- !u!4 &5901452233933244254
 Transform:
   m_ObjectHideFlags: 0
@@ -4520,7 +4526,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcb02913db5e04a4da064df1b582ccda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackRange: 1
 --- !u!1 &8670540288695295769
 GameObject:
   m_ObjectHideFlags: 0
@@ -4608,11 +4613,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 178485438}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 861dabdaaf2b9fb43addafc9bc92ee48, type: 3}
+  m_Script: {fileID: 11500000, guid: 629bdf4543a59cc418d678be5fe06ffb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentState: {fileID: 0}
-  _enemyStatisticManager: {fileID: 0}
 --- !u!1 &9019515342678416945
 GameObject:
   m_ObjectHideFlags: 0

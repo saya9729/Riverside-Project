@@ -11,6 +11,8 @@ namespace Player
         [NonSerialized] public bool interact;
         [NonSerialized] public bool exit;
         [NonSerialized] public bool usingPocketWatch;
+        [NonSerialized] public bool primaryLightAttack;
+        [NonSerialized] public bool secondaryAttack;
         [NonSerialized] public float mouseScrollDelta;
         [NonSerialized] public Vector2 mousePosition;
         [NonSerialized] public bool useHealthPot;
@@ -99,6 +101,14 @@ namespace Player
         public void OnUsingPocketWatch(InputValue p_value)
         {
             usingPocketWatch = p_value.isPressed;
+        }
+        public void OnPrimaryLightAttack(InputValue p_value)
+        {
+            primaryLightAttack = p_value.isPressed;
+        }
+        public void OnSecondaryAttack(InputValue p_value)
+        {
+            secondaryAttack = p_value.isPressed;
         }
 
 #if !UNITY_IOS || !UNITY_ANDROID

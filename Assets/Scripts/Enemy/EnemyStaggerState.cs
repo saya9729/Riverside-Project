@@ -29,7 +29,7 @@ namespace Enemy
                     staggerLength = clip.length;
                 }
             }
-            yield return new WaitForSeconds(staggerLength);
+            yield return new WaitForSeconds(staggerLength);            
             _enemyStateManager.SwitchState(_enemyStateManager.enemyPatrolState);
         }
 
@@ -41,6 +41,7 @@ namespace Enemy
         public override void ExitState()
         {
             Debug.Log("Exit Stagger State");
+            _enemyStateManager.animator.SetBool("isStagger", false);
         }
         public override void PhysicsUpdateState()
         {

@@ -911,6 +911,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be25c71012f5cb44b944d7148ad1949a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  move: {x: 0, y: 0}
+  look: {x: 0, y: 0}
+  jump: 0
+  dodge: 0
+  crouch: 0
+  analogMovement: 0
+  cursorLocked: 1
+  cursorInputForLook: 1
 --- !u!1 &987720245 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5532980554037997042, guid: 09aade0ecefd01e4b8f7661acf64f5c2, type: 3}
@@ -2379,6 +2387,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5742672707095873242}
+  - component: {fileID: 1565405415916592782}
   m_Layer: 0
   m_Name: mixamorig:Spine
   m_TagString: Untagged
@@ -2386,6 +2395,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!65 &1565405415916592782
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1565405415916592781}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.59, y: 1.74, z: 0.34}
+  m_Center: {x: 0, y: -0.18, z: 0}
 --- !u!1 &1711505208824513213
 GameObject:
   m_ObjectHideFlags: 0
@@ -2450,6 +2472,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rangeToStartAttacking: 1
+  objectToChase: []
 --- !u!4 &2003599735733289772
 Transform:
   m_ObjectHideFlags: 0

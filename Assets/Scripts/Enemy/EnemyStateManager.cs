@@ -15,17 +15,22 @@ namespace Enemy
         [NonSerialized] public EnemyDeadState enemyDeadState;
 
         private EnemyStatisticManager _enemyStatisticManager;
+        [NonSerialized] public Animator animator;
+
         [NonSerialized] public NavMeshAgent navMeshAgent;
         [NonSerialized] public LayerMask playerLayerMask;
         [NonSerialized] public GameObject player;
+        [NonSerialized] public AnimationClip[] animationClips;
 
         private void Start()
         {
+            InitializeManager();
+
             InitializeVariable();
 
             InitializeState();
 
-            InitializeManager();
+            
 
 
             _currentState = enemyPatrolState;
@@ -36,6 +41,7 @@ namespace Enemy
             navMeshAgent = GetComponent<NavMeshAgent>();
             playerLayerMask = LayerMask.GetMask("Player");
             player = GameObject.Find("Player");
+            animationClips = animator.runtimeAnimatorController.animationClips;
         }
 
         void InitializeState()
@@ -50,6 +56,7 @@ namespace Enemy
         void InitializeManager()
         {
             _enemyStatisticManager = GetComponent<EnemyStatisticManager>();
+            animator = GetComponent<Animator>();
         }
 
         public void ReceiveDamage(float p_damage)

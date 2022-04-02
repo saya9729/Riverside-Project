@@ -10,12 +10,18 @@ namespace Enemy
 
         private void Start()
         {
-            _enemyStateManager = GameObject.Find("EnemyStateManager").GetComponent<EnemyStateManager>();
+            _enemyStateManager = GetComponent<EnemyStateManager>();
         }
         public override void EnterState()
         {
             Debug.Log("Enter Stagger State");
-            //start corotine to get back to patrol state
+            //start stagger animation once
+            StartCoroutine(WaitAndBackToPatrol());
+        }
+        IEnumerator WaitAndBackToPatrol()
+        {
+            yield return new WaitForSeconds(_enemyStateManager.animator.GetCurrentAnimatorClipInfo(0)[0].clip.length);
+            _enemyStateManager.SwitchState(_enemyStateManager.enemyPatrolState);
         }
 
         public override void UpdateState()

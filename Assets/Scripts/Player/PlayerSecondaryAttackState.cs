@@ -34,23 +34,15 @@ namespace Player
             yield return new WaitForSeconds(shootLength);
 
             var shot = Instantiate(bullet, nozzlePoint.position, Quaternion.identity);
-            shot.GetComponent<Rigidbody>().velocity = nozzlePoint.right * velocity;
+            shot.GetComponent<Rigidbody>().velocity = nozzlePoint.right * velocity; //create bullet
 
-            _playerStateManager.SwitchState(_playerStateManager.playerIdleState);
+            _playerStateManager.SwitchState(_playerStateManager.playerIdleState); //set bullet velocity
         }
 
         private void Start()
         {
-            _playerStateManager = GameObject.Find("PlayerStateManager").GetComponent<PlayerStateManager>(); //create bullet
+            _playerStateManager = GameObject.Find("PlayerStateManager").GetComponent<PlayerStateManager>(); 
         }
-
-        // private void Update() {
-        //     if(_playerStateManager.playerAnimator.GetInteger("attack") == 2 && !hasShot)
-        //     {
-        //         StartCoroutine(WaitAnim(delay));
-        //         hasShot = true;
-        //     }
-        // }
 
         public override void EnterState()
         {

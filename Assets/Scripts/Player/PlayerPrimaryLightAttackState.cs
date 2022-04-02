@@ -28,7 +28,7 @@ namespace Player
         public override void EnterState()
         {
             PrimaryAttack();
-            StartCoroutine(WaitforX());
+            StartCoroutine(WaitAnimation());
 
 
 
@@ -46,7 +46,7 @@ namespace Player
         {
 
         }
-        IEnumerator WaitforX()
+        IEnumerator WaitAnimation()
         {
             int layer = 0;
             AnimatorStateInfo animState = _playerStateManager.playerAnimator.GetCurrentAnimatorStateInfo(layer);

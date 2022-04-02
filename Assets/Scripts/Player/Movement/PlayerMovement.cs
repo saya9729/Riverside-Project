@@ -20,19 +20,18 @@ namespace Player
         [Tooltip("Dash speed of the character in m/s")]
         public float DodgeSpeed = 2f;
         [Tooltip("Dashing duration of each dash")]
-        public float DashDuration = 0.25f;
+        public float DodgeDuration = 0.25f;
         [Tooltip("Time required to pass before being able to dash again")]
         public float DodgeTimeout = 1f;
 
-        
-        [Space(10)]        
+
+        [Space(10)]
         [Tooltip("Crouch speed of the character in m/s")]
         public float CrouchSpeed = 2f;
         [Tooltip("Crouch height of character")]
         public float CrouchHeight = 1.6f;
         public Vector3 CrouchCenter = new Vector3(0, 0.93f, 0);
-
-
+        public float timeToCrouch = 0.25f;
 
         [Space(10)]
         [Tooltip("The height the player can jump")]
@@ -75,6 +74,7 @@ namespace Player
         //controller original value
         private float _controllerOriginalHeight;
         private Vector3 _controllerOriginalCenter;
+        private bool _isCrouching;
 
         // cinemachine
         private float _cinemachineTargetPitch;
@@ -180,8 +180,8 @@ namespace Player
         private void Move()
         {
             // set target speed based on move speed, sprint speed and if sprint is pressed
-            //float targetSpeed = _input.crouch ? CrouchSpeed : RunSpeed;
-            float targetSpeed = RunSpeed;
+            float targetSpeed = _isCrouching ? CrouchSpeed : RunSpeed;
+            //float targetSpeed = RunSpeed;
 
             // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 
@@ -277,7 +277,7 @@ namespace Player
             }
         }
 
-        void Dodge()
+        private void Dodge()
         {
             if (_dodgeTimeoutDelta >= 0.0f)
             {
@@ -294,11 +294,11 @@ namespace Player
             }
         }
 
-        IEnumerator DodgeHandling()
+        private IEnumerator DodgeHandling()
         {
             float startTime = Time.unscaledTime;
             //Vector3 dashDirection = new Vector3(0, 0, _input.move.y);
-            while (Time.unscaledTime < startTime + DashDuration)
+            while (Time.unscaledTime < startTime + DodgeDuration)
             {
                 _controller.Move(_inputDirection.normalized * DodgeSpeed * Time.unscaledDeltaTime);
                 //turn off player hitbox (i-frame)
@@ -308,9 +308,40 @@ namespace Player
             _input.dodge = false;
         }
 
-        void Crouch()
+        private void Crouch()
         {
+            if (_input.crouch)
+            {
+                _isCrouching = true;
+                _controller.center = CrouchCenter;
+                _controller.height = CrouchHeight;
+                //StartCoroutine(StandHandling());
+                Grounded = false;
+            }
+            if (!_input.crouch && _isCrouching)
+            {
+                if (!RoofedFlag)
+                {
+                    _isCrouching = false;
+                    StartCoroutine(StandHandling());
+                }
+            }
+        }
 
+        private IEnumerator StandHandling()
+        {
+            float timeElapsed = 0;
+            float targetHeight = _isCrouching ? CrouchHeight : _controllerOriginalHeight;
+            float currentHeight = _controller.height;
+            Vector3 targetCenter = _isCrouching ? CrouchCenter : _controllerOriginalCenter;
+            Vector3 currentCenter = _controller.center;
+            while (timeElapsed < timeToCrouch)
+            {
+                _controller.center = Vector3.Lerp(currentCenter, targetCenter, timeElapsed / timeToCrouch);
+                _controller.height = Mathf.Lerp(currentHeight, targetHeight, timeElapsed / timeToCrouch);
+                timeElapsed += Time.unscaledDeltaTime;
+                yield return null;
+            }
         }
 
         private static float ClampAngle(float lfAngle, float lfMin, float lfMax)

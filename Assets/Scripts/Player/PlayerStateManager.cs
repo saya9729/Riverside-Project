@@ -17,11 +17,14 @@ namespace Player
         [NonSerialized] public PlayerSecondaryAttackState playerSecondaryAttackState;
         [NonSerialized] public PlayerBlockState playerBlockState;
 
+        [NonSerialized] public Animator playerAnimator;
+
         private void Start()
         {
             InitializeManager();
 
             InitializeState();
+            InitializeVariable();
 
 
             _currentState = playerIdleState;
@@ -32,6 +35,11 @@ namespace Player
         {
             inputManager = GetComponentInParent<InputManager>();
             playerSkillManager = GameObject.Find("Manager").GetComponent<PlayerSkillManager>();
+        }
+
+        void InitializeVariable()
+        {
+            playerAnimator = GetComponentInParent<Animator>();
         }
 
         void InitializeState()

@@ -6,7 +6,6 @@ namespace Player
     public class PlayerSecondaryAttackState : AbstractClass.State
     {
         private PlayerStateManager _playerStateManager;
-        private Animator _anim;
 
         [Header("Secondary Attack (Shot)")]
         [SerializeField] private float range = 4;
@@ -15,7 +14,6 @@ namespace Player
         [SerializeField] private float reloadTime = 1;
         [SerializeField] private float ammo = 2;
         [SerializeField] private float velocity = 10;
-        [SerializeField] private float delay = 1.2f;
 
         public GameObject bullet;
         public Transform nozzlePoint;
@@ -24,26 +22,30 @@ namespace Player
 
         public void SecondaryAttack()
         {
-            _anim.SetInteger("attack", 2);
-            StartCoroutine(WaitAnim(delay));
+            _playerStateManager.playerAnimator.SetInteger("attack", 2);
+            StartCoroutine(WaitAnim());
         }
 
-        IEnumerator WaitAnim(float time) //wait animation ready to shoot
+        IEnumerator WaitAnim() //wait animation ready to shoot
         {
-            yield return new WaitForSeconds(time);
+            int layer = 0;
+            AnimatorStateInfo animState = _playerStateManager.playerAnimator.GetCurrentAnimatorStateInfo(layer);
+            float shootLength = animState.normalizedTime % 1;
+            yield return new WaitForSeconds(shootLength);
 
             var shot = Instantiate(bullet, nozzlePoint.position, Quaternion.identity);
             shot.GetComponent<Rigidbody>().velocity = nozzlePoint.right * velocity;
+
+            _playerStateManager.SwitchState(_playerStateManager.playerIdleState);
         }
 
         private void Start()
         {
             _playerStateManager = GameObject.Find("PlayerStateManager").GetComponent<PlayerStateManager>(); //create bullet
-            _anim = gameObject.transform.parent.GetComponent<Animator>(); //set velocity to bullet
         }
 
         // private void Update() {
-        //     if(_anim.GetInteger("attack") == 2 && !hasShot)
+        //     if(_playerStateManager.playerAnimator.GetInteger("attack") == 2 && !hasShot)
         //     {
         //         StartCoroutine(WaitAnim(delay));
         //         hasShot = true;
@@ -52,7 +54,6 @@ namespace Player
 
         public override void EnterState()
         {
-            Debug.Log("enter secondary attack state");
             SecondaryAttack();
 
         }
@@ -64,8 +65,7 @@ namespace Player
 
         public override void ExitState()
         {
-            Debug.Log("exit secondary attack state");
-            _anim.SetInteger("attack", 0);
+            _playerStateManager.playerAnimator.SetInteger("attack", 0);
             StopAllCoroutines(); // stop all shooting sequences
 
         }

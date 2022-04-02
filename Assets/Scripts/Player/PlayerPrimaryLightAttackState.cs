@@ -7,6 +7,19 @@ namespace Player
     {
         private PlayerStateManager _playerStateManager;
 
+        [Header("Primary Attack (Slash)")]
+        //[SerializeField] private float range;
+        [SerializeField] private float maxDamage = 10;
+        [SerializeField] private float attackInterval = 0.5f;
+        //[SerializeField] private float reloadTime;
+        //[SerializeField] private float ammo;
+
+        public void PrimaryAttack()
+        {
+            _playerStateManager.playerAnimator.SetInteger("attack", 1);
+            //toggle weapon collider
+        }
+
         private void Start()
         {
             _playerStateManager = GameObject.Find("PlayerStateManager").GetComponent<PlayerStateManager>();
@@ -14,23 +27,32 @@ namespace Player
 
         public override void EnterState()
         {
-            Debug.Log("enter primary light attack state");
+            PrimaryAttack();
+            StartCoroutine(WaitAnimation());
+
+
 
         }
 
         public override void UpdateState()
         {
-
         }
 
         public override void ExitState()
         {
-            Debug.Log("exit primary light attack state");
 
         }
         public override void PhysicsUpdateState()
         {
 
+        }
+        IEnumerator WaitAnimation()
+        {
+            int layer = 0;
+            AnimatorStateInfo animState = _playerStateManager.playerAnimator.GetCurrentAnimatorStateInfo(layer);
+            float attackLength = animState.normalizedTime % 1;
+            yield return new WaitForSeconds(attackLength);
+            _playerStateManager.SwitchState(_playerStateManager.playerIdleState);
         }
     }
 }

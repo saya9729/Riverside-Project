@@ -140,7 +140,6 @@ GameObject:
   - component: {fileID: 778485240460227736}
   - component: {fileID: 1363347877616780077}
   - component: {fileID: 8656394376074932371}
-  - component: {fileID: 228049987253072354}
   m_Layer: 8
   m_Name: PlayerStateManager
   m_TagString: Untagged
@@ -220,18 +219,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8013fb548dac0db459dd8ed57afae61c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &228049987253072354
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7359205554396797208}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b86afe9badfb24347b91dcd6da0847f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &8616685848737228372

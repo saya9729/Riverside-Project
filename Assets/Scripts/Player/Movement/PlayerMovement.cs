@@ -9,8 +9,8 @@ namespace Player
         [Header("Player")]
         [Tooltip("Move speed of the character in m/s")]
         public float MoveSpeed = 4.0f;
-        [Tooltip("Sprint speed of the character in m/s")]
-        public float SprintSpeed = 6.0f;
+        [Tooltip("Run speed of the character in m/s")]
+        public float RunSpeed = 6.0f;
         [Tooltip("Rotation speed of the character")]
         public float RotationSpeed = 1.0f;
         [Tooltip("Acceleration and deceleration")]
@@ -18,12 +18,20 @@ namespace Player
 
         [Space(10)]
         [Tooltip("Dash speed of the character in m/s")]
-        public float DashSpeed = 2f;
+        public float DodgeSpeed = 2f;
         [Tooltip("Dashing duration of each dash")]
-        public float DashDuration = 0.25f;
+        public float DodgeDuration = 0.25f;
         [Tooltip("Time required to pass before being able to dash again")]
-        public float DashTimeout = 1f;
+        public float DodgeTimeout = 1f;
 
+
+        [Space(10)]
+        [Tooltip("Crouch speed of the character in m/s")]
+        public float CrouchSpeed = 2f;
+        [Tooltip("Crouch height of character")]
+        public float CrouchHeight = 1.6f;
+        public Vector3 CrouchCenter = new Vector3(0, 0.93f, 0);
+        public float timeToCrouch = 0.25f;
 
         [Space(10)]
         [Tooltip("The height the player can jump")]
@@ -36,6 +44,12 @@ namespace Player
         public float JumpTimeout = 0.1f;
         [Tooltip("Time required to pass before entering the fall state. Useful for walking down stairs")]
         public float FallTimeout = 0.15f;
+
+        [Header("Player Roofed")]
+        public bool RoofedFlag = true;
+        public float RoofedOffset = 1.94f;
+        public float RoofedDistance = 0.22f;
+        public LayerMask RoofedLayers;
 
         [Header("Player Grounded")]
         [Tooltip("If the character is grounded or not. Not part of the CharacterController built in grounded check")]
@@ -55,7 +69,13 @@ namespace Player
         [Tooltip("How far in degrees can you move the camera down")]
         public float BottomClamp = -90.0f;
 
-        public Vector3 inputDirection;
+        //input direction
+        private Vector3 _inputDirection;
+        //controller original value
+        private float _controllerOriginalHeight;
+        private Vector3 _controllerOriginalCenter;
+        private bool _isCrouching;
+
         // cinemachine
         private float _cinemachineTargetPitch;
 
@@ -68,7 +88,7 @@ namespace Player
         // timeout unscaledDeltaTime
         private float _jumpTimeoutDelta;
         private float _fallTimeoutDelta;
-        private float _dashTimeoutDelta;
+        private float _dodgeTimeoutDelta;
 
         private PlayerInput _playerInput;
         private CharacterController _controller;
@@ -99,14 +119,20 @@ namespace Player
             // reset our timeouts on start
             _jumpTimeoutDelta = JumpTimeout;
             _fallTimeoutDelta = FallTimeout;
-            _dashTimeoutDelta = DashTimeout;
+            _dodgeTimeoutDelta = DodgeTimeout;
+
+            //set original controller value
+            _controllerOriginalHeight = _controller.height;
+            _controllerOriginalCenter = _controller.center;
         }
 
         private void Update()
         {
             JumpAndGravity();
             GroundedCheck();
+            RoofCheck();
             Move();
+            Crouch();
             Dodge();
         }
 
@@ -120,6 +146,13 @@ namespace Player
             // set sphere position, with offset
             Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z);
             Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers, QueryTriggerInteraction.Ignore);
+        }
+
+        private void RoofCheck()
+        {
+            // set sphere position, with offset
+            Vector3 rayPosition = new Vector3(transform.position.x, transform.position.y + RoofedOffset, transform.position.z);
+            RoofedFlag = Physics.Raycast(rayPosition, Vector3.up, RoofedDistance, RoofedLayers, QueryTriggerInteraction.Ignore);
         }
 
         private void CameraRotation()
@@ -147,8 +180,8 @@ namespace Player
         private void Move()
         {
             // set target speed based on move speed, sprint speed and if sprint is pressed
-            //float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
-            float targetSpeed = SprintSpeed;
+            float targetSpeed = _isCrouching ? CrouchSpeed : RunSpeed;
+            //float targetSpeed = RunSpeed;
 
             // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 
@@ -156,41 +189,41 @@ namespace Player
             // if there is no input, set the target speed to 0
             if (_input.move == Vector2.zero) targetSpeed = 0.0f;
 
-            // a reference to the players current horizontal velocity
-            float currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z).magnitude;
-            //float currentHorizontalSpeed = new Vector3(_playerRigidbody.velocity.x, 0.0f, _playerRigidbody.velocity.z).magnitude;
+            //// a reference to the players current horizontal velocity
+            //float currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z).magnitude;
+            ////float currentHorizontalSpeed = new Vector3(_playerRigidbody.velocity.x, 0.0f, _playerRigidbody.velocity.z).magnitude;
 
-            float speedOffset = 0.1f;
-            float inputMagnitude = _input.analogMovement ? _input.move.magnitude : 1f;
+            //float speedOffset = 0.1f;
+            //float inputMagnitude = _input.analogMovement ? _input.move.magnitude : 1f;
 
-            // accelerate or decelerate to target speed
-            if (currentHorizontalSpeed < targetSpeed - speedOffset || currentHorizontalSpeed > targetSpeed + speedOffset)
-            {
-                // creates curved result rather than a linear one giving a more organic speed change
-                // note T in Lerp is clamped, so we don't need to clamp our speed
-                _speed = Mathf.Lerp(currentHorizontalSpeed, targetSpeed * inputMagnitude, Time.unscaledDeltaTime * SpeedChangeRate);
+            //// accelerate or decelerate to target speed
+            //if (currentHorizontalSpeed < targetSpeed - speedOffset || currentHorizontalSpeed > targetSpeed + speedOffset)
+            //{
+            //    // creates curved result rather than a linear one giving a more organic speed change
+            //    // note T in Lerp is clamped, so we don't need to clamp our speed
+            //    _speed = Mathf.Lerp(currentHorizontalSpeed, targetSpeed * inputMagnitude, Time.unscaledDeltaTime * SpeedChangeRate);
 
-                // round speed to 3 decimal places
-                _speed = Mathf.Round(_speed * 1000f) / 1000f;
-            }
-            else
-            {
-                _speed = targetSpeed;
-            }
+            //    // round speed to 3 decimal places
+            //    _speed = Mathf.Round(_speed * 1000f) / 1000f;
+            //}
+            //else
+            //{
+            _speed = targetSpeed;
+            //}
             //_speed = targetSpeed;
             // normalise input direction
-            inputDirection = new Vector3(_input.move.x, 0.0f, _input.move.y).normalized;
+            _inputDirection = new Vector3(_input.move.x, 0.0f, _input.move.y).normalized;
 
             // note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
             // if there is a move input rotate player when the player is moving
             if (_input.move != Vector2.zero)
             {
                 // move
-                inputDirection = transform.right * _input.move.x + transform.forward * _input.move.y;
+                _inputDirection = transform.right * _input.move.x + transform.forward * _input.move.y;
             }
 
             // move the player
-            _controller.Move(inputDirection.normalized * (_speed * Time.unscaledDeltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.unscaledDeltaTime);
+            _controller.Move(_inputDirection.normalized * (_speed * Time.unscaledDeltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.unscaledDeltaTime);
             //_playerRigidbody.AddForce(inputDirection.normalized * (_speed * Time.unscaledDeltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.unscaledDeltaTime);
         }
 
@@ -205,13 +238,16 @@ namespace Player
                 if (_verticalVelocity < 0.0f)
                 {
                     _verticalVelocity = -2f;
+                    //Debug.Log("Grounded" + _verticalVelocity);
                 }
 
                 // Jump
                 if (_input.jump && _jumpTimeoutDelta <= 0.0f)
                 {
                     // the square root of H * -2 * G = how much velocity needed to reach desired height
+
                     _verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
+                    //Debug.Log("Jump" + _verticalVelocity);
                 }
 
                 // jump timeout
@@ -234,7 +270,6 @@ namespace Player
                 // if we are not grounded, do not jump
                 _input.jump = false;
             }
-
             // apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
             if (_verticalVelocity < _terminalVelocity)
             {
@@ -242,33 +277,71 @@ namespace Player
             }
         }
 
-        void Dodge()
+        private void Dodge()
         {
-            if (_dashTimeoutDelta >= 0.0f)
+            if (_dodgeTimeoutDelta >= 0.0f)
             {
-                _dashTimeoutDelta -= Time.unscaledDeltaTime;
-                Debug.Log(_dashTimeoutDelta);
+                _dodgeTimeoutDelta -= Time.unscaledDeltaTime;
+                // Debug.Log(_dashTimeoutDelta);
             }
             if (_input.dodge)
             {
-                Debug.Log("dash" + _dashTimeoutDelta);
-                if (_dashTimeoutDelta <= 0.0f)
+                //Debug.Log("dash" + _dashTimeoutDelta);
+                if (_dodgeTimeoutDelta <= 0.0f)
                 {
                     StartCoroutine(DodgeHandling());
                 }
             }
         }
 
-        IEnumerator DodgeHandling()
+        private IEnumerator DodgeHandling()
         {
-            float startTime = Time.time;
-            while (Time.time < startTime + DashDuration)
+            float startTime = Time.unscaledTime;
+            //Vector3 dashDirection = new Vector3(0, 0, _input.move.y);
+            while (Time.unscaledTime < startTime + DodgeDuration)
             {
-                _controller.Move(inputDirection * DashSpeed * Time.unscaledDeltaTime);
+                _controller.Move(_inputDirection.normalized * DodgeSpeed * Time.unscaledDeltaTime);
+                //turn off player hitbox (i-frame)
                 yield return null;
             }
-            _dashTimeoutDelta = DashTimeout;
+            _dodgeTimeoutDelta = DodgeTimeout;
             _input.dodge = false;
+        }
+
+        private void Crouch()
+        {
+            if (_input.crouch)
+            {
+                _isCrouching = true;
+                _controller.center = CrouchCenter;
+                _controller.height = CrouchHeight;
+                //StartCoroutine(StandHandling());
+                Grounded = false;
+            }
+            if (!_input.crouch && _isCrouching)
+            {
+                if (!RoofedFlag)
+                {
+                    _isCrouching = false;
+                    StartCoroutine(StandHandling());
+                }
+            }
+        }
+
+        private IEnumerator StandHandling()
+        {
+            float timeElapsed = 0;
+            float targetHeight = _isCrouching ? CrouchHeight : _controllerOriginalHeight;
+            float currentHeight = _controller.height;
+            Vector3 targetCenter = _isCrouching ? CrouchCenter : _controllerOriginalCenter;
+            Vector3 currentCenter = _controller.center;
+            while (timeElapsed < timeToCrouch)
+            {
+                _controller.center = Vector3.Lerp(currentCenter, targetCenter, timeElapsed / timeToCrouch);
+                _controller.height = Mathf.Lerp(currentHeight, targetHeight, timeElapsed / timeToCrouch);
+                timeElapsed += Time.unscaledDeltaTime;
+                yield return null;
+            }
         }
 
         private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
@@ -286,8 +359,18 @@ namespace Player
             if (Grounded) Gizmos.color = transparentGreen;
             else Gizmos.color = transparentRed;
 
+
+
             // when selected, draw a gizmo in the position of, and matching radius of, the grounded collider
             Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z), GroundedRadius);
+
+            if (RoofedFlag)
+            {
+                Gizmos.color = transparentGreen;
+            }
+            else Gizmos.color = transparentRed;
+
+            Gizmos.DrawRay(new Vector3(transform.position.x, transform.position.y + RoofedOffset, transform.position.z), Vector3.up * RoofedDistance);
         }
     }
 }

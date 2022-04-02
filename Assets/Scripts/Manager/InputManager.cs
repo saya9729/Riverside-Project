@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -19,6 +17,7 @@ namespace Player
 
         [Header("Character Input Values")]
         public Vector2 move;
+
         public Vector2 look;
         public bool jump;
         public bool dodge;
@@ -28,10 +27,13 @@ namespace Player
         public bool analogMovement;
 
 #if !UNITY_IOS || !UNITY_ANDROID
+
         [Header("Mouse Cursor Settings")]
         public bool cursorLocked = true;
+
         public bool cursorInputForLook = true;
 #endif
+
         public void OnMove(InputValue value)
         {
             MoveInput(value.Get<Vector2>());
@@ -55,7 +57,7 @@ namespace Player
             dodge = value.isPressed;
         }
 
-        void OnCrouch(InputValue value)
+        private void OnCrouch(InputValue value)
         {
             crouch = value.isPressed;
         }
@@ -85,10 +87,12 @@ namespace Player
         {
             interact = p_value.isPressed;
         }
+
         public void OnRotate(InputValue p_value)
         {
             mouseScrollDelta = p_value.Get<Vector2>().y;
         }
+
         public void OnMousePosition(InputValue p_value)
         {
             mousePosition = p_value.Get<Vector2>();
@@ -98,6 +102,7 @@ namespace Player
         {
             exit = p_value.isPressed;
         }
+
         public void OnUsingPocketWatch(InputValue p_value)
         {
             usingPocketWatch = p_value.isPressed;
@@ -124,6 +129,5 @@ namespace Player
         }
 
 #endif
-
     }
 }

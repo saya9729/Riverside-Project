@@ -17,6 +17,7 @@ namespace Enemy
         {
             Debug.Log("Enter Dead State");
             //start dead animation once
+            _enemyStateManager.animator.SetBool("isDead", true);
             StartCoroutine(WaitAndDestroyThisObject());
         }
 
@@ -34,6 +35,7 @@ namespace Enemy
         public override void ExitState()
         {
             Debug.Log("Exit Dead State");
+            _enemyStateManager.animator.SetBool("isDead", false);
         }
         public override void PhysicsUpdateState()
         {

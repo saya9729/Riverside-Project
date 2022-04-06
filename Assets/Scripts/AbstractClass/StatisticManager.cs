@@ -5,10 +5,10 @@ namespace AbstractClass
 {
     public abstract class StatisticManager : MonoBehaviour
     {
-        protected float _health;
+        [SerializeField] protected float health;
         [SerializeField] protected float maxHealth = 100;
-        protected float _movementSpeed;
-        [SerializeField] protected float _normalMovementSpeed = 100;
+        [SerializeField] protected float movementSpeed;
+        [SerializeField] protected float normalMovementSpeed = 100;
 
         private void Start()
         {
@@ -17,32 +17,32 @@ namespace AbstractClass
 
         protected void InitializeVariable()
         {
-            _health = maxHealth;
-            _movementSpeed = _normalMovementSpeed;
+            health = maxHealth;
+            movementSpeed = normalMovementSpeed;
         }
 
         public void DecreaseHealth(float p_decreaseAmount)
         {
-            _health -= p_decreaseAmount;
+            health -= p_decreaseAmount;
         }
 
         public void IncreaseHealth(float p_increaseAmount)
         {
-            _health += p_increaseAmount;
-            if (_health > maxHealth)
+            health += p_increaseAmount;
+            if (health > maxHealth)
             {
-                _health = maxHealth;
+                health = maxHealth;
             }
         }
 
         public float HealthPercentage()
         {
-            return _health / maxHealth * 100;
+            return health / maxHealth * 100;
         }
 
         public void ChangeMovementSpeed(float p_changeMultiplier)
         {
-            _movementSpeed = _normalMovementSpeed * p_changeMultiplier;
+            movementSpeed = normalMovementSpeed * p_changeMultiplier;
         }
     }
 }

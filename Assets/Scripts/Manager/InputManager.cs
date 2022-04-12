@@ -55,6 +55,7 @@ namespace Player
         public void OnDodge(InputValue value)
         {
             dodge = value.isPressed;
+            this.PostEvent(EventID.onDodgePress);
         }
 
         private void OnCrouch(InputValue value)

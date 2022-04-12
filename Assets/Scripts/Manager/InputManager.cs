@@ -44,6 +44,8 @@ namespace Player
             if (cursorInputForLook)
             {
                 LookInput(value.Get<Vector2>());
+                //look = value.Get<Vector2>();
+                Debug.Log("mouse input" + look);
             }
         }
 

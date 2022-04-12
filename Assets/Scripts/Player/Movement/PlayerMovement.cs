@@ -103,10 +103,10 @@ namespace Player
         private void Awake()
         {
             // get a reference to our main camera
-            if (_mainCamera == null)
-            {
-                _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
-            }
+            //if (_mainCamera == null)
+            //{
+            //    _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+            //}
         }
 
         private void Start()
@@ -161,6 +161,7 @@ namespace Player
             if (_input.look.sqrMagnitude >= _threshold)
             {
                 //Don't multiply mouse input by Time.unscaledDeltaTime
+                //float unscaledDeltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.unscaledDeltaTime;
                 float unscaledDeltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.unscaledDeltaTime;
 
                 _cinemachineTargetPitch += _input.look.y * RotationSpeed * unscaledDeltaTimeMultiplier;

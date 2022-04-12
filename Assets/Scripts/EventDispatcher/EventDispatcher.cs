@@ -5,34 +5,34 @@ using UnityEngine;
 public class EventDispatcher : MonoBehaviour
 {
     #region Singleton
-    static EventDispatcher s_instance;
+    static EventDispatcher _instance;
     public static EventDispatcher Instance
     {
         get
         {
             // instance not exist, then create new one
-            if (s_instance == null)
+            if (_instance == null)
             {
                 // create new Gameobject, and add EventDispatcher component
                 GameObject singletonObject = new GameObject();
-                s_instance = singletonObject.AddComponent<EventDispatcher>();
+                _instance = singletonObject.AddComponent<EventDispatcher>();
                 singletonObject.name = "Singleton - EventDispatcher";
                 //Common.Log("Create singleton : {0}", singletonObject.name);
             }
-            return s_instance;
+            return _instance;
         }
         private set { }
     }
 
     public static bool HasInstance()
     {
-        return s_instance != null;
+        return _instance != null;
     }
 
     void Awake()
     {
         // check if there's another instance already exist in scene
-        if (s_instance != null && s_instance.GetInstanceID() != this.GetInstanceID())
+        if (_instance != null && _instance.GetInstanceID() != this.GetInstanceID())
         {
             // Destroy this instances because already exist the singleton of EventsDispatcer
             //Common.Log("An instance of EventDispatcher already exist : <{1}>, So destroy this instance : <{2}>!!", s_instance.name, name);
@@ -41,7 +41,7 @@ public class EventDispatcher : MonoBehaviour
         else
         {
             // set instance
-            s_instance = this as EventDispatcher;
+            _instance = this as EventDispatcher;
         }
     }
 
@@ -49,10 +49,10 @@ public class EventDispatcher : MonoBehaviour
     void OnDestroy()
     {
         // reset this static var to null if it's the singleton instance
-        if (s_instance == this)
+        if (_instance == this)
         {
             ClearAllListener();
-            s_instance = null;
+            _instance = null;
         }
     }
     #endregion

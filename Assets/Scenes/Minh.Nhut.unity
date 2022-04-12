@@ -1616,7 +1616,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   move: {x: 0, y: 0}
-  look: {x: 6.59, y: -1.49}
+  look: {x: 0, y: 0}
   jump: 0
   dodge: 0
   crouch: 0

@@ -44,8 +44,6 @@ namespace Player
             if (cursorInputForLook)
             {
                 LookInput(value.Get<Vector2>());
-                //look = value.Get<Vector2>();
-                Debug.Log("mouse input" + look);
             }
         }
 
@@ -57,6 +55,7 @@ namespace Player
         public void OnDodge(InputValue value)
         {
             dodge = value.isPressed;
+            this.PostEvent(EventID.onDodgePress);
         }
 
         private void OnCrouch(InputValue value)

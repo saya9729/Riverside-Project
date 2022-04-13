@@ -124,6 +124,9 @@ namespace Player
             //set original controller value
             _controllerOriginalHeight = _controller.height;
             _controllerOriginalCenter = _controller.center;
+
+            //register listener
+            this.RegisterListener(EventID.onDodgePress, (param) => onDodgePress());
         }
 
         private void Update()
@@ -161,6 +164,7 @@ namespace Player
             if (_input.look.sqrMagnitude >= _threshold)
             {
                 //Don't multiply mouse input by Time.unscaledDeltaTime
+                //float unscaledDeltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.unscaledDeltaTime;
                 float unscaledDeltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.unscaledDeltaTime;
 
                 _cinemachineTargetPitch += _input.look.y * RotationSpeed * unscaledDeltaTimeMultiplier;
@@ -277,6 +281,7 @@ namespace Player
             }
         }
 
+        #region Dodge
         private void Dodge()
         {
             if (_dodgeTimeoutDelta >= 0.0f)
@@ -308,6 +313,13 @@ namespace Player
             _input.dodge = false;
         }
 
+        private void onDodgePress()
+        {
+            Debug.Log("event successfully register!");
+        }
+        #endregion
+
+        #region Crouch
         private void Crouch()
         {
             if (_input.crouch)
@@ -343,6 +355,7 @@ namespace Player
                 yield return null;
             }
         }
+        #endregion
 
         private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
         {

@@ -6,7 +6,7 @@ namespace Player
 {
     public class InputManager : MonoBehaviour
     {
-        [NonSerialized] public bool interact;
+        //[NonSerialized] public bool interact;
         [NonSerialized] public bool exit;
         [NonSerialized] public bool usingPocketWatch;
         [NonSerialized] public bool primaryLightAttack;
@@ -14,6 +14,7 @@ namespace Player
         [NonSerialized] public float mouseScrollDelta;
         [NonSerialized] public Vector2 mousePosition;
         [NonSerialized] public bool useHealthPot;
+        [NonSerialized] public bool menu;
 
         [Header("Character Input Values")]
         public Vector2 move;
@@ -25,6 +26,9 @@ namespace Player
 
         [Header("Movement Settings")]
         public bool analogMovement;
+
+        [Header("Interact Input")]
+        public bool interact;
 
 #if !UNITY_IOS || !UNITY_ANDROID
 
@@ -63,7 +67,7 @@ namespace Player
             crouch = value.isPressed;
         }
 
-        void OnUseHealthPotion (InputValue value)
+        void OnUseHealthPotion(InputValue value)
         {
             useHealthPot = value.isPressed;
         }
@@ -115,6 +119,11 @@ namespace Player
         public void OnSecondaryAttack(InputValue p_value)
         {
             secondaryAttack = p_value.isPressed;
+        }
+
+        public void OnMenu(InputValue p_value)
+        {
+            menu = p_value.isPressed;
         }
 
 #if !UNITY_IOS || !UNITY_ANDROID

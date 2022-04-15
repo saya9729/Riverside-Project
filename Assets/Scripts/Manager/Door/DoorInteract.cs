@@ -7,6 +7,7 @@ public class DoorInteract : Interactable
 {
     [Tooltip("Number of key need to open this door")]
     public int keyNumbers = 3;
+    public GameObject[] platform;
 
     private HighlightEffect _highlightEffect;
     private int _countKey = 0;
@@ -48,6 +49,7 @@ public class DoorInteract : Interactable
         if (_countKey >= keyNumbers)
         {
             isInteractable = true;
+            platform[0].SetActive(true);
         }
         else
         {

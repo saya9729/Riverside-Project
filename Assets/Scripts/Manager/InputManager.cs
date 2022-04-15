@@ -29,6 +29,7 @@ namespace Player
 
         [Header("Interact Input")]
         public bool interact;
+        public bool pressInteractDown;
 
 #if !UNITY_IOS || !UNITY_ANDROID
 

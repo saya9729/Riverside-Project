@@ -1,6 +1,6 @@
 using AbstractClass;
-using UnityEngine;
 using HighlightPlus;
+using UnityEngine;
 
 namespace Player
 {
@@ -9,9 +9,8 @@ namespace Player
         public float interactionDistance;
         public TMPro.TextMeshProUGUI interactionText;
 
-
         private Camera _cam;
-        private Interactable _interactable;        
+        private Interactable _interactable;
         private HighlightEffect _highlightEffect;
         private PlayerStateManager _playerStateManager;
 
@@ -24,7 +23,6 @@ namespace Player
 
         private void Update()
         {
-           
             CheckInteraction();
         }
 
@@ -40,25 +38,27 @@ namespace Player
                 if (_interactable != null)
                 {
                     HandleInteraction();
-                    interactionText.text = _interactable.GetDescription();                    
+                    interactionText.text = _interactable.GetDescription();
                     successfulHit = true;
                 }
             }
 
             if (!successfulHit)
             {
-                interactionText.text = "";                
+                interactionText.text = "";
             }
         }
 
         private void HandleInteraction()
         {
-            if (_playerStateManager.inputManager.interact )
+            //if (_playerStateManager.inputManager.interact)
+            //{
+            //    _interactable.Interact();
+            //}
+            if (InputProxy.GetKeyDown("E"))
             {
                 _interactable.Interact();
             }
         }
-        
-
     }
 }

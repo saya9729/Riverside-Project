@@ -5,13 +5,13 @@ namespace AbstractClass
 {
     public abstract class Interactable : MonoBehaviour
     {
-        public bool InteractableFlag;
+        public bool isInteractable;
         public abstract string GetDescription();
         public abstract void Interact();
 
-        public bool isInteractable()
+        public bool IsInteractable()
         {
-            if (InteractableFlag)
+            if (isInteractable)
                 return true;
             else
                 return false;

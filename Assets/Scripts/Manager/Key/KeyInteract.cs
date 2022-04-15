@@ -1,38 +1,43 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using AbstractClass;
 using HighlightPlus;
+using UnityEngine;
 
+[RequireComponent(typeof(HighlightEffect))]
 public class KeyInteract : Interactable
 {
     private HighlightEffect _highlightEffect;
-    
 
     private void Start()
     {
         _highlightEffect = GetComponent<HighlightEffect>();
 
-        InteractableFlag = true;
-        _highlightEffect.SetHighlighted(true);        
+        isInteractable = true;
+        _highlightEffect.SetHighlighted(true);
     }
 
     public override string GetDescription()
     {
-        if (InteractableFlag)
+        if (isInteractable)
         {
-            return "[E] Interact";
+            return "[E] Interact with Key";
         }
         else
         {
             return "";
-        }        
+        }
     }
+
     public override void Interact()
     {
-        _highlightEffect.SetHighlighted(false);
-        InteractableFlag = false;
+        if (isInteractable)
+        {
+            _highlightEffect.SetHighlighted(false);
+            isInteractable = false;
+            this.PostEvent(EventID.onKeyCollected, 1);
+        }
     }
 
-
+    private void OnEnemyDead(int p_count)
+    {
+    }
 }

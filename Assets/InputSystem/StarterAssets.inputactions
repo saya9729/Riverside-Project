@@ -114,10 +114,10 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Interact",
-                    "type": "PassThrough",
-                    "id": "dafad4f2-db89-4a77-87f7-e846bc70ec8a",
-                    "expectedControlType": "",
+                    "name": "Menu",
+                    "type": "Button",
+                    "id": "a3d29497-0097-424b-8c20-c57474da9b86",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -379,12 +379,12 @@
                 },
                 {
                     "name": "",
-                    "id": "5a92d6a5-ba0e-426a-b3ad-4dc473c5c5e9",
-                    "path": "<Keyboard>/e",
+                    "id": "9ddf6154-3032-4073-9918-bec3baf4bfae",
+                    "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
                     "groups": "KeyboardMouse",
-                    "action": "Interact",
+                    "action": "Menu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

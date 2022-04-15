@@ -14,6 +14,7 @@ namespace Player
         [NonSerialized] public float mouseScrollDelta;
         [NonSerialized] public Vector2 mousePosition;
         [NonSerialized] public bool useHealthPot;
+        [NonSerialized] public bool menu;
 
         [Header("Character Input Values")]
         public Vector2 move;
@@ -118,6 +119,11 @@ namespace Player
         public void OnSecondaryAttack(InputValue p_value)
         {
             secondaryAttack = p_value.isPressed;
+        }
+
+        public void OnMenu(InputValue p_value)
+        {
+            menu = p_value.isPressed;
         }
 
 #if !UNITY_IOS || !UNITY_ANDROID

@@ -1,19 +1,25 @@
 using AbstractClass;
 using UnityEngine;
+using HighlightPlus;
 
 namespace Player
 {
     public class PlayerInteractManager : MonoBehaviour
     {
         public float interactionDistance;
+        public TMPro.TextMeshProUGUI interactionText;
+
 
         private Camera _cam;
-        private Interactable _interactable;
-        public TMPro.TextMeshProUGUI interactionText;
+        private Interactable _interactable;        
+        private HighlightEffect _highlightEffect;
+        private PlayerStateManager _playerStateManager;
 
         private void Start()
         {
             _cam = Camera.main;
+            _highlightEffect = GetComponent<HighlightEffect>();
+            _playerStateManager = GetComponent<PlayerStateManager>();
         }
 
         private void Update()
@@ -33,20 +39,25 @@ namespace Player
                 if (_interactable != null)
                 {
                     HandleInteraction();
-                    interactionText.text = _interactable.GetDescription();
+                    interactionText.text = _interactable.GetDescription();                    
                     successfulHit = true;
                 }
             }
 
             if (!successfulHit)
             {
-                interactionText.text = "";
+                interactionText.text = "";                
             }
         }
 
         private void HandleInteraction()
         {
-            _interactable.Interact();
+            if (_playerStateManager.inputManager.interact)
+            {
+                _interactable.Interact();
+            }
         }
+        
+
     }
 }

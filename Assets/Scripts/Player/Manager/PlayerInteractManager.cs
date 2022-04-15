@@ -1,6 +1,8 @@
 using AbstractClass;
 using HighlightPlus;
 using UnityEngine;
+using UnityEngine.InputSystem;
+
 
 namespace Player
 {
@@ -13,12 +15,14 @@ namespace Player
         private Interactable _interactable;
         private HighlightEffect _highlightEffect;
         private PlayerStateManager _playerStateManager;
+        private PlayerInput _playerInput;
 
         private void Start()
         {
             _cam = Camera.main;
             _highlightEffect = GetComponent<HighlightEffect>();
             _playerStateManager = GetComponent<PlayerStateManager>();
+            _playerInput = GetComponentInParent<PlayerInput>();
         }
 
         private void Update()
@@ -55,7 +59,11 @@ namespace Player
             //{
             //    _interactable.Interact();
             //}
-            if (InputProxy.GetKeyDown("E"))
+            //if (InputProxy.GetKeyDown("E"))
+            //{
+            //    _interactable.Interact();
+            //}
+            if (_playerInput.actions["Interact"].WasPressedThisFrame())
             {
                 _interactable.Interact();
             }

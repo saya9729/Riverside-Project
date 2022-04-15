@@ -97,7 +97,7 @@
                 },
                 {
                     "name": "Using Pocket Watch",
-                    "type": "PassThrough",
+                    "type": "Button",
                     "id": "157d1037-da32-4a6b-808b-ad76fc4a4561",
                     "expectedControlType": "Button",
                     "processors": "",
@@ -117,6 +117,15 @@
                     "name": "Menu",
                     "type": "Button",
                     "id": "a3d29497-0097-424b-8c20-c57474da9b86",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "PullFromSol",
+                    "type": "PassThrough",
+                    "id": "c4c4a01e-c03d-412a-87b5-6efc6bf467dd",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -385,6 +394,17 @@
                     "processors": "",
                     "groups": "KeyboardMouse",
                     "action": "Menu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d57eea50-89e3-4eab-b577-90e398e556db",
+                    "path": "<Keyboard>/numpadPlus",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "PullFromSol",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

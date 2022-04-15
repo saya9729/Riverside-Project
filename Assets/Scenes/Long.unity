@@ -3410,10 +3410,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 872b5898f3f9cc240a6fe78c9d3837c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AudioMixer: {fileID: 24100000, guid: e49f289e8a6f19b4799b5efb2231d9c0, type: 2}
-  ResolutionDropdown: {fileID: 1123390900}
-  ToggleFullScreen: {fileID: 637795469}
-  SliderMusic: {fileID: 1954784847}
+  audioMixer: {fileID: 0}
+  resolutionDropdown: {fileID: 0}
+  toggleFullScreen: {fileID: 0}
+  sliderMusic: {fileID: 0}
 --- !u!1 &1373946717
 GameObject:
   m_ObjectHideFlags: 0
@@ -5201,6 +5201,7 @@ GameObject:
   - component: {fileID: 1728413941}
   - component: {fileID: 1728413940}
   - component: {fileID: 1728413939}
+  - component: {fileID: 1728413938}
   m_Layer: 3
   m_Name: PlayerStateManager
   m_TagString: Untagged
@@ -5222,6 +5223,21 @@ Transform:
   m_Father: {fileID: 1373946722}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1728413938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1728413936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8450053d414a7314fb8d6818274a0d47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  _normalMovementSpeed: 100
+  maxSol: 15
 --- !u!114 &1728413939
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7147,8 +7163,20 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6229185847400730014, guid: 29969f4a50bcaaf4b83335e3b1e6be0d, type: 3}
+      propertyPath: slowdownAmount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6229185847400730014, guid: 29969f4a50bcaaf4b83335e3b1e6be0d, type: 3}
       propertyPath: timeCoefficient
       value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6229185847400730014, guid: 29969f4a50bcaaf4b83335e3b1e6be0d, type: 3}
+      propertyPath: slowdownAmountMax
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6229185847400730014, guid: 29969f4a50bcaaf4b83335e3b1e6be0d, type: 3}
+      propertyPath: timeAddToPrefixAndSuffixes
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 29969f4a50bcaaf4b83335e3b1e6be0d, type: 3}

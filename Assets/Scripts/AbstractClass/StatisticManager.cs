@@ -9,6 +9,8 @@ namespace AbstractClass
         [SerializeField] protected float maxHealth = 100;
         protected float _movementSpeed;
         [SerializeField] protected float _normalMovementSpeed = 100;
+        protected float _sol;
+        [SerializeField] protected float maxSol = 100;
 
         private void Start()
         {
@@ -19,6 +21,7 @@ namespace AbstractClass
         {
             _health = maxHealth;
             _movementSpeed = _normalMovementSpeed;
+            _sol = maxSol;
         }
 
         public void DecreaseHealth(float p_decreaseAmount)
@@ -43,6 +46,17 @@ namespace AbstractClass
         public void ChangeMovementSpeed(float p_changeMultiplier)
         {
             _movementSpeed = _normalMovementSpeed * p_changeMultiplier;
+        }
+
+        public bool CanPullFromSol(float p_amount)
+        {
+            _sol -= p_amount;
+            if (_sol < 0)
+            {
+                _sol += p_amount;
+                return false;
+            }
+            return true;
         }
     }
 }

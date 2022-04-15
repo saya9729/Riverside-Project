@@ -15,6 +15,7 @@ namespace Player
         [NonSerialized] public Vector2 mousePosition;
         [NonSerialized] public bool useHealthPot;
         [NonSerialized] public bool menu;
+        [NonSerialized] public bool pullFromSol;
 
         [Header("Character Input Values")]
         public Vector2 move;
@@ -121,6 +122,11 @@ namespace Player
         public void OnMenu(InputValue p_value)
         {
             menu = p_value.isPressed;
+        }
+
+        public void OnPullFromSol(InputValue p_value)
+        {
+            pullFromSol = p_value.isPressed;
         }
 
 #if !UNITY_IOS || !UNITY_ANDROID

@@ -32,7 +32,6 @@ namespace GameUI
 
         void Initialize()
         {
-            Debug.Log("asdasdas dasdasd");
             _inputManager = GameObject.FindGameObjectWithTag("Player").GetComponent<Player.InputManager>();
         }
         void TogglePauseGame(bool p_toggleMenuButton)

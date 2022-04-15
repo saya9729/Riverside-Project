@@ -24,6 +24,7 @@ namespace Player
 
         private void Update()
         {
+           
             CheckInteraction();
         }
 
@@ -52,7 +53,7 @@ namespace Player
 
         private void HandleInteraction()
         {
-            if (_playerStateManager.inputManager.interact)
+            if (_playerStateManager.inputManager.interact )
             {
                 _interactable.Interact();
             }

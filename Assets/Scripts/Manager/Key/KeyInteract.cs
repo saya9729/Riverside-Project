@@ -13,15 +13,15 @@ public class KeyInteract : Interactable
     {
         _highlightEffect = GetComponent<HighlightEffect>();
 
-        _interactable = true;
+        InteractableFlag = true;
         _highlightEffect.SetHighlighted(true);        
     }
 
     public override string GetDescription()
     {
-        if (_interactable)
+        if (InteractableFlag)
         {
-            return "[E] Put out the fire";
+            return "[E] Interact";
         }
         else
         {
@@ -31,7 +31,7 @@ public class KeyInteract : Interactable
     public override void Interact()
     {
         _highlightEffect.SetHighlighted(false);
-        _interactable = false;
+        InteractableFlag = false;
     }
 
 

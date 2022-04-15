@@ -3,19 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MainMenu : MonoBehaviour
+namespace GameUI
 {
-    public void StartGame()
+    public class MainMenu : MonoBehaviour
     {
-        int nextScene = PlayerPrefs.GetInt("CurrentScene", SceneManager.GetActiveScene().buildIndex + 1);
-        SceneManager.LoadScene(nextScene);
-        PlayerPrefs.SetInt("CurrentScene", nextScene);
-        PlayerPrefs.Save();
-    }
+        public void StartGame()
+        {
+            int nextScene = PlayerPrefs.GetInt("CurrentScene", SceneManager.GetActiveScene().buildIndex + 1);
+            SceneManager.LoadScene(nextScene);
+            PlayerPrefs.SetInt("CurrentScene", nextScene);
+            PlayerPrefs.Save();
+        }
 
-    public void QuitGame()
-    {
-        Debug.Log("Quit");
-        Application.Quit();
+        public void QuitGame()
+        {
+            Debug.Log("Quit");
+            Application.Quit();
+        }
     }
 }

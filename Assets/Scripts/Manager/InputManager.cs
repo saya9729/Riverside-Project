@@ -6,7 +6,7 @@ namespace Player
 {
     public class InputManager : MonoBehaviour
     {
-        [NonSerialized] public bool interact;
+        //[NonSerialized] public bool interact;
         [NonSerialized] public bool exit;
         [NonSerialized] public bool usingPocketWatch;
         [NonSerialized] public bool primaryLightAttack;
@@ -27,6 +27,9 @@ namespace Player
 
         [Header("Movement Settings")]
         public bool analogMovement;
+
+        [Header("Interact Input")]
+        public bool interact;
 
 #if !UNITY_IOS || !UNITY_ANDROID
 
@@ -65,7 +68,7 @@ namespace Player
             crouch = value.isPressed;
         }
 
-        void OnUseHealthPotion (InputValue value)
+        void OnUseHealthPotion(InputValue value)
         {
             useHealthPot = value.isPressed;
         }

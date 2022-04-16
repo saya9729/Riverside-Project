@@ -8,6 +8,8 @@ namespace Enemy
     {
         private EnemyStateManager _enemyStateManager;
         [SerializeField] private float timeBeforeDisappear;
+        [SerializeField] private GameObject solPrefab;
+        [SerializeField] private Transform solParent;
 
         private void Start()
         {
@@ -18,6 +20,7 @@ namespace Enemy
             Debug.Log("Enter Dead State");
             //start dead animation once
             _enemyStateManager.animator.SetBool("isDead", true);
+            Instantiate(solPrefab, solParent, true);
             StartCoroutine(WaitAndDestroyThisObject());
         }
 

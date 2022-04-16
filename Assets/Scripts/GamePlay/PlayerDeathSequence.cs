@@ -11,17 +11,17 @@ namespace Player
         [SerializeField] private float deathTime = 2f;
         public void PlayPlayerDeathSequence()
         {
-            DeadNotofier();
+            DeadAnnouncement();
         }
-        IEnumerator DeadNotofierCoroutine()
+        IEnumerator DeadAnnouncementCoroutine()
         {
             yield return new WaitForSecondsRealtime(deathTime);
             LoadSceneFromDeathSequence();
         }
-        private void DeadNotofier()
+        private void DeadAnnouncement()
         {
             gameMenuCanvas.SetActive(true);
-            StartCoroutine(DeadNotofierCoroutine());
+            StartCoroutine(DeadAnnouncementCoroutine());
         }
         private void LoadSceneFromDeathSequence() 
         {

@@ -6,6 +6,9 @@ namespace Player
 {
     public class PlayerStatisticManager : AbstractClass.StatisticManager
     {
-        
+        public float GetHealth()
+        {
+            return _health;
+        }
     }
 }

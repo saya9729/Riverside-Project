@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Player
@@ -14,6 +12,7 @@ namespace Player
         void Start()
         {
             _playerStateManager = GetComponent<PlayerStateManager>();
+            this.RegisterListener(EventID.onHPPotCollected, (param) => OnCollectHPPot());
         }
 
         void UseConsumable()
@@ -22,12 +21,18 @@ namespace Player
             _playerStateManager.inputManager.useHealthPot = false;
             countHPPot -= 1;
         }
-    
+
+        void OnCollectHPPot()
+        {
+            if (countHPPot < 3)
+                countHPPot++;
+        }
+
 
         // Update is called once per frame
         void Update()
         {
-            if (_playerStateManager.inputManager.useHealthPot && countHPPot !=0)
+            if (_playerStateManager.inputManager.useHealthPot && countHPPot != 0)
             {
                 UseConsumable();
             }

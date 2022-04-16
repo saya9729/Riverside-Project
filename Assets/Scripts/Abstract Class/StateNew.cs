@@ -3,32 +3,58 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace AbstractClass
 {
-    public abstract class StateNew
+    public abstract class StateNew : MonoBehaviour
     {
-        protected StateNew _currentSuperState;
-        protected StateNew _currentSubState;
-        public abstract void EnterState();
-        protected abstract void UpdateState();
-        public abstract void PhysicsUpdateState();
-        public abstract void ExitState();
-        protected abstract void CheckSwitchState();
-        protected abstract void InitializeSubState();
-        public void UpdateAllState()
+        public StateNew currentSuperState;
+        public StateNew currentSubState;
+
+        public virtual void Start()
         {
-            UpdateState();
-            if (_currentSubState != null)
+            InitializeManager();
+        }
+        public abstract void EnterState();
+        protected abstract void UpdateThisState();        
+        protected abstract void PhysicsUpdateThisState();
+        public virtual void PhysicsUpdateAllState()
+        {
+            PhysicsUpdateThisState();
+            if (currentSubState != null)
             {
-                _currentSubState.UpdateAllState();
+                currentSubState.PhysicsUpdateAllState();
             }
         }
-        protected void SetSuperState(StateNew p_newSuperState)
+        public abstract void ExitState();
+        protected abstract void CheckSwitchState();
+        protected abstract void InitializeState();
+        protected abstract void InitializeManager();
+        public virtual void UpdateAllState()
         {
-            _currentSuperState = p_newSuperState;
+            UpdateThisState();
+            if (currentSubState != null)
+            {
+                currentSubState.UpdateAllState();
+            }
         }
-        protected void SetSubState(StateNew p_newSubState)
+        public virtual void SetSuperState(StateNew p_newSuperState)
         {
-            _currentSubState = p_newSubState;
-            p_newSubState.SetSuperState(this);
+            currentSuperState = p_newSuperState;
         }
+        public virtual void SetSubState(StateNew p_newSubState)
+        {
+            currentSubState.ExitState();
+            currentSubState = p_newSubState;
+            currentSubState.EnterState();
+        }
+        public abstract void SwitchToState(string p_StateType);
+        //{
+        //    switch (p_StateType)
+        //    {
+        //        case "Null":
+        //            SetSubState(null);
+        //            break;
+        //        default:
+        //            break;
+        //    }
+        //}
     }
 }

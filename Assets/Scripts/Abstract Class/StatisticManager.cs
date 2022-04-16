@@ -7,8 +7,6 @@ namespace AbstractClass
     {
         [SerializeField] protected float health;
         [SerializeField] protected float maxHealth = 100;
-        [SerializeField] protected float movementSpeed;
-        [SerializeField] protected float normalMovementSpeed = 100;
 
         private void Start()
         {
@@ -18,7 +16,6 @@ namespace AbstractClass
         protected void InitializeVariable()
         {
             health = maxHealth;
-            movementSpeed = normalMovementSpeed;
         }
 
         public void DecreaseHealth(float p_decreaseAmount)
@@ -40,9 +37,5 @@ namespace AbstractClass
             return health / maxHealth * 100;
         }
 
-        public void ChangeMovementSpeed(float p_changeMultiplier)
-        {
-            movementSpeed = normalMovementSpeed * p_changeMultiplier;
-        }
     }
 }

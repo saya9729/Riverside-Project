@@ -20,12 +20,12 @@ namespace Player
             {
                 Debug.Log("attacked");
 
-                var dmgManager = other.GetComponent<DamageManager>();
+                var _damageManager = other.GetComponent<DamageManager>();
 
-                if (dmgManager)
+                if (_damageManager)
                 {
-                    _playerStatisticManager.DecreaseHealth(dmgManager.GetDamage());
-                    Debug.Log("received " + dmgManager.GetDamage() + " dmg");
+                    _playerStatisticManager.DecreaseHealth(_damageManager.GetDamage());
+                    Debug.Log("received " + _damageManager.GetDamage() + " dmg");
                 }
                 else Debug.Log("Damage not assigned to attack source.");
 

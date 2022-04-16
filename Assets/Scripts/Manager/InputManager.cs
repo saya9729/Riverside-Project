@@ -5,23 +5,24 @@ using UnityEngine.InputSystem;
 namespace Player
 {
     public class InputManager : MonoBehaviour
-    {
-        //[NonSerialized] public bool interact;
-        [NonSerialized] public bool exit;
-        [NonSerialized] public bool usingPocketWatch;
-        [NonSerialized] public bool primaryLightAttack;
-        [NonSerialized] public bool secondaryAttack;
-        [NonSerialized] public float mouseScrollDelta;
-        [NonSerialized] public Vector2 mousePosition;
-        [NonSerialized] public bool useHealthPot;
-        [NonSerialized] public bool menu;
+    {        
+        //public bool interact;
+        public bool exit;
+        public bool usingPocketWatch;
+        public bool primaryLightAttack;
+        public bool secondaryAttack;
+        public float mouseScrollDelta;
+        public Vector2 mousePosition;
+        public bool useHealthPot;
+        public bool menu;
+        public bool pullFromSol;
 
         [Header("Character Input Values")]
-        public Vector2 move;
 
+        public Vector2 move;
         public Vector2 look;
         public bool jump;
-        public bool dodge;
+        public bool dash;
         public bool crouch;
 
         [Header("Movement Settings")]
@@ -29,6 +30,7 @@ namespace Player
 
         [Header("Interact Input")]
         public bool interact;
+        public bool pressInteractDown;
 
 #if !UNITY_IOS || !UNITY_ANDROID
 
@@ -56,9 +58,9 @@ namespace Player
             JumpInput(value.isPressed);
         }
 
-        public void OnDodge(InputValue value)
+        public void OnDash(InputValue value)
         {
-            dodge = value.isPressed;
+            dash = value.isPressed;
             this.PostEvent(EventID.onDodgePress);
         }
 
@@ -71,7 +73,6 @@ namespace Player
         {
             useHealthPot = value.isPressed;
         }
-
 
         public void MoveInput(Vector2 newMoveDirection)
         {
@@ -124,6 +125,11 @@ namespace Player
         public void OnMenu(InputValue p_value)
         {
             menu = p_value.isPressed;
+        }
+
+        public void OnPullFromSol(InputValue p_value)
+        {
+            pullFromSol = p_value.isPressed;
         }
 
 #if !UNITY_IOS || !UNITY_ANDROID

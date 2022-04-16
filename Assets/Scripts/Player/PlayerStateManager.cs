@@ -1,5 +1,6 @@
-﻿using System;
 using UnityEngine;
+using UnityEngine.Rendering;
+using System;
 
 namespace Player
 {
@@ -7,9 +8,11 @@ namespace Player
     {
         //Manager
         [NonSerialized] public SelectionManager selectionManager;
+
         [NonSerialized] public PlayerSkillManager playerSkillManager;
         [NonSerialized] public InputManager inputManager;
         [NonSerialized] public PlayerStatisticManager playerStatisticManager;
+        [NonSerialized] public Volume volume;
         [NonSerialized] public PlayerInteractManager playerInteractManager;
 
         [NonSerialized] public PlayerIdleState playerIdleState;
@@ -26,12 +29,11 @@ namespace Player
             InitializeState();
             InitializeVariable();
 
-
             _currentState = playerIdleState;
             _currentState.EnterState();
         }
 
-        void InitializeManager()
+        private void InitializeManager()
         {
             inputManager = GetComponentInParent<InputManager>();
             playerSkillManager = GameObject.Find("Manager").GetComponent<PlayerSkillManager>();
@@ -39,12 +41,13 @@ namespace Player
             playerInteractManager = GetComponent<PlayerInteractManager>();
         }
 
-        void InitializeVariable()
+        private void InitializeVariable()
         {
             playerAnimator = GetComponentInParent<Animator>();
+            volume = GameObject.Find("PlayerFollowCamera").GetComponent<Volume>();
         }
 
-        void InitializeState()
+        private void InitializeState()
         {
             playerIdleState = GetComponent<PlayerIdleState>();
             playerPrimaryLightAttackState = GetComponent<PlayerPrimaryLightAttackState>();
@@ -57,12 +60,14 @@ namespace Player
             _currentState.PhysicsUpdateState();
         }
 
-        void Update()
+        private void Update()
         {
             _currentState.UpdateState();
             if (inputManager.usingPocketWatch)
             {
-                playerSkillManager.SlowTime();
+                playerSkillManager.gameIsSlowDown = !playerSkillManager.gameIsSlowDown;
+                playerSkillManager.ToggleSlowGame(playerSkillManager.gameIsSlowDown);
+                inputManager.usingPocketWatch = false;
             }
             //if (inputManager.interact)
             //{

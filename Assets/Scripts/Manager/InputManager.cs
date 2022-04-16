@@ -5,26 +5,30 @@ using UnityEngine.InputSystem;
 namespace Player
 {
     public class InputManager : MonoBehaviour
-    {
-        [NonSerialized] public bool interact;
-        [NonSerialized] public bool exit;
-        [NonSerialized] public bool usingPocketWatch;
-        [NonSerialized] public bool primaryLightAttack;
-        [NonSerialized] public bool secondaryAttack;
-        [NonSerialized] public float mouseScrollDelta;
-        [NonSerialized] public Vector2 mousePosition;
-        [NonSerialized] public bool useHealthPot;
+    {        
+        //public bool interact;
+        public bool exit;
+        public bool usingPocketWatch;
+        public bool primaryLightAttack;
+        public bool secondaryAttack;
+        public float mouseScrollDelta;
+        public Vector2 mousePosition;
+        public bool useHealthPot;
+        public bool menu;
 
         [Header("Character Input Values")]
-        public Vector2 move;
 
+        public Vector2 move;
         public Vector2 look;
         public bool jump;
-        public bool dodge;
+        public bool dash;
         public bool crouch;
 
         [Header("Movement Settings")]
         public bool analogMovement;
+
+        [Header("Interact Input")]
+        public bool interact;
 
 #if !UNITY_IOS || !UNITY_ANDROID
 
@@ -52,9 +56,9 @@ namespace Player
             JumpInput(value.isPressed);
         }
 
-        public void OnDodge(InputValue value)
+        public void OnDash(InputValue value)
         {
-            dodge = value.isPressed;
+            dash = value.isPressed;
             this.PostEvent(EventID.onDodgePress);
         }
 
@@ -63,11 +67,10 @@ namespace Player
             crouch = value.isPressed;
         }
 
-        void OnUseHealthPotion (InputValue value)
+        void OnUseHealthPotion(InputValue value)
         {
             useHealthPot = value.isPressed;
         }
-
 
         public void MoveInput(Vector2 newMoveDirection)
         {
@@ -115,6 +118,11 @@ namespace Player
         public void OnSecondaryAttack(InputValue p_value)
         {
             secondaryAttack = p_value.isPressed;
+        }
+
+        public void OnMenu(InputValue p_value)
+        {
+            menu = p_value.isPressed;
         }
 
 #if !UNITY_IOS || !UNITY_ANDROID

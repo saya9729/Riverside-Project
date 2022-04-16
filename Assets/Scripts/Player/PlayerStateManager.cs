@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
-using System;
 
 namespace Player
 {
@@ -12,6 +10,7 @@ namespace Player
         [NonSerialized] public PlayerSkillManager playerSkillManager;
         [NonSerialized] public InputManager inputManager;
         [NonSerialized] public PlayerStatisticManager playerStatisticManager;
+        [NonSerialized] public PlayerInteractManager playerInteractManager;
 
         [NonSerialized] public PlayerIdleState playerIdleState;
         [NonSerialized] public PlayerPrimaryLightAttackState playerPrimaryLightAttackState;
@@ -36,7 +35,8 @@ namespace Player
         {
             inputManager = GetComponentInParent<InputManager>();
             playerSkillManager = GameObject.Find("Manager").GetComponent<PlayerSkillManager>();
-            playerStatisticManager= GetComponent<PlayerStatisticManager>();
+            playerStatisticManager = GetComponent<PlayerStatisticManager>();
+            playerInteractManager = GetComponent<PlayerInteractManager>();
         }
 
         void InitializeVariable()
@@ -64,6 +64,10 @@ namespace Player
             {
                 playerSkillManager.SlowTime();
             }
+            //if (inputManager.interact)
+            //{
+            //    Debug.Log("is Interact");
+            //}
         }
     }
 }

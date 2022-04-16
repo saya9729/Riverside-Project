@@ -15,6 +15,8 @@ namespace Player
         [SerializeField] private float ammo = 2;
         [SerializeField] private float velocity = 10;
 
+        private Camera _cam;
+
         public GameObject bullet;
         public Transform nozzlePoint;
 
@@ -26,6 +28,26 @@ namespace Player
             StartCoroutine(WaitAnim());
         }
 
+        void Shoot()
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(_cam.transform.position, _cam.transform.forward, out hit, range))
+            {
+                Debug.Log("hit " + hit.transform.name);
+                Transform target = hit.transform;
+
+                if (target.tag == "Player")
+                {
+                    target.GetComponent<PlayerStatisticManager>().DecreaseHealth(maxDamage);
+                }
+                if (target.tag == "Enemy")
+                {
+                    //decrease enemy HP
+                }
+
+            }
+        }
+
         IEnumerator WaitAnim() //wait animation ready to shoot
         {
             int layer = 0;
@@ -33,20 +55,23 @@ namespace Player
             float shootLength = animState.normalizedTime % 1;
             yield return new WaitForSeconds(shootLength);
 
-            var shot = Instantiate(bullet, nozzlePoint.position, Quaternion.identity);
-            shot.GetComponent<Rigidbody>().velocity = nozzlePoint.right * velocity; //create bullet
+            // var shot = Instantiate(bullet, nozzlePoint.position, Quaternion.identity);
+            // shot.GetComponent<Rigidbody>().velocity = nozzlePoint.right * velocity; //create bullet
+
+            Shoot();
 
             _playerStateManager.SwitchState(_playerStateManager.playerIdleState); //set bullet velocity
         }
 
         private void Start()
         {
-            _playerStateManager = GameObject.Find("PlayerStateManager").GetComponent<PlayerStateManager>(); 
+            _playerStateManager = GameObject.Find("PlayerStateManager").GetComponent<PlayerStateManager>();
+            _cam = GameObject.Find("MainCamera").GetComponent<Camera>();
         }
 
         public override void EnterState()
         {
-            SecondaryAttack();
+            //SecondaryAttack();
 
         }
 

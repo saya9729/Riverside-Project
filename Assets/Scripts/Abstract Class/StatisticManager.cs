@@ -15,9 +15,6 @@ namespace AbstractClass
 
         protected void InitializeVariable()
         {
-            _health = maxHealth;
-            _movementSpeed = _normalMovementSpeed;
-            _sol = maxSol;
             health = maxHealth;
         }
 

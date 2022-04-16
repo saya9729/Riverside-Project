@@ -16,7 +16,9 @@ namespace Player
         private float _timeAddToPrefixAndSuffixesCoefficient = 1f;
         private float _a1, _b1, _c1;
         private float _a2, _b2, _c2;
-        [NonSerialized] public bool gameIsSlowDown;
+        [NonSerialized] public bool gameIsSlowDown = false;
+        [SerializeField] private float amountPullFromSol = 1f;
+        [SerializeField] private float amountPerSecond = 1f;
 
         void Start()
         {
@@ -52,7 +54,8 @@ namespace Player
             while (slowdownAmount != 0)
             {
                 yield return new WaitForSeconds(1f * timeCoefficient);
-                slowdownAmount--;
+                slowdownAmount-= amountPerSecond;
+                slowdownAmount = Mathf.Clamp(slowdownAmount, 0f, 1f);
                 PlayerPrefs.SetFloat("SlowdownAmount", slowdownAmount);
                 PlayerPrefs.Save();
             }
@@ -74,7 +77,7 @@ namespace Player
             _playerStateManager.volume.enabled = false;
             gameIsSlowDown = false;
             StopAllCoroutines();
-            PullFromSol(1f);
+            PullFromSol(amountPullFromSol);
         }
         private void StartOfSlowTime(int _index)
         {
@@ -111,7 +114,7 @@ namespace Player
         }
         IEnumerator PullFromSolCoroutine(float p_amount)
         {
-            while (slowdownAmount < slowdownAmountMax)
+            while (slowdownAmount < slowdownAmountMax && gameIsSlowDown==false)
             {
                 yield return new WaitForSecondsRealtime(1);
                 if (_playerStateManager.playerStatisticManager.CanPullFromSol(p_amount))

@@ -15,6 +15,7 @@ namespace Player
         public Vector2 mousePosition;
         public bool useHealthPot;
         public bool menu;
+        public bool pullFromSol;
 
         [Header("Character Input Values")]
 

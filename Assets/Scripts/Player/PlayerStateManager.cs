@@ -1,5 +1,6 @@
-﻿using System;
 using UnityEngine;
+using UnityEngine.Rendering;
+using System;
 
 namespace Player
 {
@@ -11,6 +12,7 @@ namespace Player
         [NonSerialized] public PlayerSkillManager playerSkillManager;
         [NonSerialized] public InputManager inputManager;
         [NonSerialized] public PlayerStatisticManager playerStatisticManager;
+        [NonSerialized] public Volume volume;
         [NonSerialized] public PlayerInteractManager playerInteractManager;
 
         [NonSerialized] public PlayerIdleState playerIdleState;
@@ -42,6 +44,7 @@ namespace Player
         private void InitializeVariable()
         {
             playerAnimator = GetComponentInParent<Animator>();
+            volume = GameObject.Find("PlayerFollowCamera").GetComponent<Volume>();
         }
 
         private void InitializeState()
@@ -62,7 +65,9 @@ namespace Player
             _currentState.UpdateState();
             if (inputManager.usingPocketWatch)
             {
-                playerSkillManager.SlowTime();
+                playerSkillManager.gameIsSlowDown = !playerSkillManager.gameIsSlowDown;
+                playerSkillManager.ToggleSlowGame(playerSkillManager.gameIsSlowDown);
+                inputManager.usingPocketWatch = false;
             }
             //if (inputManager.interact)
             //{

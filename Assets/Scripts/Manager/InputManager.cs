@@ -15,6 +15,7 @@ namespace Player
         public Vector2 mousePosition;
         public bool useHealthPot;
         public bool menu;
+        public bool pullFromSol;
 
         [Header("Character Input Values")]
 
@@ -124,6 +125,11 @@ namespace Player
         public void OnMenu(InputValue p_value)
         {
             menu = p_value.isPressed;
+        }
+
+        public void OnPullFromSol(InputValue p_value)
+        {
+            pullFromSol = p_value.isPressed;
         }
 
 #if !UNITY_IOS || !UNITY_ANDROID

@@ -29,7 +29,7 @@ namespace Player
                 }
                 else Debug.Log("Damage not assigned to attack source.");
 
-                Debug.Log("current HP: " + _playerStatisticManager.GetHealth());
+                //Debug.Log("current HP: " + _playerStatisticManager.GetHealth());
             }
         }
     }

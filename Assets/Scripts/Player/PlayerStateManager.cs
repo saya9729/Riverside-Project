@@ -8,6 +8,7 @@ namespace Player
     {
         //Manager
         [NonSerialized] public SelectionManager selectionManager;
+
         [NonSerialized] public PlayerSkillManager playerSkillManager;
         [NonSerialized] public InputManager inputManager;
         [NonSerialized] public PlayerStatisticManager playerStatisticManager;
@@ -28,12 +29,11 @@ namespace Player
             InitializeState();
             InitializeVariable();
 
-
             _currentState = playerIdleState;
             _currentState.EnterState();
         }
 
-        void InitializeManager()
+        private void InitializeManager()
         {
             inputManager = GetComponentInParent<InputManager>();
             playerSkillManager = GameObject.Find("Manager").GetComponent<PlayerSkillManager>();
@@ -41,13 +41,13 @@ namespace Player
             playerInteractManager = GetComponent<PlayerInteractManager>();
         }
 
-        void InitializeVariable()
+        private void InitializeVariable()
         {
             playerAnimator = GetComponentInParent<Animator>();
             volume = GameObject.Find("PlayerFollowCamera").GetComponent<Volume>();
         }
 
-        void InitializeState()
+        private void InitializeState()
         {
             playerIdleState = GetComponent<PlayerIdleState>();
             playerPrimaryLightAttackState = GetComponent<PlayerPrimaryLightAttackState>();
@@ -60,7 +60,7 @@ namespace Player
             _currentState.PhysicsUpdateState();
         }
 
-        void Update()
+        private void Update()
         {
             _currentState.UpdateState();
             if (inputManager.usingPocketWatch)

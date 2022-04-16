@@ -6,6 +6,5 @@ namespace Player
 {
     public class PlayerStatisticManager : AbstractClass.StatisticManager
     {
-        
     }
 }

@@ -1,6 +1,8 @@
 using AbstractClass;
-using UnityEngine;
 using HighlightPlus;
+using UnityEngine;
+using UnityEngine.InputSystem;
+
 
 namespace Player
 {
@@ -9,22 +11,22 @@ namespace Player
         public float interactionDistance;
         public TMPro.TextMeshProUGUI interactionText;
 
-
         private Camera _cam;
-        private Interactable _interactable;        
+        private Interactable _interactable;
         private HighlightEffect _highlightEffect;
         private PlayerStateManager _playerStateManager;
+        private PlayerInput _playerInput;
 
         private void Start()
         {
             _cam = Camera.main;
             _highlightEffect = GetComponent<HighlightEffect>();
             _playerStateManager = GetComponent<PlayerStateManager>();
+            _playerInput = GetComponentInParent<PlayerInput>();
         }
 
         private void Update()
         {
-           
             CheckInteraction();
         }
 
@@ -40,25 +42,31 @@ namespace Player
                 if (_interactable != null)
                 {
                     HandleInteraction();
-                    interactionText.text = _interactable.GetDescription();                    
+                    interactionText.text = _interactable.GetDescription();
                     successfulHit = true;
                 }
             }
 
             if (!successfulHit)
             {
-                interactionText.text = "";                
+                interactionText.text = "";
             }
         }
 
         private void HandleInteraction()
         {
-            if (_playerStateManager.inputManager.interact )
+            //if (_playerStateManager.inputManager.interact)
+            //{
+            //    _interactable.Interact();
+            //}
+            //if (InputProxy.GetKeyDown("E"))
+            //{
+            //    _interactable.Interact();
+            //}
+            if (_playerInput.actions["Interact"].WasPressedThisFrame())
             {
                 _interactable.Interact();
             }
         }
-        
-
     }
 }

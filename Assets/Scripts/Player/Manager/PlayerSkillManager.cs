@@ -53,9 +53,9 @@ namespace Player
 
             while (slowdownAmount != 0)
             {
-                yield return new WaitForSeconds(1f * timeCoefficient);
+                yield return new WaitForSecondsRealtime(1);
                 slowdownAmount-= amountPerSecond;
-                slowdownAmount = Mathf.Clamp(slowdownAmount, 0f, 1f);
+                slowdownAmount = Mathf.Clamp(slowdownAmount, 0f, slowdownAmountMax);
                 PlayerPrefs.SetFloat("SlowdownAmount", slowdownAmount);
                 PlayerPrefs.Save();
             }

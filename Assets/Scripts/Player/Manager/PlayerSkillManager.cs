@@ -74,7 +74,7 @@ namespace Player
             _playerStateManager.volume.enabled = false;
             gameIsSlowDown = false;
             StopAllCoroutines();
-
+            PullFromSol(1f);
         }
         private void StartOfSlowTime(int _index)
         {
@@ -109,15 +109,23 @@ namespace Player
             }
             else if(!p_toggle) { UnSlowTime(); }
         }
-        
-   
+        IEnumerator PullFromSolCoroutine(float p_amount)
+        {
+            while (slowdownAmount < slowdownAmountMax)
+            {
+                yield return new WaitForSecondsRealtime(1);
+                if (_playerStateManager.playerStatisticManager.CanPullFromSol(p_amount))
+                {
+                    slowdownAmount += p_amount;
+                    PlayerPrefs.SetFloat("SlowdownAmount", slowdownAmount);
+                    PlayerPrefs.Save();
+                }
+            }
+        }
+
         public void PullFromSol(float p_amount)
         {
-            if(slowdownAmount >= slowdownAmountMax) return;
-            if (!_playerStateManager.playerStatisticManager.CanPullFromSol(p_amount)) return;
-            slowdownAmount += p_amount;
-            PlayerPrefs.SetFloat("SlowdownAmount", slowdownAmount);
-            PlayerPrefs.Save();
+            StartCoroutine(PullFromSolCoroutine(p_amount));
         }
     }
 }

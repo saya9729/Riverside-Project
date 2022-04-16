@@ -69,10 +69,6 @@ namespace Player
                 playerSkillManager.ToggleSlowGame(playerSkillManager.gameIsSlowDown);
                 inputManager.usingPocketWatch = false;
             }
-            else if (inputManager.pullFromSol && playerSkillManager.gameIsSlowDown == false)
-            {
-                playerSkillManager.PullFromSol(1f);
-            }
             //if (inputManager.interact)
             //{
             //    Debug.Log("is Interact");

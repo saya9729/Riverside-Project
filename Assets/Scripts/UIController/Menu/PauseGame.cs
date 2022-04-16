@@ -25,7 +25,7 @@ namespace GameUI
                 Debug.Log(_gameIsPause);
                 TogglePauseGame(_gameIsPause);
                 */
-                gameMenu.QuitGameToMainMenu();
+                //gameMenu.QuitGameToMainMenu();
                 _inputManager.menu = false;
             }
         }

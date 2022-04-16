@@ -1163,7 +1163,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2054291922384087156}
-  - component: {fileID: 5082648727559204896}
   m_Layer: 0
   m_Name: mixamorig:Spine
   m_TagString: Untagged
@@ -1186,19 +1185,6 @@ Transform:
   m_Father: {fileID: 1795447828577917927}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &5082648727559204896
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5082648727559204899}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.59, y: 1.74, z: 0.34}
-  m_Center: {x: 0, y: -0.18, z: 0}
 --- !u!1 &5397848694797786871
 GameObject:
   m_ObjectHideFlags: 0
@@ -1373,6 +1359,7 @@ GameObject:
   - component: {fileID: 5994394424565356143}
   - component: {fileID: 5994394424565356142}
   - component: {fileID: 5087025086594256949}
+  - component: {fileID: 4413844397841544628}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -1476,6 +1463,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeBeforeDisappear: 0
+  solPrefab: {fileID: 0}
+  solParent: {fileID: 0}
 --- !u!195 &3520729288999062181
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1545,8 +1534,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 0
   maxHealth: 100
-  movementSpeed: 0
-  normalMovementSpeed: 100
+--- !u!114 &4413844397841544628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5994394424565356048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6b61a814c8442b4b9d031f81745b227, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6237309955236082872
 GameObject:
   m_ObjectHideFlags: 0
@@ -2282,9 +2281,10 @@ GameObject:
   m_Component:
   - component: {fileID: 5369963328283796304}
   - component: {fileID: 8547828491857899926}
+  - component: {fileID: 7634408989114573523}
   m_Layer: 0
   m_Name: mixamorig:RightHand
-  m_TagString: Untagged
+  m_TagString: EnemyAttack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2316,11 +2316,24 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8547828491857899929}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.23, y: 0.12, z: 0.15}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7634408989114573523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8547828491857899929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 114987e498c01824fb80092cff33d2c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dmg: 15
 --- !u!1 &8586748851254708801
 GameObject:
   m_ObjectHideFlags: 0

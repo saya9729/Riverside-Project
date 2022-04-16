@@ -36,11 +36,7 @@ namespace Player
                 Debug.Log("hit " + hit.transform.name);
                 Transform target = hit.transform;
 
-                if (target.tag == "Player")
-                {
-                    target.GetComponent<PlayerStatisticManager>().DecreaseHealth(maxDamage);
-                }
-                if (target.tag == "Enemy")
+                if (target.CompareTag("Enemy"))
                 {
                     //decrease enemy HP
                 }
@@ -71,7 +67,7 @@ namespace Player
 
         public override void EnterState()
         {
-            //SecondaryAttack();
+            SecondaryAttack();
 
         }
 

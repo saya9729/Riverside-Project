@@ -9,6 +9,7 @@ TagManager:
   - Inspectable
   - EnemyAttack
   - Enemy
+  - PlayerAttack
   layers:
   - Default
   - TransparentFX

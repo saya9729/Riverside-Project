@@ -13,7 +13,7 @@ namespace Player
         {
             //sol = PlayerPrefs.GetFloat("Sol", 50f);
             health = 100f;
-            _playerDeathSequence = GameObject.Find("Manager").GetComponent<PlayerDeathSequence>();
+            _playerDeathSequence = GetComponent<PlayerDeathSequence>();
         }
 
         public bool CanPullFromSol(float p_amount)

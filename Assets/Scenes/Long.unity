@@ -5587,8 +5587,6 @@ MonoBehaviour:
   reloadTime: 1
   ammo: 2
   velocity: 10
-  bullet: {fileID: 0}
-  nozzlePoint: {fileID: 0}
 --- !u!114 &1728413941
 MonoBehaviour:
   m_ObjectHideFlags: 0

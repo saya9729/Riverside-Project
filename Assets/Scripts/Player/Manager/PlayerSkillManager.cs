@@ -22,7 +22,7 @@ namespace Player
 
         void Start()
         {
-            _playerStateManager = GameObject.Find("PlayerStateManager").GetComponent<PlayerStateManager>();
+            _playerStateManager = GetComponent<PlayerStateManager>();
             slowdownAmount = PlayerPrefs.GetFloat("SlowdownAmount", slowdownAmountMax);
             gameIsSlowDown = false;
             _a1 = timeCoefficient - 1f;

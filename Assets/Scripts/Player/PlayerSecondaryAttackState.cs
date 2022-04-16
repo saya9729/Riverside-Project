@@ -17,9 +17,6 @@ namespace Player
 
         private Camera _cam;
 
-        public GameObject bullet;
-        public Transform nozzlePoint;
-
         private bool hasShot = false;
 
         public void SecondaryAttack()
@@ -61,7 +58,7 @@ namespace Player
 
         private void Start()
         {
-            _playerStateManager = GameObject.Find("PlayerStateManager").GetComponent<PlayerStateManager>();
+            _playerStateManager = GetComponent<PlayerStateManager>();
             _cam = GameObject.Find("MainCamera").GetComponent<Camera>();
         }
 

@@ -9,7 +9,7 @@ namespace Player
 
         private void Start()
         {
-            _playerStateManager = GameObject.Find("PlayerStateManager").GetComponent<PlayerStateManager>();
+            _playerStateManager = GetComponent<PlayerStateManager>();
         }
 
         public override void EnterState()

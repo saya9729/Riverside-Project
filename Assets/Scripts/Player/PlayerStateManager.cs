@@ -36,7 +36,7 @@ namespace Player
         private void InitializeManager()
         {
             inputManager = GetComponentInParent<InputManager>();
-            playerSkillManager = GameObject.Find("Manager").GetComponent<PlayerSkillManager>();
+            playerSkillManager = GetComponent<PlayerSkillManager>();
             playerStatisticManager = GetComponent<PlayerStatisticManager>();
             playerInteractManager = GetComponent<PlayerInteractManager>();
         }

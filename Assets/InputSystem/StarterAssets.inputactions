@@ -130,7 +130,7 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                }
+                },
                 {
                     "name": "Interact",
                     "type": "PassThrough",
@@ -416,8 +416,8 @@
                     "action": "PullFromSol",
                     "isComposite": false,
                     "isPartOfComposite": false
-                }
-                 {
+                },
+                {
                     "name": "",
                     "id": "4046eec2-a635-4ef8-ac04-9cdadbda4dd1",
                     "path": "<Keyboard>/e",

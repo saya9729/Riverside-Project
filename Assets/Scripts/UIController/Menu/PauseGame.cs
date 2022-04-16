@@ -6,10 +6,10 @@ namespace GameUI
     public class PauseGame : MonoBehaviour
     {
         private Player.InputManager _inputManager;
-        [SerializeField] private GameObject canvas;
+        [SerializeField] private GameObject gameMenuCanvas;
+        [SerializeField] private GameObject gameUICanvas;
         [SerializeField] private GameMenu gameMenu;
         private bool _gameIsPause = false;
-        private GameMenu _gameMenu;
         void Start()
         {
             Initialize();
@@ -36,7 +36,8 @@ namespace GameUI
         }
         void TogglePauseGame(bool p_toggleMenuButton)
         {
-            canvas.SetActive(p_toggleMenuButton);
+            gameMenuCanvas.SetActive(p_toggleMenuButton);
+            gameUICanvas.SetActive(!p_toggleMenuButton);
             Time.timeScale = p_toggleMenuButton ? 0f : 1f;
         }
     }

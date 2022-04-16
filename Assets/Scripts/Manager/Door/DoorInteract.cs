@@ -2,58 +2,61 @@ using AbstractClass;
 using HighlightPlus;
 using UnityEngine;
 
-[RequireComponent(typeof(HighlightEffect))]
-public class DoorInteract : Interactable
+namespace Player
 {
-    [Tooltip("Number of key need to open this door")]
-    public int keyNumbers = 3;
-    public GameObject[] platform;
-
-    private HighlightEffect _highlightEffect;
-    private int _countKey = 0;
-
-    private void Start()
+    [RequireComponent(typeof(HighlightEffect))]
+    public class DoorInteract : Interactable
     {
-        _highlightEffect = GetComponent<HighlightEffect>();
+        [Tooltip("Number of key need to open this door")]
+        public int keyNumbers = 3;
+        public GameObject[] platform;
 
-        isInteractable = false;
-        _highlightEffect.SetHighlighted(true);
-        this.RegisterListener(EventID.onKeyCollected, (param) => OnKeyCollected((int)param));
-    }
+        private HighlightEffect _highlightEffect;
+        private int _countKey = 0;
 
-    public override string GetDescription()
-    {
-        if (isInteractable)
+        private void Start()
         {
-            return "[E] Interact with Door";
-        }
-        else
-        {
-            return "";
-        }
-    }
+            _highlightEffect = GetComponent<HighlightEffect>();
 
-    public override void Interact()
-    {
-        if (isInteractable)
-        {
-            _highlightEffect.SetHighlighted(false);
             isInteractable = false;
+            _highlightEffect.SetHighlighted(true);
+            this.RegisterListener(EventID.onKeyCollected, (param) => OnKeyCollected((int)param));
         }
-    }
 
-    private void OnKeyCollected(int p_count)
-    {
-        _countKey += p_count;
-        Debug.Log("count key " + _countKey);
-        if (_countKey >= keyNumbers)
+        public override string GetDescription()
         {
-            isInteractable = true;
-            platform[0].SetActive(true);
+            if (isInteractable)
+            {
+                return "[E] Interact with Door";
+            }
+            else
+            {
+                return "";
+            }
         }
-        else
+
+        public override void Interact()
         {
-            isInteractable = false;
+            if (isInteractable)
+            {
+                _highlightEffect.SetHighlighted(false);
+                isInteractable = false;
+            }
+        }
+
+        private void OnKeyCollected(int p_count)
+        {
+            _countKey += p_count;
+            Debug.Log("count key " + _countKey);
+            if (_countKey >= keyNumbers)
+            {
+                isInteractable = true;
+                platform[0].SetActive(true);
+            }
+            else
+            {
+                isInteractable = false;
+            }
         }
     }
 }

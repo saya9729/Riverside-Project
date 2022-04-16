@@ -2,42 +2,45 @@ using AbstractClass;
 using HighlightPlus;
 using UnityEngine;
 
-[RequireComponent(typeof(HighlightEffect))]
-public class KeyInteract : Interactable
+namespace Player
 {
-    private HighlightEffect _highlightEffect;
-
-    private void Start()
+    [RequireComponent(typeof(HighlightEffect))]
+    public class KeyInteract : Interactable
     {
-        _highlightEffect = GetComponent<HighlightEffect>();
+        private HighlightEffect _highlightEffect;
 
-        isInteractable = true;
-        _highlightEffect.SetHighlighted(true);
-    }
-
-    public override string GetDescription()
-    {
-        if (isInteractable)
+        private void Start()
         {
-            return "[E] Interact with Key";
-        }
-        else
-        {
-            return "";
-        }
-    }
+            _highlightEffect = GetComponent<HighlightEffect>();
 
-    public override void Interact()
-    {
-        if (isInteractable)
-        {
-            _highlightEffect.SetHighlighted(false);
-            isInteractable = false;
-            this.PostEvent(EventID.onKeyCollected, 1);
+            isInteractable = true;
+            _highlightEffect.SetHighlighted(true);
         }
-    }
 
-    private void OnEnemyDead(int p_count)
-    {
+        public override string GetDescription()
+        {
+            if (isInteractable)
+            {
+                return "[E] Interact with Key";
+            }
+            else
+            {
+                return "";
+            }
+        }
+
+        public override void Interact()
+        {
+            if (isInteractable)
+            {
+                _highlightEffect.SetHighlighted(false);
+                isInteractable = false;
+                this.PostEvent(EventID.onKeyCollected, 1);
+            }
+        }
+
+        private void OnEnemyDead(int p_count)
+        {
+        }
     }
 }

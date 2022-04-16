@@ -11,7 +11,8 @@ namespace Player
 
         void Start()
         {
-            _playerStatisticManager = GetComponent<PlayerStatisticManager>();
+            _playerStatisticManager = GetComponentInChildren<PlayerStatisticManager>();
+                
         }
 
         void OnTriggerEnter(Collider other)

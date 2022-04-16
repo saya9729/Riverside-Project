@@ -19,7 +19,7 @@ namespace Enemy
 
         [NonSerialized] public NavMeshAgent navMeshAgent;
         [NonSerialized] public LayerMask playerLayerMask;
-        [NonSerialized] public GameObject player;
+        public GameObject player;
         [NonSerialized] public AnimationClip[] animationClips;
 
         private void Start()
@@ -40,7 +40,7 @@ namespace Enemy
         {
             navMeshAgent = GetComponent<NavMeshAgent>();
             playerLayerMask = LayerMask.GetMask("Player");
-            player = GameObject.Find("Player");
+            //player = GameObject.Find("MainPlayer");
             animationClips = animator.runtimeAnimatorController.animationClips;
         }
 

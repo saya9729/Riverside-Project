@@ -88,7 +88,7 @@
                 },
                 {
                     "name": "Secondary Attack",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "b7e1f615-2e68-414e-b029-374e0b5f4591",
                     "expectedControlType": "Button",
                     "processors": "",

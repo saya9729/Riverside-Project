@@ -289,7 +289,7 @@ namespace Player
                 _dodgeTimeoutDelta -= Time.unscaledDeltaTime;
                 // Debug.Log(_dashTimeoutDelta);
             }
-            if (_input.dodge)
+            if (_input.dash)
             {
                 //Debug.Log("dash" + _dashTimeoutDelta);
                 if (_dodgeTimeoutDelta <= 0.0f)
@@ -310,7 +310,7 @@ namespace Player
                 yield return null;
             }
             _dodgeTimeoutDelta = DodgeTimeout;
-            _input.dodge = false;
+            _input.dash = false;
         }
 
         private void onDodgePress()

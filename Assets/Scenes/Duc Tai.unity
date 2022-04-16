@@ -1000,42 +1000,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentSuperState: {fileID: 0}
   currentSubState: {fileID: 0}
-  MoveSpeed: 4
-  RunSpeed: 6
-  RotationSpeed: 1
-  SpeedChangeRate: 10
-  DodgeSpeed: 2
-  DodgeDuration: 0.25
-  DodgeTimeout: 1
-  CrouchSpeed: 2
-  CrouchHeight: 1.6
-  CrouchCenter: {x: 0, y: 0.93, z: 0}
-  timeToCrouch: 0.25
-  JumpHeight: 1.2
-  Gravity: -15
-  JumpTimeout: 0.1
-  FallTimeout: 0.15
-  Grounded: 1
-  GroundedOffset: -0.14
-  GroundedRadius: 0.5
-  GroundLayers:
-    serializedVersion: 2
-    m_Bits: 65
-  CinemachineCameraTarget: {fileID: 8338988565591873048}
-  TopClamp: 90
-  BottomClamp: -90
-  _inputDirection: {x: 0, y: 0, z: 0}
-  _isCrouching: 0
-  _isDashable: 1
-  _isJumpable: 1
-  _speed: 0
-  _rotationVelocity: 0
-  _verticalVelocity: 0
-  _terminalVelocity: 53
-  _playerInput: {fileID: 0}
-  _controller: {fileID: 0}
-  _input: {fileID: 0}
+  runSpeed: 6
+  speedChangeRate: 10
+  rotationSpeed: 1
   mouseSensitivity: 0
+  dashSpeed: 200
+  dashDuration: 0.25
+  dashTimeout: 1
+  jumpHeight: 1.2
+  gravity: -15
+  terminalVelocity: 53
+  jumpCooldown: 0.1
+  airborneCooldown: 0.15
+  isGrounded: 1
+  groundedOffset: -0.14
+  groundedRadius: 0.5
+  groundLayers:
+    serializedVersion: 2
+    m_Bits: 4161
+  cinemachineCameraTarget: {fileID: 8338988565591873048}
+  topClamp: 90
+  bottomClamp: -90
+  inputDirection: {x: 0, y: 0, z: 0}
+  speed: 0
+  rotationVelocity: 0
+  verticalVelocity: 0
+  isDashable: 1
+  isJumpable: 1
+  playerInput: {fileID: 0}
+  characterController: {fileID: 0}
+  inputManager: {fileID: 0}
 --- !u!114 &890799993
 MonoBehaviour:
   m_ObjectHideFlags: 0

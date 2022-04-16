@@ -7,4 +7,5 @@ public enum EventID
     None = 0,
     onDodgePress,
     onKeyCollected,
+    onHPPotCollected,
 }

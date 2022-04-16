@@ -6,7 +6,7 @@ namespace Player
     {
         private void OnTriggerEnter(Collider collider)
         {
-            if (collider.tag == "Player")
+            if (collider.CompareTag("Player"))
             {
                 //HP Potion collected
                 this.PostEvent(EventID.onHPPotCollected);

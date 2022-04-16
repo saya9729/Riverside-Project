@@ -13,14 +13,14 @@ namespace Player
         }
         IEnumerator WaitAndBackToRunWhileAirborne()
         {
-            yield return new WaitForSeconds(_playerMovementController.DodgeDuration);
+            yield return new WaitForSeconds(_playerMovementController.dashDuration);
             currentSuperState.SwitchToState("RunWhileAirborne");
         }
         IEnumerator StartDashCooldown()
         {
-            _playerMovementController._isDashable = false;
-            yield return new WaitForSeconds(_playerMovementController.DodgeTimeout);
-            _playerMovementController._isDashable = true;
+            _playerMovementController.isDashable = false;
+            yield return new WaitForSeconds(_playerMovementController.dashTimeout);
+            _playerMovementController.isDashable = true;
         }
 
         public override void ExitState()
@@ -35,15 +35,15 @@ namespace Player
 
         protected override void CheckSwitchState()
         {
-            if (_playerMovementController.Grounded)
+            if (_playerMovementController.isGrounded)
             {
                 currentSuperState.SwitchToState("Dash");
             }
         }
         private void Dash()
         {
-            _playerMovementController._speed = _playerMovementController.DodgeSpeed;
-            _playerMovementController._controller.Move(_playerMovementController._inputDirection.normalized * _playerMovementController._speed * Time.unscaledDeltaTime);
+            _playerMovementController.speed = _playerMovementController.dashSpeed;
+            _playerMovementController.characterController.Move(_playerMovementController.inputDirection.normalized * _playerMovementController.speed * Time.unscaledDeltaTime);
         }
 
         protected override void InitializeManager()

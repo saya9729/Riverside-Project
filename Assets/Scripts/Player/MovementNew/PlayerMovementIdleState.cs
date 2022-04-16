@@ -24,11 +24,11 @@ namespace Player
         }
         protected override void CheckSwitchState()
         {
-            if (_playerMovementController._input.move != Vector2.zero)
+            if (_playerMovementController.inputManager.move != Vector2.zero)
             {
                 currentSuperState.SwitchToState("Run");
             }
-            else if (!_playerMovementController.Grounded)
+            else if (!_playerMovementController.isGrounded)
             {
                 currentSuperState.SwitchToState("IdleWhileAirborne");
             }

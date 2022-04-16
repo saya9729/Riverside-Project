@@ -12,94 +12,80 @@ namespace Player
     public class PlayerMovementController : AbstractClass.StateNew
     {
         [Header("Player")]
-        [Tooltip("Move speed of the character in m/s")]
-        public float MoveSpeed = 4.0f;
         [Tooltip("Run speed of the character in m/s")]
-        public float RunSpeed = 6.0f;
-        [Tooltip("Rotation speed of the character")]
-        public float RotationSpeed = 1.0f;
+        public float runSpeed = 6.0f;
         [Tooltip("Acceleration and deceleration")]
-        public float SpeedChangeRate = 10.0f;
+        public float speedChangeRate = 10.0f;
+        [Tooltip("Rotation speed of the character")]
+        public float rotationSpeed = 1.0f;
+
+        public float mouseSensitivity=1;
 
         [Space(10)]
         [Tooltip("Dash speed of the character in m/s")]
-        public float DodgeSpeed = 2f;
+        public float dashSpeed = 2f;
         [Tooltip("Dashing duration of each dash")]
-        public float DodgeDuration = 0.25f;
+        public float dashDuration = 0.25f;
         [Tooltip("Time required to pass before being able to dash again")]
-        public float DodgeTimeout = 1f;
-
-
-        [Space(10)]
-        [Tooltip("Crouch speed of the character in m/s")]
-        public float CrouchSpeed = 2f;
-        [Tooltip("Crouch height of character")]
-        public float CrouchHeight = 1.6f;
-        public Vector3 CrouchCenter = new Vector3(0, 0.93f, 0);
-        public float timeToCrouch = 0.25f;
+        public float dashTimeout = 1f;
 
         [Space(10)]
         [Tooltip("The height the player can jump")]
-        public float JumpHeight = 1.2f;
+        public float jumpHeight = 1.2f;
         [Tooltip("The character uses its own gravity value. The engine default is -9.81f")]
-        public float Gravity = -15.0f;
+        public float gravity = -15.0f;
+
+        public float terminalVelocity = 53.0f;
 
         [Space(10)]
         [Tooltip("Time required to pass before being able to jump again. Set to 0f to instantly jump again")]
-        public float JumpTimeout = 0.1f;
+        public float jumpCooldown = 0.1f;
         [Tooltip("Time required to pass before entering the fall state. Useful for walking down stairs")]
-        public float FallTimeout = 0.15f;
+        public float airborneCooldown = 0.15f;
 
         [Header("Player Grounded")]
         [Tooltip("If the character is grounded or not. Not part of the CharacterController built in grounded check")]
-        public bool Grounded = true;
+        public bool isGrounded = true;
         [Tooltip("Useful for rough ground")]
-        public float GroundedOffset = -0.14f;
+        public float groundedOffset = -0.14f;
         [Tooltip("The radius of the grounded check. Should match the radius of the CharacterController")]
-        public float GroundedRadius = 0.5f;
+        public float groundedRadius = 0.5f;
         [Tooltip("What layers the character uses as ground")]
-        public LayerMask GroundLayers;
+        public LayerMask groundLayers;
 
         [Header("Cinemachine")]
         [Tooltip("The follow target set in the Cinemachine Virtual Camera that the camera will follow")]
-        public GameObject CinemachineCameraTarget;
+        public GameObject cinemachineCameraTarget;
         [Tooltip("How far in degrees can you move the camera up")]
-        public float TopClamp = 90.0f;
+        public float topClamp = 90.0f;
         [Tooltip("How far in degrees can you move the camera down")]
-        public float BottomClamp = -90.0f;
+        public float bottomClamp = -90.0f;
 
         //input direction
-        public Vector3 _inputDirection;
-        //controller original value
-        private float _controllerOriginalHeight;
-        private Vector3 _controllerOriginalCenter;
-        public bool _isCrouching;
-        public bool _isDashable = true;
-        public bool _isJumpable = true;
+        public Vector3 inputDirection;    
 
         // cinemachine
         private float _cinemachineTargetPitch;
 
-        // player
-        public float _speed;
-        public float _rotationVelocity;
-        public float _verticalVelocity;
-        public float _terminalVelocity = 53.0f;
+        // player stats
+        public float speed;
+        public float rotationVelocity;
+        public float verticalVelocity;
+        public bool isDashable = true;
+        public bool isJumpable = true;
 
         // timeout unscaledDeltaTime
 
-        public PlayerInput _playerInput;
-        public CharacterController _controller;
-        private Rigidbody _playerRigidbody;
-        public InputManager _input;
+        public PlayerInput playerInput;
+        public CharacterController characterController;
+        public InputManager inputManager;
         private GameObject _mainCamera;
 
         private const float _threshold = 0.01f;
 
-        private bool IsCurrentDeviceMouse => _playerInput.currentControlScheme == "KeyboardMouse";
-
-        public float mouseSensitivity;
-                
+        private bool IsCurrentDeviceMouse => playerInput.currentControlScheme == "KeyboardMouse";
+        
+        //States logic
         private PlayerMovementIdleState _playerMovementIdleState;
         private PlayerRunState _playerRunState;
         private PlayerDashState _playerDashState;
@@ -144,13 +130,12 @@ namespace Player
         }
         private void InitializeComponent()
         {
-            _controller = GetComponent<CharacterController>();            
-            _playerInput = GetComponent<PlayerInput>();
-            _playerRigidbody = GetComponent<Rigidbody>();
+            characterController = GetComponent<CharacterController>();            
+            playerInput = GetComponent<PlayerInput>();
         }
         protected override void InitializeManager()
         {
-            _input = GetComponent<InputManager>();
+            inputManager = GetComponent<InputManager>();
         }
         private void InitializeVariable()
         {
@@ -185,61 +170,61 @@ namespace Player
 
         private void Jump()
         {
-            if (Grounded && _input.jump && _isJumpable)
+            if (isGrounded && inputManager.jump && isJumpable)
             {
                 // the square root of H * -2 * G = how much velocity needed to reach desired height
-                _verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
+                verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
                 StartCoroutine(StartJumpCooldown());
             }
         }
         IEnumerator StartJumpCooldown()
         {
-            _isJumpable = false;
-            yield return new WaitForSeconds(JumpTimeout);
-            _isJumpable = true;
+            isJumpable = false;
+            yield return new WaitForSeconds(jumpCooldown);
+            isJumpable = true;
         }
 
         private void HandleRunInput()
         {
             // normalise input direction
-            _inputDirection = new Vector3(_input.move.x, 0.0f, _input.move.y).normalized;
+            inputDirection = new Vector3(inputManager.move.x, 0.0f, inputManager.move.y).normalized;
 
             // note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
             // if there is a move input rotate player when the player is moving
-            if (_input.move != Vector2.zero)
+            if (inputManager.move != Vector2.zero)
             {
                 // move
-                _inputDirection = transform.right * _input.move.x + transform.forward * _input.move.y;
+                inputDirection = transform.right * inputManager.move.x + transform.forward * inputManager.move.y;
             }
         }        
         
         private void CheckGrounded()
         {
             // set sphere position, with offset
-            Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z);
-            Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers, QueryTriggerInteraction.Ignore);
+            Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - groundedOffset, transform.position.z);
+            isGrounded = Physics.CheckSphere(spherePosition, groundedRadius, groundLayers, QueryTriggerInteraction.Ignore);
         }
         
         private void Look()
         {
             // if there is an input
-            if (_input.look.sqrMagnitude >= _threshold)
+            if (inputManager.look.sqrMagnitude >= _threshold)
             {
                 //Don't multiply mouse input by Time.unscaledDeltaTime
                 //float unscaledDeltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.unscaledDeltaTime;
                 float unscaledDeltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.unscaledDeltaTime;
 
-                _cinemachineTargetPitch += _input.look.y * RotationSpeed * unscaledDeltaTimeMultiplier;
-                _rotationVelocity = _input.look.x * RotationSpeed * unscaledDeltaTimeMultiplier;
+                _cinemachineTargetPitch += inputManager.look.y * rotationSpeed * unscaledDeltaTimeMultiplier;
+                rotationVelocity = inputManager.look.x * rotationSpeed * unscaledDeltaTimeMultiplier;
 
                 // clamp our pitch rotation
-                _cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
+                _cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, bottomClamp, topClamp);
 
                 // Update Cinemachine camera target pitch
-                CinemachineCameraTarget.transform.localRotation = Quaternion.Euler(_cinemachineTargetPitch, 0.0f, 0.0f);
+                cinemachineCameraTarget.transform.localRotation = Quaternion.Euler(_cinemachineTargetPitch, 0.0f, 0.0f);
 
                 // rotate the player left and right
-                transform.Rotate(Vector3.up * _rotationVelocity);
+                transform.Rotate(Vector3.up * rotationVelocity);
             }
         }
         private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
@@ -251,20 +236,20 @@ namespace Player
         
         private void ApplyGravity()
         {
-            if (Grounded)
+            if (isGrounded)
             {
                 // stop our velocity dropping infinitely when grounded
-                if (_verticalVelocity < 0.0f)
+                if (verticalVelocity < 0.0f)
                 {
-                    _verticalVelocity = -2f;
+                    verticalVelocity = -2f;
                 }
             }
             // apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
-            if (_verticalVelocity < _terminalVelocity)
+            if (verticalVelocity < terminalVelocity)
             {
-                _verticalVelocity += Gravity * Time.unscaledDeltaTime;
+                verticalVelocity += gravity * Time.unscaledDeltaTime;
             }
-            _controller.Move(new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.unscaledDeltaTime);
+            characterController.Move(new Vector3(0.0f, verticalVelocity, 0.0f) * Time.unscaledDeltaTime);
         }
 
         private void OnDrawGizmosSelected()
@@ -272,13 +257,13 @@ namespace Player
             Color transparentGreen = new Color(0.0f, 1.0f, 0.0f, 0.35f);
             Color transparentRed = new Color(1.0f, 0.0f, 0.0f, 0.35f);
 
-            if (Grounded) Gizmos.color = transparentGreen;
+            if (isGrounded) Gizmos.color = transparentGreen;
             else Gizmos.color = transparentRed;
 
 
 
             // when selected, draw a gizmo in the position of, and matching radius of, the grounded collider
-            Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z), GroundedRadius);
+            Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - groundedOffset, transform.position.z), groundedRadius);
                         
         }
 
@@ -289,11 +274,7 @@ namespace Player
 
         protected override void PhysicsUpdateThisState()
         {
-            //HandleRunInput();
-            //Look();
-            //CheckGrounded();
-            //Jump();
-            //ApplyGravity();
+            
         }
 
         public override void ExitState()

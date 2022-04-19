@@ -13,7 +13,7 @@ namespace Player
         private const int maxBullet = 6;
         private int curBullet;
         private float reloadTime = 2;
-        private bool reloading = false;
+        private bool isReloading = false;
 
         void Start()
         {
@@ -24,9 +24,9 @@ namespace Player
 
         IEnumerator ReloadOnSol(float time, int bulletAmount)
         {
-            reloading = true;
+            isReloading = true;
 
-            yield return new WaitForSeconds(time);
+            yield return new WaitForSecondsRealtime(time);
 
             if (_playerStatisticManager.CanPullFromSol(bulletAmount))
             {
@@ -35,18 +35,19 @@ namespace Player
             }
             else Debug.Log("Not enough Sols to reload.");
 
-            reloading = false;
+            isReloading = false;
         }
 
         void Update()
         {
-            if (curBullet <= 0 && !reloading)
+            if (curBullet <= 0 && !isReloading)
             {
                 StartCoroutine(ReloadOnSol(reloadTime, maxBullet));
             }
-            // if(_inputManager.reload  && !reloading) //chưa có input reload
-            //     StartCoroutine(ReloadOnSol(reloadTime, maxBullet - curBullet);
-            // }
+            if(_inputManager.pullFromSol  && !isReloading) 
+            {
+                StartCoroutine(ReloadOnSol(reloadTime, maxBullet - curBullet));
+            }
         }
     }
 }

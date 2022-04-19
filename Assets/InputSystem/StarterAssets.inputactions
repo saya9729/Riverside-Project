@@ -409,7 +409,7 @@
                 {
                     "name": "",
                     "id": "d57eea50-89e3-4eab-b577-90e398e556db",
-                    "path": "<Keyboard>/numpadPlus",
+                    "path": "<Keyboard>/r",
                     "interactions": "",
                     "processors": "",
                     "groups": "KeyboardMouse",

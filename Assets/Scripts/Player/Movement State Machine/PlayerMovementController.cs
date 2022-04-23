@@ -74,6 +74,8 @@ namespace Player
         public bool isDashable = true;
         public bool isJumpable = true;
 
+        private float previousStepOffset;
+
         // timeout unscaledDeltaTime
 
         public PlayerInput playerInput;
@@ -167,7 +169,15 @@ namespace Player
         {
             Look();
         }
-
+        public void DisableStepOffset()
+        {
+            previousStepOffset = characterController.stepOffset;
+            characterController.stepOffset = 0;
+        }
+        public void EnableStepOffset()
+        {
+            characterController.stepOffset = previousStepOffset;
+        }
         private void Jump()
         {
             if (isGrounded && inputManager.jump && isJumpable)

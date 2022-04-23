@@ -151,7 +151,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &70566089
 GameObject:
@@ -548,7 +548,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 435272, guid: cbbc4ba2ae44f43b1b809ffb964ac38e, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 435272, guid: cbbc4ba2ae44f43b1b809ffb964ac38e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1465,7 +1465,7 @@ Transform:
   m_Children:
   - {fileID: 1410957437}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!114 &1203669988
 MonoBehaviour:
@@ -1775,7 +1775,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1374770778 stripped
 GameObject:
@@ -3225,7 +3225,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 6.92e-43, y: 1.39e-43, z: 0, w: -136.23132}
+  m_BoundingSphereOverride: {x: -1, y: 8, z: 9, w: -10}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -3442,7 +3442,7 @@ PrefabInstance:
       objectReference: {fileID: 1842227718}
     - target: {fileID: 4939097495317366210, guid: 7cc840b7a38be6142b6b7b7e904b1805, type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 4939097495317366210, guid: 7cc840b7a38be6142b6b7b7e904b1805, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3472,6 +3472,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4939097495317366220, guid: 7cc840b7a38be6142b6b7b7e904b1805, type: 3}
+      propertyPath: groundedOffset
+      value: -0.42
+      objectReference: {fileID: 0}
     - target: {fileID: 5046115471024274622, guid: 7cc840b7a38be6142b6b7b7e904b1805, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -3482,15 +3486,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8048177517484763100, guid: 7cc840b7a38be6142b6b7b7e904b1805, type: 3}
       propertyPath: m_BoundingSphereOverride.w
-      value: -4.1467426e-14
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8048177517484763100, guid: 7cc840b7a38be6142b6b7b7e904b1805, type: 3}
       propertyPath: m_BoundingSphereOverride.x
-      value: 1.7284e-41
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8048177517484763100, guid: 7cc840b7a38be6142b6b7b7e904b1805, type: 3}
       propertyPath: m_BoundingSphereOverride.y
-      value: 0
+      value: 1.7e-44
       objectReference: {fileID: 0}
     - target: {fileID: 8048177517484763100, guid: 7cc840b7a38be6142b6b7b7e904b1805, type: 3}
       propertyPath: m_BoundingSphereOverride.z

@@ -1,13 +1,10 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 namespace AbstractClass
 {
     public abstract class StateNew : MonoBehaviour
     {
-        [NonSerialized] public StateNew currentSuperState;
-        [NonSerialized] public StateNew currentSubState;
+        public StateNew currentSuperState;
+        public StateNew currentSubState;
 
         public virtual void Start()
         {

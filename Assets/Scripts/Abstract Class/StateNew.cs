@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,15 +6,18 @@ namespace AbstractClass
 {
     public abstract class StateNew : MonoBehaviour
     {
-        public StateNew currentSuperState;
-        public StateNew currentSubState;
+        [NonSerialized] public StateNew currentSuperState;
+        [NonSerialized] public StateNew currentSubState;
 
         public virtual void Start()
         {
             InitializeManager();
         }
         public abstract void EnterState();
-        protected abstract void UpdateThisState();        
+        protected abstract void UpdateThisState();
+        //{
+        //    CheckSwitchState();
+        //}
         protected abstract void PhysicsUpdateThisState();
         public virtual void PhysicsUpdateAllState()
         {

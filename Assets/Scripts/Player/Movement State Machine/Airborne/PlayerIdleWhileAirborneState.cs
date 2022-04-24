@@ -3,47 +3,44 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace Player
 {
-    public class PlayerDashWhileAirborneState : AbstractClass.StateNew
+    public class PlayerIdleWhileAirborneState : AbstractClass.StateNew
     {
         private PlayerMovementController _playerMovementController;
         public override void EnterState()
         {
-            StartCoroutine(WaitAndBackToRunWhileAirborne());
-            StartCoroutine(StartDashCooldown());
-        }
-        IEnumerator WaitAndBackToRunWhileAirborne()
-        {
-            yield return new WaitForSeconds(_playerMovementController.dashDuration);
-            currentSuperState.SwitchToState("RunWhileAirborne");
-        }
-        IEnumerator StartDashCooldown()
-        {
-            _playerMovementController.isDashable = false;
-            yield return new WaitForSeconds(_playerMovementController.dashTimeout);
-            _playerMovementController.isDashable = true;
+            //start animation
+            DisableStepOffset();
         }
 
         public override void ExitState()
         {
-            
+            //stop animation
+            EnableStepOffset();
         }
 
         public override void SwitchToState(string p_StateType)
         {
             throw new System.NotImplementedException();
         }
+        private void DisableStepOffset()
+        {
+            _playerMovementController.DisableStepOffset();
+        }
+        private void EnableStepOffset()
+        {
+            _playerMovementController.EnableStepOffset();
+        }
 
         protected override void CheckSwitchState()
         {
             if (_playerMovementController.isGrounded)
             {
-                currentSuperState.SwitchToState("Dash");
+                currentSuperState.SwitchToState("Idle");
             }
-        }
-        private void Dash()
-        {
-            _playerMovementController.speed = _playerMovementController.dashSpeed;
-            _playerMovementController.characterController.Move(_playerMovementController.inputDirection.normalized * _playerMovementController.speed * Time.unscaledDeltaTime);
+            else if (_playerMovementController.inputManager.move!=Vector2.zero)
+            {
+                currentSuperState.SwitchToState("RunWhileAirborne");
+            }
         }
 
         protected override void InitializeManager()
@@ -63,7 +60,6 @@ namespace Player
 
         protected override void UpdateThisState()
         {
-            Dash();
             CheckSwitchState();
         }
     }

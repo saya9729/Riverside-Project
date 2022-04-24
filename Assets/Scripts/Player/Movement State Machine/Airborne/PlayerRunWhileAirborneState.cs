@@ -8,12 +8,20 @@ namespace Player
         private PlayerMovementController _playerMovementController;
         public override void EnterState()
         {
-            
+            DisableStepOffset();
         }
 
         public override void ExitState()
         {
-            
+            EnableStepOffset();
+        }
+        private void DisableStepOffset()
+        {
+            _playerMovementController.DisableStepOffset();
+        }
+        private void EnableStepOffset()
+        {
+            _playerMovementController.EnableStepOffset();
         }
 
         public override void SwitchToState(string p_StateType)

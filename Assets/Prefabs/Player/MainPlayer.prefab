@@ -1898,7 +1898,7 @@ MonoBehaviour:
   jumpCooldown: 0.1
   airborneCooldown: 0.15
   isGrounded: 1
-  groundedOffset: -0.14
+  groundedOffset: -0.42
   groundedRadius: 0.5
   groundLayers:
     serializedVersion: 2

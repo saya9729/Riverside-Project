@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 namespace AbstractClass
 {
@@ -13,7 +11,10 @@ namespace AbstractClass
             InitializeManager();
         }
         public abstract void EnterState();
-        protected abstract void UpdateThisState();        
+        protected abstract void UpdateThisState();
+        //{
+        //    CheckSwitchState();
+        //}
         protected abstract void PhysicsUpdateThisState();
         public virtual void PhysicsUpdateAllState()
         {

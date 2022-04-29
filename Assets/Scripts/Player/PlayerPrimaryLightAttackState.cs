@@ -14,10 +14,30 @@ namespace Player
         //[SerializeField] private float reloadTime;
         //[SerializeField] private float ammo;
 
+        float _lastTimeCastSkill = 0;
+        int _attackTypeIndex = 0;
+        int _maxAttackTypeIndex = 1;
+        [SerializeField] float maxTimeToNextSkill = 0.5f;
+
         public void PrimaryAttack()
         {
-            _playerStateManager.playerAnimator.SetInteger("attack", 1);
+            
             //toggle weapon collider
+            if (Time.unscaledTime - _lastTimeCastSkill < maxTimeToNextSkill)
+            {
+                if (_attackTypeIndex < _maxAttackTypeIndex)
+                    _attackTypeIndex += 1;
+                else
+                    _attackTypeIndex = 0;
+            }
+            else
+            {
+                _attackTypeIndex = 0;
+            }
+            _playerStateManager.playerAnimator.SetInteger("attackType", _attackTypeIndex);
+            _playerStateManager.playerAnimator.SetInteger("attack", 1);
+
+            _lastTimeCastSkill = Time.unscaledTime;
         }
 
         private void Start()

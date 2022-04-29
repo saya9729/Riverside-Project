@@ -20,8 +20,10 @@ namespace Player
 
         public override void UpdateState()
         {
-            if(_playerStateManager.inputManager.primaryLightAttack)
+            
+            if(_playerStateManager.inputManager.IsGetButtonDown("Primary Light Attack"))
             {
+                Debug.Log(_playerStateManager.inputManager.IsGetButtonDown("Primary Light Attack"));
                 _playerStateManager.SwitchState(_playerStateManager.playerPrimaryLightAttackState);
             }
             if(_playerStateManager.inputManager.secondaryAttack)

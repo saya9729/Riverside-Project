@@ -15,7 +15,7 @@ namespace Player
         public override void EnterState()
         {
             Debug.Log("enter idle state");
-            _playerStateManager.playerAnimator.SetInteger("attack", 0); //return to idle
+            //_playerStateManager.playerAnimator.SetInteger("attack", 0); //return to idle
         }
 
         public override void UpdateState()

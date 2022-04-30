@@ -35,7 +35,7 @@ namespace Player
                 _attackTypeIndex = 0;
             }
             _playerStateManager.playerAnimator.SetInteger("attackType", _attackTypeIndex);
-            _playerStateManager.playerAnimator.SetInteger("attack", 1);
+            _playerStateManager.playerAnimator.SetTrigger("isAttack");
 
             _lastTimeCastSkill = Time.unscaledTime;
         }

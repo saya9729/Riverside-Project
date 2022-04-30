@@ -76,8 +76,8 @@ namespace Enemy
             {
                 //continue patroling
             }
-
-            if (_enemyStateManager.navMeshAgent.remainingDistance < _enemyStateManager.navMeshAgent.radius)
+            
+            if (Vector3.Distance(transform.position, _targetDestination.position) < 1)
             {
                 _enemyStateManager.SwitchToState("WaitAtWaypointState");
             }

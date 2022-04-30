@@ -5,7 +5,9 @@ using UnityEngine.InputSystem;
 namespace Player
 {
     public class InputManager : MonoBehaviour
-    {        
+    {
+        [NonSerialized] public PlayerInput _playerInput;
+
         //public bool interact;
         public bool exit;
         public bool usingPocketWatch;
@@ -39,7 +41,7 @@ namespace Player
 
         public bool cursorInputForLook = true;
 #endif
-
+        
         public void OnMove(InputValue value)
         {
             MoveInput(value.Get<Vector2>());
@@ -145,5 +147,17 @@ namespace Player
         }
 
 #endif
+
+        private void Start()
+        {
+            _playerInput = GetComponent<PlayerInput>();
+        }
+
+        public bool IsGetButtonDown(string name)
+        {
+            return _playerInput.actions[name].WasPressedThisFrame();
+        }
     }
+
+    
 }

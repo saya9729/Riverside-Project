@@ -15,13 +15,15 @@ namespace Player
         public override void EnterState()
         {
             Debug.Log("enter idle state");
-            _playerStateManager.playerAnimator.SetInteger("attack", 0); //return to idle
+            //_playerStateManager.playerAnimator.SetInteger("attack", 0); //return to idle
         }
 
         public override void UpdateState()
         {
-            if(_playerStateManager.inputManager.primaryLightAttack)
+            
+            if(_playerStateManager.inputManager.IsGetButtonDown("Primary Light Attack"))
             {
+                //Debug.Log(_playerStateManager.inputManager.IsGetButtonDown("Primary Light Attack"));
                 _playerStateManager.SwitchState(_playerStateManager.playerPrimaryLightAttackState);
             }
             if(_playerStateManager.inputManager.secondaryAttack)

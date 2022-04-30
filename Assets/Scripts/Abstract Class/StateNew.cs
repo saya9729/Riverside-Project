@@ -7,10 +7,10 @@ namespace AbstractClass
         public StateNew currentSubState;
 
         public virtual void Start()
-        {
-            InitializeState();
+        {            
             InitializeComponent();
             InitializeVariable();
+            InitializeState();
         }
         public abstract void EnterState();
         protected abstract void UpdateThisState();

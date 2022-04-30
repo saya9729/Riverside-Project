@@ -16,12 +16,6 @@ namespace Enemy
         public override void EnterState()
         {
             Debug.Log("Enemy Enter Patrol State");
-            StartCoroutine(WaitAndStartPatroling());
-        }
-
-        IEnumerator WaitAndStartPatroling()
-        {
-            yield return new WaitForSeconds(1);
             UpdateDestination();
         }
 
@@ -36,19 +30,9 @@ namespace Enemy
             _targetDestination = waypoints[_waypointIndex];
             //default the object will seek the origin
             //_targetDestination.position = Vector3.zero;
-            LookAtNextDestination();
             _enemyStateManager.navMeshAgent.SetDestination(_targetDestination.position);
 
             _waypointIndex = waypoints.Length != 0 ? (_waypointIndex + 1) % waypoints.Length : 0;
-        }
-
-        void LookAtNextDestination()
-        {
-            Vector3 lookDirection = _targetDestination.position - transform.position;
-            lookDirection.y = 0;
-
-            Quaternion rot = Quaternion.LookRotation(lookDirection);
-            transform.rotation = Quaternion.Slerp(transform.rotation, rot, Time.deltaTime * lookAtNextDestinationRotateSpeed);
         }
 
         private bool IsPlayerVisible()

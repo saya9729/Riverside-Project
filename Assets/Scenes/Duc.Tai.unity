@@ -1147,6 +1147,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 524402790888260539, guid: 6f9c89d7e7c3f5340ac8fb90b9517fc0, type: 3}
+      propertyPath: waitAtWaypointTime
+      value: 0.25
+      objectReference: {fileID: 0}
     - target: {fileID: 1684964514077253979, guid: 6f9c89d7e7c3f5340ac8fb90b9517fc0, type: 3}
       propertyPath: sightRadius
       value: 10

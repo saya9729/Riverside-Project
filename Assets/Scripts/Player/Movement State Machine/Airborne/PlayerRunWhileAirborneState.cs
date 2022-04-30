@@ -45,14 +45,14 @@ namespace Player
             }
         }
 
-        protected override void InitializeManager()
+        protected override void InitializeComponent()
         {
             _playerMovementController = GetComponent<PlayerMovementController>();
         }
 
         protected override void InitializeState()
         {
-            throw new System.NotImplementedException();
+            
         }
 
         protected override void PhysicsUpdateThisState()
@@ -72,6 +72,11 @@ namespace Player
             // move the player
             _playerMovementController.characterController.Move(_playerMovementController.inputDirection.normalized * _playerMovementController.speed * Time.unscaledDeltaTime);
             //_playerRigidbody.AddForce(inputDirection.normalized * (_speed * Time.unscaledDeltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.unscaledDeltaTime);
+        }
+
+        protected override void InitializeVariable()
+        {
+            
         }
     }
 }

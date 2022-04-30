@@ -4,31 +4,32 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace Enemy
 {
-    public class EnemyChaseState : AbstractClass.State
+    public class EnemyChaseState : AbstractClass.StateNew
     {
         private EnemyStateManager _enemyStateManager;
         [SerializeField] private float _rangeToStartAttacking = 1f;
         [SerializeField] private Transform[] objectToChase;
-
-        private void Start()
-        {
-            _enemyStateManager = GetComponent<EnemyStateManager>();
-        }
+        [SerializeField] private float chaseDestinationUpdateInterval = 1f;
+                
         public override void EnterState()
         {
-            Debug.Log("Enter Chase State");
+            Debug.Log("Enemy Enter Chase State");
+            StartCoroutine(UpdateChaseDestination());
         }
 
-        public override void UpdateState()
+        IEnumerator UpdateChaseDestination()
         {
-            if (IsPlayerInRangeToStartAttacking())
+            while (true)
             {
-                _enemyStateManager.SwitchState(_enemyStateManager.enemyAttackState);
-            }
-            else
-            {
+                yield return new WaitForSeconds(chaseDestinationUpdateInterval);
                 _enemyStateManager.navMeshAgent.SetDestination(objectToChase[0].position);
             }
+        }
+
+        protected override void UpdateThisState()
+        {
+            CheckSwitchState();
+            Debug.Log(_enemyStateManager.navMeshAgent.pathPending);            
         }        
 
         private bool IsPlayerInRangeToStartAttacking()
@@ -38,11 +39,41 @@ namespace Enemy
 
         public override void ExitState()
         {
-            Debug.Log("Exit Chase State");
-        }
-        public override void PhysicsUpdateState()
-        {
+            Debug.Log("Enemy Exit Chase State");
+        }        
 
+        protected override void PhysicsUpdateThisState()
+        {
+            
+        }
+
+        protected override void CheckSwitchState()
+        {
+            if (IsPlayerInRangeToStartAttacking())
+            {
+                _enemyStateManager.SwitchToState("AttackState");
+            }
+            
+        }
+
+        protected override void InitializeState()
+        {
+            
+        }
+
+        protected override void InitializeComponent()
+        {
+            _enemyStateManager = GetComponent<EnemyStateManager>();
+        }
+
+        protected override void InitializeVariable()
+        {
+            
+        }
+
+        public override void SwitchToState(string p_StateType)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -41,7 +41,7 @@ namespace Player
             }
         }
 
-        protected override void InitializeManager()
+        protected override void InitializeComponent()
         {
             _playerMovementController = GetComponent<PlayerMovementController>();
         }
@@ -66,6 +66,11 @@ namespace Player
         public override void SwitchToState(string p_StateType)
         {
             throw new System.NotImplementedException();
+        }
+
+        protected override void InitializeVariable()
+        {
+            
         }
     }
 }

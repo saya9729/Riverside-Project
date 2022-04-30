@@ -3,18 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace Enemy
 {
-    public class EnemyStaggerState : AbstractClass.State
+    public class EnemyStaggerState : AbstractClass.StateNew
     {
         private EnemyStateManager _enemyStateManager;
         public float healthStaggerThreshold = 80;
 
-        private void Start()
-        {
-            _enemyStateManager = GetComponent<EnemyStateManager>();
-        }
         public override void EnterState()
         {
-            Debug.Log("Enter Stagger State");
+            Debug.Log("Enemy Enter Stagger State");
             //start stagger animation once
             _enemyStateManager.animator.SetBool("isStagger", true);
             StartCoroutine(WaitAndBackToPatrol());
@@ -30,22 +26,48 @@ namespace Enemy
                 }
             }
             yield return new WaitForSeconds(staggerLength);            
-            _enemyStateManager.SwitchState(_enemyStateManager.enemyPatrolState);
+            _enemyStateManager.SwitchToState("PatrolState");
         }
-
-        public override void UpdateState()
-        {
-
-        }
-
+        
         public override void ExitState()
         {
-            Debug.Log("Exit Stagger State");
+            Debug.Log("Enemy Exit Stagger State");
             _enemyStateManager.animator.SetBool("isStagger", false);
-        }
-        public override void PhysicsUpdateState()
-        {
+        }        
 
+        protected override void UpdateThisState()
+        {
+            
+        }
+
+        protected override void PhysicsUpdateThisState()
+        {
+            
+        }
+
+        protected override void CheckSwitchState()
+        {
+            
+        }
+
+        protected override void InitializeState()
+        {
+            
+        }
+
+        protected override void InitializeComponent()
+        {
+            _enemyStateManager = GetComponent<EnemyStateManager>();
+        }
+
+        protected override void InitializeVariable()
+        {
+            
+        }
+
+        public override void SwitchToState(string p_StateType)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

@@ -34,17 +34,22 @@ namespace Player
             }
         }
 
-        protected override void InitializeManager()
+        protected override void InitializeComponent()
         {
             _playerMovementController = GetComponent<PlayerMovementController>();
         }
         protected override void InitializeState()
         {
-            throw new System.NotImplementedException();
+            
         }
         protected override void UpdateThisState()
         {
             CheckSwitchState();
+        }
+
+        protected override void InitializeVariable()
+        {
+            
         }
     }
 }

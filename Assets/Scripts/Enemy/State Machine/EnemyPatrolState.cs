@@ -3,53 +3,52 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace Enemy
 {
-    public class EnemyPatrolState : AbstractClass.State
+    public class EnemyPatrolState : AbstractClass.StateNew
     {
         private EnemyStateManager _enemyStateManager;
 
         [SerializeField] private Transform[] waypoints;
-        private int _waypointIndex;
-        private Vector3 _targetDestination;
-        public float sightRadius = 1f;
+        [SerializeField] private float lookAtNextDestinationRotateSpeed = 1f;
+        private int _waypointIndex=0;
+        private Transform _targetDestination;
+        public float sightRadius = 10f;
 
-        private void Start()
-        {
-            _enemyStateManager =GetComponent<EnemyStateManager>();
-            InitializeVariable();
-        }
-
-        private void InitializeVariable()
-        {
-            
-        }
         public override void EnterState()
         {
-            Debug.Log("Enter Patrol State");
+            Debug.Log("Enemy Enter Patrol State");
+            StartCoroutine(WaitAndStartPatroling());
+        }
+
+        IEnumerator WaitAndStartPatroling()
+        {
+            yield return new WaitForSeconds(1);
             UpdateDestination();
         }
 
-        public override void UpdateState()
+        protected override void UpdateThisState()
         {
-            if (Vector3.Distance(transform.position, _targetDestination) < 1)
-            {
-                UpdateDestination();
-            }
-
-            if (IsPlayerVisible())
-            {
-                _enemyStateManager.SwitchState(_enemyStateManager.enemyChaseState);
-            }
-            else
-            {
-                //continue patroling
-            }
+            CheckSwitchState();
         }
 
         void UpdateDestination()
         {
-            _targetDestination = _waypointIndex != 0 ? waypoints[_waypointIndex].position : Vector3.zero;
-            _enemyStateManager.navMeshAgent.SetDestination(_targetDestination);
+            //enable this line when insert waypoints
+            _targetDestination = waypoints[_waypointIndex];
+            //default the object will seek the origin
+            //_targetDestination.position = Vector3.zero;
+            LookAtNextDestination();
+            _enemyStateManager.navMeshAgent.SetDestination(_targetDestination.position);
+
             _waypointIndex = waypoints.Length != 0 ? (_waypointIndex + 1) % waypoints.Length : 0;
+        }
+
+        void LookAtNextDestination()
+        {
+            Vector3 lookDirection = _targetDestination.position - transform.position;
+            lookDirection.y = 0;
+
+            Quaternion rot = Quaternion.LookRotation(lookDirection);
+            transform.rotation = Quaternion.Slerp(transform.rotation, rot, Time.deltaTime * lookAtNextDestinationRotateSpeed);
         }
 
         private bool IsPlayerVisible()
@@ -58,12 +57,50 @@ namespace Enemy
         }
 
         public override void ExitState()
-        {
-            Debug.Log("Exit Patrol State");
+        {            
+            Debug.Log("Enemy Exit Patrol State");
         }
-        public override void PhysicsUpdateState()
+        
+        protected override void PhysicsUpdateThisState()
         {
+            
+        }
 
+        protected override void CheckSwitchState()
+        {
+            if (IsPlayerVisible())
+            {
+                _enemyStateManager.SwitchToState("ChaseState");
+            }
+            else
+            {
+                //continue patroling
+            }
+
+            if (_enemyStateManager.navMeshAgent.remainingDistance < _enemyStateManager.navMeshAgent.radius)
+            {
+                _enemyStateManager.SwitchToState("WaitAtWaypointState");
+            }
+        }
+
+        protected override void InitializeState()
+        {
+            
+        }
+
+        protected override void InitializeComponent()
+        {
+            _enemyStateManager = GetComponent<EnemyStateManager>();
+        }
+
+        protected override void InitializeVariable()
+        {
+            
+        }
+
+        public override void SwitchToState(string p_StateType)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

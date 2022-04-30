@@ -1355,6 +1355,7 @@ GameObject:
   - component: {fileID: 2626970673980481164}
   - component: {fileID: 5059631758448405105}
   - component: {fileID: 187265216643791759}
+  - component: {fileID: 524402790888260539}
   - component: {fileID: 3520729288999062181}
   - component: {fileID: 5994394424565356143}
   - component: {fileID: 5994394424565356142}
@@ -1396,6 +1397,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 629bdf4543a59cc418d678be5fe06ffb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentSuperState: {fileID: 0}
+  currentSubState: {fileID: 0}
+  player: {fileID: 0}
 --- !u!114 &1684964514077253979
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1408,7 +1412,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b950e7f558d12684db56650e7d78a893, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentSuperState: {fileID: 0}
+  currentSubState: {fileID: 0}
   waypoints: []
+  lookAtNextDestinationRotateSpeed: 1
   sightRadius: 1
 --- !u!114 &5310202028732048106
 MonoBehaviour:
@@ -1422,6 +1429,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b44d79ca1d13bad489ec069af0aee598, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentSuperState: {fileID: 0}
+  currentSubState: {fileID: 0}
   _rangeToStartAttacking: 1
   objectToChase:
   - {fileID: 0}
@@ -1437,6 +1446,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcb02913db5e04a4da064df1b582ccda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentSuperState: {fileID: 0}
+  currentSubState: {fileID: 0}
 --- !u!114 &5059631758448405105
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1449,6 +1460,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24d0dcf3c45c5ca4da79d46ede2f3d52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentSuperState: {fileID: 0}
+  currentSubState: {fileID: 0}
   healthStaggerThreshold: 80
 --- !u!114 &187265216643791759
 MonoBehaviour:
@@ -1462,9 +1475,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84e789e0f8ab46947971a097e92d768c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentSuperState: {fileID: 0}
+  currentSubState: {fileID: 0}
   timeBeforeDisappear: 0
   solPrefab: {fileID: 0}
   solParent: {fileID: 0}
+--- !u!114 &524402790888260539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5994394424565356048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2307e0199c08b948bdeb62c174d353e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentSuperState: {fileID: 0}
+  currentSubState: {fileID: 0}
+  waitAtWaypointTime: 5
 --- !u!195 &3520729288999062181
 NavMeshAgent:
   m_ObjectHideFlags: 0

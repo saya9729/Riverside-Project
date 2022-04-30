@@ -13,8 +13,7 @@ namespace Player
         }
 
         public override void EnterState()
-        {
-            Debug.Log("enter idle state");
+        {            
             _playerStateManager.playerAnimator.SetInteger("attack", 0); //return to idle
         }
 
@@ -33,7 +32,7 @@ namespace Player
 
         public override void ExitState()
         {
-            Debug.Log("exit idle state");
+            
         }
         public override void PhysicsUpdateState()
         {

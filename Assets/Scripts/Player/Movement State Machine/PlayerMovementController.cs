@@ -103,13 +103,7 @@ namespace Player
                 _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
             }
         }
-        public override void Start()
-        {
-            InitializeState();
-            InitializeComponent();
-            InitializeManager();
-            InitializeVariable();
-        }
+        
         protected override void InitializeState()
         {
             _playerMovementIdleState = GetComponent<PlayerMovementIdleState>();
@@ -130,16 +124,14 @@ namespace Player
             currentSubState = _playerMovementIdleState;
             currentSubState.EnterState();
         }
-        private void InitializeComponent()
+        protected override void InitializeComponent()
         {
             characterController = GetComponent<CharacterController>();            
             playerInput = GetComponent<PlayerInput>();
-        }
-        protected override void InitializeManager()
-        {
             inputManager = GetComponent<InputManager>();
         }
-        private void InitializeVariable()
+        
+        protected override void InitializeVariable()
         {
 
             //register listener

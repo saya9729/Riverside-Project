@@ -56,14 +56,14 @@ namespace Player
             _playerMovementController.characterController.Move(_playerMovementController.inputDirection.normalized * _playerMovementController.speed * Time.unscaledDeltaTime);
         }
 
-        protected override void InitializeManager()
+        protected override void InitializeComponent()
         {
             _playerMovementController = GetComponent<PlayerMovementController>();
         }
 
         protected override void InitializeState()
         {
-            throw new System.NotImplementedException();
+            
         }
 
         protected override void PhysicsUpdateThisState()
@@ -75,6 +75,11 @@ namespace Player
         {
             Dash();
             CheckSwitchState();
+        }
+
+        protected override void InitializeVariable()
+        {
+            
         }
     }
 }

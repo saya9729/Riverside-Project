@@ -15,7 +15,6 @@ namespace Enemy
 
         public override void EnterState()
         {
-            Debug.Log("EnterState");
             SearchWalkPoint();
         }
 

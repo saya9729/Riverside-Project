@@ -4,20 +4,16 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace Enemy
 {
-    public class EnemyDeadState : AbstractClass.State
+    public class EnemyDeadState : AbstractClass.StateNew
     {
         private EnemyStateManager _enemyStateManager;
         [SerializeField] private float timeBeforeDisappear;
         [SerializeField] private GameObject solPrefab;
         [SerializeField] private Transform solParent;
 
-        private void Start()
-        {
-            _enemyStateManager = GetComponent<EnemyStateManager>();
-        }
         public override void EnterState()
         {
-            Debug.Log("Enter Dead State");
+            Debug.Log("Enemy Enter Dead State");
             //start dead animation once
             _enemyStateManager.animator.SetBool("isDead", true);
             Instantiate(solPrefab, solParent, true);
@@ -30,19 +26,45 @@ namespace Enemy
             Destroy(gameObject);
         }
 
-        public override void UpdateState()
+        public override void ExitState()
+        {
+            Debug.Log("Enemy Exit Dead State");
+            _enemyStateManager.animator.SetBool("isDead", false);
+        }
+        
+        protected override void UpdateThisState()
         {
             
         }
 
-        public override void ExitState()
+        protected override void PhysicsUpdateThisState()
         {
-            Debug.Log("Exit Dead State");
-            _enemyStateManager.animator.SetBool("isDead", false);
+            
         }
-        public override void PhysicsUpdateState()
-        {
 
+        protected override void CheckSwitchState()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void InitializeState()
+        {
+            
+        }
+
+        protected override void InitializeComponent()
+        {
+            _enemyStateManager = GetComponent<EnemyStateManager>();
+        }
+
+        protected override void InitializeVariable()
+        {
+            
+        }
+
+        public override void SwitchToState(string p_StateType)
+        {
+            throw new NotImplementedException();
         }
     }
 }

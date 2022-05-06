@@ -6,6 +6,7 @@ namespace Player
     public class PlayerSecondaryAttackState : AbstractClass.State
     {
         private PlayerStateManager _playerStateManager;
+        public GunRecoil _gunRecoil;
 
         [Header("Secondary Attack (Shot)")]
         [SerializeField] private float range = 4;
@@ -21,7 +22,8 @@ namespace Player
 
         public void SecondaryAttack()
         {
-            _playerStateManager.playerAnimator.SetInteger("attack", 2);
+            //_playerStateManager.playerAnimator.SetInteger("attack", 2);
+            _gunRecoil.Fire();
             StartCoroutine(WaitAnim());
         }
 
@@ -75,7 +77,7 @@ namespace Player
 
         public override void ExitState()
         {
-            _playerStateManager.playerAnimator.SetInteger("attack", 0);
+            //_playerStateManager.playerAnimator.SetInteger("attack", 0);
             StopAllCoroutines(); // stop all shooting sequences
 
         }

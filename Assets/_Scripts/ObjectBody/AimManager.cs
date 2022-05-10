@@ -10,59 +10,37 @@ namespace Player
     {
         //ref: https://github.com/Kawaiisun/SimpleHostile/blob/master/Simple%20Hostile/Assets/Scripts/Weapon.cs
 
-        private InputManager _inputManager;
+        private InputManager inputManager;
 
-        [SerializeField] private float AimSpeed = 10;
+        [SerializeField] private float aimSpeed = 10;
+        [SerializeField] private float hipGunDifference = 0.0001f;
 
-        private bool isAiming = false;
         private bool isReloading = false;
 
         private Transform anchor;
-        public Transform state_ads;
-        public Transform state_hip;
+        public Transform stateAds;
+        public Transform stateHip;
 
         void Start()
         {
-            _inputManager = FindObjectOfType<InputManager>();
+            inputManager = FindObjectOfType<InputManager>();
         }
 
         void Update()
         {
-            if(_inputManager.switchAim)
+            if(inputManager.switchAim)
             {
                 Debug.Log("to ads");
                 //hip
-                transform.position = Vector3.Lerp(transform.position, state_ads.position, Time.deltaTime * AimSpeed);
-                transform.rotation = Quaternion.Lerp(transform.rotation, state_ads.rotation, Time.deltaTime * AimSpeed);
-                //isAiming = true; 
+                transform.position = Vector3.Lerp(transform.position, stateAds.position, Time.deltaTime * aimSpeed);
+                transform.rotation = Quaternion.Lerp(transform.rotation, stateAds.rotation, Time.deltaTime * aimSpeed);
             }
-            else
+            else if((stateHip.position - transform.position).magnitude >= hipGunDifference) //check if gun returned to hip position
             {
                 Debug.Log("to hip");
                 //aim
-                transform.position = Vector3.Lerp(transform.position, state_hip.position, Time.deltaTime * AimSpeed);
-                transform.rotation = Quaternion.Lerp(transform.rotation, state_hip.rotation, Time.deltaTime * AimSpeed);
-                //isAiming = false;  
-            }
-        }
-
-        public void Aim()
-        {
-            if (isReloading) return;
-
-            if (isAiming)
-            {
-                Debug.Log("to hip");
-                //aim
-                transform.position = Vector3.Lerp(transform.position, state_ads.position, Time.deltaTime * AimSpeed);
-                isAiming = false;            
-            }
-            else
-            {
-                Debug.Log("to ads");
-                //hip
-                transform.position = Vector3.Lerp(transform.position, state_hip.position, Time.deltaTime * AimSpeed);
-                isAiming = true; 
+                transform.position = Vector3.Lerp(transform.position, stateHip.position, Time.deltaTime * aimSpeed);
+                transform.rotation = Quaternion.Lerp(transform.rotation, stateHip.rotation, Time.deltaTime * aimSpeed);
             }
         }
     }

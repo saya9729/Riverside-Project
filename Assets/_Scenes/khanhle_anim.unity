@@ -2848,23 +2848,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41d3b8e65d9f1bf49970412045717db7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RecoilPositionTranform: {fileID: 1966708784}
-  RecoilRotationTranform: {fileID: 1144111500}
-  PositionDampTime: 6
-  RotationDampTime: 9
-  Recoil1: 35
-  Recoil2: 50
-  Recoil3: 35
-  Recoil4: 50
-  RecoilRotation: {x: -151.3, y: 4, z: 15}
-  RecoilKickBack: {x: 0.2, y: 1.2, z: -0.08}
-  RecoilRotation_Aim: {x: 0, y: 0, z: 0}
-  RecoilKickBack_Aim: {x: 0, y: 0, z: 0}
-  CurrentRecoil1: {x: 0, y: 0, z: 0}
-  CurrentRecoil2: {x: 0, y: 0, z: 0}
-  CurrentRecoil3: {x: 0, y: 0, z: 0}
-  CurrentRecoil4: {x: 0, y: 0, z: 0}
-  RotationOutput: {x: -1.5338686e-20, y: 1.6760078e-22, z: -1.1650027e-21}
+  recoilPositionTranform: {fileID: 1966708784}
+  recoilRotationTranform: {fileID: 1144111500}
+  positionDampTime: 6
+  rotationDampTime: 9
+  recoil1: 35
+  recoil2: 50
+  recoil3: 35
+  recoil4: 50
+  recoilRotation: {x: -150, y: 4, z: 15}
+  recoilKickBack: {x: 0.2, y: 1.2, z: -0.08}
+  recoilRotationAim: {x: 0, y: 0, z: 0}
+  recoilKickBackAim: {x: 0, y: 0, z: 0}
+  currentRecoil1: {x: 0, y: 0, z: 0}
+  currentRecoil2: {x: 0, y: 0, z: 0}
+  currentRecoil3: {x: 0, y: 0, z: 0}
+  currentRecoil4: {x: 0, y: 0, z: 0}
+  rotationOutput: {x: -1.53386, y: 1.676008, z: -1.165}
   aim: 0
 --- !u!114 &1668045296
 MonoBehaviour:
@@ -2878,9 +2878,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9ffadfc6d21b1b448354c510c86def4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AimSpeed: 10
-  state_ads: {fileID: 1313204014}
-  state_hip: {fileID: 2146030199}
+  aimSpeed: 10
+  hipGunDifference: 0.0001
+  stateAds: {fileID: 1313204014}
+  stateHip: {fileID: 2146030199}
 --- !u!4 &1691012972 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 7782f443ba1a6994aa7da99e2a32b54e, type: 3}
@@ -8939,7 +8940,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c44335e7bf98f54e87f70f9d63bcbc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gunRecoil: {fileID: 1668045295}
+  gunRecoil: {fileID: 1668045295}
   range: 4
   maxDamage: 20
   reloadTime: 1

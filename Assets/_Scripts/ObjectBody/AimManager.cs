@@ -10,7 +10,7 @@ namespace Player
     {
         //ref: https://github.com/Kawaiisun/SimpleHostile/blob/master/Simple%20Hostile/Assets/Scripts/Weapon.cs
 
-        private InputManager inputManager;
+        private InputManager _inputManager;
 
         [SerializeField] private float aimSpeed = 10;
         [SerializeField] private float hipGunDifference = 0.0001f;
@@ -23,12 +23,12 @@ namespace Player
 
         void Start()
         {
-            inputManager = FindObjectOfType<InputManager>();
+            _inputManager = FindObjectOfType<InputManager>();
         }
 
         void Update()
         {
-            if(inputManager.switchAim)
+            if(_inputManager.switchAim)
             {
                 Debug.Log("to ads");
                 //hip

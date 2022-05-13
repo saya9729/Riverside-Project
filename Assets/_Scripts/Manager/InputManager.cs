@@ -19,6 +19,7 @@ namespace Player
         public bool menu;
         public bool pullFromSol;
         public bool switchAim;
+        public bool cooldownWeapon;
 
         [Header("Character Input Values")]
 
@@ -138,6 +139,11 @@ namespace Player
         public void OnSwitchAim(InputValue p_value)
         {
             switchAim = p_value.isPressed;
+        }
+
+        public void OnCooldownWeapon(InputValue p_value)
+        {
+            cooldownWeapon = p_value.isPressed;
         }
 
 #if !UNITY_IOS || !UNITY_ANDROID

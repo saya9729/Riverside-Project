@@ -55,7 +55,7 @@ namespace Player
 
             Shoot();
 
-            _playerStateManager.SwitchState(_playerStateManager.playerIdleState); //set bullet velocity
+            _playerStateManager.SwitchState(_playerStateManager.playerIdleState);
         }
 
         private void Start()

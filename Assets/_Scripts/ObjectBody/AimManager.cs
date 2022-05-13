@@ -15,11 +15,12 @@ namespace Player
         [SerializeField] private float aimSpeed = 10;
         [SerializeField] private float hipGunDifference = 0.0001f;
 
-        private bool isReloading = false;
+        private bool isOnCooldown = false;
 
         private Transform anchor;
         public Transform stateAds;
         public Transform stateHip;
+        public Transform stateCD; //cooldown
 
         void Start()
         {
@@ -28,20 +29,32 @@ namespace Player
 
         void Update()
         {
-            if(_inputManager.switchAim)
+            if (_inputManager.switchAim) //put gun to aim down sight position
             {
-                Debug.Log("to ads");
                 //hip
+                isOnCooldown = false;
                 transform.position = Vector3.Lerp(transform.position, stateAds.position, Time.deltaTime * aimSpeed);
                 transform.rotation = Quaternion.Lerp(transform.rotation, stateAds.rotation, Time.deltaTime * aimSpeed);
             }
-            else if((stateHip.position - transform.position).magnitude >= hipGunDifference) //check if gun returned to hip position
+            else if (_inputManager.cooldownWeapon) //set gun to cooldown
+            {
+                Debug.Log("to cooldown");
+                isOnCooldown = true;
+                transform.position = Vector3.Lerp(transform.position, stateCD.position, Time.deltaTime * aimSpeed);
+                transform.rotation = Quaternion.Lerp(transform.rotation, stateCD.rotation, Time.deltaTime * aimSpeed);
+            }
+            else if ((stateHip.position - transform.position).magnitude >= hipGunDifference) //check if gun returned to hip position and return it to hip
             {
                 Debug.Log("to hip");
-                //aim
+                isOnCooldown = false;
                 transform.position = Vector3.Lerp(transform.position, stateHip.position, Time.deltaTime * aimSpeed);
                 transform.rotation = Quaternion.Lerp(transform.rotation, stateHip.rotation, Time.deltaTime * aimSpeed);
             }
+        }
+
+        public bool IsOnCooldown()
+        {
+            return isOnCooldown;
         }
     }
 }

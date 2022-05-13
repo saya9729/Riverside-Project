@@ -6,6 +6,7 @@ namespace Player
     public class PlayerIdleState : AbstractClass.State
     {
         private PlayerStateManager _playerStateManager;
+        public AimManager aimManager;
 
         private void Start()
         {
@@ -20,15 +21,19 @@ namespace Player
 
         public override void UpdateState()
         {
-            
-            if(_playerStateManager.inputManager.IsGetButtonDown("Primary Light Attack"))
+
+            if (_playerStateManager.inputManager.IsGetButtonDown("Primary Light Attack"))
             {
                 //Debug.Log(_playerStateManager.inputManager.IsGetButtonDown("Primary Light Attack"));
                 _playerStateManager.SwitchState(_playerStateManager.playerPrimaryLightAttackState);
             }
-            if(_playerStateManager.inputManager.secondaryAttack)
+            if (_playerStateManager.inputManager.secondaryAttack)
             {
-                _playerStateManager.SwitchState(_playerStateManager.playerSecondaryAttackState);
+                if (!aimManager.IsOnCooldown())
+                {
+                    _playerStateManager.SwitchState(_playerStateManager.playerSecondaryAttackState);
+                }
+                else Debug.Log("Weapon on cooldown!");
             }
 
         }

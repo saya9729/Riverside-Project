@@ -18,6 +18,7 @@ namespace Player
         public bool useHealthPot;
         public bool menu;
         public bool pullFromSol;
+        public bool switchAim;
 
         [Header("Character Input Values")]
 
@@ -132,6 +133,11 @@ namespace Player
         public void OnPullFromSol(InputValue p_value)
         {
             pullFromSol = p_value.isPressed;
+        }
+
+        public void OnSwitchAim(InputValue p_value)
+        {
+            switchAim = p_value.isPressed;
         }
 
 #if !UNITY_IOS || !UNITY_ANDROID

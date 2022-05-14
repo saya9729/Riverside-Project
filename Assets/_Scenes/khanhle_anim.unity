@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 8900000, guid: 619e305f5165a9946b7f72464e44ca4a, type: 3}
   m_Sun: {fileID: 2114283754330233425}
-  m_IndirectSpecularColor: {r: 0.0031931403, g: 0.0063399686, b: 0.014472501, a: 1}
+  m_IndirectSpecularColor: {r: 0.029152213, g: 0.064445764, b: 0.12695098, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1591,6 +1591,7 @@ Transform:
   m_Children:
   - {fileID: 2146030199}
   - {fileID: 1313204014}
+  - {fileID: 1806244144}
   - {fileID: 515667926869983038}
   m_Father: {fileID: 1966708784}
   m_RootOrder: 0
@@ -2882,6 +2883,7 @@ MonoBehaviour:
   hipGunDifference: 0.0001
   stateAds: {fileID: 1313204014}
   stateHip: {fileID: 2146030199}
+  stateCD: {fileID: 1806244144}
 --- !u!4 &1691012972 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 7782f443ba1a6994aa7da99e2a32b54e, type: 3}
@@ -3026,6 +3028,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1768079024}
   m_CullTransparentMesh: 1
+--- !u!1 &1806244143
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1806244144}
+  m_Layer: 3
+  m_Name: 'CooldownPos '
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1806244144
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1806244143}
+  m_LocalRotation: {x: 0.44612437, y: 0.72156465, z: -0.41809058, w: 0.32483503}
+  m_LocalPosition: {x: -0.171, y: 0.216, z: -0.125}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1144111500}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 63.277, y: -192.293, z: 55.863}
 --- !u!1 &1835926139
 GameObject:
   m_ObjectHideFlags: 0
@@ -3773,7 +3805,7 @@ Transform:
   - {fileID: 7070317465753452982}
   - {fileID: 1835926140}
   m_Father: {fileID: 1144111500}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &582673121759306650
 GameObject:
@@ -8260,6 +8292,7 @@ MonoBehaviour:
   menu: 0
   pullFromSol: 0
   switchAim: 0
+  cooldownWeapon: 0
   move: {x: 0, y: 0}
   look: {x: 0, y: 0}
   jump: 0
@@ -8973,6 +9006,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3b2ebe598e49084aaf5ed5481e927d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  aimManager: {fileID: 1668045296}
 --- !u!114 &8086751367287002975
 MonoBehaviour:
   m_ObjectHideFlags: 0

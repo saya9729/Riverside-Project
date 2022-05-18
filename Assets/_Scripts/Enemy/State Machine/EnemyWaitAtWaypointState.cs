@@ -11,6 +11,7 @@ namespace Enemy
         {
             Debug.Log("Enemy Enter Wait At Waypoint State");
             _enemyStateManager.navMeshAgent.isStopped = true;
+            _enemyStateManager.animator.SetBool("isIdle", true);
             StartCoroutine(WaitAndBackToPatrol());
         }
 
@@ -24,6 +25,7 @@ namespace Enemy
         {
             Debug.Log("Enemy Exit Wait At Waypoint State");
             _enemyStateManager.navMeshAgent.isStopped = false;
+            _enemyStateManager.animator.SetBool("isIdle", false);
         }        
 
         public override void SwitchToState(string p_StateType)

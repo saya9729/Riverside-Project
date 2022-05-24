@@ -205,6 +205,7 @@ namespace Player
             // set sphere position, with offset
             Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - groundedOffset, transform.position.z);
             isGrounded = Physics.CheckSphere(spherePosition, groundedRadius, groundLayers, QueryTriggerInteraction.Ignore);
+            //isGrounded = Physics.CheckBox(spherePosition, new Vector3(groundedRadius, groundedRadius, groundedRadius), Quaternion.identity, groundLayers, QueryTriggerInteraction.Ignore);
         }
         
         private void Look()
@@ -262,11 +263,11 @@ namespace Player
             if (isGrounded) Gizmos.color = transparentGreen;
             else Gizmos.color = transparentRed;
 
-
+            Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - groundedOffset, transform.position.z);
 
             // when selected, draw a gizmo in the position of, and matching radius of, the grounded collider
             Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - groundedOffset, transform.position.z), groundedRadius);
-                        
+           //Gizmos.DrawCube(spherePosition, new Vector3(groundedRadius, groundedRadius, groundedRadius));
         }
 
         public override void EnterState()

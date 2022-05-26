@@ -9,7 +9,7 @@ namespace Enemy
         private EnemyPatrolState _enemyPatrolState;
         private EnemyChaseState _enemyChaseState;
         private EnemyAttackState _enemyAttackState;
-        private EnemyStaggerState _enemyStaggerState;
+        //private EnemyStaggerState _enemyStaggerState;
         private EnemyDeadState _enemyDeadState;
         private EnemyWaitAtWaypointState _enemyWaitAtWaypointState;
 
@@ -18,26 +18,26 @@ namespace Enemy
 
         [NonSerialized] public NavMeshAgent navMeshAgent;
         [NonSerialized] public LayerMask playerLayerMask;
-        public GameObject player;
+        [NonSerialized] public GameObject player;
         [NonSerialized] public AnimationClip[] animationClips;
                 
         protected override void InitializeVariable()
-        {
-            
+        {            
             playerLayerMask = LayerMask.GetMask("Player");
             animationClips = animator.runtimeAnimatorController.animationClips;
+            player = GameObject.FindGameObjectsWithTag("Player")[0];
         }
 
         protected override void InitializeState()
         {
-            _enemyStaggerState = GetComponent<EnemyStaggerState>();
+            //_enemyStaggerState = GetComponent<EnemyStaggerState>();
             _enemyPatrolState = GetComponent<EnemyPatrolState>();
             _enemyChaseState = GetComponent<EnemyChaseState>();
             _enemyAttackState = GetComponent<EnemyAttackState>();
             _enemyDeadState = GetComponent<EnemyDeadState>();
             _enemyWaitAtWaypointState = GetComponent<EnemyWaitAtWaypointState>();
 
-            _enemyStaggerState.SetSuperState(this);
+            //_enemyStaggerState.SetSuperState(this);
             _enemyPatrolState.SetSuperState(this);
             _enemyChaseState.SetSuperState(this);
             _enemyAttackState.SetSuperState(this);
@@ -63,10 +63,10 @@ namespace Enemy
             {
                 SwitchToState("DeadState");
             }
-            else if (_enemyStatisticManager.HealthPercentage() < _enemyStaggerState.healthStaggerThreshold)
-            {
-                SwitchToState("StaggerState");
-            }
+            //else if (_enemyStatisticManager.HealthPercentage() < _enemyStaggerState.healthStaggerThreshold)
+            //{
+            //    SwitchToState("StaggerState");
+            //}
         }
 
         private void Update()
@@ -120,9 +120,9 @@ namespace Enemy
                 case "AttackState":
                     SetSubState(_enemyAttackState);
                     break;
-                case "StaggerState":
-                    SetSubState(_enemyStaggerState);
-                    break;
+                //case "StaggerState":
+                //    SetSubState(_enemyStaggerState);
+                //    break;
                 case "WaitAtWaypointState":
                     SetSubState(_enemyWaitAtWaypointState);
                     break;

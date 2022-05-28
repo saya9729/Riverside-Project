@@ -269,7 +269,7 @@ GameObject:
   - component: {fileID: 89437842}
   - component: {fileID: 89437843}
   m_Layer: 5
-  m_Name: Healthbar
+  m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -704,6 +704,26 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 53103664005132253, guid: 09aade0ecefd01e4b8f7661acf64f5c2, type: 3}
   m_PrefabInstance: {fileID: 2084445384}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &362129096 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7281116662039118959, guid: 29969f4a50bcaaf4b83335e3b1e6be0d, type: 3}
+  m_PrefabInstance: {fileID: 3252639175121999033}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &362129097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 362129096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 093f8300a9def4f4997d5770544c8e16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  solCount: {fileID: 531312523}
+  healthBar: {fileID: 89437842}
+  energyBar: {fileID: 1468824882}
 --- !u!1 &366572847
 GameObject:
   m_ObjectHideFlags: 0
@@ -786,10 +806,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4261174648385567090, guid: 21af9a2172057ed4ebb386270946d762, type: 3}
+      propertyPath: slowTimeIcon
+      value: 
+      objectReference: {fileID: 935661593}
     - target: {fileID: 4261174648385567095, guid: 21af9a2172057ed4ebb386270946d762, type: 3}
       propertyPath: interactionText
       value: 
       objectReference: {fileID: 1842227718}
+    - target: {fileID: 4261174648385567097, guid: 21af9a2172057ed4ebb386270946d762, type: 3}
+      propertyPath: hudController
+      value: 
+      objectReference: {fileID: 362129097}
     - target: {fileID: 4261174648672795352, guid: 21af9a2172057ed4ebb386270946d762, type: 3}
       propertyPath: m_Name
       value: MainPlayer
@@ -1202,6 +1230,7 @@ RectTransform:
   - {fileID: 366572848}
   - {fileID: 89437841}
   - {fileID: 1468824880}
+  - {fileID: 935661594}
   m_Father: {fileID: 86484094}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1491,6 +1520,24 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1 &682471593 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5994394424565356048, guid: 6f9c89d7e7c3f5340ac8fb90b9517fc0, type: 3}
+  m_PrefabInstance: {fileID: 1182172448}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &682471594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 682471593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 114987e498c01824fb80092cff33d2c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dmg: 10
 --- !u!1 &689066069 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1740817458727708515, guid: 09aade0ecefd01e4b8f7661acf64f5c2, type: 3}
@@ -1905,6 +1952,78 @@ LightProbeGroup:
   - {x: 7.1518564, y: 2.7763042, z: -11.2319765}
   - {x: 8.993203, y: 2.3566551, z: -8.796325}
   m_Dering: 1
+--- !u!1 &935661593
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 935661594}
+  - component: {fileID: 935661596}
+  - component: {fileID: 935661595}
+  m_Layer: 5
+  m_Name: SlowTimeIcon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &935661594
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 935661593}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 570382338}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -848.17, y: -437.7}
+  m_SizeDelta: {x: 23.6508, y: 23.6508}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &935661595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 935661593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.8117647, g: 0.70980394, b: 0.23137255, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Texture: {fileID: 2800000, guid: 104c6d9e51949884094038dda126f91c, type: 3}
+  m_UVRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+--- !u!222 &935661596
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 935661593}
+  m_CullTransparentMesh: 1
 --- !u!1 &936125209
 GameObject:
   m_ObjectHideFlags: 0
@@ -2292,6 +2411,10 @@ PrefabInstance:
     - target: {fileID: 5994394424565356048, guid: 6f9c89d7e7c3f5340ac8fb90b9517fc0, type: 3}
       propertyPath: m_Name
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 5994394424565356048, guid: 6f9c89d7e7c3f5340ac8fb90b9517fc0, type: 3}
+      propertyPath: m_TagString
+      value: EnemyAttack
       objectReference: {fileID: 0}
     - target: {fileID: 5994394424565356049, guid: 6f9c89d7e7c3f5340ac8fb90b9517fc0, type: 3}
       propertyPath: m_RootOrder
@@ -3457,7 +3580,7 @@ GameObject:
   - component: {fileID: 1468824882}
   - component: {fileID: 1468824881}
   m_Layer: 5
-  m_Name: Energy bar
+  m_Name: EnergyBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

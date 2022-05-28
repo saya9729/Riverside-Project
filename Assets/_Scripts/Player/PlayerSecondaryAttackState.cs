@@ -24,6 +24,7 @@ namespace Player
         {
             //_playerStateManager.playerAnimator.SetInteger("attack", 2);
             gunRecoil.Fire();
+            FindObjectOfType<AudioManager>().Play("shoot");
             StartCoroutine(WaitAnim());
         }
 

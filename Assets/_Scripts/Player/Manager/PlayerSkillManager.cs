@@ -37,6 +37,7 @@ namespace Player
 
         IEnumerator StartOfSlowTimeCoroutine()
         {
+            FindObjectOfType<AudioManager>().Play("timeskill");
             _playerStateManager.volume.enabled = true;
             int index = 1;
             while (_timeAddToPrefixAndSuffixesCoefficient != timeCoefficient && slowdownAmount != 0)
@@ -75,6 +76,7 @@ namespace Player
             Time.timeScale = 1;
             Time.fixedDeltaTime = _fixedDeltaTimeOldValue;
             _playerStateManager.volume.enabled = false;
+            FindObjectOfType<AudioManager>().Stop("timeskill");
             gameIsSlowDown = false;
             StopAllCoroutines();
             PullFromSol(amountPullFromSol);

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlaySound : MonoBehaviour
 {
-    enum SoundName {shot, punch}
+    enum SoundName {slash, stab, shoot, reload, cooldown, collect, timeskill, walk, jump, dash, enemyHit, HUD, UI, menu8}
     SoundName soundName;
 
 

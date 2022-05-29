@@ -22,7 +22,7 @@ namespace Player
 
         [NonSerialized] public Animator playerAnimator;
 
-        [SerializeField] public GameObject slowTimeIcon;        
+        public GameObject slowTimeIcon;        
 
         private void Start()
         {

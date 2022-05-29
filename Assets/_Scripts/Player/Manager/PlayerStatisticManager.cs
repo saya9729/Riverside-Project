@@ -36,5 +36,10 @@ namespace Player
                 _playerDeathSequence.PlayPlayerDeathSequence();
             }
         }
+
+        protected override void InitializeVariable()
+        {
+            health = maxHealth;
+        }
     }
 }

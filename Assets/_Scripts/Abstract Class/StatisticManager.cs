@@ -13,10 +13,7 @@ namespace AbstractClass
             InitializeVariable();
         }
 
-        protected void InitializeVariable()
-        {
-            health = maxHealth;
-        }
+        protected abstract void InitializeVariable();        
 
         public void DecreaseHealth(float p_decreaseAmount)
         {

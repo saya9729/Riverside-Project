@@ -13,10 +13,11 @@ namespace Enemy
 
         public override void EnterState()
         {
-            Debug.Log("Enemy Enter Dead State");
+            //Debug.Log("Enemy Enter Dead State");
             //start dead animation once
-            _enemyStateManager.animator.SetBool("isDead", true);
-            Instantiate(solPrefab, solParent, true);
+            _enemyStateManager.animator.SetTrigger("Dead");
+            _enemyStateManager.animator.enabled = false;
+            //Instantiate(solPrefab, solParent, true);
             StartCoroutine(WaitAndDestroyThisObject());
         }
 
@@ -28,8 +29,7 @@ namespace Enemy
 
         public override void ExitState()
         {
-            Debug.Log("Enemy Exit Dead State");
-            _enemyStateManager.animator.SetBool("isDead", false);
+            //Debug.Log("Enemy Exit Dead State");
         }
         
         protected override void UpdateThisState()

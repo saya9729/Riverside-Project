@@ -15,7 +15,9 @@ namespace Enemy
 
         public override void EnterState()
         {
-            Debug.Log("Enemy Enter Patrol State");
+            //Debug.Log("Enemy Enter Patrol State");
+            _enemyStateManager.animator.SetTrigger("Patrol");
+            _enemyStateManager.navMeshAgent.isStopped = false;
             UpdateDestination();
         }
 
@@ -41,8 +43,9 @@ namespace Enemy
         }
 
         public override void ExitState()
-        {            
-            Debug.Log("Enemy Exit Patrol State");
+        {
+            //Debug.Log("Enemy Exit Patrol State");
+            _enemyStateManager.navMeshAgent.isStopped = true;
         }
         
         protected override void PhysicsUpdateThisState()

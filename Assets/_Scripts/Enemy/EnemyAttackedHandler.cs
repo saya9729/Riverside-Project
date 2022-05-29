@@ -16,11 +16,11 @@ namespace Enemy
 
         void OnTriggerEnter(Collider p_collider)
         {
-            if (p_collider.tag == "PlayerAttack") //collide with enemy attack's collider which has this tag
+            if (p_collider.CompareTag("PlayerAttack")) //collide with enemy attack's collider which has this tag
             {
                 Debug.Log("attacked");
 
-                var _damageManager = p_collider.GetComponent<DamageManager>();
+                _damageManager = p_collider.GetComponent<DamageManager>();
 
                 if (_damageManager)
                 {

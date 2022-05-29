@@ -38,6 +38,7 @@ namespace Player
         IEnumerator StartOfSlowTimeCoroutine()
         {
             _playerStateManager.volume.enabled = true;
+            _playerStateManager.slowTimeIcon.SetActive(true);
             int index = 1;
             while (_timeAddToPrefixAndSuffixesCoefficient != timeCoefficient && slowdownAmount != 0)
             {
@@ -50,6 +51,7 @@ namespace Player
             Time.fixedDeltaTime = Time.timeScale * 0.02f;
 
             _playerStateManager.volume.enabled = true;
+            _playerStateManager.slowTimeIcon.SetActive(true);
 
             while (slowdownAmount != 0)
             {
@@ -58,6 +60,7 @@ namespace Player
                 slowdownAmount = Mathf.Clamp(slowdownAmount, 0f, slowdownAmountMax);
                 PlayerPrefs.SetFloat("SlowdownAmount", slowdownAmount);
                 PlayerPrefs.Save();
+                this.PostEvent(EventID.onEnergyChange, slowdownAmount);
             }
             UnSlowTime();
 
@@ -75,6 +78,7 @@ namespace Player
             Time.timeScale = 1;
             Time.fixedDeltaTime = _fixedDeltaTimeOldValue;
             _playerStateManager.volume.enabled = false;
+            _playerStateManager.slowTimeIcon.SetActive(false);
             gameIsSlowDown = false;
             StopAllCoroutines();
             PullFromSol(amountPullFromSol);
@@ -122,6 +126,7 @@ namespace Player
                     slowdownAmount += p_amount;
                     PlayerPrefs.SetFloat("SlowdownAmount", slowdownAmount);
                     PlayerPrefs.Save();
+                    this.PostEvent(EventID.onEnergyChange, slowdownAmount);
                 }
             }
         }

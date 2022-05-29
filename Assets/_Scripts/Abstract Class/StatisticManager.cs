@@ -18,6 +18,7 @@ namespace AbstractClass
         public void DecreaseHealth(float p_decreaseAmount)
         {
             health -= p_decreaseAmount;
+            this.PostEvent(EventID.onHPChanged, health);
         }
 
         public void IncreaseHealth(float p_increaseAmount)
@@ -27,6 +28,7 @@ namespace AbstractClass
             {
                 health = maxHealth;
             }
+            this.PostEvent(EventID.onHPChanged, health);
         }
 
         public float HealthPercentage()

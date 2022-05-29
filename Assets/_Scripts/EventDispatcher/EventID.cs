@@ -8,4 +8,6 @@ public enum EventID
     onDodgePress,
     onKeyCollected,
     onHPPotCollected,
+    onHPChanged,
+    onEnergyChange,
 }

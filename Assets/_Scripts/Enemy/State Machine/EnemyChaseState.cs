@@ -8,12 +8,13 @@ namespace Enemy
     {
         private EnemyStateManager _enemyStateManager;
         [SerializeField] private float _rangeToStartAttacking = 1f;
-        [SerializeField] private Transform[] objectToChase;
         [SerializeField] private float chaseDestinationUpdateInterval = 1f;
                 
         public override void EnterState()
         {
             Debug.Log("Enemy Enter Chase State");
+            _enemyStateManager.animator.SetTrigger("Chase");
+            _enemyStateManager.navMeshAgent.isStopped = false;
             StartCoroutine(UpdateChaseDestination());
         }
 
@@ -22,7 +23,7 @@ namespace Enemy
             while (true)
             {
                 yield return new WaitForSeconds(chaseDestinationUpdateInterval);
-                _enemyStateManager.navMeshAgent.SetDestination(objectToChase[0].position);
+                _enemyStateManager.navMeshAgent.SetDestination(_enemyStateManager.player.transform.position);
             }
         }
 
@@ -40,6 +41,7 @@ namespace Enemy
         public override void ExitState()
         {
             Debug.Log("Enemy Exit Chase State");
+            _enemyStateManager.navMeshAgent.isStopped = true;
         }        
 
         protected override void PhysicsUpdateThisState()

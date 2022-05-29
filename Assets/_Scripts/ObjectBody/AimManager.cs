@@ -45,7 +45,7 @@ namespace Player
             }
             else if ((stateHip.position - transform.position).magnitude >= hipGunDifference) //check if gun returned to hip position and return it to hip
             {
-                Debug.Log("to hip");
+                //Debug.Log("to hip");
                 isOnCooldown = false;
                 transform.position = Vector3.Lerp(transform.position, stateHip.position, Time.deltaTime * aimSpeed);
                 transform.rotation = Quaternion.Lerp(transform.rotation, stateHip.rotation, Time.deltaTime * aimSpeed);

@@ -6,12 +6,13 @@ namespace Enemy
     public class EnemyAttackState : AbstractClass.StateNew
     {
         private EnemyStateManager _enemyStateManager;
+        [SerializeField] private string attackAnimationName = "Jab Cross";
 
         public override void EnterState()
         {
-            Debug.Log("Enemy Enter Attack State");
+            //Debug.Log("Enemy Enter Attack State");
             //start attack animation
-            _enemyStateManager.animator.SetBool("isAttacking",true);
+            _enemyStateManager.animator.SetTrigger("Attack");
             StartCoroutine(WaitAndBackToPatrol());
         }
 
@@ -20,9 +21,10 @@ namespace Enemy
             float attackLength = 0;
             foreach (AnimationClip clip in _enemyStateManager.animationClips)
             {
-                if (clip.name == "Zombie Punching")
+                if (clip.name == attackAnimationName)
                 {
                     attackLength = clip.length;
+                    break;
                 }
             }
             yield return new WaitForSeconds(attackLength);
@@ -31,9 +33,7 @@ namespace Enemy
 
         public override void ExitState()
         {
-            Debug.Log("Enemy Exit Attack State");
-            //cancel attack animation
-            _enemyStateManager.animator.SetBool("isAttacking", false);
+            //Debug.Log("Enemy Exit Attack State");            
         }        
 
         protected override void UpdateThisState()

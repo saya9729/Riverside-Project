@@ -10,9 +10,9 @@ namespace Enemy
 
         public override void EnterState()
         {
-            Debug.Log("Enemy Enter Stagger State");
+            //Debug.Log("Enemy Enter Stagger State");
             //start stagger animation once
-            _enemyStateManager.animator.SetBool("isStagger", true);
+            _enemyStateManager.animator.SetTrigger("Stagger");
             StartCoroutine(WaitAndBackToPatrol());
         }
         IEnumerator WaitAndBackToPatrol()
@@ -31,8 +31,7 @@ namespace Enemy
         
         public override void ExitState()
         {
-            Debug.Log("Enemy Exit Stagger State");
-            _enemyStateManager.animator.SetBool("isStagger", false);
+            //Debug.Log("Enemy Exit Stagger State");
         }        
 
         protected override void UpdateThisState()

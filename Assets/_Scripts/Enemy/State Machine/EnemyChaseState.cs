@@ -15,7 +15,7 @@ namespace Enemy
             Debug.Log("Enemy Enter Chase State");
             _enemyStateManager.animator.SetTrigger("Chase");
             _enemyStateManager.navMeshAgent.isStopped = false;
-            StartCoroutine(UpdateChaseDestination());
+            //StartCoroutine(UpdateChaseDestination());
         }
 
         IEnumerator UpdateChaseDestination()
@@ -31,7 +31,11 @@ namespace Enemy
         {
             CheckSwitchState();
             //Debug.Log(_enemyStateManager.navMeshAgent.pathPending);
-        }        
+            if (!_enemyStateManager.navMeshAgent.pathPending)
+            {
+                _enemyStateManager.navMeshAgent.destination = _enemyStateManager.player.transform.position;
+            }
+        }
 
         private bool IsPlayerInRangeToStartAttacking()
         {

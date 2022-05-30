@@ -18,6 +18,7 @@ namespace Enemy
             //Debug.Log("Enemy Enter Patrol State");
             _enemyStateManager.animator.SetTrigger("Patrol");
             _enemyStateManager.navMeshAgent.isStopped = false;
+            _enemyStateManager.navMeshAgent.autoBraking = false;
             UpdateDestination();
         }
 
@@ -63,7 +64,7 @@ namespace Enemy
             {
                 //continue patroling
             }
-            
+            //Debug.Log(_enemyStateManager.navMeshAgent);
             if (Vector3.Distance(transform.position, _targetDestination.position) < 1)
             {
                 _enemyStateManager.SwitchToState("WaitAtWaypointState");
@@ -89,5 +90,9 @@ namespace Enemy
         {
             throw new System.NotImplementedException();
         }
+        //private void Awake()
+        //{
+        //    _enemyStateManager = GetComponent<EnemyStateManager>();
+        //}
     }
 }

@@ -3289,7 +3289,7 @@ PrefabInstance:
       objectReference: {fileID: 350893076}
     - target: {fileID: 5310202028732048106, guid: 6f9c89d7e7c3f5340ac8fb90b9517fc0, type: 3}
       propertyPath: chaseDestinationUpdateInterval
-      value: 1.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5369963328283796304, guid: 6f9c89d7e7c3f5340ac8fb90b9517fc0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

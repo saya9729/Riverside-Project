@@ -26,7 +26,7 @@ namespace Enemy
         {            
             playerLayerMask = LayerMask.GetMask("Player");
             animationClips = animator.runtimeAnimatorController.animationClips;
-            player = GameObject.FindGameObjectsWithTag("Player")[0];
+            player = GameObject.FindGameObjectWithTag("Player");
         }
 
         protected override void InitializeState()

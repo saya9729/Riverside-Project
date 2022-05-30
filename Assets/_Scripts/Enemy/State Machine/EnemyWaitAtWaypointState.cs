@@ -9,9 +9,9 @@ namespace Enemy
         [SerializeField] private float waitAtWaypointTime =5f;
         public override void EnterState()
         {
-            Debug.Log("Enemy Enter Wait At Waypoint State");
+            //Debug.Log("Enemy Enter Wait At Waypoint State");
             _enemyStateManager.navMeshAgent.isStopped = true;
-            _enemyStateManager.animator.SetBool("isIdle", true);
+            _enemyStateManager.animator.SetTrigger("Wait");
             StartCoroutine(WaitAndBackToPatrol());
         }
 
@@ -23,9 +23,8 @@ namespace Enemy
 
         public override void ExitState()
         {
-            Debug.Log("Enemy Exit Wait At Waypoint State");
+            //Debug.Log("Enemy Exit Wait At Waypoint State");
             _enemyStateManager.navMeshAgent.isStopped = false;
-            _enemyStateManager.animator.SetBool("isIdle", false);
         }        
 
         public override void SwitchToState(string p_StateType)

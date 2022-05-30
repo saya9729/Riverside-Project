@@ -32,7 +32,7 @@ namespace Player
             if (_inputManager.switchAim) //put gun to aim down sight position
             {
                 //hip
-                FindObjectOfType<AudioManager>().Stop("cooldown");
+                AudioManager.instance.Stop("cooldown");
                 isOnCooldown = false;
                 transform.position = Vector3.Lerp(transform.position, stateAds.position, Time.deltaTime * aimSpeed);
                 transform.rotation = Quaternion.Lerp(transform.rotation, stateAds.rotation, Time.deltaTime * aimSpeed);
@@ -40,9 +40,9 @@ namespace Player
             else if (_inputManager.cooldownWeapon) //set gun to cooldown
             {
                 Debug.Log("to cooldown");
-                if (!FindObjectOfType<AudioManager>().GetSound("cooldown").source.isPlaying)
+                if (!AudioManager.instance.GetSound("cooldown").source.isPlaying)
                 {
-                    FindObjectOfType<AudioManager>().Play("cooldown");
+                    AudioManager.instance.Play("cooldown");
                 }
                 isOnCooldown = true;
                 transform.position = Vector3.Lerp(transform.position, stateCD.position, Time.deltaTime * aimSpeed);
@@ -51,7 +51,7 @@ namespace Player
             else if ((stateHip.position - transform.position).magnitude >= hipGunDifference) //check if gun returned to hip position and return it to hip
             {
                 Debug.Log("to hip");
-                FindObjectOfType<AudioManager>().Stop("cooldown");
+                AudioManager.instance.Stop("cooldown");
                 isOnCooldown = false;
                 transform.position = Vector3.Lerp(transform.position, stateHip.position, Time.deltaTime * aimSpeed);
                 transform.rotation = Quaternion.Lerp(transform.rotation, stateHip.rotation, Time.deltaTime * aimSpeed);

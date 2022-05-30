@@ -17,6 +17,8 @@ namespace Enemy
             //start dead animation once
             _enemyStateManager.animator.SetTrigger("Dead");
             _enemyStateManager.animator.enabled = false;
+            _enemyStateManager.EnableRagdoll();
+            Debug.Log("Enemy Enter Dead State");
             //Instantiate(solPrefab, solParent, true);
             StartCoroutine(WaitAndDestroyThisObject());
         }

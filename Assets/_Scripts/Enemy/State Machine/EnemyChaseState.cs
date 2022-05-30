@@ -30,7 +30,7 @@ namespace Enemy
         protected override void UpdateThisState()
         {
             CheckSwitchState();
-            Debug.Log(_enemyStateManager.navMeshAgent.pathPending);            
+            //Debug.Log(_enemyStateManager.navMeshAgent.pathPending);
         }        
 
         private bool IsPlayerInRangeToStartAttacking()

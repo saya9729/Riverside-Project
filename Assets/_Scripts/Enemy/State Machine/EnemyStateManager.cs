@@ -14,6 +14,7 @@ namespace Enemy
         private EnemyWaitAtWaypointState _enemyWaitAtWaypointState;
 
         private EnemyStatisticManager _enemyStatisticManager;
+        private RagdollManager _ragdollManager;
         [NonSerialized] public Animator animator;
 
         [NonSerialized] public NavMeshAgent navMeshAgent;
@@ -54,6 +55,7 @@ namespace Enemy
             _enemyStatisticManager = GetComponent<EnemyStatisticManager>();
             animator = GetComponent<Animator>();
             navMeshAgent = GetComponent<NavMeshAgent>();
+            _ragdollManager = GetComponent<RagdollManager>();
         }
 
         public void ReceiveDamage(float p_damage)
@@ -129,6 +131,15 @@ namespace Enemy
                 default:
                     break;
             }
+        }
+
+        public void EnableRagdoll()
+        {
+            _ragdollManager.EnableRagdoll();
+        }
+        public void DisableRagdoll()
+        {
+            _ragdollManager.DisableRagdoll();
         }
     }
 }

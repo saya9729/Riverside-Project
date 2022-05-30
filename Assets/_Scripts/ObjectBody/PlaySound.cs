@@ -1,0 +1,15 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlaySound : MonoBehaviour
+{
+    enum SoundName {slash, stab, shoot, reload, cooldown, collect, timeskill, walk, jump, dash, enemyHit, HUD, UI, menu8}
+    SoundName soundName;
+
+
+    void playsound(SoundName soundName)
+    {
+        FindObjectOfType<AudioManager>().Play(soundName.ToString());
+    }
+}

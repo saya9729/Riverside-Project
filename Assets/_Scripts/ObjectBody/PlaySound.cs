@@ -10,6 +10,6 @@ public class PlaySound : MonoBehaviour
 
     void playsound(SoundName soundName)
     {
-        FindObjectOfType<AudioManager>().Play(soundName.ToString());
+        AudioManager.instance.Play(soundName.ToString());
     }
 }

@@ -174,7 +174,7 @@ namespace Player
         {
             if (isGrounded && inputManager.jump && isJumpable)
             {
-                FindObjectOfType<AudioManager>().Play("jump");
+                AudioManager.instance.Play("jump");
                 // the square root of H * -2 * G = how much velocity needed to reach desired height
                 verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
                 StartCoroutine(StartJumpCooldown());
@@ -197,16 +197,16 @@ namespace Player
             if (inputManager.move != Vector2.zero)
             {
                 // move
-                if(!FindObjectOfType<AudioManager>().GetSound("walk").source.isPlaying)
+                if(!AudioManager.instance.GetSound("walk").source.isPlaying)
                 {
-                    FindObjectOfType<AudioManager>().Play("walk");
+                    AudioManager.instance.Play("walk");
                 }
 
                 inputDirection = transform.right * inputManager.move.x + transform.forward * inputManager.move.y;
             }
-            else if(FindObjectOfType<AudioManager>().GetSound("walk").source.isPlaying)
+            else if(AudioManager.instance.GetSound("walk").source.isPlaying)
             {
-                FindObjectOfType<AudioManager>().Stop("walk");
+                AudioManager.instance.Stop("walk");
             }
         }
 

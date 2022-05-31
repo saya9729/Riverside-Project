@@ -71,10 +71,6 @@ namespace Player
                 playerSkillManager.ToggleSlowGame(playerSkillManager.gameIsSlowDown);
                 inputManager.usingPocketWatch = false;
             }
-            //if (inputManager.interact)
-            //{
-            //    Debug.Log("is Interact");
-            //}
         }
     }
 }

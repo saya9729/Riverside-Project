@@ -55,14 +55,6 @@ namespace Player
 
         private void HandleInteraction()
         {
-            //if (_playerStateManager.inputManager.interact)
-            //{
-            //    _interactable.Interact();
-            //}
-            //if (InputProxy.GetKeyDown("E"))
-            //{
-            //    _interactable.Interact();
-            //}
             if (_playerInput.actions["Interact"].WasPressedThisFrame())
             {
                 _interactable.Interact();

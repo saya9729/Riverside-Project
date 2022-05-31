@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7281116662039118958}
   - component: {fileID: 7817564798582473892}
+  - component: {fileID: 9148230442411294714}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -27,6 +28,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -46,3 +48,18 @@ MonoBehaviour:
   gameMenuCanvas: {fileID: 0}
   gameUICanvas: {fileID: 0}
   gameMenu: {fileID: 0}
+--- !u!114 &9148230442411294714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7281116662039118959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 093f8300a9def4f4997d5770544c8e16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  solCount: {fileID: 0}
+  healthBar: {fileID: 0}
+  energyBar: {fileID: 0}

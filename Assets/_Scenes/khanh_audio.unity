@@ -3039,6 +3039,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioManager
       objectReference: {fileID: 0}
+    - target: {fileID: 313883228491555877, guid: fbaa8bc4bbed3ea4ea61fb438cd6df44, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 313883228491555899, guid: fbaa8bc4bbed3ea4ea61fb438cd6df44, type: 3}
       propertyPath: m_RootOrder
       value: 0

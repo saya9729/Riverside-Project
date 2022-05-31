@@ -9,14 +9,13 @@ namespace Enemy
         private EnemyPatrolState _enemyPatrolState;
         private EnemyChaseState _enemyChaseState;
         private EnemyAttackState _enemyAttackState;
-        //private EnemyStaggerState _enemyStaggerState;
         private EnemyDeadState _enemyDeadState;
         private EnemyWaitAtWaypointState _enemyWaitAtWaypointState;
 
         private EnemyStatisticManager _enemyStatisticManager;
         private RagdollManager _ragdollManager;
         [NonSerialized] public Animator animator;
-
+        // TODO: Refactor code to remove all public field
         [NonSerialized] public NavMeshAgent navMeshAgent;
         [NonSerialized] public LayerMask playerLayerMask;
         [NonSerialized] public GameObject player;
@@ -31,14 +30,12 @@ namespace Enemy
 
         protected override void InitializeState()
         {
-            //_enemyStaggerState = GetComponent<EnemyStaggerState>();
             _enemyPatrolState = GetComponent<EnemyPatrolState>();
             _enemyChaseState = GetComponent<EnemyChaseState>();
             _enemyAttackState = GetComponent<EnemyAttackState>();
             _enemyDeadState = GetComponent<EnemyDeadState>();
             _enemyWaitAtWaypointState = GetComponent<EnemyWaitAtWaypointState>();
 
-            //_enemyStaggerState.SetSuperState(this);
             _enemyPatrolState.SetSuperState(this);
             _enemyChaseState.SetSuperState(this);
             _enemyAttackState.SetSuperState(this);
@@ -65,10 +62,6 @@ namespace Enemy
             {
                 SwitchToState("DeadState");
             }
-            //else if (_enemyStatisticManager.HealthPercentage() < _enemyStaggerState.healthStaggerThreshold)
-            //{
-            //    SwitchToState("StaggerState");
-            //}
         }
 
         private void Update()
@@ -121,10 +114,7 @@ namespace Enemy
                     break;
                 case "AttackState":
                     SetSubState(_enemyAttackState);
-                    break;
-                //case "StaggerState":
-                //    SetSubState(_enemyStaggerState);
-                //    break;
+                    break;                
                 case "WaitAtWaypointState":
                     SetSubState(_enemyWaitAtWaypointState);
                     break;

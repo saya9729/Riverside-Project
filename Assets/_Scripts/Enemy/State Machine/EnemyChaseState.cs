@@ -8,21 +8,18 @@ namespace Enemy
     {
         private EnemyStateManager _enemyStateManager;
         [SerializeField] private float _rangeToStartAttacking = 1f;
-        [SerializeField] private float chaseDestinationUpdateInterval = 1f;
                 
         public override void EnterState()
         {
-            Debug.Log("Enemy Enter Chase State");
+            //Debug.Log("Enemy Enter Chase State");
             _enemyStateManager.animator.SetTrigger("Chase");
             _enemyStateManager.navMeshAgent.isStopped = false;
-            //StartCoroutine(UpdateChaseDestination());
         }
 
-        IEnumerator UpdateChaseDestination()
+        private void UpdateChaseDestination()
         {
-            while (true)
+            if (!_enemyStateManager.navMeshAgent.pathPending)
             {
-                yield return new WaitForSeconds(chaseDestinationUpdateInterval);
                 _enemyStateManager.navMeshAgent.SetDestination(_enemyStateManager.player.transform.position);
             }
         }
@@ -30,11 +27,7 @@ namespace Enemy
         protected override void UpdateThisState()
         {
             CheckSwitchState();
-            //Debug.Log(_enemyStateManager.navMeshAgent.pathPending);
-            if (!_enemyStateManager.navMeshAgent.pathPending)
-            {
-                _enemyStateManager.navMeshAgent.destination = _enemyStateManager.player.transform.position;
-            }
+            UpdateChaseDestination();
         }
 
         private bool IsPlayerInRangeToStartAttacking()
@@ -44,7 +37,7 @@ namespace Enemy
 
         public override void ExitState()
         {
-            Debug.Log("Enemy Exit Chase State");
+            //Debug.Log("Enemy Exit Chase State");
             _enemyStateManager.navMeshAgent.isStopped = true;
         }        
 

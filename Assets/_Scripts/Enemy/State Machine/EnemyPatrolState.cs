@@ -16,9 +16,20 @@ namespace Enemy
         public override void EnterState()
         {
             //Debug.Log("Enemy Enter Patrol State");
-            _enemyStateManager.animator.SetTrigger("Patrol");
-            _enemyStateManager.navMeshAgent.isStopped = false;
-            _enemyStateManager.navMeshAgent.autoBraking = false;
+            try
+            {
+                _enemyStateManager.animator.SetTrigger("Patrol");
+                _enemyStateManager.navMeshAgent.isStopped = false;
+                _enemyStateManager.navMeshAgent.autoBraking = false;
+            }
+            catch
+            {
+                //In case the call for EnterState() came before Start()
+                Start();
+                _enemyStateManager.animator.SetTrigger("Patrol");
+                _enemyStateManager.navMeshAgent.isStopped = false;
+                _enemyStateManager.navMeshAgent.autoBraking = false;
+            }
             UpdateDestination();
         }
 
@@ -46,6 +57,7 @@ namespace Enemy
         public override void ExitState()
         {
             //Debug.Log("Enemy Exit Patrol State");
+            // TODO: Find a way to get rid of excessive navMeshAgent manipulation
             _enemyStateManager.navMeshAgent.isStopped = true;
         }
         
@@ -64,7 +76,7 @@ namespace Enemy
             {
                 //continue patroling
             }
-            //Debug.Log(_enemyStateManager.navMeshAgent);
+            
             if (Vector3.Distance(transform.position, _targetDestination.position) < 1)
             {
                 _enemyStateManager.SwitchToState("WaitAtWaypointState");
@@ -89,10 +101,6 @@ namespace Enemy
         public override void SwitchToState(string p_StateType)
         {
             throw new System.NotImplementedException();
-        }
-        //private void Awake()
-        //{
-        //    _enemyStateManager = GetComponent<EnemyStateManager>();
-        //}
+        }        
     }
 }

@@ -11,8 +11,8 @@ namespace Enemy
         public override void EnterState()
         {
             //Debug.Log("Enemy Enter Attack State");
-            //start attack animation
             _enemyStateManager.animator.SetTrigger("Attack");
+            // TODO: Turn into trigger by animation event later
             StartCoroutine(WaitAndBackToPatrol());
         }
 

@@ -22,6 +22,8 @@ namespace Player
 
         [NonSerialized] public Animator playerAnimator;
 
+        public GameObject slowTimeIcon;        
+
         private void Start()
         {
             InitializeManager();

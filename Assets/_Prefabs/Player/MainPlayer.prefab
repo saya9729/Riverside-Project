@@ -733,7 +733,7 @@ MonoBehaviour:
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 0
   m_Cameras: []
-  m_RendererIndex: -1
+  m_RendererIndex: 1
   m_VolumeLayerMask:
     serializedVersion: 2
     m_Bits: 1
@@ -1161,7 +1161,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameMenuCanvas: {fileID: 0}
-  deathTime: 2
+  loseTime: 2
 --- !u!1 &4261174648672795352
 GameObject:
   m_ObjectHideFlags: 0
@@ -1188,6 +1188,7 @@ GameObject:
   - component: {fileID: 4261174648672795349}
   - component: {fileID: 4261174648672795348}
   - component: {fileID: 3768049887350293756}
+  - component: {fileID: 4281189589155526853}
   m_Layer: 3
   m_Name: MainPlayer
   m_TagString: Player
@@ -1666,6 +1667,18 @@ MonoBehaviour:
   groundLayers:
     serializedVersion: 2
     m_Bits: 0
+--- !u!114 &4281189589155526853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4261174648672795352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2faf3922b39a3a4093377bc4f65bd8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4261174648711154787
 GameObject:
   m_ObjectHideFlags: 0

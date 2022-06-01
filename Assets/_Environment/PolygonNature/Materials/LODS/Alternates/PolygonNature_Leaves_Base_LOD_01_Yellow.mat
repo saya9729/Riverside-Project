@@ -123,7 +123,7 @@ Material:
     - _Emission: {r: 0.6039216, g: 0.13725491, b: 0, a: 0}
     - _EmissionColor: {r: 0.44852942, g: 0.2122244, b: 0.059364192, a: 1}
   m_BuildTextureStacks: []
---- !u!114 &2898874697545965771
+--- !u!114 &2847298549012002477
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}

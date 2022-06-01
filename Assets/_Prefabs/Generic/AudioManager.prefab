@@ -101,7 +101,7 @@ MonoBehaviour:
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: timeskill
-    clip: {fileID: 8300000, guid: ead7dc0a1cdf6f44abe80eb7c4e7b2e4, type: 3}
+    clip: {fileID: 8300000, guid: 0e9cc28abb757274daea4c379a01697d, type: 3}
     volume: 1
     volumeVariance: 1
     pitch: 1
@@ -109,18 +109,9 @@ MonoBehaviour:
     loop: 0
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
-  - name: walk
-    clip: {fileID: 8300000, guid: 0e64a42ddc3b7404fa8cc2115505220d, type: 3}
-    volume: 1
-    volumeVariance: 1
-    pitch: 1
-    pitchVariance: 0
-    loop: 1
-    mixerGroup: {fileID: 0}
-    source: {fileID: 0}
   - name: jump
     clip: {fileID: 8300000, guid: 320141f62b70fd8499860d57f7c06ccf, type: 3}
-    volume: 1
+    volume: 0
     volumeVariance: 1
     pitch: 1
     pitchVariance: 0

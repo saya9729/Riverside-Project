@@ -8,7 +8,8 @@ namespace GameUI
         private Player.InputManager _inputManager;
         [SerializeField] private GameObject gameMenuCanvas;
         [SerializeField] private GameObject gameUICanvas;
-        [SerializeField] private GameMenu gameMenu;
+        [SerializeField] private GameObject gameOptionMenuCanvas;
+        [SerializeField] private GameObject GameMenuButtonCanvas;
         private bool _gameIsPause = false;
         void Start()
         {
@@ -20,12 +21,7 @@ namespace GameUI
         {
             if (_inputManager.menu)
             {
-                //This not work with the current player input need to update in the future
-                /*_gameIsPause = !_gameIsPause;
-                Debug.Log(_gameIsPause);
-                TogglePauseGame(_gameIsPause);
-                */
-                //gameMenu.QuitGameToMainMenu();
+                TogglePauseGame();
                 _inputManager.menu = false;
             }
         }
@@ -34,11 +30,15 @@ namespace GameUI
         {
             _inputManager = GameObject.FindGameObjectWithTag("Player").GetComponent<Player.InputManager>();
         }
-        void TogglePauseGame(bool p_toggleMenuButton)
+        public void TogglePauseGame()
         {
-            gameMenuCanvas.SetActive(p_toggleMenuButton);
-            gameUICanvas.SetActive(!p_toggleMenuButton);
-            Time.timeScale = p_toggleMenuButton ? 0f : 1f;
+            _gameIsPause = !_gameIsPause;
+            gameMenuCanvas.SetActive(_gameIsPause);
+            gameUICanvas.SetActive(!_gameIsPause);
+            gameOptionMenuCanvas.SetActive(false);
+            GameMenuButtonCanvas.SetActive(_gameIsPause);
+            Time.timeScale = _gameIsPause ? 0f : 1f;
+            Cursor.lockState = _gameIsPause ? CursorLockMode.None : CursorLockMode.Locked;
         }
     }
 }

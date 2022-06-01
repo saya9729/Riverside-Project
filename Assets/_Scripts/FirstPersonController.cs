@@ -118,7 +118,7 @@ namespace StarterAssets
 			if (_input.look.sqrMagnitude >= _threshold)
 			{
 				//Don't multiply mouse input by Time.deltaTime
-				float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.unscaledDeltaTime;
+				float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
 				
 				_cinemachineTargetPitch += _input.look.y * RotationSpeed * deltaTimeMultiplier;
 				_rotationVelocity = _input.look.x * RotationSpeed * deltaTimeMultiplier;
@@ -159,7 +159,7 @@ namespace StarterAssets
 				inputDirection = transform.right * _input.move.x + transform.forward * _input.move.y;
 			}
 			// move the player
-			_controller.Move(inputDirection.normalized * (_speed * Time.unscaledDeltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.unscaledDeltaTime);
+			_controller.Move(inputDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
 		}
 
 		private void JumpAndGravity()
@@ -185,7 +185,7 @@ namespace StarterAssets
 				// jump timeout
 				if (_jumpTimeoutDelta >= 0.0f)
 				{
-					_jumpTimeoutDelta -= Time.unscaledDeltaTime;
+					_jumpTimeoutDelta -= Time.deltaTime;
 				}
 			}
 			else
@@ -196,7 +196,7 @@ namespace StarterAssets
 				// fall timeout
 				if (_fallTimeoutDelta >= 0.0f)
 				{
-					_fallTimeoutDelta -= Time.unscaledDeltaTime;
+					_fallTimeoutDelta -= Time.deltaTime;
 				}
 
 				// if we are not grounded, do not jump
@@ -206,7 +206,7 @@ namespace StarterAssets
 			// apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
 			if (_verticalVelocity < _terminalVelocity)
 			{
-				_verticalVelocity += Gravity * Time.unscaledDeltaTime;
+				_verticalVelocity += Gravity * Time.deltaTime;
 			}
 		}
 

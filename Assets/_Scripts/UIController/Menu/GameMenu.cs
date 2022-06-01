@@ -12,6 +12,7 @@ namespace GameUI
             PlayerPrefs.SetInt("CurrentScene", SceneManager.GetActiveScene().buildIndex);
             PlayerPrefs.Save();
             SceneManager.LoadScene(0);
+            Time.timeScale = 1f;
         }
     }
 }

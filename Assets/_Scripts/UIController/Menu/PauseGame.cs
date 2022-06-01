@@ -9,7 +9,7 @@ namespace GameUI
         [SerializeField] private GameObject gameMenuCanvas;
         [SerializeField] private GameObject gameUICanvas;
         [SerializeField] private GameObject gameOptionMenuCanvas;
-        [SerializeField] private GameObject GameMenuButtonCanvas;
+        [SerializeField] private GameObject gameMenuButtonCanvas;
         private bool _gameIsPause = false;
         void Start()
         {
@@ -36,7 +36,7 @@ namespace GameUI
             gameMenuCanvas.SetActive(_gameIsPause);
             gameUICanvas.SetActive(!_gameIsPause);
             gameOptionMenuCanvas.SetActive(false);
-            GameMenuButtonCanvas.SetActive(_gameIsPause);
+            gameMenuButtonCanvas.SetActive(_gameIsPause);
             Time.timeScale = _gameIsPause ? 0f : 1f;
             Cursor.lockState = _gameIsPause ? CursorLockMode.None : CursorLockMode.Locked;
         }

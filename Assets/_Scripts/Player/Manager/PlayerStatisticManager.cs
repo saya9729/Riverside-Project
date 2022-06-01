@@ -14,7 +14,6 @@ namespace Player
 
         private void Start()
         {
-            //sol = PlayerPrefs.GetFloat("Sol", 50f);
             health = 100f;
             _playerLoseSequence = GetComponent<PlayerLoseSequence>();
             _playerSkill = GetComponent<PlayerSkillManager>();
@@ -34,8 +33,6 @@ namespace Player
                 hudController.SetSol(sol);
                 return false;
             }
-            PlayerPrefs.SetFloat("Sol", sol);
-            PlayerPrefs.Save();
             return true;
         }
 

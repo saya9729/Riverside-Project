@@ -33,14 +33,14 @@ namespace GameUI
             resolutionDropdown.value = currentResolutionIndex;
             resolutionDropdown.RefreshShownValue();
             toggleFullScreen.isOn = Screen.fullScreen;
-            float MasterVolumeCurrentValue = PlayerPrefs.GetFloat("MasterVolume", 0f);
+            float MasterVolumeCurrentValue = PlayerPrefs.GetFloat("MasterVolume", 1f);
 
             //Set the music volume to the saved volume
             sliderMusic.value = MasterVolumeCurrentValue;
         }
         public void SetVolume(float p_volume)
         {
-            audioMixer.SetFloat("MasterVolume", p_volume);
+            audioMixer.SetFloat("MasterVolume", Mathf.Log10(p_volume) * 20);
             PlayerPrefs.SetFloat("MasterVolume", p_volume);
             PlayerPrefs.Save();
         }

@@ -76,7 +76,7 @@ namespace Player
 
         private float previousStepOffset;
 
-        // timeout unscaledDeltaTime
+        // timeout deltaTime
 
         public PlayerInput playerInput;
         public CharacterController characterController;
@@ -216,11 +216,10 @@ namespace Player
             if (inputManager.look.sqrMagnitude >= _threshold)
             {
                 //Don't multiply mouse input by Time.unscaledDeltaTime
-                //float unscaledDeltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.unscaledDeltaTime;
-                float unscaledDeltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.unscaledDeltaTime;
+                float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
 
-                _cinemachineTargetPitch += inputManager.look.y * rotationSpeed * unscaledDeltaTimeMultiplier;
-                rotationVelocity = inputManager.look.x * rotationSpeed * unscaledDeltaTimeMultiplier;
+                _cinemachineTargetPitch += inputManager.look.y * rotationSpeed * deltaTimeMultiplier;
+                rotationVelocity = inputManager.look.x * rotationSpeed * deltaTimeMultiplier;
 
                 // clamp our pitch rotation
                 _cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, bottomClamp, topClamp);
@@ -252,9 +251,9 @@ namespace Player
             // apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
             if (Mathf.Abs(verticalVelocity) < Mathf.Abs(terminalVelocity))
             {
-                verticalVelocity += gravity * Time.unscaledDeltaTime;
+                verticalVelocity += gravity * Time.deltaTime;
             }
-            characterController.Move(new Vector3(0.0f, verticalVelocity, 0.0f) * Time.unscaledDeltaTime);
+            characterController.Move(new Vector3(0.0f, verticalVelocity, 0.0f) * Time.deltaTime);
         }
 
         private void OnDrawGizmosSelected()

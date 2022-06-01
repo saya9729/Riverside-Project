@@ -993,6 +993,7 @@ GameObject:
   - component: {fileID: 4261174648385567097}
   - component: {fileID: 4261174648385567096}
   - component: {fileID: 4261174648385567099}
+  - component: {fileID: 5721903361186435526}
   m_Layer: 3
   m_Name: PlayerManager
   m_TagString: Untagged
@@ -1128,7 +1129,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   maxHealth: 100
-  sol: 1000
+  sol: 100
   hudController: {fileID: 0}
 --- !u!114 &4261174648385567096
 MonoBehaviour:
@@ -1162,6 +1163,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameMenuCanvas: {fileID: 0}
   loseTime: 2
+--- !u!114 &5721903361186435526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4261174648385567093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d83da995d3b2a64799832deed24fdde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameMenuCanvas: {fileID: 0}
+  winTime: 2
 --- !u!1 &4261174648672795352
 GameObject:
   m_ObjectHideFlags: 0
@@ -1949,7 +1964,7 @@ AudioSource:
   m_GameObject: {fileID: 5263628133173146711}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: e49f289e8a6f19b4799b5efb2231d9c0, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1

@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c40b11c8d990991489d0a741d39ff49c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mixerGroup: {fileID: 0}
+  mixerGroup: {fileID: 24300002, guid: e49f289e8a6f19b4799b5efb2231d9c0, type: 2}
   sounds:
   - name: slash
     clip: {fileID: 8300000, guid: 5c907ceaf900ecf43a28e9381149276e, type: 3}
@@ -120,7 +120,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: dash
     clip: {fileID: 8300000, guid: 8018acccaecddce498259f8e5a93b440, type: 3}
-    volume: 1
+    volume: 0
     volumeVariance: 1
     pitch: 1
     pitchVariance: 0

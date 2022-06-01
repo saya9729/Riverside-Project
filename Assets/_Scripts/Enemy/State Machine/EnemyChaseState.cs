@@ -7,13 +7,11 @@ namespace Enemy
     public class EnemyChaseState : AbstractClass.StateNew
     {
         private EnemyStateManager _enemyStateManager;
-        [SerializeField] private float _rangeToStartAttacking = 1f;
-                
+    
         public override void EnterState()
         {
             //Debug.Log("Enemy Enter Chase State");
             _enemyStateManager.animator.SetTrigger("Chase");
-            _enemyStateManager.navMeshAgent.isStopped = false;
         }
 
         private void UpdateChaseDestination()
@@ -28,17 +26,12 @@ namespace Enemy
         {
             CheckSwitchState();
             UpdateChaseDestination();
-        }
-
-        private bool IsPlayerInRangeToStartAttacking()
-        {
-            return Vector3.Distance(transform.position, _enemyStateManager.player.transform.position) < _rangeToStartAttacking;
-        }
+        }       
 
         public override void ExitState()
         {
             //Debug.Log("Enemy Exit Chase State");
-            _enemyStateManager.navMeshAgent.isStopped = true;
+            _enemyStateManager.navMeshAgent.ResetPath();
         }        
 
         protected override void PhysicsUpdateThisState()
@@ -48,11 +41,14 @@ namespace Enemy
 
         protected override void CheckSwitchState()
         {
-            if (IsPlayerInRangeToStartAttacking())
+            if (_enemyStateManager.IsPlayerInAttackRange())
             {
                 _enemyStateManager.SwitchToState("AttackState");
             }
-            
+            else if (!_enemyStateManager.IsPlayerInChaseRange())
+            {
+                _enemyStateManager.SwitchToState("WaitState");
+            }
         }
 
         protected override void InitializeState()

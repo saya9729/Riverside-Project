@@ -8,18 +8,12 @@ namespace Enemy
     {
         private EnemyStateManager _enemyStateManager;
         [SerializeField] private float timeBeforeDisappear;
-        [SerializeField] private GameObject solPrefab;
-        [SerializeField] private Transform solParent;
 
         public override void EnterState()
         {
             //Debug.Log("Enemy Enter Dead State");
-            //start dead animation once
             _enemyStateManager.animator.SetTrigger("Dead");
-            _enemyStateManager.animator.enabled = false;
             _enemyStateManager.EnableRagdoll();
-            Debug.Log("Enemy Enter Dead State");
-            //Instantiate(solPrefab, solParent, true);
             StartCoroutine(WaitAndDestroyThisObject());
         }
 

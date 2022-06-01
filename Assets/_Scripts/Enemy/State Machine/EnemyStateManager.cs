@@ -10,20 +10,24 @@ namespace Enemy
         private EnemyChaseState _enemyChaseState;
         private EnemyAttackState _enemyAttackState;
         private EnemyDeadState _enemyDeadState;
-        private EnemyWaitAtWaypointState _enemyWaitAtWaypointState;
+        private EnemyWaitState _enemyWaitState;
 
         private EnemyStatisticManager _enemyStatisticManager;
         private RagdollManager _ragdollManager;
         [NonSerialized] public Animator animator;
-        // TODO: Refactor code to remove all public field
+        
         [NonSerialized] public NavMeshAgent navMeshAgent;
-        [NonSerialized] public LayerMask playerLayerMask;
         [NonSerialized] public GameObject player;
         [NonSerialized] public AnimationClip[] animationClips;
-                
+        [NonSerialized] public Transform targetDestination;
+
+        [SerializeField] private float attackRange = 1f;
+        [SerializeField] private float chaseRange = 10f;
+        [SerializeField] private float aggroRange = 10f;
+        [SerializeField] private float faceTargetRotateSpeed = 1f;
+
         protected override void InitializeVariable()
-        {            
-            playerLayerMask = LayerMask.GetMask("Player");
+        {
             animationClips = animator.runtimeAnimatorController.animationClips;
             player = GameObject.FindGameObjectWithTag("Player");
         }
@@ -34,15 +38,14 @@ namespace Enemy
             _enemyChaseState = GetComponent<EnemyChaseState>();
             _enemyAttackState = GetComponent<EnemyAttackState>();
             _enemyDeadState = GetComponent<EnemyDeadState>();
-            _enemyWaitAtWaypointState = GetComponent<EnemyWaitAtWaypointState>();
+            _enemyWaitState = GetComponent<EnemyWaitState>();
 
             _enemyPatrolState.SetSuperState(this);
             _enemyChaseState.SetSuperState(this);
             _enemyAttackState.SetSuperState(this);
             _enemyDeadState.SetSuperState(this);
-            _enemyWaitAtWaypointState.SetSuperState(this);
+            _enemyWaitState.SetSuperState(this);
 
-            currentSuperState = null;
             currentSubState = _enemyPatrolState;
             currentSubState.EnterState();
         }
@@ -58,7 +61,7 @@ namespace Enemy
         public void ReceiveDamage(float p_damage)
         {
             _enemyStatisticManager.DecreaseHealth(p_damage);
-            if (_enemyStatisticManager.HealthPercentage() < 0)
+            if (_enemyStatisticManager.HealthPercentage() <= 0)
             {
                 SwitchToState("DeadState");
             }
@@ -81,7 +84,7 @@ namespace Enemy
 
         protected override void UpdateThisState()
         {
-            
+            //LookAtTarget();
         }
 
         protected override void PhysicsUpdateThisState()
@@ -99,9 +102,9 @@ namespace Enemy
             throw new NotImplementedException();
         }
 
-        public override void SwitchToState(string p_StateType)
+        public override void SwitchToState(string p_stateType)
         {
-            switch (p_StateType)
+            switch (p_stateType)
             {
                 case "DeadState":
                     SetSubState(_enemyDeadState);
@@ -115,9 +118,9 @@ namespace Enemy
                 case "AttackState":
                     SetSubState(_enemyAttackState);
                     break;                
-                case "WaitAtWaypointState":
-                    SetSubState(_enemyWaitAtWaypointState);
-                    break;
+                case "WaitState":
+                    SetSubState(_enemyWaitState);
+                    break;                
                 default:
                     break;
             }
@@ -125,11 +128,36 @@ namespace Enemy
 
         public void EnableRagdoll()
         {
+            animator.enabled = false;
             _ragdollManager.EnableRagdoll();
         }
+
         public void DisableRagdoll()
         {
             _ragdollManager.DisableRagdoll();
         }
+
+        public bool IsPlayerInAttackRange()
+        {
+            return Vector3.Distance(transform.position, player.transform.position) < attackRange;
+        }
+        public bool IsPlayerInChaseRange()
+        {
+            return Vector3.Distance(transform.position, player.transform.position) < chaseRange;
+        }
+        public bool IsPlayerInAggroRange()
+        {
+            return Vector3.Distance(transform.position, player.transform.position) < aggroRange;
+        }
+
+        void LookAtTarget()
+        {
+            Vector3 lookPos = targetDestination.position - transform.position;
+            lookPos.y = 0;
+
+            Quaternion rot = Quaternion.LookRotation(lookPos);
+            transform.rotation = Quaternion.Slerp(transform.rotation, rot, Time.deltaTime * faceTargetRotateSpeed);
+        }
+
     }
 }

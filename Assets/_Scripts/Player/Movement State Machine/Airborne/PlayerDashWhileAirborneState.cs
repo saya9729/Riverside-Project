@@ -14,7 +14,7 @@ namespace Player
         }
         IEnumerator WaitAndBackToRunWhileAirborne()
         {
-            yield return new WaitForSeconds(_playerMovementController.dashDuration);
+            yield return new WaitForSeconds(_playerMovementController.dashDuration * Time.timeScale);
             currentSuperState.SwitchToState("RunWhileAirborne");
         }
         IEnumerator StartDashCooldown()

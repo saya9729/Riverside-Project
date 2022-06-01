@@ -13,7 +13,7 @@ namespace Player
         }
         IEnumerator WaitAndBackToRun()
         {            
-            yield return new WaitForSeconds(_playerMovementController.dashDuration);
+            yield return new WaitForSeconds(_playerMovementController.dashDuration * Time.timeScale);
             currentSuperState.SwitchToState("Run");
         }
         IEnumerator StartDashCooldown()

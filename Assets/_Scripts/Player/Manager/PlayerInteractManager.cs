@@ -16,6 +16,7 @@ namespace Player
         private HighlightEffect _highlightEffect;
         private PlayerStateManager _playerStateManager;
         private PlayerInput _playerInput;
+        private PlayerWinSequence _playerWinSequence;
 
         private void Start()
         {
@@ -23,6 +24,7 @@ namespace Player
             _highlightEffect = GetComponent<HighlightEffect>();
             _playerStateManager = GetComponent<PlayerStateManager>();
             _playerInput = GetComponentInParent<PlayerInput>();
+            _playerWinSequence = GetComponent<PlayerWinSequence>();
         }
 
         private void Update()
@@ -55,17 +57,13 @@ namespace Player
 
         private void HandleInteraction()
         {
-            //if (_playerStateManager.inputManager.interact)
-            //{
-            //    _interactable.Interact();
-            //}
-            //if (InputProxy.GetKeyDown("E"))
-            //{
-            //    _interactable.Interact();
-            //}
             if (_playerInput.actions["Interact"].WasPressedThisFrame())
             {
                 _interactable.Interact();
+                if (_interactable.GetType().Name == "DoorInteract")
+                { 
+                    _playerWinSequence.PlayPlayerWinSequence(); 
+                }
             }
         }
     }

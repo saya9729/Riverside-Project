@@ -19,7 +19,7 @@ namespace Player
         [Tooltip("Rotation speed of the character")]
         public float rotationSpeed = 1.0f;
 
-        public float mouseSensitivity=1;
+        public float mouseSensitivity = 1;
 
         [Space(10)]
         [Tooltip("Dash speed of the character in m/s")]
@@ -35,7 +35,7 @@ namespace Player
         [Tooltip("The character uses its own gravity value. The engine default is -9.81f")]
         public float gravity = -15.0f;
 
-        public float terminalVelocity = 53.0f;
+        public float terminalVelocity = -53.0f;
 
         [Space(10)]
         [Tooltip("Time required to pass before being able to jump again. Set to 0f to instantly jump again")]
@@ -62,7 +62,7 @@ namespace Player
         public float bottomClamp = -90.0f;
 
         //input direction
-        public Vector3 inputDirection;    
+        public Vector3 inputDirection;
 
         // cinemachine
         private float _cinemachineTargetPitch;
@@ -76,7 +76,7 @@ namespace Player
 
         private float previousStepOffset;
 
-        // timeout unscaledDeltaTime
+        // timeout deltaTime
 
         public PlayerInput playerInput;
         public CharacterController characterController;
@@ -86,7 +86,7 @@ namespace Player
         private const float _threshold = 0.01f;
 
         private bool IsCurrentDeviceMouse => playerInput.currentControlScheme == "KeyboardMouse";
-        
+
         //States logic
         private PlayerMovementIdleState _playerMovementIdleState;
         private PlayerRunState _playerRunState;
@@ -103,7 +103,7 @@ namespace Player
                 _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
             }
         }
-        
+
         protected override void InitializeState()
         {
             _playerMovementIdleState = GetComponent<PlayerMovementIdleState>();
@@ -126,11 +126,11 @@ namespace Player
         }
         protected override void InitializeComponent()
         {
-            characterController = GetComponent<CharacterController>();            
+            characterController = GetComponent<CharacterController>();
             playerInput = GetComponent<PlayerInput>();
             inputManager = GetComponent<InputManager>();
         }
-        
+
         protected override void InitializeVariable()
         {
 
@@ -142,7 +142,7 @@ namespace Player
             Debug.Log("event successfully register!");
         }
         private void Update()
-        {            
+        {
             UpdateAllState();
         }
         protected override void UpdateThisState()
@@ -174,6 +174,7 @@ namespace Player
         {
             if (isGrounded && inputManager.jump && isJumpable)
             {
+                AudioInterface.PlayAudio("jump");
                 // the square root of H * -2 * G = how much velocity needed to reach desired height
                 verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
                 StartCoroutine(StartJumpCooldown());
@@ -196,10 +197,11 @@ namespace Player
             if (inputManager.move != Vector2.zero)
             {
                 // move
+
                 inputDirection = transform.right * inputManager.move.x + transform.forward * inputManager.move.y;
             }
-        }        
-        
+        }
+
         private void CheckGrounded()
         {
             // set sphere position, with offset
@@ -207,18 +209,17 @@ namespace Player
             isGrounded = Physics.CheckSphere(spherePosition, groundedRadius, groundLayers, QueryTriggerInteraction.Ignore);
             //isGrounded = Physics.CheckBox(spherePosition, new Vector3(groundedRadius, groundedRadius, groundedRadius), Quaternion.identity, groundLayers, QueryTriggerInteraction.Ignore);
         }
-        
+
         private void Look()
         {
             // if there is an input
             if (inputManager.look.sqrMagnitude >= _threshold)
             {
                 //Don't multiply mouse input by Time.unscaledDeltaTime
-                //float unscaledDeltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.unscaledDeltaTime;
-                float unscaledDeltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.unscaledDeltaTime;
+                float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
 
-                _cinemachineTargetPitch += inputManager.look.y * rotationSpeed * unscaledDeltaTimeMultiplier;
-                rotationVelocity = inputManager.look.x * rotationSpeed * unscaledDeltaTimeMultiplier;
+                _cinemachineTargetPitch += inputManager.look.y * rotationSpeed * deltaTimeMultiplier;
+                rotationVelocity = inputManager.look.x * rotationSpeed * deltaTimeMultiplier;
 
                 // clamp our pitch rotation
                 _cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, bottomClamp, topClamp);
@@ -236,7 +237,7 @@ namespace Player
             if (lfAngle > 360f) lfAngle -= 360f;
             return Mathf.Clamp(lfAngle, lfMin, lfMax);
         }
-        
+
         private void ApplyGravity()
         {
             if (isGrounded)
@@ -248,11 +249,11 @@ namespace Player
                 }
             }
             // apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
-            if (verticalVelocity < terminalVelocity)
+            if (Mathf.Abs(verticalVelocity) < Mathf.Abs(terminalVelocity))
             {
-                verticalVelocity += gravity * Time.unscaledDeltaTime;
+                verticalVelocity += gravity * Time.deltaTime;
             }
-            characterController.Move(new Vector3(0.0f, verticalVelocity, 0.0f) * Time.unscaledDeltaTime);
+            characterController.Move(new Vector3(0.0f, verticalVelocity, 0.0f) * Time.deltaTime);
         }
 
         private void OnDrawGizmosSelected()
@@ -267,7 +268,7 @@ namespace Player
 
             // when selected, draw a gizmo in the position of, and matching radius of, the grounded collider
             Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - groundedOffset, transform.position.z), groundedRadius);
-           //Gizmos.DrawCube(spherePosition, new Vector3(groundedRadius, groundedRadius, groundedRadius));
+            //Gizmos.DrawCube(spherePosition, new Vector3(groundedRadius, groundedRadius, groundedRadius));
         }
 
         public override void EnterState()
@@ -277,7 +278,7 @@ namespace Player
 
         protected override void PhysicsUpdateThisState()
         {
-            
+
         }
 
         public override void ExitState()
@@ -317,6 +318,6 @@ namespace Player
             }
         }
 
-        
+
     }
 }

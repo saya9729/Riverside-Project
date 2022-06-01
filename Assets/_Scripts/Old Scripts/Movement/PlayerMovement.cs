@@ -85,7 +85,7 @@ namespace Player
         private float _verticalVelocity;
         private float _terminalVelocity = 53.0f;
 
-        // timeout unscaledDeltaTime
+        // timeout deltaTime
         private float _jumpTimeoutDelta;
         private float _fallTimeoutDelta;
         private float _dodgeTimeoutDelta;
@@ -163,12 +163,12 @@ namespace Player
             // if there is an input
             if (_input.look.sqrMagnitude >= _threshold)
             {
-                //Don't multiply mouse input by Time.unscaledDeltaTime
-                //float unscaledDeltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.unscaledDeltaTime;
-                float unscaledDeltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.unscaledDeltaTime;
+                //Don't multiply mouse input by Time.deltaTime
+                //float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
+                float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
 
-                _cinemachineTargetPitch += _input.look.y * RotationSpeed * unscaledDeltaTimeMultiplier;
-                _rotationVelocity = _input.look.x * RotationSpeed * unscaledDeltaTimeMultiplier;
+                _cinemachineTargetPitch += _input.look.y * RotationSpeed * deltaTimeMultiplier;
+                _rotationVelocity = _input.look.x * RotationSpeed * deltaTimeMultiplier;
 
                 // clamp our pitch rotation
                 _cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
@@ -205,7 +205,7 @@ namespace Player
             //{
             //    // creates curved result rather than a linear one giving a more organic speed change
             //    // note T in Lerp is clamped, so we don't need to clamp our speed
-            //    _speed = Mathf.Lerp(currentHorizontalSpeed, targetSpeed * inputMagnitude, Time.unscaledDeltaTime * SpeedChangeRate);
+            //    _speed = Mathf.Lerp(currentHorizontalSpeed, targetSpeed * inputMagnitude, Time.deltaTime * SpeedChangeRate);
 
             //    // round speed to 3 decimal places
             //    _speed = Mathf.Round(_speed * 1000f) / 1000f;
@@ -227,8 +227,8 @@ namespace Player
             }
 
             // move the player
-            _controller.Move(_inputDirection.normalized * (_speed * Time.unscaledDeltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.unscaledDeltaTime);
-            //_playerRigidbody.AddForce(inputDirection.normalized * (_speed * Time.unscaledDeltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.unscaledDeltaTime);
+            _controller.Move(_inputDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+            //_playerRigidbody.AddForce(inputDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
         }
 
         private void JumpAndGravity()
@@ -257,7 +257,7 @@ namespace Player
                 // jump timeout
                 if (_jumpTimeoutDelta >= 0.0f)
                 {
-                    _jumpTimeoutDelta -= Time.unscaledDeltaTime;
+                    _jumpTimeoutDelta -= Time.deltaTime;
                 }
             }
             else
@@ -268,7 +268,7 @@ namespace Player
                 // fall timeout
                 if (_fallTimeoutDelta >= 0.0f)
                 {
-                    _fallTimeoutDelta -= Time.unscaledDeltaTime;
+                    _fallTimeoutDelta -= Time.deltaTime;
                 }
 
                 // if we are not grounded, do not jump
@@ -277,7 +277,7 @@ namespace Player
             // apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
             if (_verticalVelocity < _terminalVelocity)
             {
-                _verticalVelocity += Gravity * Time.unscaledDeltaTime;
+                _verticalVelocity += Gravity * Time.deltaTime;
             }
         }
 
@@ -286,7 +286,7 @@ namespace Player
         {
             if (_dodgeTimeoutDelta >= 0.0f)
             {
-                _dodgeTimeoutDelta -= Time.unscaledDeltaTime;
+                _dodgeTimeoutDelta -= Time.deltaTime;
                 // Debug.Log(_dashTimeoutDelta);
             }
             if (_input.dash)
@@ -305,7 +305,7 @@ namespace Player
             //Vector3 dashDirection = new Vector3(0, 0, _input.move.y);
             while (Time.unscaledTime < startTime + DodgeDuration)
             {
-                _controller.Move(_inputDirection.normalized * DodgeSpeed * Time.unscaledDeltaTime);
+                _controller.Move(_inputDirection.normalized * DodgeSpeed * Time.deltaTime);
                 //turn off player hitbox (i-frame)
                 yield return null;
             }
@@ -351,7 +351,7 @@ namespace Player
             {
                 _controller.center = Vector3.Lerp(currentCenter, targetCenter, timeElapsed / timeToCrouch);
                 _controller.height = Mathf.Lerp(currentHeight, targetHeight, timeElapsed / timeToCrouch);
-                timeElapsed += Time.unscaledDeltaTime;
+                timeElapsed += Time.deltaTime;
                 yield return null;
             }
         }

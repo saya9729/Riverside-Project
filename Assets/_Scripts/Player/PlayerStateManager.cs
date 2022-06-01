@@ -22,6 +22,8 @@ namespace Player
 
         [NonSerialized] public Animator playerAnimator;
 
+        public GameObject slowTimeIcon;        
+
         private void Start()
         {
             InitializeManager();
@@ -69,10 +71,6 @@ namespace Player
                 playerSkillManager.ToggleSlowGame(playerSkillManager.gameIsSlowDown);
                 inputManager.usingPocketWatch = false;
             }
-            //if (inputManager.interact)
-            //{
-            //    Debug.Log("is Interact");
-            //}
         }
     }
 }

@@ -21,7 +21,7 @@ namespace Player
         {
             if (isInteractable)
             {
-                return "[E] Interact with Key";
+                return "[E]";
             }
             else
             {

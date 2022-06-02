@@ -24,7 +24,6 @@ namespace Enemy
             {
 
             }
-            DisableRagdoll();
         }
 
         private void SetupJoint()

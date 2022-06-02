@@ -4,6 +4,17 @@ using UnityEngine.AI;
 
 namespace Enemy
 {
+    [RequireComponent(typeof(EnemyPatrolState))]
+    [RequireComponent(typeof(EnemyChaseState))]
+    [RequireComponent(typeof(EnemyWaitState))]
+    [RequireComponent(typeof(EnemyAttackState))]
+    [RequireComponent(typeof(EnemyDeadState))]
+    [RequireComponent(typeof(EnemyStatisticManager))]
+    [RequireComponent(typeof(RagdollManager))]
+    [RequireComponent(typeof(Animator))]
+    [RequireComponent(typeof(NavMeshAgent))]
+    [RequireComponent(typeof(EnemyAttackManager))]
+    //[RequireComponent(typeof(EnemyAttackedHandler))]
     public class EnemyStateManager : AbstractClass.StateNew
     {
         private EnemyPatrolState _enemyPatrolState;
@@ -14,9 +25,10 @@ namespace Enemy
 
         private EnemyStatisticManager _enemyStatisticManager;
         private RagdollManager _ragdollManager;
-        [NonSerialized] public Animator animator;
-        
+        private EnemyAttackManager _enemyAttackManager;
+        [NonSerialized] public Animator animator;        
         [NonSerialized] public NavMeshAgent navMeshAgent;
+
         [NonSerialized] public GameObject player;
         [NonSerialized] public AnimationClip[] animationClips;
         [NonSerialized] public Transform targetDestination;
@@ -58,6 +70,8 @@ namespace Enemy
             animator = GetComponent<Animator>();
             navMeshAgent = GetComponent<NavMeshAgent>();
             _ragdollManager = GetComponent<RagdollManager>();
+            DisableRagdoll();
+            _enemyAttackManager = GetComponent<EnemyAttackManager>();            
         }
 
         public void ReceiveDamage(float p_damage)
@@ -138,6 +152,15 @@ namespace Enemy
         {
             _ragdollManager.DisableRagdoll();
         }
+        public void DisableAttackHitbox()
+        {
+            _enemyAttackManager.DisableHitbox();
+        }
+        public void EnableAttackHitbox()
+        {
+            _enemyAttackManager.EnableHitbox();
+        }
+        
 
         public bool IsPlayerInAttackRange()
         {

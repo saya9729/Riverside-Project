@@ -38,6 +38,7 @@ namespace Player
         {
             AudioInterface.PlayAudio("timeskill");
             _playerStateManager.volume.enabled = true;
+            _playerStateManager.slowTimeIcon.SetActive(true);
             int index = 1;
             while (_timeAddToPrefixAndSuffixesCoefficient != timeCoefficient && slowdownAmount != 0)
             {
@@ -50,12 +51,14 @@ namespace Player
             Time.fixedDeltaTime = Time.timeScale * 0.02f;
 
             _playerStateManager.volume.enabled = true;
+            _playerStateManager.slowTimeIcon.SetActive(true);
 
             while (slowdownAmount != 0)
             {
                 yield return new WaitForSecondsRealtime(1);
                 slowdownAmount-= amountPerSecond;
-                slowdownAmount = Mathf.Clamp(slowdownAmount, 0f, slowdownAmountMax);
+                slowdownAmount = Mathf.Clamp(slowdownAmount, 0f, slowdownAmountMax);                
+                this.PostEvent(EventID.onEnergyChange, slowdownAmount);
             }
             UnSlowTime();
 
@@ -73,6 +76,7 @@ namespace Player
             Time.timeScale = 1;
             Time.fixedDeltaTime = _fixedDeltaTimeOldValue;
             _playerStateManager.volume.enabled = false;
+            _playerStateManager.slowTimeIcon.SetActive(false);
             AudioInterface.StopAudio("timeskill");
             gameIsSlowDown = false;
             StopAllCoroutines();
@@ -119,6 +123,7 @@ namespace Player
                 if (_playerStateManager.playerStatisticManager.CanPullFromSol(p_amount))
                 {
                     slowdownAmount += p_amount;
+                    this.PostEvent(EventID.onEnergyChange, slowdownAmount);
                 }
             }
         }

@@ -23,7 +23,6 @@ namespace Player
         void Start()
         {
             _playerStateManager = GetComponent<PlayerStateManager>();
-            slowdownAmount = PlayerPrefs.GetFloat("SlowdownAmount", slowdownAmountMax);
             gameIsSlowDown = false;
             _a1 = timeCoefficient - 1f;
             _b1 = 0f - timeAddToPrefixAndSuffixes;
@@ -32,13 +31,14 @@ namespace Player
             _a2 = -_a1;
             _b2 = _b1;
             _c2 = -(_a2 * 0f) - (_b2 * timeCoefficient);
-
+            slowdownAmount = slowdownAmountMax;
         }
 
         IEnumerator StartOfSlowTimeCoroutine()
         {
             AudioInterface.PlayAudio("timeskill");
             _playerStateManager.volume.enabled = true;
+            _playerStateManager.slowTimeIcon.SetActive(true);
             int index = 1;
             while (_timeAddToPrefixAndSuffixesCoefficient != timeCoefficient && slowdownAmount != 0)
             {
@@ -51,14 +51,14 @@ namespace Player
             Time.fixedDeltaTime = Time.timeScale * 0.02f;
 
             _playerStateManager.volume.enabled = true;
+            _playerStateManager.slowTimeIcon.SetActive(true);
 
             while (slowdownAmount != 0)
             {
                 yield return new WaitForSecondsRealtime(1);
                 slowdownAmount-= amountPerSecond;
-                slowdownAmount = Mathf.Clamp(slowdownAmount, 0f, slowdownAmountMax);
-                PlayerPrefs.SetFloat("SlowdownAmount", slowdownAmount);
-                PlayerPrefs.Save();
+                slowdownAmount = Mathf.Clamp(slowdownAmount, 0f, slowdownAmountMax);                
+                this.PostEvent(EventID.onEnergyChange, slowdownAmount);
             }
             UnSlowTime();
 
@@ -76,6 +76,7 @@ namespace Player
             Time.timeScale = 1;
             Time.fixedDeltaTime = _fixedDeltaTimeOldValue;
             _playerStateManager.volume.enabled = false;
+            _playerStateManager.slowTimeIcon.SetActive(false);
             AudioInterface.StopAudio("timeskill");
             gameIsSlowDown = false;
             StopAllCoroutines();
@@ -122,8 +123,7 @@ namespace Player
                 if (_playerStateManager.playerStatisticManager.CanPullFromSol(p_amount))
                 {
                     slowdownAmount += p_amount;
-                    PlayerPrefs.SetFloat("SlowdownAmount", slowdownAmount);
-                    PlayerPrefs.Save();
+                    this.PostEvent(EventID.onEnergyChange, slowdownAmount);
                 }
             }
         }

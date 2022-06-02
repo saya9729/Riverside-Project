@@ -1,3 +1,4 @@
+using Player;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,16 +9,13 @@ namespace Enemy
     {
         private EnemyStateManager _enemyStateManager;
         [SerializeField] private float timeBeforeDisappear;
-        [SerializeField] private GameObject solPrefab;
-        [SerializeField] private Transform solParent;
 
         public override void EnterState()
         {
             //Debug.Log("Enemy Enter Dead State");
-            //start dead animation once
             _enemyStateManager.animator.SetTrigger("Dead");
-            _enemyStateManager.animator.enabled = false;
-            //Instantiate(solPrefab, solParent, true);
+            _enemyStateManager.player.GetComponent<PlayerStatisticManager>().IncreaseSol(_enemyStateManager.solValue);
+            _enemyStateManager.EnableRagdoll();
             StartCoroutine(WaitAndDestroyThisObject());
         }
 

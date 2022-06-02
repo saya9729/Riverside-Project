@@ -23,13 +23,13 @@ MonoBehaviour:
   noiseStrength: 1.09
   noiseScale: 15
   noiseFinalMultiplier: 1
-  useDetailNoise: 0
+  useDetailNoise: 1
   detailTexture: {fileID: 11700000, guid: 950add8d241c6479bbab1f10e1035d60, type: 2}
   detailScale: 0.35
   detailStrength: 0.5
   detailOffset: -0.5
-  density: 0.18
-  shape: 0
+  density: 4.26
+  shape: 1
   border: 0.061
   verticalOffset: 0
   distance: 0
@@ -42,7 +42,7 @@ MonoBehaviour:
   terrainFogHeight: 25
   terrainFogMinAltitude: 0
   terrainFogMaxAltitude: 150
-  albedo: {r: 0.8901961, g: 0.8901961, b: 0.8901961, a: 1}
+  albedo: {r: 0.45692417, g: 0.5000445, b: 0.8018868, a: 0.4627451}
   brightness: 1
   deepObscurance: 1
   specularColor: {r: 1, g: 1, b: 0.8, a: 1}

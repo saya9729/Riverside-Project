@@ -6,17 +6,18 @@ namespace Enemy
     public class EnemyAttackState : AbstractClass.StateNew
     {
         private EnemyStateManager _enemyStateManager;
+
         [SerializeField] private string attackAnimationName = "Jab Cross";
 
         public override void EnterState()
         {
             //Debug.Log("Enemy Enter Attack State");
-            //start attack animation
             _enemyStateManager.animator.SetTrigger("Attack");
-            StartCoroutine(WaitAndBackToPatrol());
+            // TODO: Turn into trigger by animation event later
+            StartCoroutine(WaitAndDecide());
         }
 
-        IEnumerator WaitAndBackToPatrol()
+        IEnumerator WaitAndDecide()
         {
             float attackLength = 0;
             foreach (AnimationClip clip in _enemyStateManager.animationClips)
@@ -28,7 +29,7 @@ namespace Enemy
                 }
             }
             yield return new WaitForSeconds(attackLength);
-            _enemyStateManager.SwitchToState("PatrolState");
+            CheckSwitchState();
         }
 
         public override void ExitState()
@@ -38,7 +39,8 @@ namespace Enemy
 
         protected override void UpdateThisState()
         {
-            
+            _enemyStateManager.targetDestination = _enemyStateManager.player.transform;
+            _enemyStateManager.LookAtTarget();
         }
 
         protected override void PhysicsUpdateThisState()
@@ -48,7 +50,18 @@ namespace Enemy
 
         protected override void CheckSwitchState()
         {
-            throw new System.NotImplementedException();
+            if (_enemyStateManager.IsPlayerInAttackRange())
+            {
+                _enemyStateManager.SwitchToState("AttackState");
+            }
+            else if (_enemyStateManager.IsPlayerInChaseRange())
+            {
+                _enemyStateManager.SwitchToState("ChaseState");
+            }
+            else
+            {
+                _enemyStateManager.SwitchToState("WaitState");
+            }
         }
 
         protected override void InitializeState()

@@ -13,6 +13,7 @@ namespace GameUI
             SceneManager.LoadScene(nextScene);
             PlayerPrefs.SetInt("CurrentScene", nextScene);
             PlayerPrefs.Save();
+            Cursor.lockState = CursorLockMode.Locked;
         }
 
         public void QuitGame()

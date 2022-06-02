@@ -7,41 +7,31 @@ namespace Enemy
     public class EnemyChaseState : AbstractClass.StateNew
     {
         private EnemyStateManager _enemyStateManager;
-        [SerializeField] private float _rangeToStartAttacking = 1f;
-        [SerializeField] private float chaseDestinationUpdateInterval = 1f;
-                
+    
         public override void EnterState()
         {
-            Debug.Log("Enemy Enter Chase State");
+            //Debug.Log("Enemy Enter Chase State");
             _enemyStateManager.animator.SetTrigger("Chase");
-            _enemyStateManager.navMeshAgent.isStopped = false;
-            StartCoroutine(UpdateChaseDestination());
         }
 
-        IEnumerator UpdateChaseDestination()
+        private void UpdateChaseDestination()
         {
-            while (true)
+            if (!_enemyStateManager.navMeshAgent.pathPending)
             {
-                yield return new WaitForSeconds(chaseDestinationUpdateInterval);
-                _enemyStateManager.navMeshAgent.SetDestination(_enemyStateManager.player.transform.position);
+                _enemyStateManager.MoveTo(_enemyStateManager.player.transform.position);
             }
         }
 
         protected override void UpdateThisState()
         {
             CheckSwitchState();
-            Debug.Log(_enemyStateManager.navMeshAgent.pathPending);            
-        }        
-
-        private bool IsPlayerInRangeToStartAttacking()
-        {
-            return Vector3.Distance(transform.position, _enemyStateManager.player.transform.position) < _rangeToStartAttacking;
-        }
+            UpdateChaseDestination();
+        }       
 
         public override void ExitState()
         {
-            Debug.Log("Enemy Exit Chase State");
-            _enemyStateManager.navMeshAgent.isStopped = true;
+            //Debug.Log("Enemy Exit Chase State");
+            _enemyStateManager.StopMoving();
         }        
 
         protected override void PhysicsUpdateThisState()
@@ -51,11 +41,14 @@ namespace Enemy
 
         protected override void CheckSwitchState()
         {
-            if (IsPlayerInRangeToStartAttacking())
+            if (_enemyStateManager.IsPlayerInAttackRange())
             {
                 _enemyStateManager.SwitchToState("AttackState");
             }
-            
+            else if (!_enemyStateManager.IsPlayerInChaseRange())
+            {
+                _enemyStateManager.SwitchToState("WaitState");
+            }
         }
 
         protected override void InitializeState()

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditorInternal;
 using UnityEngine;
 namespace Enemy
 {
@@ -8,16 +9,24 @@ namespace Enemy
         private EnemyStateManager _enemyStateManager;
 
         [SerializeField] private Transform[] waypoints;
-        [SerializeField] private float lookAtNextDestinationRotateSpeed = 1f;
+        [SerializeField] private float brakingDistance = 1f;
+
         private int _waypointIndex=0;
         private Transform _targetDestination;
-        public float sightRadius = 10f;
 
         public override void EnterState()
         {
             //Debug.Log("Enemy Enter Patrol State");
-            _enemyStateManager.animator.SetTrigger("Patrol");
-            _enemyStateManager.navMeshAgent.isStopped = false;
+            try
+            {
+                _enemyStateManager.animator.SetTrigger("Patrol");
+            }
+            catch
+            {
+                //In case the call for EnterState() came before Start()
+                Start();
+                _enemyStateManager.animator.SetTrigger("Patrol");
+            }
             UpdateDestination();
         }
 
@@ -32,20 +41,15 @@ namespace Enemy
             _targetDestination = waypoints[_waypointIndex];
             //default the object will seek the origin
             //_targetDestination.position = Vector3.zero;
-            _enemyStateManager.navMeshAgent.SetDestination(_targetDestination.position);
 
+            _enemyStateManager.MoveTo(_targetDestination.position);
             _waypointIndex = waypoints.Length != 0 ? (_waypointIndex + 1) % waypoints.Length : 0;
-        }
-
-        private bool IsPlayerVisible()
-        {            
-            return Physics.CheckSphere(transform.position,sightRadius,_enemyStateManager.playerLayerMask);
         }
 
         public override void ExitState()
         {
             //Debug.Log("Enemy Exit Patrol State");
-            _enemyStateManager.navMeshAgent.isStopped = true;
+            _enemyStateManager.StopMoving();
         }
         
         protected override void PhysicsUpdateThisState()
@@ -55,18 +59,13 @@ namespace Enemy
 
         protected override void CheckSwitchState()
         {
-            if (IsPlayerVisible())
+            if (_enemyStateManager.IsPlayerInAggroRange())
             {
                 _enemyStateManager.SwitchToState("ChaseState");
             }
-            else
+            else if (Vector3.Distance(transform.position, _targetDestination.position) < brakingDistance)
             {
-                //continue patroling
-            }
-            
-            if (Vector3.Distance(transform.position, _targetDestination.position) < 1)
-            {
-                _enemyStateManager.SwitchToState("WaitAtWaypointState");
+                _enemyStateManager.SwitchToState("WaitState");
             }
         }
 
@@ -88,6 +87,6 @@ namespace Enemy
         public override void SwitchToState(string p_StateType)
         {
             throw new System.NotImplementedException();
-        }
+        }        
     }
 }

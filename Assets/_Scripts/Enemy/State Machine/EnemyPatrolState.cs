@@ -42,14 +42,14 @@ namespace Enemy
             //default the object will seek the origin
             //_targetDestination.position = Vector3.zero;
 
-            _enemyStateManager.navMeshAgent.SetDestination(_targetDestination.position);
+            _enemyStateManager.MoveTo(_targetDestination.position);
             _waypointIndex = waypoints.Length != 0 ? (_waypointIndex + 1) % waypoints.Length : 0;
         }
 
         public override void ExitState()
         {
             //Debug.Log("Enemy Exit Patrol State");
-            _enemyStateManager.navMeshAgent.ResetPath();
+            _enemyStateManager.StopMoving();
         }
         
         protected override void PhysicsUpdateThisState()

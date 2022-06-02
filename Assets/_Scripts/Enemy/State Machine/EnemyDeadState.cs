@@ -1,3 +1,4 @@
+using Player;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace Enemy
         {
             //Debug.Log("Enemy Enter Dead State");
             _enemyStateManager.animator.SetTrigger("Dead");
+            _enemyStateManager.player.GetComponent<PlayerStatisticManager>().IncreaseSol(_enemyStateManager.solValue);
             _enemyStateManager.EnableRagdoll();
             StartCoroutine(WaitAndDestroyThisObject());
         }

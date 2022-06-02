@@ -26,6 +26,8 @@ namespace Enemy
         [SerializeField] private float aggroRange = 10f;
         [SerializeField] private float faceTargetRotateSpeed = 1f;
 
+        public float solValue = 10f;
+
         protected override void InitializeVariable()
         {
             animationClips = animator.runtimeAnimatorController.animationClips;
@@ -84,7 +86,7 @@ namespace Enemy
 
         protected override void UpdateThisState()
         {
-            //LookAtTarget();
+            
         }
 
         protected override void PhysicsUpdateThisState()
@@ -150,13 +152,25 @@ namespace Enemy
             return Vector3.Distance(transform.position, player.transform.position) < aggroRange;
         }
 
-        void LookAtTarget()
+        public void LookAtTarget()
         {
             Vector3 lookPos = targetDestination.position - transform.position;
             lookPos.y = 0;
 
             Quaternion rot = Quaternion.LookRotation(lookPos);
             transform.rotation = Quaternion.Slerp(transform.rotation, rot, Time.deltaTime * faceTargetRotateSpeed);
+        }
+
+        public void StopMoving()
+        {
+            navMeshAgent.isStopped = true;
+            navMeshAgent.ResetPath();
+        }
+
+        public void MoveTo(Vector3 p_destination)
+        {
+            navMeshAgent.isStopped = false;
+            navMeshAgent.SetDestination(p_destination);
         }
 
     }

@@ -18,7 +18,7 @@ namespace Enemy
         {
             if (!_enemyStateManager.navMeshAgent.pathPending)
             {
-                _enemyStateManager.navMeshAgent.SetDestination(_enemyStateManager.player.transform.position);
+                _enemyStateManager.MoveTo(_enemyStateManager.player.transform.position);
             }
         }
 
@@ -31,7 +31,7 @@ namespace Enemy
         public override void ExitState()
         {
             //Debug.Log("Enemy Exit Chase State");
-            _enemyStateManager.navMeshAgent.ResetPath();
+            _enemyStateManager.StopMoving();
         }        
 
         protected override void PhysicsUpdateThisState()

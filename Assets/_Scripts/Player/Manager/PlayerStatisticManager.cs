@@ -55,5 +55,10 @@ namespace Player
         {
             health = maxHealth;
         }
+
+        public void IncreaseSol(float p_amount)
+        {
+            sol += p_amount;
+        }
     }
 }

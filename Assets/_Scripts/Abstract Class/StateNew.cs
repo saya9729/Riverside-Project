@@ -49,9 +49,9 @@ namespace AbstractClass
             currentSubState = p_newSubState;
             currentSubState.EnterState();
         }
-        public abstract void SwitchToState(string p_StateType);
+        public abstract void SwitchToState(string p_stateType);
         //{
-        //    switch (p_StateType)
+        //    switch (p_stateType)
         //    {
         //        case "Null":
         //            SetSubState(null);

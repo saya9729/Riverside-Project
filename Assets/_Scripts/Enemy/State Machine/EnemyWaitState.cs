@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace Enemy
 {
-    public class EnemyWaitAtWaypointState : AbstractClass.StateNew
+    public class EnemyWaitState : AbstractClass.StateNew
     {
         private EnemyStateManager _enemyStateManager;
+
         [SerializeField] private float waitAtWaypointTime =5f;
         public override void EnterState()
         {
             //Debug.Log("Enemy Enter Wait At Waypoint State");
-            _enemyStateManager.navMeshAgent.isStopped = true;
             _enemyStateManager.animator.SetTrigger("Wait");
             StartCoroutine(WaitAndBackToPatrol());
         }
@@ -24,7 +24,7 @@ namespace Enemy
         public override void ExitState()
         {
             //Debug.Log("Enemy Exit Wait At Waypoint State");
-            _enemyStateManager.navMeshAgent.isStopped = false;
+            StopAllCoroutines();
         }        
 
         public override void SwitchToState(string p_StateType)
@@ -34,7 +34,10 @@ namespace Enemy
 
         protected override void CheckSwitchState()
         {
-            
+            if (_enemyStateManager.IsPlayerInAggroRange())
+            {
+                _enemyStateManager.SwitchToState("ChaseState");
+            }
         }
 
         protected override void InitializeComponent()
@@ -59,7 +62,7 @@ namespace Enemy
 
         protected override void UpdateThisState()
         {
-            
+            CheckSwitchState();
         }
     }
 }

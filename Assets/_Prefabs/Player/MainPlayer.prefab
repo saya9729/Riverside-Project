@@ -731,7 +731,7 @@ MonoBehaviour:
   m_RenderShadows: 0
   m_RequiresDepthTextureOption: 2
   m_RequiresOpaqueTextureOption: 2
-  m_CameraType: 0
+  m_CameraType: 1
   m_Cameras: []
   m_RendererIndex: -1
   m_VolumeLayerMask:
@@ -1188,6 +1188,7 @@ GameObject:
   - component: {fileID: 4261174648672795349}
   - component: {fileID: 4261174648672795348}
   - component: {fileID: 3768049887350293756}
+  - component: {fileID: 7907566851983110660}
   m_Layer: 3
   m_Name: MainPlayer
   m_TagString: Player
@@ -1202,7 +1203,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4261174648672795352}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1258,7 +1259,7 @@ MonoBehaviour:
   jumpCooldown: 0.1
   airborneCooldown: 0.15
   isGrounded: 1
-  groundedOffset: -0.07
+  groundedOffset: -0.37
   groundedRadius: 0.5
   groundLayers:
     serializedVersion: 2
@@ -1659,13 +1660,25 @@ MonoBehaviour:
   audioSource: {fileID: 742041933321958694}
   minVolume: 0.3
   maxVolume: 0.5
-  debugMode: 1
+  debugMode: 0
   groundCheckHeight: 0.5
   groundCheckRadius: 0.5
   groundCheckDistance: 0.3
   groundLayers:
     serializedVersion: 2
     m_Bits: 0
+--- !u!114 &7907566851983110660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4261174648672795352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2faf3922b39a3a4093377bc4f65bd8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4261174648711154787
 GameObject:
   m_ObjectHideFlags: 0
@@ -2782,6 +2795,7 @@ GameObject:
   - component: {fileID: 5782168426523798305}
   - component: {fileID: 1160052986040654073}
   - component: {fileID: 3408352208041470448}
+  - component: {fileID: 376822255}
   m_Layer: 3
   m_Name: Area Light (1)
   m_TagString: Untagged
@@ -2861,12 +2875,32 @@ Light:
   m_BounceIntensity: 2.1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 7, y: 1.7e-44, z: 0, w: 1}
+  m_BoundingSphereOverride: {x: 4.23197e+21, y: 5.5168677e+11, z: 4.472574e+21, w: -109.38282}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
 --- !u!114 &3408352208041470448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5824907885382336751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 1
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+--- !u!114 &376822255
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

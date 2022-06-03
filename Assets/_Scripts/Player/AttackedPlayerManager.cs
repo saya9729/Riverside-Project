@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Player
 {
@@ -9,10 +10,12 @@ namespace Player
         private DamageManager _damageManager;
         private PlayerStatisticManager _playerStatisticManager;
 
+        public GameObject PlayerHit;
+
         void Start()
         {
             _playerStatisticManager = GetComponentInChildren<PlayerStatisticManager>();
-                
+
         }
 
         void OnTriggerEnter(Collider other)
@@ -20,6 +23,18 @@ namespace Player
             if (other.tag == "EnemyAttack") //collide with enemy attack's collider which has this tag
             {
                 Debug.Log("attacked");
+                if (PlayerHit && PlayerHit.GetComponent<Image>())
+                {
+                    if (!PlayerHit.GetComponent<Image>().enabled)
+                    {
+                        PlayerHit.GetComponent<Image>().enabled = true;
+                    }
+                    else
+                    {
+                        StopAllCoroutines();
+                    }
+                    StartCoroutine(WaitDisplayHitEffect());
+                }
 
                 var _damageManager = other.GetComponent<DamageManager>();
 
@@ -32,6 +47,13 @@ namespace Player
 
                 //Debug.Log("current HP: " + _playerStatisticManager.GetHealth());
             }
+        }
+
+        IEnumerator WaitDisplayHitEffect()
+        {
+            yield return new WaitForSeconds(1.5f);
+
+            PlayerHit.GetComponent<Image>().enabled = false;
         }
     }
 }

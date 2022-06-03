@@ -6,6 +6,8 @@ namespace Player
     public class PlayerDashWhileAirborneState : AbstractClass.StateNew
     {
         private PlayerMovementController _playerMovementController;
+        public GameObject particleDash;
+
         public override void EnterState()
         {
             DisableStepOffset();
@@ -14,7 +16,24 @@ namespace Player
         }
         IEnumerator WaitAndBackToRunWhileAirborne()
         {
+            if (particleDash)
+            {
+                if (!particleDash.activeSelf)
+                {
+                    particleDash.SetActive(true);
+                }
+            }
+
             yield return new WaitForSeconds(_playerMovementController.dashDuration * Time.timeScale);
+
+            if (particleDash)
+            {
+                if (particleDash.activeSelf)
+                {
+                    particleDash.SetActive(false);
+                }
+            }
+
             currentSuperState.SwitchToState("RunWhileAirborne");
         }
         IEnumerator StartDashCooldown()
@@ -63,12 +82,12 @@ namespace Player
 
         protected override void InitializeState()
         {
-            
+
         }
 
         protected override void PhysicsUpdateThisState()
         {
-            
+
         }
 
         protected override void UpdateThisState()
@@ -79,7 +98,7 @@ namespace Player
 
         protected override void InitializeVariable()
         {
-            
+
         }
     }
 }

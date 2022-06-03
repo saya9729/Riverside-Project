@@ -8,19 +8,24 @@ namespace Enemy
     {
         private DamageManager _damageManager;
         private EnemyStatisticManager _enemyStatisticManager;
+        public GameObject particleSpark;
 
         void Start()
         {
             _enemyStatisticManager = GetComponent<EnemyStatisticManager>();
         }
 
-        void OnTriggerEnter(Collider p_collider)
+        void OnCollisionEnter(Collision collisionInfo)
         {
-            if (p_collider.CompareTag("PlayerAttack")) //collide with enemy attack's collider which has this tag
+            if (collisionInfo.collider.CompareTag("PlayerAttack")) //collide with player attack's collider which has this tag
             {
-                //Debug.Log("attacked");
+                Debug.Log("attacked");
+                ContactPoint hitPoint = collisionInfo.GetContact(0);
+                //Vector3 particleDirection = hitPoint2.point - hitPoint1.point;
 
-                _damageManager = p_collider.GetComponent<DamageManager>();
+                Instantiate(particleSpark, hitPoint.point, Quaternion.Euler(hitPoint.normal));
+
+                _damageManager = collisionInfo.collider.gameObject.GetComponent<DamageManager>();
 
                 if (_damageManager)
                 {

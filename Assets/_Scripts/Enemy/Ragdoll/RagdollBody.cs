@@ -22,8 +22,8 @@ namespace Enemy
             }
             catch
             {
-
-            }
+                
+            }            
         }
 
         private void SetupJoint()
@@ -47,9 +47,25 @@ namespace Enemy
         }
         public void DisableRagdoll()
         {
-            _rigidbody.isKinematic = true;
-            _collider.enabled = false;
-            _characterJoint.connectedBody = null;
+            try 
+            {
+                _rigidbody.isKinematic = true;
+                _collider.enabled = false;                
+            }
+            catch
+            {
+                Start();
+                _rigidbody.isKinematic = true;
+                _collider.enabled = false;                
+            }
+            try
+            {
+                _characterJoint.connectedBody = null;
+            }
+            catch
+            {
+
+            }
         }
     }
 }

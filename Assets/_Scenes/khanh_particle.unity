@@ -1051,6 +1051,10 @@ PrefabInstance:
       propertyPath: particleDash
       value: 
       objectReference: {fileID: 1421903986}
+    - target: {fileID: 4261174648672795362, guid: 21af9a2172057ed4ebb386270946d762, type: 3}
+      propertyPath: PlayerHit
+      value: 
+      objectReference: {fileID: 2702868374401235144}
     - target: {fileID: 4261174648672795367, guid: 21af9a2172057ed4ebb386270946d762, type: 3}
       propertyPath: m_RootOrder
       value: 20
@@ -6152,6 +6156,11 @@ PrefabInstance:
 --- !u!224 &2702868374401235143 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 558050900643936018, guid: 664e78d050b9fb141b4e142454c15328, type: 3}
+  m_PrefabInstance: {fileID: 2702868374401235142}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2702868374401235144 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1380682819131384894, guid: 664e78d050b9fb141b4e142454c15328, type: 3}
   m_PrefabInstance: {fileID: 2702868374401235142}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3252639175121999033

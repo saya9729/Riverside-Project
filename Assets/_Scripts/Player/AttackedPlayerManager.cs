@@ -9,6 +9,7 @@ namespace Player
     {
         private DamageManager _damageManager;
         private PlayerStatisticManager _playerStatisticManager;
+        [SerializeField] private float hitDuration = 1.5f;
 
         public GameObject PlayerHit;
 
@@ -51,7 +52,7 @@ namespace Player
 
         IEnumerator WaitDisplayHitEffect()
         {
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(hitDuration);
 
             PlayerHit.GetComponent<Image>().enabled = false;
         }

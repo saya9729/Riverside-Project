@@ -9,6 +9,7 @@ namespace GameUI
     {
         public void StartGame()
         {
+            AudioInterface.PlayAudio("ambience");
             int nextScene = PlayerPrefs.GetInt("CurrentScene", SceneManager.GetActiveScene().buildIndex + 1);
             SceneManager.LoadScene(nextScene);
             PlayerPrefs.SetInt("CurrentScene", nextScene);

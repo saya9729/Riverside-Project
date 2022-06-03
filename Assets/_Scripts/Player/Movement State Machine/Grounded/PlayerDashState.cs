@@ -5,15 +5,34 @@ namespace Player
 {
     public class PlayerDashState : AbstractClass.StateNew
     {
-        private PlayerMovementController _playerMovementController;        
+        private PlayerMovementController _playerMovementController;
+        public GameObject particleDash;
+
         public override void EnterState()
         {
             StartCoroutine(WaitAndBackToRun());
             StartCoroutine(StartDashCooldown());
         }
         IEnumerator WaitAndBackToRun()
-        {            
+        {
+            if (particleDash)
+            {
+                if (!particleDash.activeSelf)
+                {
+                    particleDash.SetActive(true);
+                }
+            }
+
             yield return new WaitForSeconds(_playerMovementController.dashDuration * Time.timeScale);
+
+            if (particleDash)
+            {
+                if (particleDash.activeSelf)
+                {
+                    particleDash.SetActive(false);
+                }
+            }
+
             currentSuperState.SwitchToState("Run");
         }
         IEnumerator StartDashCooldown()
@@ -37,7 +56,7 @@ namespace Player
         {
             if (_playerMovementController.inputManager.jump)
             {
-                currentSuperState.SwitchToState("DashWhileAirborne");                
+                currentSuperState.SwitchToState("DashWhileAirborne");
             }
         }
 
@@ -70,7 +89,7 @@ namespace Player
 
         protected override void InitializeVariable()
         {
-            
+
         }
     }
 }

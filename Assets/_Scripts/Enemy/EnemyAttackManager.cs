@@ -7,6 +7,7 @@ namespace Enemy
 {
     public class EnemyAttackManager : MonoBehaviour
     {
+        [SerializeField] private float damage = 15f;
         private AttackBody[] _attackBody;
         // Start is called before the first frame update
         void Start()
@@ -27,6 +28,11 @@ namespace Enemy
             {
                 body.DisableHitbox();
             }
+        }
+
+        public float DealDamage()
+        {
+            return damage;
         }
     }
 }

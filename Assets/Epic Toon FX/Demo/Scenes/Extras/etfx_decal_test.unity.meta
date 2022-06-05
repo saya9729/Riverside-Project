@@ -1,5 +1,10 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/_Model.meta
+guid: 7ccb22772974ed64a951f7cf282740c8
+folderAsset: yes
+========
 guid: 6dad6ea22f37cdc4783ddb9f84d5fd4a
+>>>>>>>> Develop:Assets/Epic Toon FX/Demo/Scenes/Extras/etfx_decal_test.unity.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

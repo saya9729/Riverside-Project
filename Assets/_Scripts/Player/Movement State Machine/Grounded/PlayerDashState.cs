@@ -23,6 +23,8 @@ namespace Player
                 }
             }
 
+            AudioInterface.PlayAudio("dash");
+
             yield return new WaitForSeconds(_playerMovementController.dashDuration * Time.timeScale);
 
             if (particleDash)

@@ -145,8 +145,8 @@ MonoBehaviour:
     loop: 0
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
-  - name: UI
-    clip: {fileID: 8300000, guid: 8018acccaecddce498259f8e5a93b440, type: 3}
+  - name: UiClick
+    clip: {fileID: 8300000, guid: 74c92bfbfff8dad4683739664b18b886, type: 3}
     volume: 1
     volumeVariance: 1
     pitch: 1
@@ -154,12 +154,21 @@ MonoBehaviour:
     loop: 0
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
-  - name: menu
-    clip: {fileID: 8300000, guid: 8018acccaecddce498259f8e5a93b440, type: 3}
+  - name: UiSlide
+    clip: {fileID: 8300000, guid: 9a07d36a92ad0324abb071abdbd9c437, type: 3}
     volume: 1
     volumeVariance: 1
     pitch: 1
     pitchVariance: 0
     loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: ambience
+    clip: {fileID: 8300000, guid: bc7a00fda1192de46aff8564363207b0, type: 3}
+    volume: 1
+    volumeVariance: 1
+    pitch: 1
+    pitchVariance: 0
+    loop: 1
     mixerGroup: {fileID: 0}
     source: {fileID: 0}

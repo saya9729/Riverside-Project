@@ -4,10 +4,14 @@ using UnityEngine;
 
 namespace Enemy
 {
+    [RequireComponent(typeof(EnemyStatisticManager))]
     public class EnemyAttackedHandler : MonoBehaviour
     {
-        private DamageManager _damageManager;
+        [SerializeField] private string playerAttackHitboxTag = "PlayerAttack";
+
+        private Universal.AttackManager _damageManager;
         private EnemyStatisticManager _enemyStatisticManager;
+
         public GameObject particleSpark;
 
         void Start()
@@ -17,21 +21,20 @@ namespace Enemy
 
         void OnCollisionEnter(Collision collisionInfo)
         {
-            Debug.Log(collisionInfo.gameObject.name);
-            if (collisionInfo.collider.CompareTag("PlayerAttack")) //collide with player attack's collider which has this tag
+            if (collisionInfo.collider.CompareTag(playerAttackHitboxTag)) //collide with player attack's collider which has this tag
             {
-                Debug.Log("attacked");
+                Debug.Log("attacked by "+ collisionInfo.gameObject.name);
                 ContactPoint hitPoint = collisionInfo.GetContact(0);
                 //Vector3 particleDirection = hitPoint2.point - hitPoint1.point;
 
                 Instantiate(particleSpark, hitPoint.point, Quaternion.Euler(hitPoint.normal));
 
-                _damageManager = collisionInfo.collider.gameObject.GetComponent<DamageManager>();
+                _damageManager = collisionInfo.collider.gameObject.GetComponentInParent<Universal.AttackManager>();
 
                 if (_damageManager)
                 {
-                    _enemyStatisticManager.DecreaseHealth(_damageManager.GetDamage());
-                    Debug.Log("received " + _damageManager.GetDamage() + " dmg");
+                    _enemyStatisticManager.DecreaseHealth(_damageManager.DealDamage());
+                    //Debug.Log("received " + _damageManager.GetDamage() + " dmg");
                 }
                 else 
                 { 

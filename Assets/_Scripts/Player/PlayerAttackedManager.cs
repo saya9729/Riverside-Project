@@ -5,10 +5,14 @@ using UnityEngine.UI;
 
 namespace Player
 {
-    public class AttackedPlayerManager : MonoBehaviour
+    [RequireComponent(typeof(PlayerStatisticManager))]
+    public class PlayerAttackedManager : MonoBehaviour
     {
-        private Enemy.EnemyAttackManager _damageManager;
+        [SerializeField] private string enemyAttackHitboxTag = "EnemyAttack";
+
+        private Universal.AttackManager _damageManager;
         private PlayerStatisticManager _playerStatisticManager;
+
         [SerializeField] private float hitDuration = 1.5f;
 
         public GameObject PlayerHit;
@@ -19,11 +23,11 @@ namespace Player
 
         }
 
-        void OnTriggerEnter(Collider other)
+        void OnTriggerEnter(Collider p_collider)
         {
-            if (other.tag == "EnemyAttack") //collide with enemy attack's collider which has this tag
+            if (p_collider.CompareTag(enemyAttackHitboxTag)) //collide with enemy attack's collider which has this tag
             {
-                Debug.Log("player being attacked");
+                Debug.Log("attacked by "+p_collider.gameObject.name);
                 if (PlayerHit && PlayerHit.GetComponent<Image>())
                 {
                     if (!PlayerHit.GetComponent<Image>().enabled)
@@ -37,7 +41,7 @@ namespace Player
                     StartCoroutine(WaitDisplayHitEffect());
                 }
 
-                var _damageManager = other.GetComponent<Enemy.EnemyAttackManager>();
+                _damageManager = p_collider.GetComponent<Universal.AttackManager>();
 
                 if (_damageManager)
                 {

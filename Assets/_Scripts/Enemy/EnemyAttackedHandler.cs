@@ -17,6 +17,7 @@ namespace Enemy
 
         void OnCollisionEnter(Collision collisionInfo)
         {
+            Debug.Log(collisionInfo.gameObject.name);
             if (collisionInfo.collider.CompareTag("PlayerAttack")) //collide with player attack's collider which has this tag
             {
                 Debug.Log("attacked");
@@ -30,7 +31,7 @@ namespace Enemy
                 if (_damageManager)
                 {
                     _enemyStatisticManager.DecreaseHealth(_damageManager.GetDamage());
-                    //Debug.Log("received " + _damageManager.GetDamage() + " dmg");
+                    Debug.Log("received " + _damageManager.GetDamage() + " dmg");
                 }
                 else 
                 { 

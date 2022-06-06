@@ -23,7 +23,7 @@ namespace Player
         {
             if (other.tag == "EnemyAttack") //collide with enemy attack's collider which has this tag
             {
-                Debug.Log("attacked");
+                Debug.Log("player being attacked");
                 if (PlayerHit && PlayerHit.GetComponent<Image>())
                 {
                     if (!PlayerHit.GetComponent<Image>().enabled)

@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using Universal;
 
-namespace Enemy
+namespace Universal
 {
-    public class EnemyAttackManager : MonoBehaviour
+    public class AttackManager : MonoBehaviour
     {
         [SerializeField] private float damage = 15f;
+
         private AttackBody[] _attackBody;
-        // Start is called before the first frame update
+
         void Start()
         {
             _attackBody = GetComponentsInChildren<AttackBody>();

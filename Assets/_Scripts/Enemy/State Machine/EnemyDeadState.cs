@@ -14,7 +14,15 @@ namespace Enemy
         {
             //Debug.Log("Enemy Enter Dead State");
             _enemyStateManager.animator.SetTrigger("Dead");
-            _enemyStateManager.player.GetComponent<PlayerStatisticManager>().IncreaseSol(_enemyStateManager.solValue);
+            try
+            {
+                _enemyStateManager.player.GetComponent<PlayerStatisticManager>().IncreaseSol(_enemyStateManager.solValue);
+            }
+            catch 
+            { 
+
+            }
+
             _enemyStateManager.EnableRagdoll();
             StartCoroutine(WaitAndDestroyThisObject());
         }

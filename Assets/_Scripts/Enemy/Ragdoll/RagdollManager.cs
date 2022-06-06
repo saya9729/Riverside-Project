@@ -21,10 +21,21 @@ namespace Enemy
         }
         public void DisableRagdoll()
         {
-            foreach(RagdollBody body in _ragdollBody)
+            try
             {
-                body.DisableRagdoll();
+                foreach (RagdollBody body in _ragdollBody)
+                {
+                    body.DisableRagdoll();
+                }
             }
+            catch
+            {
+                Start();
+                foreach (RagdollBody body in _ragdollBody)
+                {
+                    body.DisableRagdoll();
+                }
+            }            
         }
 
     }

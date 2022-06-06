@@ -30,11 +30,11 @@ namespace Enemy
                 if (_damageManager)
                 {
                     _enemyStatisticManager.DecreaseHealth(_damageManager.GetDamage());
-                    Debug.Log("received " + _damageManager.GetDamage() + " dmg");
+                    //Debug.Log("received " + _damageManager.GetDamage() + " dmg");
                 }
                 else 
                 { 
-                    Debug.Log("Damage not assigned to attack source."); 
+                    //Debug.Log("Damage not assigned to attack source."); 
                 }
 
                 //Debug.Log("current HP: " + _playerStatisticManager.GetHealth());

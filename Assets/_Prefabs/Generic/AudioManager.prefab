@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &313883228491555899
 Transform:
   m_ObjectHideFlags: 0
@@ -119,7 +119,7 @@ MonoBehaviour:
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: dash
-    clip: {fileID: 8300000, guid: 55fbfb2228bf67e4b9f2708b099ded81, type: 3}
+    clip: {fileID: 8300000, guid: 540f429d650fda448a3ad0ef6accd50d, type: 3}
     volume: 1
     volumeVariance: 1
     pitch: 1

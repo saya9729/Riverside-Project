@@ -47,7 +47,7 @@ MonoBehaviour:
   mixerGroup: {fileID: 24300002, guid: e49f289e8a6f19b4799b5efb2231d9c0, type: 2}
   sounds:
   - name: slash
-    clip: {fileID: 8300000, guid: 5c907ceaf900ecf43a28e9381149276e, type: 3}
+    clip: {fileID: 8300000, guid: bbf61125f16afc94d982f64081ca7ce9, type: 3}
     volume: 1
     volumeVariance: 1
     pitch: 1
@@ -56,7 +56,7 @@ MonoBehaviour:
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: stab
-    clip: {fileID: 8300000, guid: 301b1a6d792de4b46bad9cf8f893d773, type: 3}
+    clip: {fileID: 8300000, guid: abbad38cb6cf3eb4b9dac58b078e5b1f, type: 3}
     volume: 1
     volumeVariance: 1
     pitch: 1
@@ -101,7 +101,7 @@ MonoBehaviour:
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: timeskill
-    clip: {fileID: 8300000, guid: 0e9cc28abb757274daea4c379a01697d, type: 3}
+    clip: {fileID: 8300000, guid: ced9378b9c4b34341a1027c10d8e08c9, type: 3}
     volume: 1
     volumeVariance: 1
     pitch: 1
@@ -119,7 +119,7 @@ MonoBehaviour:
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: dash
-    clip: {fileID: 8300000, guid: 540f429d650fda448a3ad0ef6accd50d, type: 3}
+    clip: {fileID: 8300000, guid: 58cdbc3f99405964898423ba48c9532c, type: 3}
     volume: 1
     volumeVariance: 1
     pitch: 1
@@ -164,7 +164,7 @@ MonoBehaviour:
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: ambience
-    clip: {fileID: 8300000, guid: bc7a00fda1192de46aff8564363207b0, type: 3}
+    clip: {fileID: 8300000, guid: b6dadc1fa0301d845bc3ec20d4891f7e, type: 3}
     volume: 1
     volumeVariance: 1
     pitch: 1

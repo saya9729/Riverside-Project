@@ -8,16 +8,16 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
-  - enabled: 0
+  - enabled: 1
     path: Assets/_Scenes/MainMenu.unity
     guid: 56a4c6c5c7680874dba4f715569b94a7
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Scenes/Minh Menu (merge).unity
     guid: bd185b905f1a30644a740ec954de3cb0
-  - enabled: 0
+  - enabled: 1
     path: Assets/_Scenes/Merge Scenes/merge 07-06-22.unity
     guid: 111b4709271331748b8bb3d665d6461f
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Scenes/Minh UI (merge).unity
     guid: 04f0bcc37ec7b424cba1711fdd8a1599
   m_configObjects:

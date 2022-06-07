@@ -6,6 +6,8 @@ namespace Enemy
     public class EnemyStatisticManager : MonoBehaviour
     {
         private EnemyStateManager _enemyStateManager;
+        [SerializeField] protected float health = 100f;
+        [SerializeField] protected float maxHealth = 100;
 
         protected void InitializeVariable()
         {
@@ -17,8 +19,6 @@ namespace Enemy
         {
             
         }
-        [SerializeField] protected float health = 100f;
-        [SerializeField] protected float maxHealth = 100;
 
         private void Start()
         {

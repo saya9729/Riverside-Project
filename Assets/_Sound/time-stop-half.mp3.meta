@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/_Sound/Ambience 1.wav.meta
-guid: e51a6e72419e06f4fbeb60b79113befc
-========
-guid: b6dadc1fa0301d845bc3ec20d4891f7e
->>>>>>>> Develop:Assets/_Sound/Ambience 1.mp3.meta
+guid: ced9378b9c4b34341a1027c10d8e08c9
 AudioImporter:
   externalObjects: {}
   serializedVersion: 6

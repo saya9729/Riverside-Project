@@ -30,7 +30,6 @@ namespace Player
         private void Start()
         {
             InitializeManager();
-
             InitializeState();
             InitializeVariable();
 
@@ -39,8 +38,8 @@ namespace Player
         }
 
         private void InitializeManager()
-        {
-            inputManager = GetComponentInParent<InputManager>();
+        {            
+            inputManager = GetComponent<InputManager>();
             playerSkillManager = GetComponent<PlayerSkillManager>();
             playerStatisticManager = GetComponent<PlayerStatisticManager>();
             playerInteractManager = GetComponent<PlayerInteractManager>();
@@ -50,7 +49,7 @@ namespace Player
 
         private void InitializeVariable()
         {
-            playerAnimator = GetComponentInParent<Animator>();
+            playerAnimator = GetComponent<Animator>();
             volume = GameObject.Find("PlayerFollowCamera").GetComponent<Volume>();
         }
 

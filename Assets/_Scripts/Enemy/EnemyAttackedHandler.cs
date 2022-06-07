@@ -4,19 +4,18 @@ using UnityEngine;
 
 namespace Enemy
 {
-    [RequireComponent(typeof(EnemyStatisticManager))]
     public class EnemyAttackedHandler : MonoBehaviour
     {
         [SerializeField] private string playerAttackHitboxTag = "PlayerAttack";
 
         private Universal.AttackManager _damageManager;
-        private EnemyStatisticManager _enemyStatisticManager;
+        private EnemyStateManager _enemyStateManager;
 
         public GameObject particleSpark;
 
         void Start()
         {
-            _enemyStatisticManager = GetComponent<EnemyStatisticManager>();
+            _enemyStateManager = GetComponentInParent<EnemyStateManager>();
         }
 
         void OnCollisionEnter(Collision collisionInfo)
@@ -30,10 +29,10 @@ namespace Enemy
                 Instantiate(particleSpark, hitPoint.point, Quaternion.Euler(hitPoint.normal));
 
                 _damageManager = collisionInfo.collider.gameObject.GetComponentInParent<Universal.AttackManager>();
-
+               
                 if (_damageManager)
                 {
-                    _enemyStatisticManager.DecreaseHealth(_damageManager.DealDamage());
+                    _enemyStateManager.ReceiveDamage(_damageManager.DealDamage());
                     //Debug.Log("received " + _damageManager.GetDamage() + " dmg");
                 }
                 else 

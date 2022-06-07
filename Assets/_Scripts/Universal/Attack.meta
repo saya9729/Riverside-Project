@@ -1,6 +1,10 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/_Environment/SyntyStudios/PolygonStarter/PolygonPrototype/URP_ExtractMe.unitypackage.meta
+guid: 172c043efa193c24f871a4dca9f874c1
+========
 guid: 61d79d807ad417946af66aab9b096ae6
 folderAsset: yes
+>>>>>>>> Develop:Assets/_Scripts/Universal/Attack.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

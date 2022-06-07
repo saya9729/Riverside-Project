@@ -23,11 +23,10 @@ namespace Player
                     particleDash.SetActive(true);
                 }
             }
-
             AudioInterface.PlayAudio("dash");
 
             yield return new WaitForSeconds(_playerMovementController.dashDuration * Time.timeScale);
-
+           
             if (particleDash)
             {
                 if (particleDash.activeSelf)
@@ -35,7 +34,6 @@ namespace Player
                     particleDash.SetActive(false);
                 }
             }
-
             currentSuperState.SwitchToState("RunWhileAirborne");
         }
         IEnumerator StartDashCooldown()

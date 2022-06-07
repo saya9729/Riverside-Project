@@ -1,6 +1,10 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/_Environment/PolygonNature/URP_Extract_Me.unitypackage.meta
+guid: 7b2cbca726d1dec49977fa98ee535a82
+========
 guid: 0377be8db59fe2545b43ce6081684471
 folderAsset: yes
+>>>>>>>> Develop:Assets/_Scripts/Universal.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

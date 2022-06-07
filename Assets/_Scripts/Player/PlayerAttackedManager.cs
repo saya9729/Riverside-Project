@@ -41,7 +41,7 @@ namespace Player
                     StartCoroutine(WaitDisplayHitEffect());
                 }
 
-                _damageManager = p_collider.GetComponent<Universal.AttackManager>();
+                _damageManager = p_collider.GetComponentInParent<Universal.AttackManager>();
 
                 if (_damageManager)
                 {

@@ -10,4 +10,5 @@ public enum EventID
     onHPPotCollected,
     onHPChanged,
     onEnergyChange,
+    onSolChange,
 }

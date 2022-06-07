@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 8900000, guid: 619e305f5165a9946b7f72464e44ca4a, type: 3}
   m_Sun: {fileID: 2114283754330233425}
-  m_IndirectSpecularColor: {r: 0.07377391, g: 0.15875366, b: 0.2428301, a: 1}
+  m_IndirectSpecularColor: {r: 0.014919586, g: 0.029402573, b: 0.058763985, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -596,11 +596,6 @@ Transform:
 --- !u!1 &376822253 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5824907885382336751, guid: 21af9a2172057ed4ebb386270946d762, type: 3}
-  m_PrefabInstance: {fileID: 376822251}
-  m_PrefabAsset: {fileID: 0}
---- !u!20 &376822254 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 192715298017571814, guid: 21af9a2172057ed4ebb386270946d762, type: 3}
   m_PrefabInstance: {fileID: 376822251}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &376822255
@@ -4299,12 +4294,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8880394892423058891, guid: 2d3a85ecde41a8246a79669975912b74, type: 3}
       propertyPath: m_Cameras.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8880394892423058891, guid: 2d3a85ecde41a8246a79669975912b74, type: 3}
       propertyPath: m_Cameras.Array.data[0]
       value: 
-      objectReference: {fileID: 376822254}
+      objectReference: {fileID: 0}
     - target: {fileID: 4543668458438848555, guid: 2d3a85ecde41a8246a79669975912b74, type: 3}
       propertyPath: m_IsActive
       value: 0

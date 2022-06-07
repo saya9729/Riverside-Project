@@ -19,7 +19,15 @@ namespace Universal
         }
         public void DisableHitbox()
         {
-            _collider.enabled = false;
+            try 
+            {
+                _collider.enabled = false;
+            }
+            catch
+            {
+                Start();
+                _collider.enabled = false;
+            }            
         }
     }
 }

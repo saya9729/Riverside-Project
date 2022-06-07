@@ -18,6 +18,7 @@ namespace Universal
 
         public void EnableHitbox()
         {
+            Debug.Log("attack hit box"+_attackBody.Length);
             foreach (AttackBody body in _attackBody)
             {
                 body.EnableHitbox();
@@ -25,9 +26,20 @@ namespace Universal
         }
         public void DisableHitbox()
         {
-            foreach (AttackBody body in _attackBody)
+            try
             {
-                body.DisableHitbox();
+                foreach (AttackBody body in _attackBody)
+                {
+                    body.DisableHitbox();
+                }
+            }
+            catch
+            {
+                Start();
+                foreach (AttackBody body in _attackBody)
+                {
+                    body.DisableHitbox();
+                }
             }
         }
 

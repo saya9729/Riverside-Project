@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 namespace GameUI
@@ -18,31 +17,7 @@ namespace GameUI
             Cursor.lockState = CursorLockMode.Locked;
         }
 
-        [Header("Levels to Load")]
-        public string _newGameLevel;
-        private string _levelToLoad;
-        [SerializeField] private GameObject noSavedGameDialog = null;
-
-        public void NewGameDialogYes()
-        {
-            SceneManager.LoadScene(_newGameLevel);
-        }
-
-        public void LoadGameDialogYes()
-        {
-            if (PlayerPrefs.HasKey("SavedLevel"))
-            {
-                _levelToLoad = PlayerPrefs.GetString("SavedLevel");
-                SceneManager.LoadScene(_levelToLoad);
-            }
-            else
-            {
-                noSavedGameDialog.SetActive(true);
-            }
-                
-        }
-
-        public void ExitButton()
+        public void QuitGame()
         {
             Debug.Log("Quit");
             Application.Quit();

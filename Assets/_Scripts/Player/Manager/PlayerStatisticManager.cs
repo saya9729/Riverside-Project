@@ -2,8 +2,11 @@ using UnityEngine;
 
 namespace Player
 {
-    public class PlayerStatisticManager : AbstractClass.StatisticManager
+    public class PlayerStatisticManager : MonoBehaviour
     {
+
+        [SerializeField] protected float health = 100f;
+        [SerializeField] protected float maxHealth = 100f;
         [SerializeField] protected float sol = 1000f;
         // after finished death statebmove all of PlayerDeathSequence to that
         private PlayerLoseSequence _playerLoseSequence;
@@ -11,16 +14,9 @@ namespace Player
         private PlayerMovementController _playerMovementController;
         [SerializeField] private GameUI.HUDController hudController;
 
-
         private void Start()
         {
-            health = 100f;
-            _playerLoseSequence = GetComponent<PlayerLoseSequence>();
-            _playerSkill = GetComponent<PlayerSkillManager>();
-            _playerMovementController = GetComponentInParent<PlayerMovementController>();
-            hudController.SetMaxHealth(health);
-            hudController.SetSol(sol);
-            hudController.SetMaxEnergy(_playerSkill.slowdownAmountMax);
+            InitializeVariable();
         }
 
         public bool CanPullFromSol(float p_amount)
@@ -51,14 +47,42 @@ namespace Player
             }
         }
 
-        protected override void InitializeVariable()
+        protected void InitializeVariable()
         {
             health = maxHealth;
+            _playerLoseSequence = GetComponent<PlayerLoseSequence>();
+            _playerSkill = GetComponent<PlayerSkillManager>();
+            _playerMovementController = GetComponent<PlayerMovementController>();
+            hudController.SetMaxHealth(health);
+            hudController.SetSol(sol);
+            hudController.SetMaxEnergy(_playerSkill.slowdownAmountMax);
         }
 
         public void IncreaseSol(float p_amount)
         {
             sol += p_amount;
+            hudController.SetSol(sol);
+        }
+
+        public void DecreaseHealth(float p_decreaseAmount)
+        {
+            health -= p_decreaseAmount;
+            this.PostEvent(EventID.onHPChanged, health);
+        }
+
+        public void IncreaseHealth(float p_increaseAmount)
+        {
+            health += p_increaseAmount;
+            if (health > maxHealth)
+            {
+                health = maxHealth;
+            }
+            this.PostEvent(EventID.onHPChanged, health);
+        }
+
+        public float HealthPercentage()
+        {
+            return health / maxHealth * 100;
         }
     }
 }

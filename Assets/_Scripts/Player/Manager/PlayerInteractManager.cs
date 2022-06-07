@@ -23,7 +23,7 @@ namespace Player
             _cam = Camera.main;
             _highlightEffect = GetComponent<HighlightEffect>();
             _playerStateManager = GetComponent<PlayerStateManager>();
-            _playerInput = GetComponentInParent<PlayerInput>();
+            _playerInput = GetComponent<PlayerInput>();
             _playerWinSequence = GetComponent<PlayerWinSequence>();
         }
 

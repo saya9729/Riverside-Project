@@ -14,7 +14,6 @@ namespace Enemy
     [RequireComponent(typeof(Animator))]
     [RequireComponent(typeof(NavMeshAgent))]
     [RequireComponent(typeof(Universal.AttackManager))]
-    [RequireComponent(typeof(EnemyAttackedHandler))]
     [RequireComponent(typeof(Rigidbody))]
     public class EnemyStateManager : AbstractClass.StateNew
     {
@@ -29,6 +28,7 @@ namespace Enemy
         [NonSerialized] public Universal.AttackManager enemyAttackManager;
         [NonSerialized] public Animator animator;        
         [NonSerialized] public NavMeshAgent navMeshAgent;
+        private Rigidbody _rigidbody;
 
         [NonSerialized] public GameObject player;
         [NonSerialized] public AnimationClip[] animationClips;
@@ -74,6 +74,7 @@ namespace Enemy
             DisableRagdoll();
             enemyAttackManager = GetComponent<Universal.AttackManager>();
             DisableAttackHitbox();
+            _rigidbody= GetComponent<Rigidbody>();
         }
 
         public void ReceiveDamage(float p_damage)
@@ -125,7 +126,10 @@ namespace Enemy
             switch (p_stateType)
             {
                 case "DeadState":
-                    SetSubState(_enemyDeadState);
+                    if (currentSubState!= _enemyDeadState)
+                    {
+                        SetSubState(_enemyDeadState);
+                    }                    
                     break;
                 case "PatrolState":
                     SetSubState(_enemyPatrolState);
@@ -147,6 +151,8 @@ namespace Enemy
         public void EnableRagdoll()
         {
             animator.enabled = false;
+            _rigidbody.isKinematic = true;
+
             _ragdollManager.EnableRagdoll();
         }
 

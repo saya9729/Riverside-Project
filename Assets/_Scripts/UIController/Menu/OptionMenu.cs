@@ -22,9 +22,11 @@ namespace GameUI
             List<string> resolutionOptions = new List<string>();
             for (int i = 0; i < _resolutions.Length; i++)
             {
-                resolutionOptions.Add(_resolutions[i].width + " x " + _resolutions[i].height);
+                
+                resolutionOptions.Add(_resolutions[i].width + " x " + _resolutions[i].height + ", " + _resolutions[i].refreshRate + " HZ");
                 if (_resolutions[i].width == Screen.width &&
-                    _resolutions[i].height == Screen.height)
+                    _resolutions[i].height == Screen.height
+                    && _resolutions[i].refreshRate == Screen.currentResolution.refreshRate)
                 {
                     currentResolutionIndex = i;
                 }

@@ -66,6 +66,8 @@ namespace Player
         [Tooltip("How far in degrees can you move the camera down")]
         public float bottomClamp = -90.0f;
 
+        public GameObject particleDash;
+
         //input direction
         public Vector3 inputDirection;
 
@@ -293,6 +295,14 @@ namespace Player
         {
             isDashable = false;
             isInDashState = true;
+            if (particleDash)
+            {
+                if (!particleDash.activeSelf)
+                {
+                    particleDash.SetActive(true);
+                }
+            }
+            AudioInterface.PlayAudio("dash");
             if (playerSkillManager.gameIsSlowDown)
             {
                 yield return new WaitForSeconds(dashDuration * Time.timeScale * dashDistanceWhileTimeSlowMultiflier);
@@ -300,6 +310,13 @@ namespace Player
             else
             {
                 yield return new WaitForSeconds(dashDuration);
+            }
+            if (particleDash)
+            {
+                if (particleDash.activeSelf)
+                {
+                    particleDash.SetActive(false);
+                }
             }
             isInDashState = false;
             ResetDashDirection();

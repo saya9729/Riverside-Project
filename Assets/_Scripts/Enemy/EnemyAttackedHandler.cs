@@ -27,6 +27,7 @@ namespace Enemy
                 //Vector3 particleDirection = hitPoint2.point - hitPoint1.point;
 
                 Instantiate(particleSpark, hitPoint.point, Quaternion.Euler(hitPoint.normal));
+                AudioInterface.PlayAudio("enemyHit");
 
                 _damageManager = collisionInfo.collider.gameObject.GetComponentInParent<Universal.AttackManager>();
                

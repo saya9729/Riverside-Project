@@ -9,6 +9,8 @@ namespace Player
         public override void EnterState()
         {
             //play run animation
+            _playerMovementController.SetRunTargetSpeed();
+            _playerMovementController.ResetAirborneDirection();
         }
 
         public override void ExitState()
@@ -33,6 +35,7 @@ namespace Player
             }
             else if (_playerMovementController.isDashable && _playerMovementController.inputManager.dash)
             {
+                _playerMovementController.StartCoroutineDashState();
                 currentSuperState.SwitchToState("Dash");
             }
         }
@@ -59,16 +62,7 @@ namespace Player
 
         protected override void UpdateThisState()
         {
-            Move();
             CheckSwitchState();
-        }
-
-        private void Move()
-        {
-            _playerMovementController.speed = _playerMovementController.runSpeed;
-            // move the player
-            _playerMovementController.characterController.Move(_playerMovementController.inputDirection.normalized * _playerMovementController.speed * Time.deltaTime);
-            //_playerRigidbody.AddForce(inputDirection.normalized * (_speed * Time.unscaledDeltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.unscaledDeltaTime);
         }
     }
 }

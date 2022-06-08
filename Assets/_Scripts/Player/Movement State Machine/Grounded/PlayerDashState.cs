@@ -5,48 +5,20 @@ namespace Player
 {
     public class PlayerDashState : AbstractClass.StateNew
     {
-        private PlayerMovementController _playerMovementController;
-        public GameObject particleDash;
-
+        private PlayerMovementController _playerMovementController;        
         public override void EnterState()
         {
-            StartCoroutine(WaitAndBackToRun());
-            StartCoroutine(StartDashCooldown());
-        }
-        IEnumerator WaitAndBackToRun()
-        {
-            if (particleDash)
-            {
-                if (!particleDash.activeSelf)
-                {
-                    particleDash.SetActive(true);
-                }
-            }
-
-            AudioInterface.PlayAudio("dash");
-
-            yield return new WaitForSeconds(_playerMovementController.dashDuration * Time.timeScale);
-
-            if (particleDash)
-            {
-                if (particleDash.activeSelf)
-                {
-                    particleDash.SetActive(false);
-                }
-            }
-
-            currentSuperState.SwitchToState("Run");
-        }
-        IEnumerator StartDashCooldown()
-        {
-            _playerMovementController.isDashable = false;
-            yield return new WaitForSeconds(_playerMovementController.dashTimeout);
-            _playerMovementController.isDashable = true;
-        }
+            _playerMovementController.ResetAirborneDirection();
+            _playerMovementController.DisableJump();
+            _playerMovementController.SetDashDirection();
+            _playerMovementController.DisableInput();
+            _playerMovementController.ResetInputDirection();
+        }        
 
         public override void ExitState()
         {
-            StopCoroutine(WaitAndBackToRun());
+            _playerMovementController.EnableJump();
+            _playerMovementController.EnableInput();
         }
 
         protected override void PhysicsUpdateThisState()
@@ -56,9 +28,14 @@ namespace Player
 
         protected override void CheckSwitchState()
         {
-            if (_playerMovementController.inputManager.jump)
+            if (!_playerMovementController.isInDashState)
             {
-                currentSuperState.SwitchToState("DashWhileAirborne");
+                _playerMovementController.SetRunSpeed();
+                currentSuperState.SwitchToState("Run");
+            }
+            else if (!_playerMovementController.isGrounded)
+            {
+                currentSuperState.SwitchToState("DashWhileAirborne");                
             }
         }
 
@@ -73,15 +50,8 @@ namespace Player
         }
 
         protected override void UpdateThisState()
-        {
-            Dash();
+        {            
             CheckSwitchState();
-        }
-
-        private void Dash()
-        {
-            _playerMovementController.speed = _playerMovementController.dashSpeed;
-            _playerMovementController.characterController.Move(_playerMovementController.inputDirection.normalized * _playerMovementController.speed * Time.unscaledDeltaTime);
         }
 
         public override void SwitchToState(string p_StateType)

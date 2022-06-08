@@ -1,8 +1,6 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Animations;
 using UnityEngine.InputSystem;
 
 namespace Player
@@ -14,12 +12,14 @@ namespace Player
         [Header("Player")]
         [Tooltip("Run speed of the character in m/s")]
         public float runSpeed = 6.0f;
-        [Tooltip("Acceleration and deceleration")]
-        public float speedChangeRate = 10.0f;
+
+        public float runWhileAirborneSpeed = 6.0f;
+        public float airborneDefaultSpeed = 6.0f;
+
+        [Tooltip("Acceleration and deceleration in m/s^2")]
+        public float acceleration = 10.0f;
         [Tooltip("Rotation speed of the character")]
         public float rotationSpeed = 1.0f;
-
-        public float mouseSensitivity = 1;
 
         [Space(10)]
         [Tooltip("Dash speed of the character in m/s")]
@@ -27,14 +27,16 @@ namespace Player
         [Tooltip("Dashing duration of each dash")]
         public float dashDuration = 0.25f;
         [Tooltip("Time required to pass before being able to dash again")]
-        public float dashTimeout = 1f;
+        public float dashCooldown = 1f;
+
+        public float dashDistanceWhileTimeSlowMultiflier = 1f;
 
         [Space(10)]
         [Tooltip("The height the player can jump")]
         public float jumpHeight = 1.2f;
         [Tooltip("The character uses its own gravity value. The engine default is -9.81f")]
         public float gravity = -15.0f;
-
+        //terminalVelocity must be negative
         public float terminalVelocity = -53.0f;
 
         [Space(10)]
@@ -50,6 +52,9 @@ namespace Player
         public float groundedOffset = -0.14f;
         [Tooltip("The radius of the grounded check. Should match the radius of the CharacterController")]
         public float groundedRadius = 0.5f;
+
+        public Vector3 groundedBoxDimention = new Vector3(1, 1, 1);
+
         [Tooltip("What layers the character uses as ground")]
         public LayerMask groundLayers;
 
@@ -61,6 +66,8 @@ namespace Player
         [Tooltip("How far in degrees can you move the camera down")]
         public float bottomClamp = -90.0f;
 
+        public GameObject particleDash;
+
         //input direction
         public Vector3 inputDirection;
 
@@ -68,11 +75,24 @@ namespace Player
         private float _cinemachineTargetPitch;
 
         // player stats
-        public float speed;
-        public float rotationVelocity;
+        public float currentSpeed;
+        public float targetSpeed;
+
+        private float _rotationVelocity;
         public float verticalVelocity;
+
+        public Vector3 lastInputDirection = Vector3.zero;
+        public Vector3 airborneDirection = Vector3.zero;
+        public Vector3 dashDirection = Vector3.zero;
+
+
+        public float currentGravity = -15.0f;
+
         public bool isDashable = true;
         public bool isJumpable = true;
+        public bool isAllowInput = true;
+
+        public bool isInDashState = false;
 
         private float previousStepOffset;
 
@@ -81,6 +101,7 @@ namespace Player
         public PlayerInput playerInput;
         public CharacterController characterController;
         public InputManager inputManager;
+        public PlayerSkillManager playerSkillManager;
         private GameObject _mainCamera;
 
         private const float _threshold = 0.01f;
@@ -129,11 +150,12 @@ namespace Player
             characterController = GetComponent<CharacterController>();
             playerInput = GetComponent<PlayerInput>();
             inputManager = GetComponent<InputManager>();
+            playerSkillManager = GetComponentInChildren<PlayerSkillManager>();
         }
 
         protected override void InitializeVariable()
         {
-
+            EnableGravity();
             //register listener
             this.RegisterListener(EventID.onDodgePress, (param) => onDodgePress());
         }
@@ -147,11 +169,17 @@ namespace Player
         }
         protected override void UpdateThisState()
         {
-            HandleRunInput();
-            Look();
+            if (isAllowInput)
+            {
+                HandleRunInput();
+            }
             CheckGrounded();
-            Jump();
+            if (isJumpable)
+            {
+                Jump();
+            }
             ApplyGravity();
+            Move();
         }
         private void FixedUpdate()
         {
@@ -161,6 +189,68 @@ namespace Player
         {
             Look();
         }
+        public void DisableJump()
+        {
+            isJumpable = false;
+        }
+        public void EnableJump()
+        {
+            isJumpable = true;
+        }
+        public void DisableInput()
+        {
+            isAllowInput = false;
+        }
+        public void EnableInput()
+        {
+            isAllowInput = true;
+        }
+        public void DisableGravity()
+        {
+            currentGravity = 0;
+        }
+
+        public void EnableGravity()
+        {
+            currentGravity = gravity;
+        }
+        public void SetRunTargetSpeed()
+        {
+            targetSpeed = runSpeed;
+        }
+        public void SetRunSpeed()
+        {
+            currentSpeed = runSpeed;
+        }
+
+        public void SetAirborneRunTargetSpeed()
+        {
+            targetSpeed = runWhileAirborneSpeed;
+        }
+        public void SetAirborneRunSpeed()
+        {
+            currentSpeed = runWhileAirborneSpeed;
+        }
+        public void SetIdleTargetSpeed()
+        {
+            targetSpeed = 0;
+        }
+        private void Move()
+        {
+            //smooth the speed change (momentum mechanic)            
+            if (currentSpeed < targetSpeed)
+            {
+                currentSpeed += acceleration * Time.deltaTime;
+            }
+            else if (currentSpeed > targetSpeed)
+            {
+                currentSpeed -= acceleration * Time.deltaTime;
+            }
+
+            // move the player
+            characterController.Move(inputDirection.normalized * currentSpeed * Time.deltaTime + new Vector3(airborneDirection.x * airborneDefaultSpeed, verticalVelocity, airborneDirection.z * airborneDefaultSpeed) * Time.deltaTime + new Vector3(dashDirection.x * dashSpeed, 0f, dashDirection.z * dashSpeed) * Time.unscaledDeltaTime);
+        }
+
         public void DisableStepOffset()
         {
             previousStepOffset = characterController.stepOffset;
@@ -172,46 +262,113 @@ namespace Player
         }
         private void Jump()
         {
-            if (isGrounded && inputManager.jump && isJumpable)
+            if (isGrounded && inputManager.jump)
             {
-                AudioInterface.PlayAudio("jump");
                 // the square root of H * -2 * G = how much velocity needed to reach desired height
                 verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
-                StartCoroutine(StartJumpCooldown());
+
+                //Audio
+                AudioInterface.PlayAudio("jump");
             }
         }
-        IEnumerator StartJumpCooldown()
+        // TODO: unused jump cooldown behavior
+        //IEnumerator StartJumpCooldown()
+        //{
+        //    isJumpable = false;
+        //    yield return new WaitForSeconds(jumpCooldown);
+        //    isJumpable = true;
+        //}
+        //public void StartCoroutineStartJumpCooldown()
+        //{
+        //    StartCoroutine(StartJumpCooldown());
+        //}
+        IEnumerator StartDashCooldown()
         {
-            isJumpable = false;
-            yield return new WaitForSeconds(jumpCooldown);
-            isJumpable = true;
+            yield return new WaitForSeconds(dashCooldown);
+            isDashable = true;
+        }
+        public void StartCoroutineDashState()
+        {
+            StartCoroutine(StartDashDuration());
+        }
+        IEnumerator StartDashDuration()
+        {
+            isDashable = false;
+            isInDashState = true;
+            if (particleDash)
+            {
+                if (!particleDash.activeSelf)
+                {
+                    particleDash.SetActive(true);
+                }
+            }
+            AudioInterface.PlayAudio("dash");
+            if (playerSkillManager.gameIsSlowDown)
+            {
+                yield return new WaitForSeconds(dashDuration * Time.timeScale * dashDistanceWhileTimeSlowMultiflier);
+            }
+            else
+            {
+                yield return new WaitForSeconds(dashDuration);
+            }
+            if (particleDash)
+            {
+                if (particleDash.activeSelf)
+                {
+                    particleDash.SetActive(false);
+                }
+            }
+            isInDashState = false;
+            ResetDashDirection();
+            StartCoroutine(StartDashCooldown());
         }
 
         private void HandleRunInput()
         {
-            // normalise input direction
-            inputDirection = new Vector3(inputManager.move.x, 0.0f, inputManager.move.y).normalized;
+            inputDirection = transform.right * inputManager.move.x + transform.forward * inputManager.move.y;
 
-            // note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
-            // if there is a move input rotate player when the player is moving
             if (inputManager.move != Vector2.zero)
             {
-                // move
-
-                inputDirection = transform.right * inputManager.move.x + transform.forward * inputManager.move.y;
+                lastInputDirection = inputDirection;
             }
+        }
+
+        public void SetAirborneDirection()
+        {
+            airborneDirection = lastInputDirection;
+        }
+
+        public void ResetAirborneDirection()
+        {
+            airborneDirection = Vector3.zero;
+        }
+        public void SetDashDirection()
+        {
+            dashDirection = transform.forward;
+        }
+
+        public void ResetDashDirection()
+        {
+            dashDirection = Vector3.zero;
+            Debug.Log(dashDirection);
+        }
+        public void ResetInputDirection()
+        {
+            inputDirection = Vector3.zero;
         }
 
         private void CheckGrounded()
         {
             // set sphere position, with offset
             Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - groundedOffset, transform.position.z);
-            isGrounded = Physics.CheckSphere(spherePosition, groundedRadius, groundLayers, QueryTriggerInteraction.Ignore);
-            //isGrounded = Physics.CheckBox(spherePosition, new Vector3(groundedRadius, groundedRadius, groundedRadius), Quaternion.identity, groundLayers, QueryTriggerInteraction.Ignore);
+            //isGrounded = Physics.CheckSphere(spherePosition, groundedRadius, groundLayers, QueryTriggerInteraction.Ignore);
+            // TODO: use box to fix stair unable to jump
+            isGrounded = Physics.CheckBox(spherePosition, groundedBoxDimention, Quaternion.identity, groundLayers, QueryTriggerInteraction.Ignore);
         }
 
         private void Look()
         {
+            // TODO: perform check like this to optimize the update loop
             // if there is an input
             if (inputManager.look.sqrMagnitude >= _threshold)
             {
@@ -219,7 +376,7 @@ namespace Player
                 float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
 
                 _cinemachineTargetPitch += inputManager.look.y * rotationSpeed * deltaTimeMultiplier;
-                rotationVelocity = inputManager.look.x * rotationSpeed * deltaTimeMultiplier;
+                _rotationVelocity = inputManager.look.x * rotationSpeed * deltaTimeMultiplier;
 
                 // clamp our pitch rotation
                 _cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, bottomClamp, topClamp);
@@ -228,7 +385,7 @@ namespace Player
                 cinemachineCameraTarget.transform.localRotation = Quaternion.Euler(_cinemachineTargetPitch, 0.0f, 0.0f);
 
                 // rotate the player left and right
-                transform.Rotate(Vector3.up * rotationVelocity);
+                transform.Rotate(Vector3.up * _rotationVelocity);
             }
         }
         private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
@@ -249,11 +406,10 @@ namespace Player
                 }
             }
             // apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
-            if (Mathf.Abs(verticalVelocity) < Mathf.Abs(terminalVelocity))
+            if (verticalVelocity > terminalVelocity)
             {
-                verticalVelocity += gravity * Time.deltaTime;
+                verticalVelocity += currentGravity * Time.deltaTime;
             }
-            characterController.Move(new Vector3(0.0f, verticalVelocity, 0.0f) * Time.deltaTime);
         }
 
         private void OnDrawGizmosSelected()
@@ -261,14 +417,20 @@ namespace Player
             Color transparentGreen = new Color(0.0f, 1.0f, 0.0f, 0.35f);
             Color transparentRed = new Color(1.0f, 0.0f, 0.0f, 0.35f);
 
-            if (isGrounded) Gizmos.color = transparentGreen;
-            else Gizmos.color = transparentRed;
+            if (isGrounded)
+            {
+                Gizmos.color = transparentGreen;
+            }
+            else
+            {
+                Gizmos.color = transparentRed;
+            }
 
             Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - groundedOffset, transform.position.z);
 
             // when selected, draw a gizmo in the position of, and matching radius of, the grounded collider
-            Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - groundedOffset, transform.position.z), groundedRadius);
-            //Gizmos.DrawCube(spherePosition, new Vector3(groundedRadius, groundedRadius, groundedRadius));
+            //Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - groundedOffset, transform.position.z), groundedRadius);
+            Gizmos.DrawCube(spherePosition, groundedBoxDimention);
         }
 
         public override void EnterState()

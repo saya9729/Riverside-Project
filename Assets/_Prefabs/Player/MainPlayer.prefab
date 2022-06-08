@@ -278,8 +278,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132149594374701}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.69, z: 0}
+  m_LocalRotation: {x: 6.617445e-24, y: 0.00000011920929, z: -6.123233e-17, w: 1}
+  m_LocalPosition: {x: 0, y: -1.6786337, z: 0.08517456}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -293,7 +293,7 @@ Transform:
   - {fileID: 5936379951753775254}
   - {fileID: 4758970445219302616}
   m_Father: {fileID: 4261174648711154786}
-  m_RootOrder: 4
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1207724610410943089
 GameObject:
@@ -1680,35 +1680,46 @@ MonoBehaviour:
   currentSuperState: {fileID: 0}
   currentSubState: {fileID: 0}
   runSpeed: 6
-  speedChangeRate: 10
+  runWhileAirborneSpeed: 3
+  airborneDefaultSpeed: 4
+  acceleration: 100
   rotationSpeed: 1
-  mouseSensitivity: 1
-  dashSpeed: 100
+  dashSpeed: 60
   dashDuration: 0.1
-  dashTimeout: 1
+  dashCooldown: 1
+  dashDistanceWhileTimeSlowMultiflier: 1.5
   jumpHeight: 1.2
   gravity: -15
-  terminalVelocity: 53
+  terminalVelocity: -53
   jumpCooldown: 0.1
   airborneCooldown: 0.15
   isGrounded: 1
-  groundedOffset: -0.37
+  groundedOffset: -0.12
   groundedRadius: 0.5
+  groundedBoxDimention: {x: 0.5, y: 0.5, z: 0.5}
   groundLayers:
     serializedVersion: 2
     m_Bits: 4161
   cinemachineCameraTarget: {fileID: 4261174648711154787}
   topClamp: 89
   bottomClamp: -89
+  particleDash: {fileID: 0}
   inputDirection: {x: 0, y: 0, z: 0}
-  speed: 0
-  rotationVelocity: 0
+  currentSpeed: 0
+  targetSpeed: 0
   verticalVelocity: 0
+  lastInputDirection: {x: 0, y: 0, z: 0}
+  airborneDirection: {x: 0, y: 0, z: 0}
+  dashDirection: {x: 0, y: 0, z: 0}
+  currentGravity: -15
   isDashable: 1
   isJumpable: 1
+  isAllowInput: 1
+  isInDashState: 0
   playerInput: {fileID: 0}
   characterController: {fileID: 0}
   inputManager: {fileID: 0}
+  playerSkillManager: {fileID: 0}
 --- !u!114 &4261174648672795365
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1920,7 +1931,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentSuperState: {fileID: 0}
   currentSubState: {fileID: 0}
-  particleDash: {fileID: 0}
 --- !u!114 &4261174648672795358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1935,7 +1945,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentSuperState: {fileID: 0}
   currentSubState: {fileID: 0}
-  particleDash: {fileID: 0}
 --- !u!114 &4261174648672795359
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2340,16 +2349,16 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4261174648711154787}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -6.617445e-24, y: -0.00000011920929, z: 6.123233e-17, w: 1}
   m_LocalPosition: {x: 0, y: 1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5782168426523798305}
+  - {fileID: 543450653260159127}
   - {fileID: 5412009819182782479}
   - {fileID: 5412009819259393520}
   - {fileID: 5412009818675378356}
-  - {fileID: 543450653260159127}
   m_Father: {fileID: 4261174648672795367}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2800,7 +2809,7 @@ Transform:
   m_Children:
   - {fileID: 5412009820142656632}
   m_Father: {fileID: 4261174648711154786}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5412009818675378357
 MonoBehaviour:
@@ -2939,7 +2948,7 @@ Transform:
   m_Children:
   - {fileID: 5412009818587772445}
   m_Father: {fileID: 4261174648711154786}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: -3.984, y: 178.263, z: 23.584}
 --- !u!1 &5412009819259393526
 GameObject:
@@ -2972,7 +2981,7 @@ Transform:
   m_Children:
   - {fileID: 5412009819405720696}
   m_Father: {fileID: 4261174648711154786}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5412009819259393521
 MonoBehaviour:
@@ -3289,7 +3298,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5782168426523798305
 Transform:
   m_ObjectHideFlags: 0

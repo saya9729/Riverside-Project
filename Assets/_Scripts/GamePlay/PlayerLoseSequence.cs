@@ -28,6 +28,7 @@ namespace Player
             int scneneIndex = SceneManager.GetActiveScene().buildIndex;
             SceneManager.UnloadScene(scneneIndex);
             SceneManager.LoadScene(scneneIndex);
+            Time.timeScale = 1f;
         }
     }
 }

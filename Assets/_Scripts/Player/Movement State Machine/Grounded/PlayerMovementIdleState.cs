@@ -8,7 +8,8 @@ namespace Player
         private PlayerMovementController _playerMovementController;
         public override void EnterState()
         {
-            
+            _playerMovementController.SetIdleTargetSpeed();
+            _playerMovementController.ResetAirborneDirection();
         }
         public override void ExitState()
         {
@@ -30,6 +31,7 @@ namespace Player
             }
             else if (!_playerMovementController.isGrounded)
             {
+                _playerMovementController.ResetAirborneDirection();
                 currentSuperState.SwitchToState("IdleWhileAirborne");
             }
         }

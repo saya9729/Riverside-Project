@@ -9,20 +9,11 @@ namespace Player
         public override void EnterState()
         {
             DisableStepOffset();
-            StartCoroutine(WaitAndBackToRunWhileAirborne());
-            StartCoroutine(StartDashCooldown());
-        }
-        IEnumerator WaitAndBackToRunWhileAirborne()
-        {
-            yield return new WaitForSeconds(_playerMovementController.dashDuration * Time.timeScale);
-            currentSuperState.SwitchToState("RunWhileAirborne");
-        }
-        IEnumerator StartDashCooldown()
-        {
-            _playerMovementController.isDashable = false;
-            yield return new WaitForSeconds(_playerMovementController.dashTimeout);
-            _playerMovementController.isDashable = true;
-        }
+            _playerMovementController.SetDashSpeed();
+            _playerMovementController.SetAirborneDirection();
+            _playerMovementController.SetDashDirection();
+            _playerMovementController.DisableGravity();
+        }        
 
         private void DisableStepOffset()
         {
@@ -36,6 +27,7 @@ namespace Player
         public override void ExitState()
         {
             EnableStepOffset();
+            _playerMovementController.EnableGravity();
         }
 
         public override void SwitchToState(string p_StateType)
@@ -49,12 +41,12 @@ namespace Player
             {
                 currentSuperState.SwitchToState("Dash");
             }
-        }
-        private void Dash()
-        {
-            _playerMovementController.speed = _playerMovementController.dashSpeed;
-            _playerMovementController.characterController.Move(_playerMovementController.inputDirection.normalized * _playerMovementController.speed * Time.unscaledDeltaTime);
-        }
+            else if (!_playerMovementController.isInDashState)
+            {
+                _playerMovementController.SetAirborneRunSpeed();
+                currentSuperState.SwitchToState("RunWhileAirborne");
+            }
+        }        
 
         protected override void InitializeComponent()
         {
@@ -73,7 +65,6 @@ namespace Player
 
         protected override void UpdateThisState()
         {
-            Dash();
             CheckSwitchState();
         }
 

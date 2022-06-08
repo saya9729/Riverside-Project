@@ -9,7 +9,9 @@ namespace Player
         public override void EnterState()
         {
             //start animation
+            _playerMovementController.SetIdleTargetSpeed();
             DisableStepOffset();
+            _playerMovementController.SetAirborneDirection();
         }
 
         public override void ExitState()

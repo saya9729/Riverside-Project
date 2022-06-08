@@ -61,7 +61,7 @@ namespace Player
 
         protected override void InitializeVariable()
         {
-            
+
         }
     }
 }

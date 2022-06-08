@@ -57,12 +57,12 @@ namespace Player
 
         protected override void InitializeState()
         {
-            
+
         }
 
         protected override void PhysicsUpdateThisState()
         {
-            
+
         }
 
         protected override void UpdateThisState()
@@ -72,7 +72,7 @@ namespace Player
 
         protected override void InitializeVariable()
         {
-            
+
         }
     }
 }

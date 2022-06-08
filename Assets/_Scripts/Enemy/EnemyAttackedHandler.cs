@@ -6,25 +6,34 @@ namespace Enemy
 {
     public class EnemyAttackedHandler : MonoBehaviour
     {
-        private DamageManager _damageManager;
-        private EnemyStatisticManager _enemyStatisticManager;
+        [SerializeField] private string playerAttackHitboxTag = "PlayerAttack";
+
+        private Universal.AttackManager _damageManager;
+        private EnemyStateManager _enemyStateManager;
+
+        public GameObject particleSpark;
 
         void Start()
         {
-            _enemyStatisticManager = GetComponent<EnemyStatisticManager>();
+            _enemyStateManager = GetComponentInParent<EnemyStateManager>();
         }
 
-        void OnTriggerEnter(Collider p_collider)
+        void OnCollisionEnter(Collision collisionInfo)
         {
-            if (p_collider.CompareTag("PlayerAttack")) //collide with enemy attack's collider which has this tag
+            if (collisionInfo.collider.CompareTag(playerAttackHitboxTag)) //collide with player attack's collider which has this tag
             {
-                //Debug.Log("attacked");
+                Debug.Log("attacked by "+ collisionInfo.gameObject.name);
+                ContactPoint hitPoint = collisionInfo.GetContact(0);
+                //Vector3 particleDirection = hitPoint2.point - hitPoint1.point;
 
-                _damageManager = p_collider.GetComponent<DamageManager>();
+                Instantiate(particleSpark, hitPoint.point, Quaternion.Euler(hitPoint.normal));
+                AudioInterface.PlayAudio("enemyHit");
 
+                _damageManager = collisionInfo.collider.gameObject.GetComponentInParent<Universal.AttackManager>();
+               
                 if (_damageManager)
                 {
-                    _enemyStatisticManager.DecreaseHealth(_damageManager.GetDamage());
+                    _enemyStateManager.ReceiveDamage(_damageManager.DealDamage());
                     //Debug.Log("received " + _damageManager.GetDamage() + " dmg");
                 }
                 else 

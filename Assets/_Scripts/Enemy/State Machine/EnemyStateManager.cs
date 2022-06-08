@@ -13,8 +13,8 @@ namespace Enemy
     [RequireComponent(typeof(RagdollManager))]
     [RequireComponent(typeof(Animator))]
     [RequireComponent(typeof(NavMeshAgent))]
-    [RequireComponent(typeof(EnemyAttackManager))]
-    //[RequireComponent(typeof(EnemyAttackedHandler))]
+    [RequireComponent(typeof(Universal.AttackManager))]
+    [RequireComponent(typeof(Rigidbody))]
     public class EnemyStateManager : AbstractClass.StateNew
     {
         private EnemyPatrolState _enemyPatrolState;
@@ -25,9 +25,10 @@ namespace Enemy
 
         private EnemyStatisticManager _enemyStatisticManager;
         private RagdollManager _ragdollManager;
-        private EnemyAttackManager _enemyAttackManager;
+        [NonSerialized] public Universal.AttackManager enemyAttackManager;
         [NonSerialized] public Animator animator;        
         [NonSerialized] public NavMeshAgent navMeshAgent;
+        private Rigidbody _rigidbody;
 
         [NonSerialized] public GameObject player;
         [NonSerialized] public AnimationClip[] animationClips;
@@ -71,7 +72,9 @@ namespace Enemy
             navMeshAgent = GetComponent<NavMeshAgent>();
             _ragdollManager = GetComponent<RagdollManager>();
             DisableRagdoll();
-            _enemyAttackManager = GetComponent<EnemyAttackManager>();            
+            enemyAttackManager = GetComponent<Universal.AttackManager>();
+            DisableAttackHitbox();
+            _rigidbody= GetComponent<Rigidbody>();
         }
 
         public void ReceiveDamage(float p_damage)
@@ -123,7 +126,10 @@ namespace Enemy
             switch (p_stateType)
             {
                 case "DeadState":
-                    SetSubState(_enemyDeadState);
+                    if (currentSubState!= _enemyDeadState)
+                    {
+                        SetSubState(_enemyDeadState);
+                    }                    
                     break;
                 case "PatrolState":
                     SetSubState(_enemyPatrolState);
@@ -145,6 +151,8 @@ namespace Enemy
         public void EnableRagdoll()
         {
             animator.enabled = false;
+            _rigidbody.isKinematic = true;
+
             _ragdollManager.EnableRagdoll();
         }
 
@@ -154,11 +162,11 @@ namespace Enemy
         }
         public void DisableAttackHitbox()
         {
-            _enemyAttackManager.DisableHitbox();
+            enemyAttackManager.DisableHitbox();
         }
         public void EnableAttackHitbox()
         {
-            _enemyAttackManager.EnableHitbox();
+            enemyAttackManager.EnableHitbox();
         }
         
 

@@ -1,6 +1,15 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/_Model/enemy.meta
 guid: 9e1120dce9bc56b4d9c99d259622ba86
 folderAsset: yes
+========
+<<<<<<<< HEAD:Assets/_Environment/SyntyStudios/PolygonStarter/PolygonPrototype/URP_ExtractMe.unitypackage.meta
+guid: b1c93c3589c43e042acb1f9b04452198
+========
+guid: 61d79d807ad417946af66aab9b096ae6
+folderAsset: yes
+>>>>>>>> Develop:Assets/_Scripts/Universal/Attack.meta
+>>>>>>>> Develop:Assets/_Environment/SyntyStudios/PolygonStarter/PolygonPrototype/URP_ExtractMe.unitypackage.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

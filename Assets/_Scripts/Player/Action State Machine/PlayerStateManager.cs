@@ -4,6 +4,8 @@ using System;
 
 namespace Player
 {
+    [RequireComponent(typeof(Universal.AttackManager))]
+    // TODO: Change the base class to new hierachial state machine
     public class PlayerStateManager : AbstractClass.StateMachineManager
     {
         //Manager
@@ -14,6 +16,7 @@ namespace Player
         [NonSerialized] public PlayerStatisticManager playerStatisticManager;
         [NonSerialized] public Volume volume;
         [NonSerialized] public PlayerInteractManager playerInteractManager;
+        [NonSerialized] public Universal.AttackManager playerAttackManager;
 
         [NonSerialized] public PlayerIdleState playerIdleState;
         [NonSerialized] public PlayerPrimaryLightAttackState playerPrimaryLightAttackState;
@@ -27,7 +30,6 @@ namespace Player
         private void Start()
         {
             InitializeManager();
-
             InitializeState();
             InitializeVariable();
 
@@ -36,16 +38,18 @@ namespace Player
         }
 
         private void InitializeManager()
-        {
-            inputManager = GetComponentInParent<InputManager>();
+        {            
+            inputManager = GetComponent<InputManager>();
             playerSkillManager = GetComponent<PlayerSkillManager>();
             playerStatisticManager = GetComponent<PlayerStatisticManager>();
             playerInteractManager = GetComponent<PlayerInteractManager>();
+            playerAttackManager = GetComponent<Universal.AttackManager>();
+            DisableAttackHitbox();
         }
 
         private void InitializeVariable()
         {
-            playerAnimator = GetComponentInParent<Animator>();
+            playerAnimator = GetComponent<Animator>();
             volume = GameObject.Find("PlayerFollowCamera").GetComponent<Volume>();
         }
 
@@ -71,6 +75,14 @@ namespace Player
                 playerSkillManager.ToggleSlowGame(playerSkillManager.gameIsSlowDown);
                 inputManager.usingPocketWatch = false;
             }
+        }
+        public void DisableAttackHitbox()
+        {
+            playerAttackManager.DisableHitbox();
+        }
+        public void EnableAttackHitbox()
+        {
+            playerAttackManager.EnableHitbox();
         }
     }
 }

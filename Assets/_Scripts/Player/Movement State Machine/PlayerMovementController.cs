@@ -29,6 +29,8 @@ namespace Player
         [Tooltip("Time required to pass before being able to dash again")]
         public float dashCooldown = 1f;
 
+        public float dashDistanceWhileTimeSlowMultiflier = 1f;
+
         [Space(10)]
         [Tooltip("The height the player can jump")]
         public float jumpHeight = 1.2f;
@@ -97,6 +99,7 @@ namespace Player
         public PlayerInput playerInput;
         public CharacterController characterController;
         public InputManager inputManager;
+        public PlayerSkillManager playerSkillManager;
         private GameObject _mainCamera;
 
         private const float _threshold = 0.01f;
@@ -145,6 +148,7 @@ namespace Player
             characterController = GetComponent<CharacterController>();
             playerInput = GetComponent<PlayerInput>();
             inputManager = GetComponent<InputManager>();
+            playerSkillManager = GetComponentInChildren<PlayerSkillManager>();
         }
 
         protected override void InitializeVariable()
@@ -216,11 +220,7 @@ namespace Player
         {
             currentSpeed = runSpeed;
         }
-        public void SetDashSpeed()
-        {
-            currentSpeed = dashSpeed;
-            targetSpeed = dashSpeed;
-        }
+
         public void SetAirborneRunTargetSpeed()
         {
             targetSpeed = runWhileAirborneSpeed;
@@ -246,7 +246,7 @@ namespace Player
             }
 
             // move the player
-            characterController.Move(inputDirection.normalized * (currentSpeed * Time.deltaTime) + new Vector3(airborneDirection.x * airborneDefaultSpeed + dashDirection.x * dashSpeed, verticalVelocity, airborneDirection.z * airborneDefaultSpeed + dashDirection.z * dashSpeed) * Time.deltaTime);
+            characterController.Move(inputDirection.normalized * currentSpeed * Time.deltaTime + new Vector3(airborneDirection.x * airborneDefaultSpeed, verticalVelocity, airborneDirection.z * airborneDefaultSpeed) * Time.deltaTime + new Vector3(dashDirection.x * dashSpeed, 0f, dashDirection.z * dashSpeed) * Time.unscaledDeltaTime);
         }
 
         public void DisableStepOffset()
@@ -293,7 +293,14 @@ namespace Player
         {
             isDashable = false;
             isInDashState = true;
-            yield return new WaitForSeconds(dashDuration);
+            if (playerSkillManager.gameIsSlowDown)
+            {
+                yield return new WaitForSeconds(dashDuration * Time.timeScale * dashDistanceWhileTimeSlowMultiflier);
+            }
+            else
+            {
+                yield return new WaitForSeconds(dashDuration);
+            }
             isInDashState = false;
             ResetDashDirection();
             StartCoroutine(StartDashCooldown());
@@ -326,6 +333,7 @@ namespace Player
         public void ResetDashDirection()
         {
             dashDirection = Vector3.zero;
+            Debug.Log(dashDirection);
         }
         public void ResetInputDirection()
         {

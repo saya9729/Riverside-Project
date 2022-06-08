@@ -8,7 +8,6 @@ namespace Player
         private PlayerMovementController _playerMovementController;        
         public override void EnterState()
         {
-            _playerMovementController.SetDashSpeed();
             _playerMovementController.ResetAirborneDirection();
             _playerMovementController.DisableJump();
             _playerMovementController.SetDashDirection();
@@ -29,14 +28,14 @@ namespace Player
 
         protected override void CheckSwitchState()
         {
-            if (!_playerMovementController.isGrounded)
-            {
-                currentSuperState.SwitchToState("DashWhileAirborne");                
-            }
-            else if (!_playerMovementController.isInDashState)
+            if (!_playerMovementController.isInDashState)
             {
                 _playerMovementController.SetRunSpeed();
                 currentSuperState.SwitchToState("Run");
+            }
+            else if (!_playerMovementController.isGrounded)
+            {
+                currentSuperState.SwitchToState("DashWhileAirborne");                
             }
         }
 

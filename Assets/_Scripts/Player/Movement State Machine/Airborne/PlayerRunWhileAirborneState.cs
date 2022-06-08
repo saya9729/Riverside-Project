@@ -39,6 +39,7 @@ namespace Player
             }
             else if (_playerMovementController.inputManager.move==Vector2.zero)
             {
+                _playerMovementController.SetAirborneDirection();
                 currentSuperState.SwitchToState("IdleWhileAirborne");
             }
             else if (_playerMovementController.isDashable && _playerMovementController.inputManager.dash)

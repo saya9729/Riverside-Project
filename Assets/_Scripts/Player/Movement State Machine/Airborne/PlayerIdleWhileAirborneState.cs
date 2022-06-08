@@ -10,8 +10,7 @@ namespace Player
         {
             //start animation
             _playerMovementController.SetIdleTargetSpeed();
-            DisableStepOffset();
-            _playerMovementController.SetAirborneDirection();
+            DisableStepOffset();            
         }
 
         public override void ExitState()

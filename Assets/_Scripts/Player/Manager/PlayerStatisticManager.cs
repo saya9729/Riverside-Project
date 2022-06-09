@@ -117,6 +117,7 @@ namespace Player
             position.y = playerData.position[1];
             position.z = playerData.position[2];
             transform.position = position;
+            Physics.SyncTransforms();
         }
 
         public void RefreshPlayerStatistic()
@@ -124,6 +125,7 @@ namespace Player
             health = maxHealth;
             sol = defaultSol;
             transform.position = _initPosition;
+            Physics.SyncTransforms();
         }
     }
 }

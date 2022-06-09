@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/_Scenes/MainMenu.unity
     guid: 56a4c6c5c7680874dba4f715569b94a7
   - enabled: 1
-    path: Assets/_Scenes/MVP_scene.unity
+    path: Assets/_Scenes/MVP_scene/MVP_scene.unity
     guid: 073857f5fe9e6f44d8f7a8c834449845
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 9e7be553448fa2546aea5752021cbcf7, type: 2}

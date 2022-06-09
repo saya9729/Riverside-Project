@@ -66,7 +66,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Tex:
-        m_Texture: {fileID: 8900000, guid: 97259d0c0ea9f491692be825da27978a, type: 3}
+        m_Texture: {fileID: 8900000, guid: 6fa3f446deee84c52aec507bd0aca28c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Texture0:
@@ -89,14 +89,14 @@ Material:
     - _DstBlend: 0
     - _EnableFog: 1
     - _EnableRotation: 0
-    - _Exposure: 1
+    - _Exposure: 0.25
     - _Float0: -0.21
-    - _FogFill: 0.803
-    - _FogHeight: 0.854
-    - _FogIntensity: 0.394
+    - _FogFill: 0.905
+    - _FogHeight: 1
+    - _FogIntensity: 0.101
     - _FogMessage: 0
     - _FogPosition: 0
-    - _FogSmoothness: 1
+    - _FogSmoothness: 0.328
     - _Fogg: 1
     - _GlossMapScale: 1
     - _Glossiness: 0.5

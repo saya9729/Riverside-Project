@@ -11,6 +11,7 @@ namespace Player
         public void PlayPlayerLoseSequence()
         {
             LoseAnnouncement();
+            StopComponent();
         }
         IEnumerator LoseAnnouncementCoroutine()
         {
@@ -28,7 +29,11 @@ namespace Player
             int scneneIndex = SceneManager.GetActiveScene().buildIndex;
             SceneManager.UnloadScene(scneneIndex);
             SceneManager.LoadScene(scneneIndex);
+        }
+        private void StopComponent()
+        {
             Time.timeScale = 1f;
+            AudioInterface.StopAudio("timeskill");
         }
     }
 }

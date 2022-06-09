@@ -171,7 +171,7 @@ MonoBehaviour:
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 1
   m_Cameras: []
-  m_RendererIndex: -1
+  m_RendererIndex: 1
   m_VolumeLayerMask:
     serializedVersion: 2
     m_Bits: 1
@@ -2113,7 +2113,7 @@ MonoBehaviour:
   groundCheckDistance: 0.3
   groundLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4161
 --- !u!114 &4281189589155526853
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -37,13 +37,6 @@ namespace Player
 
         private void Update()
         {
-            if (!_playerMovementController.isGrounded)
-            {
-                if (Mathf.Abs(_playerMovementController.verticalVelocity) >= Mathf.Abs(_playerMovementController.terminalVelocity))
-                {
-                    health = 0f;
-                }
-            }
             if (health <= 0)
             {
                 _playerLoseSequence.PlayPlayerLoseSequence();

@@ -7,7 +7,10 @@ namespace Player
 
         [SerializeField] protected float health = 100f;
         [SerializeField] protected float maxHealth = 100f;
-        [SerializeField] protected float sol = 1000f;
+        [SerializeField] protected float defaultSol = 0f;
+        [SerializeField] protected float sol = 0f;
+
+        private Vector3 _initPosition = new Vector3(0.0f, 0.0f, 0.0f);
         // after finished death statebmove all of PlayerDeathSequence to that
         private PlayerLoseSequence _playerLoseSequence;
         private PlayerSkillManager _playerSkill;
@@ -34,13 +37,6 @@ namespace Player
 
         private void Update()
         {
-            if (!_playerMovementController.isGrounded)
-            {
-                if (Mathf.Abs(_playerMovementController.verticalVelocity) >= Mathf.Abs(_playerMovementController.terminalVelocity))
-                {
-                    health = 0f;
-                }
-            }
             if (health <= 0)
             {
                 _playerLoseSequence.PlayPlayerLoseSequence();
@@ -49,13 +45,16 @@ namespace Player
 
         protected void InitializeVariable()
         {
-            health = maxHealth;
             _playerLoseSequence = GetComponent<PlayerLoseSequence>();
             _playerSkill = GetComponent<PlayerSkillManager>();
             _playerMovementController = GetComponent<PlayerMovementController>();
-            hudController.SetMaxHealth(health);
-            hudController.SetSol(sol);
+            _initPosition = transform.position;
+
+            hudController.SetMaxHealth(maxHealth);
+            hudController.SetSol(defaultSol);
             hudController.SetMaxEnergy(_playerSkill.slowdownAmountMax);
+
+            LoadPlayerStatistic();
         }
 
         public void IncreaseSol(float p_amount)
@@ -83,6 +82,48 @@ namespace Player
         public float HealthPercentage()
         {
             return health / maxHealth * 100;
+        }
+
+        public float GetHealth()
+        {
+            return health;
+        }
+
+        public float GetSol()
+        {
+            return sol;
+        }
+
+        public void SavePlayerStatistic()
+        {
+            SaveManager.SavePlayer(this);
+        }
+
+        public void LoadPlayerStatistic()
+        {
+            PlayerData playerData = SaveManager.LoadPlayer();
+            if (playerData == null)
+            {
+                Debug.Log("generate default value");
+                RefreshPlayerStatistic();
+                return;
+            }
+            health = playerData.health;
+            hudController.SetHealth(health);
+            sol = playerData.sol;
+            hudController.SetSol(sol);
+            Vector3 position;
+            position.x = playerData.position[0];
+            position.y = playerData.position[1];
+            position.z = playerData.position[2];
+            transform.position = position;
+        }
+
+        public void RefreshPlayerStatistic()
+        {
+            health = maxHealth;
+            sol = defaultSol;
+            transform.position = _initPosition;
         }
     }
 }

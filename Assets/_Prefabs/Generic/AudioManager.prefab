@@ -181,3 +181,12 @@ MonoBehaviour:
     loop: 0
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
+  - name: backgroundmusic
+    clip: {fileID: 8300000, guid: 76cbfc0a011e3c943a3776c0ca026317, type: 3}
+    volume: 1
+    volumeVariance: 1
+    pitch: 1
+    pitchVariance: 0
+    loop: 1
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}

@@ -8,9 +8,13 @@ namespace GameUI
 {
     public class MainMenu : MonoBehaviour
     {
-        public void StartGame()
+        public void Start()
         {
             AudioInterface.PlayAudio("ambience");
+            AudioInterface.PlayAudio("backgroundmusic");
+        }
+        public void StartGame()
+        {
             int nextScene = PlayerPrefs.GetInt("CurrentScene", SceneManager.GetActiveScene().buildIndex + 1);
             SceneManager.LoadScene(nextScene);
             PlayerPrefs.SetInt("CurrentScene", nextScene);

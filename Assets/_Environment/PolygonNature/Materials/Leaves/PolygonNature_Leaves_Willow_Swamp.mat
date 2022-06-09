@@ -141,7 +141,7 @@ Material:
     - _ColorTint: {r: 0.21323532, g: 0.07807098, b: 0.017246978, a: 0}
     - _EmissionColor: {r: 0.007352948, g: 0.007352948, b: 0.007352948, a: 0}
   m_BuildTextureStacks: []
---- !u!114 &3534881001389319629
+--- !u!114 &2066977015894844606
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}

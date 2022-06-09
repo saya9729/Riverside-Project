@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   raymarchQuality: 8
   raymarchMinStep: 0.1
-  jittering: 0.5
+  jittering: 0
   dithering: 1
   renderQueue: 3100
   sortingLayerID: 0
@@ -29,7 +29,7 @@ MonoBehaviour:
   detailStrength: 0.57
   detailOffset: -0.49
   density: 3
-  shape: 1
+  shape: 0
   border: 0.551
   verticalOffset: 0
   distance: 0
@@ -42,14 +42,14 @@ MonoBehaviour:
   terrainFogHeight: 25
   terrainFogMinAltitude: 0
   terrainFogMaxAltitude: 150
-  albedo: {r: 0.575, g: 0.575, b: 0.575, a: 0.54509807}
+  albedo: {r: 0.527, g: 0.527, b: 0.527, a: 0.20784314}
   brightness: 3.8
   deepObscurance: 1
   specularColor: {r: 1, g: 1, b: 0.8, a: 1}
   specularThreshold: 0.637
   specularIntensity: 0.428
-  turbulence: 0
-  windDirection: {x: 0, y: 0, z: 0}
+  turbulence: 2
+  windDirection: {x: 0.05, y: 0, z: 0}
   lightDiffusionPower: 32
   lightDiffusionIntensity: 0.4
   receiveShadows: 1

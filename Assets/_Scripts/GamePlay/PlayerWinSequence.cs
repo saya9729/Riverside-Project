@@ -11,6 +11,7 @@ namespace Player
         public void PlayPlayerWinSequence()
         {
             WinAnnouncement();
+            StopComponent();
         }
         IEnumerator WinAnnouncementCoroutine()
         {
@@ -28,7 +29,11 @@ namespace Player
             PlayerPrefs.SetInt("CurrentScene", SceneManager.GetActiveScene().buildIndex);
             PlayerPrefs.Save();
             SceneManager.LoadScene(0);
+        }
+        private void StopComponent()
+        {
             Time.timeScale = 1f;
+            AudioInterface.StopAudio("timeskill");
             Cursor.lockState = CursorLockMode.None;
         }
     }

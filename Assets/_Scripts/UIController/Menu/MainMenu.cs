@@ -8,10 +8,17 @@ namespace GameUI
 {
     public class MainMenu : MonoBehaviour
     {
+        [SerializeField] private Button continueButton;
         public void Start()
         {
             AudioInterface.PlayAudio("ambience");
             AudioInterface.PlayAudio("backgroundmusic");
+            ToggleContinue();
+        }
+        public void NewGame()
+        {
+            StartGame();
+            SaveManager.DeletePlayer();
         }
         public void StartGame()
         {
@@ -26,6 +33,17 @@ namespace GameUI
         {
             Debug.Log("Quit");
             Application.Quit();
+        }
+
+        public void ToggleContinue()
+        {
+            Debug.Log(SaveManager.FileSaveExist());
+            if (!SaveManager.FileSaveExist())
+            {
+                continueButton.interactable = false;
+                return;
+            }
+            continueButton.interactable = true;
         }
     }
 }

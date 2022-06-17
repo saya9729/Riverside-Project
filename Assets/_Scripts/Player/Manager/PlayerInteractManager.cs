@@ -14,7 +14,7 @@ namespace Player
         private Camera _cam;
         private Interactable _interactable;
         private HighlightEffect _highlightEffect;
-        private PlayerStateManager _playerStateManager;
+        private PlayerActionStateManager _playerStateManager;
         private PlayerInput _playerInput;
         private PlayerStatisticManager _playerStatisticManager;
         private PlayerWinSequence _playerWinSequence;
@@ -23,7 +23,7 @@ namespace Player
         {
             _cam = Camera.main;
             _highlightEffect = GetComponent<HighlightEffect>();
-            _playerStateManager = GetComponent<PlayerStateManager>();
+            _playerStateManager = GetComponent<PlayerActionStateManager>();
             _playerInput = GetComponent<PlayerInput>();
             _playerStatisticManager = GetComponent<PlayerStatisticManager>();
             _playerWinSequence = GetComponent<PlayerWinSequence>();

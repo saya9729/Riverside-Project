@@ -15,7 +15,7 @@ namespace Enemy
     [RequireComponent(typeof(NavMeshAgent))]
     [RequireComponent(typeof(Universal.AttackManager))]
     [RequireComponent(typeof(Rigidbody))]
-    public class EnemyStateManager : AbstractClass.StateNew
+    public class EnemyStateManager : AbstractClass.State
     {
         private EnemyPatrolState _enemyPatrolState;
         private EnemyChaseState _enemyChaseState;

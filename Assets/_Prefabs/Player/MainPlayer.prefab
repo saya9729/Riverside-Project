@@ -1269,7 +1269,6 @@ GameObject:
   - component: {fileID: 4261174648672795366}
   - component: {fileID: 4261174648672795369}
   - component: {fileID: 4261174648672795365}
-  - component: {fileID: 4261174648672795361}
   - component: {fileID: 4261174648672795355}
   - component: {fileID: 4261174648672795364}
   - component: {fileID: 4261174648672795362}
@@ -1289,12 +1288,9 @@ GameObject:
   - component: {fileID: 4261174648915321633}
   - component: {fileID: 420212560}
   - component: {fileID: 420212561}
-  - component: {fileID: 420212583}
   - component: {fileID: 420212584}
   - component: {fileID: 420212585}
   - component: {fileID: 420212586}
-  - component: {fileID: 420212587}
-  - component: {fileID: 420212588}
   - component: {fileID: 420212589}
   - component: {fileID: 420212590}
   - component: {fileID: 420212591}
@@ -1428,23 +1424,6 @@ MonoBehaviour:
   pressInteractDown: 0
   cursorLocked: 1
   cursorInputForLook: 1
---- !u!114 &4261174648672795361
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4261174648672795352}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 909d917d73a63f940ac158d02e936645, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pushLayers:
-    serializedVersion: 2
-    m_Bits: 64
-  canPush: 1
-  strength: 0.5
 --- !u!114 &4261174648672795355
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1872,19 +1851,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameMenuCanvas: {fileID: 0}
   loseTime: 1.5
---- !u!114 &420212583
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4261174648672795352}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb328871131972d41a7087c21c6913a8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 15
 --- !u!114 &420212584
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1931,36 +1897,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactionDistance: 2
   interactionText: {fileID: 0}
---- !u!114 &420212587
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4261174648672795352}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8013fb548dac0db459dd8ed57afae61c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &420212588
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4261174648672795352}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c44335e7bf98f54e87f70f9d63bcbc8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gunRecoil: {fileID: 0}
-  range: 4
-  maxDamage: 20
-  reloadTime: 1
-  ammo: 2
-  velocity: 10
 --- !u!114 &420212589
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1973,8 +1909,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2677be36a316fb143a8bd9a039077579, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxDamage: 10
-  attackInterval: 0.5
+  currentSuperState: {fileID: 0}
+  currentSubState: {fileID: 0}
   maxTimeToNextSkill: 0.5
 --- !u!114 &420212590
 MonoBehaviour:
@@ -1988,7 +1924,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3b2ebe598e49084aaf5ed5481e927d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aimManager: {fileID: 0}
+  currentSuperState: {fileID: 0}
+  currentSubState: {fileID: 0}
 --- !u!114 &420212591
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2001,6 +1938,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d7f34941847e49439c94d1a82901534, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentSuperState: {fileID: 0}
+  currentSubState: {fileID: 0}
   slowTimeIcon: {fileID: 0}
 --- !u!1 &4261174648711154787
 GameObject:

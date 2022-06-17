@@ -3,9 +3,9 @@ using UnityEngine;
 
 namespace Player
 {
-    public class PlayerDashState : AbstractClass.StateNew
+    public class PlayerDashState : AbstractClass.State
     {
-        private PlayerMovementController _playerMovementController;        
+        private PlayerMovementStateManager _playerMovementController;        
         public override void EnterState()
         {
             _playerMovementController.ResetAirborneDirection();
@@ -41,7 +41,7 @@ namespace Player
 
         protected override void InitializeComponent()
         {
-            _playerMovementController = GetComponent<PlayerMovementController>();
+            _playerMovementController = GetComponent<PlayerMovementStateManager>();
         }
 
         protected override void InitializeState()

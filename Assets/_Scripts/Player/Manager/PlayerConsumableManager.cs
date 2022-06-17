@@ -4,14 +4,14 @@ namespace Player
 {
     public class PlayerConsumableManager : MonoBehaviour
     {
-        private PlayerStateManager _playerStateManager;
+        private PlayerActionStateManager _playerStateManager;
         [SerializeField] private float healthPoint;
         [SerializeField] private int countHPPot = 3;
 
         // Start is called before the first frame update
         void Start()
         {
-            _playerStateManager = GetComponent<PlayerStateManager>();
+            _playerStateManager = GetComponent<PlayerActionStateManager>();
             this.RegisterListener(EventID.onHPPotCollected, (param) => OnCollectHPPot());
         }
 

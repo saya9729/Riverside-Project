@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace Player
 {
-    public class PlayerRunState : AbstractClass.StateNew
+    public class PlayerRunState : AbstractClass.State
     {
-        private PlayerMovementController _playerMovementController;
+        private PlayerMovementStateManager _playerMovementController;
         public override void EnterState()
         {
             //play run animation
@@ -42,7 +42,7 @@ namespace Player
 
         protected override void InitializeComponent()
         {
-            _playerMovementController = GetComponent<PlayerMovementController>();
+            _playerMovementController = GetComponent<PlayerMovementStateManager>();
         }
 
         protected override void InitializeState()

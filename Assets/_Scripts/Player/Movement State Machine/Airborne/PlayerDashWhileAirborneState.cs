@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace Player
 {
-    public class PlayerDashWhileAirborneState : AbstractClass.StateNew
+    public class PlayerDashWhileAirborneState : AbstractClass.State
     {
-        private PlayerMovementController _playerMovementController;
+        private PlayerMovementStateManager _playerMovementController;
         public override void EnterState()
         {
             DisableStepOffset();
@@ -52,7 +52,7 @@ namespace Player
 
         protected override void InitializeComponent()
         {
-            _playerMovementController = GetComponent<PlayerMovementController>();
+            _playerMovementController = GetComponent<PlayerMovementStateManager>();
         }
 
         protected override void InitializeState()

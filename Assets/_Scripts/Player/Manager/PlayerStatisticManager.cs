@@ -14,7 +14,7 @@ namespace Player
         // after finished death statebmove all of PlayerDeathSequence to that
         private PlayerLoseSequence _playerLoseSequence;
         private PlayerSkillManager _playerSkill;
-        private PlayerMovementController _playerMovementController;
+        private PlayerMovementStateManager _playerMovementController;
         [SerializeField] private GameUI.HUDController hudController;
 
         private void Start()
@@ -47,7 +47,7 @@ namespace Player
         {
             _playerLoseSequence = GetComponent<PlayerLoseSequence>();
             _playerSkill = GetComponent<PlayerSkillManager>();
-            _playerMovementController = GetComponent<PlayerMovementController>();
+            _playerMovementController = GetComponent<PlayerMovementStateManager>();
             _initPosition = transform.position;
 
             hudController.SetMaxHealth(maxHealth);

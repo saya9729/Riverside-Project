@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace Player
 {
-    public class PlayerMovementIdleState : AbstractClass.StateNew
+    public class PlayerMovementIdleState : AbstractClass.State
     {
-        private PlayerMovementController _playerMovementController;
+        private PlayerMovementStateManager _playerMovementController;
         public override void EnterState()
         {
             _playerMovementController.SetIdleTargetSpeed();
@@ -38,7 +38,7 @@ namespace Player
 
         protected override void InitializeComponent()
         {
-            _playerMovementController = GetComponent<PlayerMovementController>();
+            _playerMovementController = GetComponent<PlayerMovementStateManager>();
         }
         protected override void InitializeState()
         {

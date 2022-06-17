@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace Enemy
 {
-    public class EnemyDeadState : AbstractClass.StateNew
+    public class EnemyDeadState : AbstractClass.State
     {
         private EnemyStateManager _enemyStateManager;
         [SerializeField] private float timeBeforeDisappear;

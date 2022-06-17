@@ -7,7 +7,7 @@ namespace Player
 {
     public class PlayerSkillManager : MonoBehaviour
     {
-        private PlayerStateManager _playerStateManager;
+        private PlayerActionStateManager _playerStateManager;
         private float _fixedDeltaTimeOldValue;
         [SerializeField] private float timeCoefficient = 0.1f;
         [SerializeField] private float slowdownAmount;
@@ -22,7 +22,7 @@ namespace Player
 
         void Start()
         {
-            _playerStateManager = GetComponent<PlayerStateManager>();
+            _playerStateManager = GetComponent<PlayerActionStateManager>();
             gameIsSlowDown = false;
             _a1 = timeCoefficient - 1f;
             _b1 = 0f - timeAddToPrefixAndSuffixes;

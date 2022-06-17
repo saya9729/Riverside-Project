@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace Player
 {
-    public class PlayerIdleWhileAirborneState : AbstractClass.StateNew
+    public class PlayerIdleWhileAirborneState : AbstractClass.State
     {
-        private PlayerMovementController _playerMovementController;
+        private PlayerMovementStateManager _playerMovementController;
         public override void EnterState()
         {
             //start animation
@@ -46,7 +46,7 @@ namespace Player
 
         protected override void InitializeComponent()
         {
-            _playerMovementController = GetComponent<PlayerMovementController>();
+            _playerMovementController = GetComponent<PlayerMovementStateManager>();
         }
 
         protected override void InitializeState()

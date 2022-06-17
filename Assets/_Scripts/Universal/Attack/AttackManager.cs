@@ -18,7 +18,6 @@ namespace Universal
 
         public void EnableHitbox()
         {
-            Debug.Log("attack hit box"+_attackBody.Length);
             foreach (AttackBody body in _attackBody)
             {
                 body.EnableHitbox();

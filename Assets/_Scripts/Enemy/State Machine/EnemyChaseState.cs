@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace Enemy
 {
-    public class EnemyChaseState : AbstractClass.StateNew
+    public class EnemyChaseState : AbstractClass.State
     {
         private EnemyStateManager _enemyStateManager;
     

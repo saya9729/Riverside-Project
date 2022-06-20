@@ -1,7 +1,7 @@
 using UnityEngine;
 namespace Enemy
 {
-    public class EnemyPatrolState : AbstractClass.StateNew
+    public class EnemyPatrolState : AbstractClass.State
     {
         private EnemyStateManager _enemyStateManager;
 

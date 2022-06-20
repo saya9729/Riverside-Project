@@ -22,7 +22,7 @@ namespace Enemy
         {
             if (collisionInfo.collider.CompareTag(playerAttackHitboxTag)) //collide with player attack's collider which has this tag
             {
-                Debug.Log("attacked by "+ collisionInfo.gameObject.name);
+                //Debug.Log("attacked by "+ collisionInfo.gameObject.name);
                 ContactPoint hitPoint = collisionInfo.GetContact(0);
                 //Vector3 particleDirection = hitPoint2.point - hitPoint1.point;
 

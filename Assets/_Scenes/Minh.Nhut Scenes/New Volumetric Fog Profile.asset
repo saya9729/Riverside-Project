@@ -42,10 +42,10 @@ MonoBehaviour:
   terrainFogHeight: 25
   terrainFogMinAltitude: 0
   terrainFogMaxAltitude: 150
-  albedo: {r: 0.3490566, g: 0.3490566, b: 0.3490566, a: 0.4117647}
+  albedo: {r: 0.5377358, g: 0.5377358, b: 0.5377358, a: 0.07058824}
   brightness: 3.8
   deepObscurance: 1
-  specularColor: {r: 0.1509434, g: 0.1509434, b: 0.1509434, a: 1}
+  specularColor: {r: 1, g: 1, b: 0.8, a: 1}
   specularThreshold: 0.637
   specularIntensity: 0.428
   turbulence: 2

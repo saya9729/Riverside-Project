@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace Enemy
 {
-    public class EnemyWaitState : AbstractClass.StateNew
+    public class EnemyWaitState : AbstractClass.State
     {
         private EnemyStateManager _enemyStateManager;
 

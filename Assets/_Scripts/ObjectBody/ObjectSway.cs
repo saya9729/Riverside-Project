@@ -1,21 +1,20 @@
 using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace Player
 {
     public class ObjectSway : MonoBehaviour
     {
-        public InputManager inputManager;
+        private InputManager inputManager;
 
         [Header("Sway Settings")]
         [SerializeField] private float smooth = 5;
         [SerializeField] private float multiplier = 3;
 
-        // void Start()
-        // {
-        //     inputManager = GetComponent<InputManager>();
-        // }
+        void Start()
+        {
+            inputManager = GetComponentInParent<InputManager>();
+        }
 
         private void Update()
         {

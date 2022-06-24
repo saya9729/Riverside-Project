@@ -29,6 +29,8 @@ namespace Player
         [Tooltip("Time required to pass before being able to dash again")]
         public float dashCooldown = 1f;
 
+        public float dashChargeCooldown = 1f;
+
         public float dashDistanceWhileTimeSlowMultiflier = 1f;
 
         [Space(10)]
@@ -93,6 +95,7 @@ namespace Player
         public bool isAllowInput = true;
 
         public bool isInDashState = false;
+        public bool isInDashChargeCooldown = false;
         public int dashMaxCount = 2;
         public int dashCurrentCount = 2;
 
@@ -157,6 +160,8 @@ namespace Player
             }
             ApplyGravity();
             Move();
+
+            CheckDashChargeCooldown();
         }
 
         public override void EnterState()
@@ -243,6 +248,10 @@ namespace Player
         #endregion
 
         #region API
+        public bool IsDashable()
+        {
+            return isDashable && dashCurrentCount > 0;
+        }
         public void DisableJump()
         {
             isJumpable = false;
@@ -324,6 +333,7 @@ namespace Player
         }
         public void StartCoroutineDashState()
         {
+            dashCurrentCount -= 1;
             StartCoroutine(StartDashDuration());
         }
 
@@ -414,6 +424,15 @@ namespace Player
                 verticalVelocity += currentGravity * Time.deltaTime;
             }
         }
+
+        private void CheckDashChargeCooldown()
+        {
+            if (dashCurrentCount < dashMaxCount && !isInDashChargeCooldown && !isInDashState && isGrounded)
+            {
+                StartCoroutine(StartDashChargeCooldown());
+            }
+        }
+
         #endregion
 
         #region Coroutine
@@ -432,6 +451,13 @@ namespace Player
         {
             yield return new WaitForSeconds(dashCooldown);
             isDashable = true;
+        }
+        private IEnumerator StartDashChargeCooldown()
+        {
+            isInDashChargeCooldown = true;
+            yield return new WaitForSeconds(dashChargeCooldown);
+            isInDashChargeCooldown = false;
+            dashCurrentCount += 1;
         }
 
         private IEnumerator StartDashDuration()
@@ -480,6 +506,6 @@ namespace Player
             return Mathf.Clamp(lfAngle, lfMin, lfMax);
         }
         #endregion
-        
+
     }
 }

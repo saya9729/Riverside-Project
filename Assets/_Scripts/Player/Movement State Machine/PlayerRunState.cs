@@ -48,7 +48,7 @@ namespace Player
             {                
                 currentSuperState.SwitchToState("Idle");
             }
-            else if (_playerMovementController.isDashable && _playerMovementController.inputManager.dash)
+            else if (_playerMovementController.IsDashable() && _playerMovementController.inputManager.dash)
             {
                 currentSuperState.SwitchToState("Dash");
             }

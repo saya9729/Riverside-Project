@@ -3,19 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace Player
 {
-    public class PlayerRunWhileAirborneState : AbstractClass.State
+    public class PlayerIdleWhileAirborneState : AbstractClass.State
     {
         private PlayerMovementStateManager _playerMovementController;
         public override void EnterState()
         {
-            DisableStepOffset();
-            _playerMovementController.SetAirborneRunTargetSpeed();
-            _playerMovementController.SetAirborneDirection();
+            //start animation
+            try
+            {
+                _playerMovementController.SetIdleTargetSpeed();
+                DisableStepOffset();
+            }
+            catch
+            {
+                Start();
+                _playerMovementController.SetIdleTargetSpeed();
+                DisableStepOffset();
+            }
         }
 
         public override void ExitState()
         {
+            //stop animation
             EnableStepOffset();
+        }
+
+        public override void SwitchToState(string p_StateType)
+        {
+            throw new System.NotImplementedException();
         }
         private void DisableStepOffset()
         {
@@ -26,26 +41,11 @@ namespace Player
             _playerMovementController.EnableStepOffset();
         }
 
-        public override void SwitchToState(string p_StateType)
-        {
-            throw new System.NotImplementedException();
-        }
-
         protected override void CheckSwitchState()
         {
             if (_playerMovementController.isGrounded)
             {
-                currentSuperState.SwitchToState("Run");
-            }
-            else if (_playerMovementController.inputManager.move==Vector2.zero)
-            {
-                _playerMovementController.SetAirborneDirection();
-                currentSuperState.SwitchToState("IdleWhileAirborne");
-            }
-            else if (_playerMovementController.isDashable && _playerMovementController.inputManager.dash)
-            {
-                _playerMovementController.StartCoroutineDashState();
-                currentSuperState.SwitchToState("DashWhileAirborne");
+                currentSuperState.SwitchToState("Grounded");
             }
         }
 

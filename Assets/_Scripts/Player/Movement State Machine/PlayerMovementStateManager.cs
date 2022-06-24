@@ -93,6 +93,8 @@ namespace Player
         public bool isAllowInput = true;
 
         public bool isInDashState = false;
+        public int dashMaxCount = 2;
+        public int dashCurrentCount = 2;
 
         private float previousStepOffset;
 
@@ -112,38 +114,20 @@ namespace Player
         private PlayerMovementIdleState _playerMovementIdleState;
         private PlayerRunState _playerRunState;
         private PlayerDashState _playerDashState;
-        private PlayerIdleWhileAirborneState _playerIdleWhileAirborneState;
-        private PlayerRunWhileAirborneState _playerRunWhileAirborneState;
-        private PlayerDashWhileAirborneState _playerDashWhileAirborneState;
 
-        private void Awake()
-        {
-            // get a reference to our main camera
-            if (_mainCamera == null)
-            {
-                _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
-            }
-        }
-
+        #region State Machine
         protected override void InitializeState()
         {
             _playerMovementIdleState = GetComponent<PlayerMovementIdleState>();
             _playerRunState = GetComponent<PlayerRunState>();
             _playerDashState = GetComponent<PlayerDashState>();
-            _playerIdleWhileAirborneState = GetComponent<PlayerIdleWhileAirborneState>();
-            _playerRunWhileAirborneState = GetComponent<PlayerRunWhileAirborneState>();
-            _playerDashWhileAirborneState = GetComponent<PlayerDashWhileAirborneState>();
 
             _playerMovementIdleState.SetSuperState(this);
             _playerRunState.SetSuperState(this);
             _playerDashState.SetSuperState(this);
-            _playerIdleWhileAirborneState.SetSuperState(this);
-            _playerRunWhileAirborneState.SetSuperState(this);
-            _playerDashWhileAirborneState.SetSuperState(this);
 
             SetSuperState(null);
-            currentSubState = _playerMovementIdleState;
-            currentSubState.EnterState();
+            SetSubState(_playerMovementIdleState);
         }
         protected override void InitializeComponent()
         {
@@ -159,14 +143,7 @@ namespace Player
             //register listener
             this.RegisterListener(EventID.onDodgePress, (param) => onDodgePress());
         }
-        private void onDodgePress()
-        {
-            Debug.Log("event successfully register!");
-        }
-        private void Update()
-        {
-            UpdateAllState();
-        }
+
         protected override void UpdateThisState()
         {
             if (isAllowInput)
@@ -180,256 +157,6 @@ namespace Player
             }
             ApplyGravity();
             Move();
-        }
-        private void FixedUpdate()
-        {
-            PhysicsUpdateAllState();
-        }
-        private void LateUpdate()
-        {
-            Look();
-        }
-        public void DisableJump()
-        {
-            isJumpable = false;
-        }
-        public void EnableJump()
-        {
-            isJumpable = true;
-        }
-        public void DisableInput()
-        {
-            isAllowInput = false;
-        }
-        public void EnableInput()
-        {
-            isAllowInput = true;
-        }
-        public void DisableGravity()
-        {
-            currentGravity = 0;
-        }
-
-        public void EnableGravity()
-        {
-            currentGravity = gravity;
-        }
-        public void SetRunTargetSpeed()
-        {
-            targetSpeed = runSpeed;
-        }
-        public void SetRunSpeed()
-        {
-            currentSpeed = runSpeed;
-        }
-
-        public void SetAirborneRunTargetSpeed()
-        {
-            targetSpeed = runWhileAirborneSpeed;
-        }
-        public void SetAirborneRunSpeed()
-        {
-            currentSpeed = runWhileAirborneSpeed;
-        }
-        public void SetIdleTargetSpeed()
-        {
-            targetSpeed = 0;
-        }
-        private void Move()
-        {
-            //smooth the speed change (momentum mechanic)            
-            if (currentSpeed < targetSpeed)
-            {
-                currentSpeed += acceleration * Time.deltaTime;
-            }
-            else if (currentSpeed > targetSpeed)
-            {
-                currentSpeed -= acceleration * Time.deltaTime;
-            }
-
-            // move the player
-            characterController.Move(inputDirection.normalized * currentSpeed * Time.deltaTime + new Vector3(airborneDirection.x * airborneDefaultSpeed, verticalVelocity, airborneDirection.z * airborneDefaultSpeed) * Time.deltaTime + new Vector3(dashDirection.x * dashSpeed, 0f, dashDirection.z * dashSpeed) * Time.unscaledDeltaTime);
-        }
-
-        public void DisableStepOffset()
-        {
-            previousStepOffset = characterController.stepOffset;
-            characterController.stepOffset = 0;
-        }
-        public void EnableStepOffset()
-        {
-            characterController.stepOffset = previousStepOffset;
-        }
-        private void Jump()
-        {
-            if (isGrounded && inputManager.jump)
-            {
-                // the square root of H * -2 * G = how much velocity needed to reach desired height
-                verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
-
-                //Audio
-                AudioInterface.PlayAudio("jump");
-            }
-        }
-        // TODO: unused jump cooldown behavior
-        //IEnumerator StartJumpCooldown()
-        //{
-        //    isJumpable = false;
-        //    yield return new WaitForSeconds(jumpCooldown);
-        //    isJumpable = true;
-        //}
-        //public void StartCoroutineStartJumpCooldown()
-        //{
-        //    StartCoroutine(StartJumpCooldown());
-        //}
-        IEnumerator StartDashCooldown()
-        {
-            yield return new WaitForSeconds(dashCooldown);
-            isDashable = true;
-        }
-        public void StartCoroutineDashState()
-        {
-            StartCoroutine(StartDashDuration());
-        }
-        IEnumerator StartDashDuration()
-        {
-            isDashable = false;
-            isInDashState = true;
-            if (particleDash)
-            {
-                if (!particleDash.activeSelf)
-                {
-                    particleDash.SetActive(true);
-                }
-            }
-            AudioInterface.PlayAudio("dash");
-            if (playerSkillManager.gameIsSlowDown)
-            {
-                yield return new WaitForSeconds(dashDuration * Time.timeScale * dashDistanceWhileTimeSlowMultiflier);
-            }
-            else
-            {
-                yield return new WaitForSeconds(dashDuration);
-            }
-            if (particleDash)
-            {
-                if (particleDash.activeSelf)
-                {
-                    particleDash.SetActive(false);
-                }
-            }
-            isInDashState = false;
-            ResetDashDirection();
-            StartCoroutine(StartDashCooldown());
-        }
-
-        private void HandleRunInput()
-        {
-            inputDirection = transform.right * inputManager.move.x + transform.forward * inputManager.move.y;
-
-            if (inputManager.move != Vector2.zero)
-            {
-                lastInputDirection = inputDirection;
-            }
-        }
-
-        public void SetAirborneDirection()
-        {
-            airborneDirection = lastInputDirection;
-        }
-
-        public void ResetAirborneDirection()
-        {
-            airborneDirection = Vector3.zero;
-        }
-        public void SetDashDirection()
-        {
-            dashDirection = transform.forward;
-        }
-
-        public void ResetDashDirection()
-        {
-            dashDirection = Vector3.zero;
-        }
-        public void ResetInputDirection()
-        {
-            inputDirection = Vector3.zero;
-        }
-
-        private void CheckGrounded()
-        {
-            // set sphere position, with offset
-            Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - groundedOffset, transform.position.z);
-            //isGrounded = Physics.CheckSphere(spherePosition, groundedRadius, groundLayers, QueryTriggerInteraction.Ignore);
-            // TODO: use box to fix stair unable to jump
-            isGrounded = Physics.CheckBox(spherePosition, groundedBoxDimention, Quaternion.identity, groundLayers, QueryTriggerInteraction.Ignore);
-        }
-
-        private void Look()
-        {
-            // TODO: perform check like this to optimize the update loop
-            // if there is an input
-            if (inputManager.look.sqrMagnitude >= _threshold)
-            {
-                //Don't multiply mouse input by Time.unscaledDeltaTime
-                float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
-
-                _cinemachineTargetPitch += inputManager.look.y * rotationSpeed * deltaTimeMultiplier;
-                _rotationVelocity = inputManager.look.x * rotationSpeed * deltaTimeMultiplier;
-
-                // clamp our pitch rotation
-                _cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, bottomClamp, topClamp);
-
-                // Update Cinemachine camera target pitch
-                cinemachineCameraTarget.transform.localRotation = Quaternion.Euler(_cinemachineTargetPitch, 0.0f, 0.0f);
-
-                // rotate the player left and right
-                transform.Rotate(Vector3.up * _rotationVelocity);
-            }
-        }
-        private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
-        {
-            if (lfAngle < -360f) lfAngle += 360f;
-            if (lfAngle > 360f) lfAngle -= 360f;
-            return Mathf.Clamp(lfAngle, lfMin, lfMax);
-        }
-
-        private void ApplyGravity()
-        {
-            if (isGrounded)
-            {
-                // stop our velocity dropping infinitely when grounded
-                if (verticalVelocity < 0.0f)
-                {
-                    verticalVelocity = -2f;
-                }
-            }
-            // apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
-            if (verticalVelocity > terminalVelocity)
-            {
-                verticalVelocity += currentGravity * Time.deltaTime;
-            }
-        }
-
-        private void OnDrawGizmosSelected()
-        {
-            Color transparentGreen = new Color(0.0f, 1.0f, 0.0f, 0.35f);
-            Color transparentRed = new Color(1.0f, 0.0f, 0.0f, 0.35f);
-
-            if (isGrounded)
-            {
-                Gizmos.color = transparentGreen;
-            }
-            else
-            {
-                Gizmos.color = transparentRed;
-            }
-
-            Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - groundedOffset, transform.position.z);
-
-            // when selected, draw a gizmo in the position of, and matching radius of, the grounded collider
-            //Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - groundedOffset, transform.position.z), groundedRadius);
-            Gizmos.DrawCube(spherePosition, groundedBoxDimention);
         }
 
         public override void EnterState()
@@ -465,20 +192,294 @@ namespace Player
                 case "Dash":
                     SetSubState(_playerDashState);
                     break;
-                case "IdleWhileAirborne":
-                    SetSubState(_playerIdleWhileAirborneState);
-                    break;
-                case "RunWhileAirborne":
-                    SetSubState(_playerRunWhileAirborneState);
-                    break;
-                case "DashWhileAirborne":
-                    SetSubState(_playerDashWhileAirborneState);
-                    break;
                 default:
                     break;
             }
         }
+        #endregion
 
+        #region Unity functions
+        private void Awake()
+        {
+            // get a reference to our main camera
+            if (_mainCamera == null)
+            {
+                _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+            }
+        }
+        private void Update()
+        {
+            UpdateAllState();
+        }
 
+        private void FixedUpdate()
+        {
+            PhysicsUpdateAllState();
+        }
+        private void LateUpdate()
+        {
+            Look();
+        }
+        private void OnDrawGizmosSelected()
+        {
+            Color transparentGreen = new Color(0.0f, 1.0f, 0.0f, 0.35f);
+            Color transparentRed = new Color(1.0f, 0.0f, 0.0f, 0.35f);
+
+            if (isGrounded)
+            {
+                Gizmos.color = transparentGreen;
+            }
+            else
+            {
+                Gizmos.color = transparentRed;
+            }
+
+            Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - groundedOffset, transform.position.z);
+
+            // when selected, draw a gizmo in the position of, and matching radius of, the grounded collider
+            //Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - groundedOffset, transform.position.z), groundedRadius);
+            Gizmos.DrawCube(spherePosition, groundedBoxDimention);
+        }
+        #endregion
+
+        #region API
+        public void DisableJump()
+        {
+            isJumpable = false;
+        }
+        public void EnableJump()
+        {
+            isJumpable = true;
+        }
+        public void DisableInput()
+        {
+            isAllowInput = false;
+        }
+        public void EnableInput()
+        {
+            isAllowInput = true;
+        }
+        public void DisableGravity()
+        {
+            currentGravity = 0;
+            verticalVelocity = 0;
+        }
+
+        public void EnableGravity()
+        {
+            currentGravity = gravity;
+        }
+        public void SetRunTargetSpeed()
+        {
+            targetSpeed = runSpeed;
+        }
+        public void SetRunSpeed()
+        {
+            currentSpeed = runSpeed;
+        }
+
+        public void SetAirborneRunTargetSpeed()
+        {
+            targetSpeed = runWhileAirborneSpeed;
+        }
+        public void SetAirborneRunSpeed()
+        {
+            currentSpeed = runWhileAirborneSpeed;
+        }
+        public void SetIdleTargetSpeed()
+        {
+            targetSpeed = 0;
+        }
+        public void DisableStepOffset()
+        {
+            previousStepOffset = characterController.stepOffset;
+            characterController.stepOffset = 0;
+        }
+        public void EnableStepOffset()
+        {
+            characterController.stepOffset = previousStepOffset;
+        }
+        public void SetAirborneDirection()
+        {
+            airborneDirection = lastInputDirection;
+        }
+
+        public void ResetAirborneDirection()
+        {
+            airborneDirection = Vector3.zero;
+        }
+        public void SetDashDirection()
+        {
+            //dashDirection = transform.forward;
+            dashDirection = inputDirection;
+        }
+
+        public void ResetDashDirection()
+        {
+            dashDirection = Vector3.zero;
+        }
+        public void ResetInputDirection()
+        {
+            inputDirection = Vector3.zero;
+        }
+        public void StartCoroutineDashState()
+        {
+            StartCoroutine(StartDashDuration());
+        }
+
+        #endregion
+
+        #region Movement
+        private void Move()
+        {
+            //smooth the speed change (momentum mechanic)            
+            if (currentSpeed < targetSpeed)
+            {
+                currentSpeed += acceleration * Time.deltaTime;
+            }
+            else if (currentSpeed > targetSpeed)
+            {
+                currentSpeed -= acceleration * Time.deltaTime;
+            }
+
+            // move the player
+            characterController.Move(inputDirection.normalized * currentSpeed * Time.deltaTime + new Vector3(airborneDirection.x * airborneDefaultSpeed, verticalVelocity, airborneDirection.z * airborneDefaultSpeed) * Time.deltaTime + new Vector3(dashDirection.x * dashSpeed, 0f, dashDirection.z * dashSpeed) * Time.unscaledDeltaTime);
+        }
+
+        private void Jump()
+        {
+            if (isGrounded && inputManager.jump)
+            {
+                // the square root of H * -2 * G = how much velocity needed to reach desired height
+                verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
+
+                //Audio
+                AudioInterface.PlayAudio("jump");
+            }
+        }
+        private void HandleRunInput()
+        {
+            inputDirection = transform.right * inputManager.move.x + transform.forward * inputManager.move.y;
+
+            if (inputManager.move != Vector2.zero)
+            {
+                lastInputDirection = inputDirection;
+            }
+        }
+
+        private void CheckGrounded()
+        {
+            // set sphere position, with offset
+            Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - groundedOffset, transform.position.z);
+            //isGrounded = Physics.CheckSphere(spherePosition, groundedRadius, groundLayers, QueryTriggerInteraction.Ignore);
+            // TODO: use box to fix stair unable to jump
+            isGrounded = Physics.CheckBox(spherePosition, groundedBoxDimention, Quaternion.identity, groundLayers, QueryTriggerInteraction.Ignore);
+        }
+
+        private void Look()
+        {
+            // TODO: perform check like this to optimize the update loop
+            // if there is an input
+            if (inputManager.look.sqrMagnitude >= _threshold)
+            {
+                //Don't multiply mouse input by Time.unscaledDeltaTime
+                float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
+
+                _cinemachineTargetPitch += inputManager.look.y * rotationSpeed * deltaTimeMultiplier;
+                _rotationVelocity = inputManager.look.x * rotationSpeed * deltaTimeMultiplier;
+
+                // clamp our pitch rotation
+                _cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, bottomClamp, topClamp);
+
+                // Update Cinemachine camera target pitch
+                cinemachineCameraTarget.transform.localRotation = Quaternion.Euler(_cinemachineTargetPitch, 0.0f, 0.0f);
+
+                // rotate the player left and right
+                transform.Rotate(Vector3.up * _rotationVelocity);
+            }
+        }
+        private void ApplyGravity()
+        {
+            if (isGrounded)
+            {
+                // stop our velocity dropping infinitely when grounded
+                if (verticalVelocity < -2.0f)
+                {
+                    verticalVelocity = -2f;
+                }
+            }
+            // apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
+            if (verticalVelocity > terminalVelocity)
+            {
+                verticalVelocity += currentGravity * Time.deltaTime;
+            }
+        }
+        #endregion
+
+        #region Coroutine
+        // TODO: unused jump cooldown behavior
+        //IEnumerator StartJumpCooldown()
+        //{
+        //    isJumpable = false;
+        //    yield return new WaitForSeconds(jumpCooldown);
+        //    isJumpable = true;
+        //}
+        //public void StartCoroutineStartJumpCooldown()
+        //{
+        //    StartCoroutine(StartJumpCooldown());
+        //}
+        private IEnumerator StartDashCooldown()
+        {
+            yield return new WaitForSeconds(dashCooldown);
+            isDashable = true;
+        }
+
+        private IEnumerator StartDashDuration()
+        {
+            isDashable = false;
+            isInDashState = true;
+            if (particleDash)
+            {
+                if (!particleDash.activeSelf)
+                {
+                    particleDash.SetActive(true);
+                }
+            }
+            AudioInterface.PlayAudio("dash");
+            if (playerSkillManager.gameIsSlowDown)
+            {
+                yield return new WaitForSeconds(dashDuration * Time.timeScale * dashDistanceWhileTimeSlowMultiflier);
+            }
+            else
+            {
+                yield return new WaitForSeconds(dashDuration);
+            }
+            if (particleDash)
+            {
+                if (particleDash.activeSelf)
+                {
+                    particleDash.SetActive(false);
+                }
+            }
+            isInDashState = false;
+            ResetDashDirection();
+            StartCoroutine(StartDashCooldown());
+        }
+        #endregion
+
+        #region Helper functions
+        private void onDodgePress()
+        {
+            Debug.Log("event successfully register!");
+        }
+
+        private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
+        {
+            if (lfAngle < -360f) lfAngle += 360f;
+            if (lfAngle > 360f) lfAngle -= 360f;
+            return Mathf.Clamp(lfAngle, lfMin, lfMax);
+        }
+        #endregion
+        
     }
 }

@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
 namespace Player
 {
     public class PlayerDashWhileAirborneState : AbstractClass.State
@@ -14,7 +13,7 @@ namespace Player
             _playerMovementController.DisableGravity();
             _playerMovementController.DisableInput();
             _playerMovementController.ResetInputDirection();
-        }        
+        }
 
         private void DisableStepOffset()
         {
@@ -42,13 +41,13 @@ namespace Player
             if (!_playerMovementController.isInDashState)
             {
                 _playerMovementController.SetAirborneRunSpeed();
-                currentSuperState.SwitchToState("RunWhileAirborne");
+                currentSuperState.currentSuperState.SwitchToState("Run");
             }
             else if (_playerMovementController.isGrounded)
             {
-                currentSuperState.SwitchToState("Dash");
+                currentSuperState.SwitchToState("Grounded");
             }
-        }        
+        }
 
         protected override void InitializeComponent()
         {

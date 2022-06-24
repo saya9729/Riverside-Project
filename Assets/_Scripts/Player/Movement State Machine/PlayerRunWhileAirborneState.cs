@@ -3,25 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace Player
 {
-    public class PlayerIdleWhileAirborneState : AbstractClass.State
+    public class PlayerRunWhileAirborneState : AbstractClass.State
     {
         private PlayerMovementStateManager _playerMovementController;
         public override void EnterState()
         {
-            //start animation
-            _playerMovementController.SetIdleTargetSpeed();
-            DisableStepOffset();            
+            try
+            {
+                DisableStepOffset();
+                _playerMovementController.SetAirborneRunTargetSpeed();
+                _playerMovementController.SetAirborneDirection();
+            }
+            catch
+            {
+                Start();
+                DisableStepOffset();
+                _playerMovementController.SetAirborneRunTargetSpeed();
+                _playerMovementController.SetAirborneDirection();
+            }
         }
 
         public override void ExitState()
         {
-            //stop animation
             EnableStepOffset();
-        }
-
-        public override void SwitchToState(string p_StateType)
-        {
-            throw new System.NotImplementedException();
         }
         private void DisableStepOffset()
         {
@@ -32,15 +36,16 @@ namespace Player
             _playerMovementController.EnableStepOffset();
         }
 
+        public override void SwitchToState(string p_StateType)
+        {
+            throw new System.NotImplementedException();
+        }
+
         protected override void CheckSwitchState()
         {
             if (_playerMovementController.isGrounded)
             {
-                currentSuperState.SwitchToState("Idle");
-            }
-            else if (_playerMovementController.inputManager.move!=Vector2.zero)
-            {
-                currentSuperState.SwitchToState("RunWhileAirborne");
+                currentSuperState.SwitchToState("Grounded");
             }
         }
 

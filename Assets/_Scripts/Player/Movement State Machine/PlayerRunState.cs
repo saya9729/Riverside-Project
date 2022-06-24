@@ -1,41 +1,55 @@
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using UnityEngine;
+
 namespace Player
 {
     public class PlayerRunState : AbstractClass.State
     {
         private PlayerMovementStateManager _playerMovementController;
+        
+        private PlayerRunWhileGroundedState _playerRunWhileGroundedState;
+        private PlayerRunWhileAirborneState _playerRunWhileAirborneState;
         public override void EnterState()
         {
-            //play run animation
-            _playerMovementController.SetRunTargetSpeed();
-            _playerMovementController.ResetAirborneDirection();
+            if (_playerMovementController.isGrounded)
+            {
+                SwitchToState("Grounded");
+            }
+            else
+            {
+                SwitchToState("Airborne");
+            }
         }
 
         public override void ExitState()
         {
-            //stop run animation
+            
         }
 
-        public override void SwitchToState(string p_StateType)
+        public override void SwitchToState(string p_stateType)
         {
-            throw new System.NotImplementedException();
+            switch (p_stateType)
+            {
+                case "Grounded":
+                    SetSubState(_playerRunWhileGroundedState);
+                    break;
+                case "Airborne":
+                    SetSubState(_playerRunWhileAirborneState);
+                    break;
+                default:
+                    SetSubState(null);
+                    break;
+            }
         }
 
         protected override void CheckSwitchState()
         {
             if (_playerMovementController.inputManager.move == Vector2.zero)
-            {
+            {                
                 currentSuperState.SwitchToState("Idle");
-            }
-            else if (!_playerMovementController.isGrounded)
-            {
-                currentSuperState.SwitchToState("RunWhileAirborne");
             }
             else if (_playerMovementController.isDashable && _playerMovementController.inputManager.dash)
             {
-                _playerMovementController.StartCoroutineDashState();
                 currentSuperState.SwitchToState("Dash");
             }
         }
@@ -47,14 +61,18 @@ namespace Player
 
         protected override void InitializeState()
         {
+            _playerRunWhileGroundedState = GetComponent<PlayerRunWhileGroundedState>();
+            _playerRunWhileAirborneState = GetComponent<PlayerRunWhileAirborneState>();
             
+            _playerRunWhileGroundedState.SetSuperState(this);
+            _playerRunWhileAirborneState.SetSuperState(this);
         }
 
         protected override void InitializeVariable()
         {
             
         }
-
+        
         protected override void PhysicsUpdateThisState()
         {
             

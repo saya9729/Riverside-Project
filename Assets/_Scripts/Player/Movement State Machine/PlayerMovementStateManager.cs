@@ -53,7 +53,7 @@ namespace Player
         [Tooltip("Useful for rough ground")]
         public float groundedOffset = -0.14f;
 
-        public Vector3 groundedBoxDimention = new Vector3(1, 1, 1);        
+        public Vector3 groundedBoxDimention = new Vector3(1, 1, 1);
 
         [Tooltip("What layers the character uses as ground")]
         public LayerMask groundLayers;
@@ -143,7 +143,7 @@ namespace Player
         {
             EnableGravity();
             //register listener
-            this.RegisterListener(EventID.onDodgePress, (param) => onDodgePress());            
+            this.RegisterListener(EventID.onDodgePress, (param) => onDodgePress());
         }
 
         protected override void UpdateThisState()
@@ -372,7 +372,7 @@ namespace Player
                 //Audio
                 AudioInterface.PlayAudio("jump");
             }
-            else if(isDoubleJumpable && inputManager.IsButtonDownThisFrame("Jump"))
+            else if (isDoubleJumpable && inputManager.IsButtonDownThisFrame("Jump"))
             {
                 // the square root of H * -2 * G = how much velocity needed to reach desired height
                 verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
@@ -395,7 +395,7 @@ namespace Player
         private void CheckGrounded()
         {
             // set sphere position, with offset
-            Vector3 boxPosition; boxPosition = new Vector3(transform.position.x, transform.position.y - groundedOffset, transform.position.z);
+            Vector3 boxPosition = new Vector3(transform.position.x, transform.position.y - groundedOffset, transform.position.z);
             isGrounded = Physics.CheckBox(boxPosition, groundedBoxDimention, Quaternion.identity, groundLayers, QueryTriggerInteraction.Ignore);
         }
 

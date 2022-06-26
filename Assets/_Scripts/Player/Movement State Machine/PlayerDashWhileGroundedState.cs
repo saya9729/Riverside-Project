@@ -32,6 +32,7 @@
             }
             else if (!_playerMovementController.isGrounded)
             {
+                _playerMovementController.EnableDoubleJump();
                 currentSuperState.SwitchToState("Airborne");
             }
         }

@@ -37,6 +37,7 @@ namespace Player
             if (!_playerMovementController.isGrounded)
             {
                 _playerMovementController.ResetAirborneDirection();
+                _playerMovementController.EnableDoubleJump();
                 currentSuperState.SwitchToState("Airborne");
             }
         }

@@ -52,8 +52,6 @@ namespace Player
         public bool isGrounded = true;
         [Tooltip("Useful for rough ground")]
         public float groundedOffset = -0.14f;
-        [Tooltip("The radius of the grounded check. Should match the radius of the CharacterController")]
-        public float groundedRadius = 0.5f;
 
         public Vector3 groundedBoxDimention = new Vector3(1, 1, 1);
 
@@ -92,6 +90,7 @@ namespace Player
 
         public bool isDashable = true;
         public bool isJumpable = true;
+        public bool isDoubleJumpable = true;
         public bool isAllowInput = true;
 
         public bool isInDashState = false;
@@ -239,11 +238,10 @@ namespace Player
                 Gizmos.color = transparentRed;
             }
 
-            Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - groundedOffset, transform.position.z);
+            Vector3 boxPosition = new Vector3(transform.position.x, transform.position.y - groundedOffset, transform.position.z);
 
             // when selected, draw a gizmo in the position of, and matching radius of, the grounded collider
-            //Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - groundedOffset, transform.position.z), groundedRadius);
-            Gizmos.DrawCube(spherePosition, groundedBoxDimention);
+            Gizmos.DrawCube(boxPosition, groundedBoxDimention);
         }
         #endregion
 
@@ -259,6 +257,14 @@ namespace Player
         public void EnableJump()
         {
             isJumpable = true;
+        }
+        public void DisableDoubleJump()
+        {
+            isDoubleJumpable = false;
+        }
+        public void EnableDoubleJump()
+        {
+            isDoubleJumpable = true;
         }
         public void DisableInput()
         {
@@ -358,10 +364,19 @@ namespace Player
 
         private void Jump()
         {
-            if (isGrounded && inputManager.jump)
+            if (isGrounded && inputManager.IsButtonDownThisFrame("Jump"))
             {
                 // the square root of H * -2 * G = how much velocity needed to reach desired height
                 verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
+
+                //Audio
+                AudioInterface.PlayAudio("jump");
+            }
+            else if (isDoubleJumpable && inputManager.IsButtonDownThisFrame("Jump"))
+            {
+                // the square root of H * -2 * G = how much velocity needed to reach desired height
+                verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
+                DisableDoubleJump();
 
                 //Audio
                 AudioInterface.PlayAudio("jump");
@@ -380,10 +395,8 @@ namespace Player
         private void CheckGrounded()
         {
             // set sphere position, with offset
-            Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - groundedOffset, transform.position.z);
-            //isGrounded = Physics.CheckSphere(spherePosition, groundedRadius, groundLayers, QueryTriggerInteraction.Ignore);
-            // TODO: use box to fix stair unable to jump
-            isGrounded = Physics.CheckBox(spherePosition, groundedBoxDimention, Quaternion.identity, groundLayers, QueryTriggerInteraction.Ignore);
+            Vector3 boxPosition = new Vector3(transform.position.x, transform.position.y - groundedOffset, transform.position.z);
+            isGrounded = Physics.CheckBox(boxPosition, groundedBoxDimention, Quaternion.identity, groundLayers, QueryTriggerInteraction.Ignore);
         }
 
         private void Look()

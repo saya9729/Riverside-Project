@@ -43,33 +43,11 @@ namespace AbstractClass
         {
             currentSuperState = p_newSuperState;
         }
-        protected virtual void SetSubState(State p_newSubState)
+        public virtual void SetSubState(State p_newSubState)
         {
-            try
-            {
-                currentSubState.SetSubState(null);
-            }
-            catch
-            {
-
-            }
-            try
-            {
-                currentSubState.ExitState();
-            }
-            catch
-            {
-                
-            }            
-            currentSubState = p_newSubState;            
-            try
-            {
-                currentSubState.EnterState();
-            }
-            catch
-            {
-
-            }
+            currentSubState.ExitState();
+            currentSubState = p_newSubState;
+            currentSubState.EnterState();
         }
         public abstract void SwitchToState(string p_stateType);
         //{
@@ -79,7 +57,6 @@ namespace AbstractClass
         //            SetSubState(null);
         //            break;
         //        default:
-        //            SetSubState(null);
         //            break;
         //    }
         //}

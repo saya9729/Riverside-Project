@@ -35,6 +35,14 @@ namespace Player
             {
                 _playerMovementController.EnableDoubleJump();
                 currentSuperState.SwitchToState("Airborne");
+            else if (!_playerMovementController.isGrounded)
+            {
+                currentSuperState.SwitchToState("RunWhileAirborne");
+            }
+            else if (_playerMovementController.isDashable && _playerMovementController.inputManager.dash)
+            {
+                _playerMovementController.StartCoroutineDashState();
+                currentSuperState.SwitchToState("Dash");
             }
         }
 

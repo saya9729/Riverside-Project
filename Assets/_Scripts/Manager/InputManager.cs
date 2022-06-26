@@ -165,7 +165,7 @@ namespace Player
             _playerInput = GetComponent<PlayerInput>();
         }
 
-        public bool IsButtonDownThisFrame(string name)
+        public bool IsGetButtonDown(string name)
         {
             return _playerInput.actions[name].WasPressedThisFrame();
         }

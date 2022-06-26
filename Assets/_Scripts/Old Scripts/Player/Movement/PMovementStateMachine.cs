@@ -14,7 +14,7 @@ namespace Player
         [NonSerialized] public PlayerCrouchState playerCrouchState;
         [NonSerialized] public PlayerJumpState playerJumpState;
         [NonSerialized] public PlayerIdleMovementState playerIdleMovementState;
-        [NonSerialized] public PlayerRunWhileGroundedState playerRunState;
+        [NonSerialized] public PlayerRunState playerRunState;
         [NonSerialized] public PlayerDodgeState playerDodgeState;
 
         private void Start()
@@ -38,7 +38,7 @@ namespace Player
         void InitializeState()
         {
             playerIdleMovementState = GetComponent<PlayerIdleMovementState>();
-            playerRunState = GetComponent<PlayerRunWhileGroundedState>();
+            playerRunState = GetComponent<PlayerRunState>();
             playerJumpState = GetComponent<PlayerJumpState>();
             playerCrouchState = GetComponent<PlayerCrouchState>();
             playerDodgeState = GetComponent<PlayerDodgeState>();

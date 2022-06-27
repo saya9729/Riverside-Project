@@ -11,15 +11,11 @@ namespace Player
             try
             {
                 DisableStepOffset();
-                _playerMovementController.SetAirborneRunTargetSpeed();
-                _playerMovementController.SetAirborneDirection();
             }
             catch
             {
                 Start();
-                DisableStepOffset();
-                _playerMovementController.SetAirborneRunTargetSpeed();
-                _playerMovementController.SetAirborneDirection();
+                DisableStepOffset();                
             }
         }
 

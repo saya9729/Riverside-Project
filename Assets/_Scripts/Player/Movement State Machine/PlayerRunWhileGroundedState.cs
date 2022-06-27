@@ -9,19 +9,17 @@ namespace Player
             try
             {
                 _playerMovementController.SetRunTargetSpeed();
-                _playerMovementController.ResetAirborneDirection();
             }
             catch
             {
                 Start();
                 _playerMovementController.SetRunTargetSpeed();
-                _playerMovementController.ResetAirborneDirection();
             }
         }
 
         public override void ExitState()
         {
-            //stop run animation
+            
         }
 
         public override void SwitchToState(string p_StateType)
@@ -34,6 +32,7 @@ namespace Player
             if (!_playerMovementController.isGrounded)
             {
                 _playerMovementController.EnableDoubleJump();
+                _playerMovementController.SetAirborneInertiaDirection();
                 currentSuperState.SwitchToState("Airborne");
             }
         }

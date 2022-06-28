@@ -9,6 +9,7 @@ namespace Player
         {
             DisableStepOffset();
             _playerMovementController.SetDashDirection();
+            _playerMovementController.SetAirborneInertiaDirectionWhileDash();
             _playerMovementController.DisableGravity();
         }
 

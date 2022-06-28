@@ -300,11 +300,15 @@ namespace Player
                 airborneInertiaDirection = inputDirection;
             }
         }
+        public void SetAirborneInertiaDirectionWhileDash()
+        {
+            airborneInertiaDirection = dashDirection;
+        }
         public void SetDashDirection()
         {
             // TODO: dash to view point
-            //dashDirection = transform.forward;
-            dashDirection = inputDirection;
+            dashDirection = transform.forward;
+            //dashDirection = inputDirection;
         }
         public void ResetDashDirection()
         {

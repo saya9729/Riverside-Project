@@ -18,8 +18,7 @@ namespace Player
                     SwitchToState("Grounded");
                 }
                 else
-                {
-                    _playerMovementController.SetAirborneInertiaDirection();
+                {                    
                     SwitchToState("Airborne");
                 }
             }
@@ -32,7 +31,6 @@ namespace Player
                 }
                 else
                 {
-                    _playerMovementController.SetAirborneInertiaDirection();
                     SwitchToState("Airborne");
                 }
             }

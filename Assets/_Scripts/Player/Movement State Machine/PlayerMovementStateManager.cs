@@ -276,6 +276,10 @@ namespace Player
         {
             targetSpeed = 0;
         }
+        public void StopSpeedChange()
+        {
+            targetSpeed = currentSpeed;
+        }
         public void DisableStepOffset()
         {
             previousStepOffset = characterController.stepOffset;
@@ -288,6 +292,13 @@ namespace Player
         public void SetAirborneInertiaDirection()
         {
             airborneInertiaDirection = new Vector3(characterController.velocity.x, 0f, characterController.velocity.z).normalized;
+        }
+        public void SetAirborneInertiaDirectionWhileDoubleJump()
+        {
+            if (inputDirection != Vector3.zero)
+            {
+                airborneInertiaDirection = inputDirection;
+            }
         }
         public void SetDashDirection()
         {
@@ -353,6 +364,7 @@ namespace Player
                     // the square root of H * -2 * G = how much velocity needed to reach desired height
                     verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
                     DisableDoubleJump();
+                    SetAirborneInertiaDirectionWhileDoubleJump();
 
                     //Audio
                     AudioInterface.PlayAudio("jump");

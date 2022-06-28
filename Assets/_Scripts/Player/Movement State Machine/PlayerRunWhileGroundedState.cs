@@ -33,6 +33,7 @@ namespace Player
             {
                 _playerMovementController.EnableDoubleJump();
                 _playerMovementController.SetAirborneInertiaDirection();
+                _playerMovementController.StopSpeedChange();
                 currentSuperState.SwitchToState("Airborne");
             }
         }

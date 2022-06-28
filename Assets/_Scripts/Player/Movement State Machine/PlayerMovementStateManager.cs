@@ -340,13 +340,13 @@ namespace Player
             if (isGrounded)
             {
                 // stop our velocity dropping infinitely when grounded
-                if (verticalVelocity < 0)
+                if (verticalVelocity < -2f)
                 {
-                    verticalVelocity = 0;
+                    verticalVelocity = -2f;
                 }
             }
             // apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
-            if (verticalVelocity > terminalVelocity)
+            else if (verticalVelocity > terminalVelocity)
             {
                 verticalVelocity += currentGravity * Time.deltaTime;
             }

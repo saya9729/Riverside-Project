@@ -1347,6 +1347,7 @@ GameObject:
   - component: {fileID: 730981319629740437}
   - component: {fileID: 1915830065763838289}
   - component: {fileID: 8856774957530221983}
+  - component: {fileID: 952189984}
   m_Layer: 3
   m_Name: MainPlayer
   m_TagString: Player
@@ -1383,7 +1384,7 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 2
   m_Height: 2
-  m_Radius: 0.2
+  m_Radius: 0.25
   m_SlopeLimit: 45
   m_StepOffset: 0.25
   m_SkinWidth: 0.08
@@ -1403,43 +1404,41 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentSuperState: {fileID: 0}
   currentSubState: {fileID: 0}
-  runSpeed: 6
-  runWhileAirborneSpeed: 3
-  airborneDefaultSpeed: 4
-  acceleration: 100
+  runWhileGroundedSpeed: 8
+  runWhileAirborneSpeed: 5
+  jumpBoostSpeed: 5
+  speedChangeRate: 6
   rotationSpeed: 1
   dashSpeed: 60
   dashDuration: 0.1
-  dashCooldown: 1
+  dashCooldown: 0.2
   dashChargeCooldown: 1
   dashDistanceWhileTimeSlowMultiflier: 1.5
-  jumpHeight: 1.2
-  gravity: -15
+  jumpHeight: 2.5
+  gravity: -30
   terminalVelocity: -53
   jumpCooldown: 0.1
   airborneCooldown: 0.15
   isGrounded: 1
-  groundedOffset: -0.12
-  groundedRadius: 0.5
-  groundedBoxDimention: {x: 0.5, y: 0.5, z: 0.5}
+  groundedOffset: -0.23
+  groundedBoxDimention: {x: 0.34, y: 0.5, z: 0.34}
   groundLayers:
     serializedVersion: 2
     m_Bits: 4161
-  cinemachineCameraTarget: {fileID: 4261174648711154787}
-  topClamp: 89
+  cinemachineCameraTarget: {fileID: 6141782131596564895}
+  topClamp: 80
   bottomClamp: -89
   particleDash: {fileID: 0}
   inputDirection: {x: 0, y: 0, z: 0}
   currentSpeed: 0
   targetSpeed: 0
   verticalVelocity: 0
-  lastInputDirection: {x: 0, y: 0, z: 0}
-  airborneDirection: {x: 0, y: 0, z: 0}
+  airborneInertiaDirection: {x: 0, y: 0, z: 0}
   dashDirection: {x: 0, y: 0, z: 0}
   currentGravity: -15
   isDashable: 1
   isJumpable: 1
-  isAllowInput: 1
+  isDoubleJumpable: 1
   isInDashState: 0
   isInDashChargeCooldown: 0
   dashMaxCount: 2
@@ -1607,7 +1606,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: 4419d82f33d36e848b3ed5af4c8da37e, type: 3}
-  m_NotificationBehavior: 1
+  m_NotificationBehavior: 0
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
@@ -1702,10 +1701,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.26496267
-  m_Height: 1.7876717
+  m_Radius: 0.25
+  m_Height: 2
   m_Direction: 1
-  m_Center: {x: 0.0020385385, y: 0.91930646, z: 0}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!95 &4261174648672795363
 Animator:
   serializedVersion: 4
@@ -1718,7 +1717,7 @@ Animator:
   m_Avatar: {fileID: 9000000, guid: 7b84063b1ce0c3246838f88857dac51f, type: 2}
   m_Controller: {fileID: 9100000, guid: 96ca572ca7a532a42b698e938201e17b, type: 2}
   m_CullingMode: 1
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
@@ -2057,6 +2056,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentSuperState: {fileID: 0}
   currentSubState: {fileID: 0}
+--- !u!114 &952189984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4261174648672795352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d42d16e579764e4ebf4483bf9cf1708, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pushLayers:
+    serializedVersion: 2
+    m_Bits: 64
+  canPush: 1
+  strength: 1.1
 --- !u!1 &4261174648711154787
 GameObject:
   m_ObjectHideFlags: 0
@@ -2385,8 +2401,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 0.42
-  MaxDistance: 500
+  MinDistance: 1
+  MaxDistance: 5
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -2421,7 +2437,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0

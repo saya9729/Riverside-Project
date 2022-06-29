@@ -346,7 +346,7 @@ namespace Player
                 }
             }
             // apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
-            else if (verticalVelocity > terminalVelocity)
+            if (verticalVelocity > terminalVelocity)
             {
                 verticalVelocity += currentGravity * Time.deltaTime;
             }

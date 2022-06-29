@@ -1086,6 +1086,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5706163177917534513, guid: 06c9ed3baabf58147b62d2683f353ec1, type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8503652448725205219, guid: 06c9ed3baabf58147b62d2683f353ec1, type: 3}
       propertyPath: m_Name
       value: Enemy

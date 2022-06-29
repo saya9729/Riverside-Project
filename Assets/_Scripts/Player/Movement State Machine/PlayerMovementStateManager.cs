@@ -232,7 +232,7 @@ namespace Player
             Vector3 boxPosition = new Vector3(transform.position.x, transform.position.y - groundedOffset, transform.position.z);
 
             // when selected, draw a gizmo in the position of, and matching radius of, the grounded collider
-            Gizmos.DrawCube(boxPosition, groundedBoxDimention);
+            Gizmos.DrawCube(boxPosition, groundedBoxDimention*2);
         }
         #endregion
 

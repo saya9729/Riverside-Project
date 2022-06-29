@@ -1630,6 +1630,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4261174648672795369, guid: 21af9a2172057ed4ebb386270946d762, type: 3}
+      propertyPath: groundedOffset
+      value: -0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4261174648672795369, guid: 21af9a2172057ed4ebb386270946d762, type: 3}
+      propertyPath: groundedBoxDimention.x
+      value: 0.17
+      objectReference: {fileID: 0}
+    - target: {fileID: 4261174648672795369, guid: 21af9a2172057ed4ebb386270946d762, type: 3}
+      propertyPath: groundedBoxDimention.y
+      value: 0.17
+      objectReference: {fileID: 0}
+    - target: {fileID: 4261174648672795369, guid: 21af9a2172057ed4ebb386270946d762, type: 3}
+      propertyPath: groundedBoxDimention.z
+      value: 0.17
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 21af9a2172057ed4ebb386270946d762, type: 3}
 --- !u!1001 &2044038622

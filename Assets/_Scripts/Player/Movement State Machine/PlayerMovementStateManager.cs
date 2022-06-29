@@ -11,13 +11,14 @@ namespace Player
     {
         [Header("Player")]
         [Tooltip("Run speed of the character in m/s")]
-        public float runSpeed = 6.0f;
+        public float runWhileGroundedSpeed = 6.0f;
 
         public float runWhileAirborneSpeed = 6.0f;
-        public float airborneDefaultSpeed = 6.0f;
 
-        [Tooltip("Acceleration and deceleration in m/s^2")]
-        public float acceleration = 10.0f;
+        public float jumpBoostSpeed = 7.0f;
+
+        [Tooltip("Acceleration and deceleration")]
+        public float speedChangeRate = 10.0f;
         [Tooltip("Rotation speed of the character")]
         public float rotationSpeed = 1.0f;
 
@@ -81,17 +82,14 @@ namespace Player
         private float _rotationVelocity;
         public float verticalVelocity;
 
-        public Vector3 lastInputDirection = Vector3.zero;
-        public Vector3 airborneDirection = Vector3.zero;
+        public Vector3 airborneInertiaDirection = Vector3.zero;
         public Vector3 dashDirection = Vector3.zero;
-
 
         public float currentGravity = -15.0f;
 
         public bool isDashable = true;
         public bool isJumpable = true;
         public bool isDoubleJumpable = true;
-        public bool isAllowInput = true;
 
         public bool isInDashState = false;
         public bool isInDashChargeCooldown = false;
@@ -148,19 +146,10 @@ namespace Player
 
         protected override void UpdateThisState()
         {
-            if (isAllowInput)
-            {
-                HandleRunInput();
-            }
             CheckGrounded();
-            if (isJumpable)
-            {
-                Jump();
-            }
+            HandleRunInput();
             ApplyGravity();
-            Move();
-
-            CheckDashChargeCooldown();
+            Jump();            
         }
 
         public override void EnterState()
@@ -222,6 +211,8 @@ namespace Player
         }
         private void LateUpdate()
         {
+            Move();
+            CheckDashChargeCooldown();
             Look();
         }
         private void OnDrawGizmosSelected()
@@ -266,14 +257,6 @@ namespace Player
         {
             isDoubleJumpable = true;
         }
-        public void DisableInput()
-        {
-            isAllowInput = false;
-        }
-        public void EnableInput()
-        {
-            isAllowInput = true;
-        }
         public void DisableGravity()
         {
             currentGravity = 0;
@@ -286,24 +269,16 @@ namespace Player
         }
         public void SetRunTargetSpeed()
         {
-            targetSpeed = runSpeed;
-        }
-        public void SetRunSpeed()
-        {
-            currentSpeed = runSpeed;
+            targetSpeed = runWhileGroundedSpeed;
         }
 
-        public void SetAirborneRunTargetSpeed()
-        {
-            targetSpeed = runWhileAirborneSpeed;
-        }
-        public void SetAirborneRunSpeed()
-        {
-            currentSpeed = runWhileAirborneSpeed;
-        }
         public void SetIdleTargetSpeed()
         {
             targetSpeed = 0;
+        }
+        public void StopSpeedChange()
+        {
+            targetSpeed = currentSpeed;
         }
         public void DisableStepOffset()
         {
@@ -314,29 +289,32 @@ namespace Player
         {
             characterController.stepOffset = previousStepOffset;
         }
-        public void SetAirborneDirection()
+        public void SetAirborneInertiaDirection()
         {
-            airborneDirection = lastInputDirection;
+            airborneInertiaDirection = new Vector3(characterController.velocity.x, 0f, characterController.velocity.z).normalized;
         }
-
-        public void ResetAirborneDirection()
+        public void SetAirborneInertiaDirectionWhileDoubleJump()
         {
-            airborneDirection = Vector3.zero;
+            if (inputDirection != Vector3.zero)
+            {
+                airborneInertiaDirection = inputDirection;
+            }
+        }
+        public void SetAirborneInertiaDirectionWhileDash()
+        {
+            airborneInertiaDirection = dashDirection;
         }
         public void SetDashDirection()
         {
-            //dashDirection = transform.forward;
-            dashDirection = inputDirection;
+            // TODO: dash to view point
+            dashDirection = transform.forward;
+            //dashDirection = inputDirection;
         }
-
         public void ResetDashDirection()
         {
             dashDirection = Vector3.zero;
         }
-        public void ResetInputDirection()
-        {
-            inputDirection = Vector3.zero;
-        }
+
         public void StartCoroutineDashState()
         {
             dashCurrentCount -= 1;
@@ -346,59 +324,102 @@ namespace Player
         #endregion
 
         #region Movement
-        private void Move()
-        {
-            //smooth the speed change (momentum mechanic)            
-            if (currentSpeed < targetSpeed)
-            {
-                currentSpeed += acceleration * Time.deltaTime;
-            }
-            else if (currentSpeed > targetSpeed)
-            {
-                currentSpeed -= acceleration * Time.deltaTime;
-            }
-
-            // move the player
-            characterController.Move(inputDirection.normalized * currentSpeed * Time.deltaTime + new Vector3(airborneDirection.x * airborneDefaultSpeed, verticalVelocity, airborneDirection.z * airborneDefaultSpeed) * Time.deltaTime + new Vector3(dashDirection.x * dashSpeed, 0f, dashDirection.z * dashSpeed) * Time.unscaledDeltaTime);
-        }
-
-        private void Jump()
-        {
-            if (isGrounded && inputManager.IsButtonDownThisFrame("Jump"))
-            {
-                // the square root of H * -2 * G = how much velocity needed to reach desired height
-                verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
-
-                //Audio
-                AudioInterface.PlayAudio("jump");
-            }
-            else if (isDoubleJumpable && inputManager.IsButtonDownThisFrame("Jump"))
-            {
-                // the square root of H * -2 * G = how much velocity needed to reach desired height
-                verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
-                DisableDoubleJump();
-
-                //Audio
-                AudioInterface.PlayAudio("jump");
-            }
-        }
-        private void HandleRunInput()
-        {
-            inputDirection = transform.right * inputManager.move.x + transform.forward * inputManager.move.y;
-
-            if (inputManager.move != Vector2.zero)
-            {
-                lastInputDirection = inputDirection;
-            }
-        }
-
         private void CheckGrounded()
         {
             // set sphere position, with offset
             Vector3 boxPosition = new Vector3(transform.position.x, transform.position.y - groundedOffset, transform.position.z);
             isGrounded = Physics.CheckBox(boxPosition, groundedBoxDimention, Quaternion.identity, groundLayers, QueryTriggerInteraction.Ignore);
         }
+        private void HandleRunInput()
+        {
+            inputDirection = transform.right * inputManager.move.x + transform.forward * inputManager.move.y;
+            inputDirection.Normalize();
+        }
+        private void ApplyGravity()
+        {
+            if (isGrounded)
+            {
+                // stop our velocity dropping infinitely when grounded
+                if (verticalVelocity < -2f)
+                {
+                    verticalVelocity = -2f;
+                }
+            }
+            // apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
+            else if (verticalVelocity > terminalVelocity)
+            {
+                verticalVelocity += currentGravity * Time.deltaTime;
+            }
+        }
+        private void Jump()
+        {
+            if (isJumpable)
+            {
+                if (isGrounded && inputManager.IsButtonDownThisFrame("Jump"))
+                {
+                    // the square root of H * -2 * G = how much velocity needed to reach desired height
+                    verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
+                    
+                    //Audio
+                    AudioInterface.PlayAudio("jump");
+                }
+                else if (isDoubleJumpable && inputManager.IsButtonDownThisFrame("Jump"))
+                {
+                    // the square root of H * -2 * G = how much velocity needed to reach desired height
+                    verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
+                    DisableDoubleJump();
+                    SetAirborneInertiaDirectionWhileDoubleJump();
 
+                    //Audio
+                    AudioInterface.PlayAudio("jump");
+                }
+            }
+        }        
+
+        private void CheckDashChargeCooldown()
+        {
+            if (dashCurrentCount < dashMaxCount && !isInDashChargeCooldown && !isInDashState && isGrounded)
+            {
+                StartCoroutine(StartDashChargeCooldown());
+            }
+        }
+        private void Move()
+        {
+            //smooth the speed change (momentum mechanic) 
+            float inputMagnitude = inputManager.analogMovement ? inputManager.move.magnitude : 1f;
+            currentSpeed = Mathf.Lerp(currentSpeed, targetSpeed * inputMagnitude, Time.deltaTime * speedChangeRate);
+
+            // TODO: delete old acceleration after testing
+            //if (currentSpeed < targetSpeed)
+            //{
+            //    currentSpeed += acceleration * Time.deltaTime;
+            //}
+            //else if (currentSpeed > targetSpeed)
+            //{
+            //    currentSpeed -= acceleration * Time.deltaTime;
+            //}
+
+            // move the player
+            //characterController.Move(inputDirection.normalized * currentSpeed * Time.deltaTime + new Vector3(airborneDirection.x * airborneDefaultSpeed, verticalVelocity, airborneDirection.z * airborneDefaultSpeed) * Time.deltaTime + new Vector3(dashDirection.x * dashSpeed, 0f, dashDirection.z * dashSpeed) * Time.unscaledDeltaTime);
+            // TODO: dash to view point
+            if (isGrounded)
+            {
+                characterController.Move(
+                    inputDirection * currentSpeed * Time.deltaTime
+                    + new Vector3(0f, verticalVelocity, 0f) * Time.deltaTime
+                    + new Vector3(dashDirection.x * dashSpeed, 0f, dashDirection.z * dashSpeed) * Time.unscaledDeltaTime);
+                // TODO: grounded input have non uniform speed
+            }
+            else
+            {
+                characterController.Move(
+                    airborneInertiaDirection * currentSpeed * Time.deltaTime
+                    + new Vector3(0f, verticalVelocity, 0f) * Time.deltaTime
+                    + new Vector3(dashDirection.x * dashSpeed, 0f, dashDirection.z * dashSpeed) * Time.unscaledDeltaTime);
+                // TODO: airborne input have a small effects not none
+                //+ airborneInputDirection * runWhileAirborneSpeed * Time.deltaTime
+            }
+        }
         private void Look()
         {
             // TODO: perform check like this to optimize the update loop
@@ -419,30 +440,6 @@ namespace Player
 
                 // rotate the player left and right
                 transform.Rotate(Vector3.up * _rotationVelocity);
-            }
-        }
-        private void ApplyGravity()
-        {
-            if (isGrounded)
-            {
-                // stop our velocity dropping infinitely when grounded
-                if (verticalVelocity < -2.0f)
-                {
-                    verticalVelocity = -2f;
-                }
-            }
-            // apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
-            if (verticalVelocity > terminalVelocity)
-            {
-                verticalVelocity += currentGravity * Time.deltaTime;
-            }
-        }
-
-        private void CheckDashChargeCooldown()
-        {
-            if (dashCurrentCount < dashMaxCount && !isInDashChargeCooldown && !isInDashState && isGrounded)
-            {
-                StartCoroutine(StartDashChargeCooldown());
             }
         }
 
@@ -507,6 +504,10 @@ namespace Player
         #endregion
 
         #region Helper functions
+        private void AddJumpBoostSpeed()
+        {
+            targetSpeed += jumpBoostSpeed;
+        }
         private void onDodgePress()
         {
             Debug.Log("event successfully register!");

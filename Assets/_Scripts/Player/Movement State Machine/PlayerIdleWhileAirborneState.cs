@@ -8,23 +8,19 @@ namespace Player
         private PlayerMovementStateManager _playerMovementController;
         public override void EnterState()
         {
-            //start animation
             try
             {
-                _playerMovementController.SetIdleTargetSpeed();
                 DisableStepOffset();
             }
             catch
             {
                 Start();
-                _playerMovementController.SetIdleTargetSpeed();
                 DisableStepOffset();
             }
         }
 
         public override void ExitState()
         {
-            //stop animation
             EnableStepOffset();
         }
 

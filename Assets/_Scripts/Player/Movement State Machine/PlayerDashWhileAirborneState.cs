@@ -8,11 +8,9 @@ namespace Player
         public override void EnterState()
         {
             DisableStepOffset();
-            _playerMovementController.SetAirborneDirection();
             _playerMovementController.SetDashDirection();
+            _playerMovementController.SetAirborneInertiaDirectionWhileDash();
             _playerMovementController.DisableGravity();
-            _playerMovementController.DisableInput();
-            _playerMovementController.ResetInputDirection();
         }
 
         private void DisableStepOffset()
@@ -28,7 +26,6 @@ namespace Player
         {
             EnableStepOffset();
             _playerMovementController.EnableGravity();
-            _playerMovementController.EnableInput();
         }
 
         public override void SwitchToState(string p_StateType)
@@ -40,7 +37,6 @@ namespace Player
         {
             if (!_playerMovementController.isInDashState)
             {
-                _playerMovementController.SetAirborneRunSpeed();
                 currentSuperState.currentSuperState.SwitchToState("Run");
             }
             else if (_playerMovementController.isGrounded)

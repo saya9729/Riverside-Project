@@ -5,17 +5,13 @@
         private PlayerMovementStateManager _playerMovementController;
         public override void EnterState()
         {
-            _playerMovementController.ResetAirborneDirection();
             _playerMovementController.DisableJump();
             _playerMovementController.SetDashDirection();
-            _playerMovementController.DisableInput();
-            _playerMovementController.ResetInputDirection();
         }
 
         public override void ExitState()
         {
             _playerMovementController.EnableJump();
-            _playerMovementController.EnableInput();
         }
 
         protected override void PhysicsUpdateThisState()
@@ -27,12 +23,13 @@
         {
             if (!_playerMovementController.isInDashState)
             {
-                _playerMovementController.SetRunSpeed();
                 currentSuperState.currentSuperState.SwitchToState("Run");
             }
             else if (!_playerMovementController.isGrounded)
             {
                 _playerMovementController.EnableDoubleJump();
+                _playerMovementController.SetAirborneInertiaDirection();
+                _playerMovementController.StopSpeedChange();
                 currentSuperState.SwitchToState("Airborne");
             }
         }

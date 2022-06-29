@@ -18,8 +18,7 @@ namespace Player
                     SwitchToState("Grounded");
                 }
                 else
-                {
-                    _playerMovementController.SetAirborneDirection();
+                {                    
                     SwitchToState("Airborne");
                 }
             }
@@ -32,7 +31,6 @@ namespace Player
                 }
                 else
                 {
-                    _playerMovementController.SetAirborneDirection();
                     SwitchToState("Airborne");
                 }
             }
@@ -61,7 +59,7 @@ namespace Player
 
         protected override void CheckSwitchState()
         {
-            if (_playerMovementController.inputManager.move != Vector2.zero)
+            if (_playerMovementController.inputDirection != Vector3.zero)
             {
                 currentSuperState.SwitchToState("Run");
             }

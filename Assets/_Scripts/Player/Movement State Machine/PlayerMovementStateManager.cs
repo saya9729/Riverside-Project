@@ -7,20 +7,37 @@ namespace Player
 {
     [RequireComponent(typeof(InputManager))]
     [RequireComponent(typeof(CharacterController))]
+    [RequireComponent(typeof(PlayerInput))]
+    [RequireComponent(typeof(PlayerSkillManager))]
+    
+    [RequireComponent(typeof(PlayerMovementIdleState))]
+    [RequireComponent(typeof(PlayerRunState))]
+    [RequireComponent(typeof(PlayerDashState))]
+    [RequireComponent(typeof(PlayerSlideState))]
+    [RequireComponent(typeof(PlayerCrouchState))]
     public class PlayerMovementStateManager : AbstractClass.State
     {
         [Header("Player")]
         [Tooltip("Run speed of the character in m/s")]
-        public float runWhileGroundedSpeed = 6.0f;
-
-        public float runWhileAirborneSpeed = 6.0f;
-
-        public float jumpBoostSpeed = 7.0f;
-
+        public float runSpeed = 6.0f;
+        
+        [Space]
+        [Tooltip("Speed of the character in m/s")]
+        public float slideThresholdSpeed = 6.0f;        
+        public float slideSpeed = 6.0f;        
+        public float slideDuration = 1f;
+        public float slideJumpSpeed = 20f;
+        
+        [Space]
+        public float crouchSpeed = 6.0f;
+        
+        [Space]
         [Tooltip("Acceleration and deceleration")]
         public float speedChangeRate = 10.0f;
         [Tooltip("Rotation speed of the character")]
         public float rotationSpeed = 1.0f;
+        
+        public float airborneSteeringRate = 1f;
 
         [Space(10)]
         [Tooltip("Dash speed of the character in m/s")]
@@ -82,13 +99,15 @@ namespace Player
         private float _rotationVelocity;
         public float verticalVelocity;
 
+        public Vector3 moveDirection = Vector3.zero;
         public Vector3 airborneInertiaDirection = Vector3.zero;
         public Vector3 dashDirection = Vector3.zero;
 
         public float currentGravity = -15.0f;
-
-        public bool isDashable = true;
+        
+        public bool isAllowInput = true;
         public bool isJumpable = true;
+        public bool isDashable = true;        
         public bool isDoubleJumpable = true;
 
         public bool isInDashState = false;
@@ -114,6 +133,8 @@ namespace Player
         private PlayerMovementIdleState _playerMovementIdleState;
         private PlayerRunState _playerRunState;
         private PlayerDashState _playerDashState;
+        private PlayerSlideState _playerSlideState;
+        private PlayerCrouchState _playerCrouchState;
 
         #region State Machine
         protected override void InitializeState()
@@ -121,10 +142,14 @@ namespace Player
             _playerMovementIdleState = GetComponent<PlayerMovementIdleState>();
             _playerRunState = GetComponent<PlayerRunState>();
             _playerDashState = GetComponent<PlayerDashState>();
+            _playerSlideState = GetComponent<PlayerSlideState>();
+            _playerCrouchState = GetComponent<PlayerCrouchState>();
 
             _playerMovementIdleState.SetSuperState(this);
             _playerRunState.SetSuperState(this);
             _playerDashState.SetSuperState(this);
+            _playerSlideState.SetSuperState(this);
+            _playerCrouchState.SetSuperState(this);
 
             SetSuperState(null);
             SetSubState(_playerMovementIdleState);
@@ -148,6 +173,7 @@ namespace Player
         {
             CheckGrounded();
             HandleRunInput();
+            SetMoveDirection();
             ApplyGravity();
             Jump();            
         }
@@ -184,6 +210,12 @@ namespace Player
                     break;
                 case "Dash":
                     SetSubState(_playerDashState);
+                    break;
+                case "Slide":
+                    SetSubState(_playerSlideState);
+                    break;
+                case "Crouch":
+                    SetSubState(_playerCrouchState);
                     break;
                 default:
                     break;
@@ -237,9 +269,26 @@ namespace Player
         #endregion
 
         #region API
+        public void SetSlideJumpTargetSpeed()
+        {
+            targetSpeed = slideJumpSpeed;
+        }
+        public bool IsSlideable()
+        {
+            return currentSpeed > slideThresholdSpeed;
+        }
+        
         public bool IsDashable()
         {
             return isDashable && dashCurrentCount > 0;
+        }
+        public void DisableInput()
+        {
+            isAllowInput = false;
+        }
+        public void EnableInput()
+        {
+            isAllowInput = true;
         }
         public void DisableJump()
         {
@@ -269,12 +318,20 @@ namespace Player
         }
         public void SetRunTargetSpeed()
         {
-            targetSpeed = runWhileGroundedSpeed;
+            targetSpeed = runSpeed;
         }
 
         public void SetIdleTargetSpeed()
         {
             targetSpeed = 0;
+        }
+        public void SetSlideTargetSpeed()
+        {
+            targetSpeed = slideSpeed;
+        }
+        public void SetCrouchTargetSpeed()
+        {
+            targetSpeed = crouchSpeed;
         }
         public void StopSpeedChange()
         {
@@ -313,6 +370,11 @@ namespace Player
         public void ResetDashDirection()
         {
             dashDirection = Vector3.zero;
+        }        
+        
+        public void ResetMoveDirection()
+        {
+            moveDirection = Vector3.zero;
         }
 
         public void StartCoroutineDashState()
@@ -320,7 +382,14 @@ namespace Player
             dashCurrentCount -= 1;
             StartCoroutine(StartDashDuration());
         }
-
+        public void StartCoroutineSlideState()
+        {
+            StartCoroutine(StartSlideDuration());
+        }
+        public void StopCoroutineSlideState()
+        {
+            StopCoroutine(StartSlideDuration());
+        }
         #endregion
 
         #region Movement
@@ -335,6 +404,14 @@ namespace Player
             inputDirection = transform.right * inputManager.move.x + transform.forward * inputManager.move.y;
             inputDirection.Normalize();
         }
+        private void SetMoveDirection()
+        {
+            if (isAllowInput)
+            {
+                moveDirection = inputDirection;
+            }
+        }
+        
         private void ApplyGravity()
         {
             if (isGrounded)
@@ -388,36 +465,28 @@ namespace Player
             //smooth the speed change (momentum mechanic) 
             float inputMagnitude = inputManager.analogMovement ? inputManager.move.magnitude : 1f;
             currentSpeed = Mathf.Lerp(currentSpeed, targetSpeed * inputMagnitude, Time.deltaTime * speedChangeRate);
-
-            // TODO: delete old acceleration after testing
-            //if (currentSpeed < targetSpeed)
-            //{
-            //    currentSpeed += acceleration * Time.deltaTime;
-            //}
-            //else if (currentSpeed > targetSpeed)
-            //{
-            //    currentSpeed -= acceleration * Time.deltaTime;
-            //}
-
+            
             // move the player
             //characterController.Move(inputDirection.normalized * currentSpeed * Time.deltaTime + new Vector3(airborneDirection.x * airborneDefaultSpeed, verticalVelocity, airborneDirection.z * airborneDefaultSpeed) * Time.deltaTime + new Vector3(dashDirection.x * dashSpeed, 0f, dashDirection.z * dashSpeed) * Time.unscaledDeltaTime);
             // TODO: dash to view point
             if (isGrounded)
             {
                 characterController.Move(
-                    inputDirection * currentSpeed * Time.deltaTime
+                    moveDirection * currentSpeed * Time.deltaTime
                     + new Vector3(0f, verticalVelocity, 0f) * Time.deltaTime
                     + new Vector3(dashDirection.x * dashSpeed, 0f, dashDirection.z * dashSpeed) * Time.unscaledDeltaTime);
-                // TODO: grounded input have non uniform speed
             }
             else
             {
+                if (inputDirection != Vector3.zero)
+                {
+                    airborneInertiaDirection = Vector3.Lerp(airborneInertiaDirection, inputDirection, Time.deltaTime * airborneSteeringRate);
+                    airborneInertiaDirection.Normalize();
+                }
                 characterController.Move(
                     airborneInertiaDirection * currentSpeed * Time.deltaTime
                     + new Vector3(0f, verticalVelocity, 0f) * Time.deltaTime
-                    + new Vector3(dashDirection.x * dashSpeed, 0f, dashDirection.z * dashSpeed) * Time.unscaledDeltaTime);
-                // TODO: airborne input have a small effects not none
-                //+ airborneInputDirection * runWhileAirborneSpeed * Time.deltaTime
+                    + new Vector3(dashDirection.x * dashSpeed, 0f, dashDirection.z * dashSpeed) * Time.unscaledDeltaTime);                
             }
         }
         private void Look()
@@ -501,13 +570,16 @@ namespace Player
             ResetDashDirection();
             StartCoroutine(StartDashCooldown());
         }
+
+        private IEnumerator StartSlideDuration()
+        {
+            yield return new WaitForSeconds(slideDuration);
+            SwitchToState("Crouch");
+        }
         #endregion
 
         #region Helper functions
-        private void AddJumpBoostSpeed()
-        {
-            targetSpeed += jumpBoostSpeed;
-        }
+        
         private void onDodgePress()
         {
             Debug.Log("event successfully register!");

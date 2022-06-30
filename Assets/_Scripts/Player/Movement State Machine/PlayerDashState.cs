@@ -1,5 +1,8 @@
-﻿namespace Player
+﻿using UnityEngine;
+namespace Player
 {
+    [RequireComponent(typeof(PlayerDashWhileGroundedState))]
+    [RequireComponent(typeof(PlayerDashWhileAirborneState))]
     public class PlayerDashState : AbstractClass.State
     {
         private PlayerMovementStateManager _playerMovementController;

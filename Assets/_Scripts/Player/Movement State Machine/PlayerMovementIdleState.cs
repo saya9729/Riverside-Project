@@ -3,6 +3,8 @@ using UnityEngine;
 
 namespace Player
 {
+    [RequireComponent(typeof(PlayerIdleWhileGroundedState))]
+    [RequireComponent(typeof(PlayerIdleWhileAirborneState))]
     public class PlayerMovementIdleState : AbstractClass.State
     {
         private PlayerMovementStateManager _playerMovementController;
@@ -91,7 +93,7 @@ namespace Player
 
         protected override void UpdateThisState()
         {
-            CheckSwitchState();
+            CheckSwitchState();            
         }
     }
 }

@@ -72,7 +72,7 @@ namespace Player
         {
             crouch = value.isPressed;
         }
-
+        
         void OnUseHealthPotion(InputValue value)
         {
             useHealthPot = value.isPressed;

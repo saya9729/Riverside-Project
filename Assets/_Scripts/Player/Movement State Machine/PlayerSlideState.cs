@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Player
 {
@@ -16,7 +15,7 @@ namespace Player
             _playerMovementController.DisableInput();
             SwitchToState("Grounded");
         }
-        
+
         public override void ExitState()
         {
             _playerMovementController.StopCoroutineSlideState();
@@ -45,8 +44,12 @@ namespace Player
             {
                 currentSuperState.SwitchToState("Run");
             }
+            else if (_playerMovementController.IsDashable() && _playerMovementController.inputManager.dash)
+            {
+                currentSuperState.SwitchToState("Dash");
+            }
         }
-        
+
         protected override void InitializeComponent()
         {
             _playerMovementController = GetComponent<PlayerMovementStateManager>();
@@ -63,12 +66,12 @@ namespace Player
 
         protected override void InitializeVariable()
         {
-            
+
         }
 
         protected override void PhysicsUpdateThisState()
         {
-            
+
         }
 
         protected override void UpdateThisState()

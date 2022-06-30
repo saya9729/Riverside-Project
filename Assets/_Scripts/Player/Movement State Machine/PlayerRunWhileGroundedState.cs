@@ -36,6 +36,10 @@ namespace Player
                 _playerMovementController.StopSpeedChange();
                 currentSuperState.SwitchToState("Airborne");
             }
+            else if (_playerMovementController.inputManager.crouch && _playerMovementController.IsSlideable())
+            {
+                currentSuperState.currentSuperState.SwitchToState("Slide");
+            }
         }
 
         protected override void InitializeComponent()

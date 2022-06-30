@@ -3,6 +3,8 @@ using UnityEngine;
 
 namespace Player
 {
+    [RequireComponent(typeof(PlayerRunWhileGroundedState))]
+    [RequireComponent(typeof(PlayerRunWhileAirborneState))]
     public class PlayerRunState : AbstractClass.State
     {
         private PlayerMovementStateManager _playerMovementController;
@@ -45,12 +47,16 @@ namespace Player
         protected override void CheckSwitchState()
         {
             if (_playerMovementController.inputManager.move == Vector2.zero)
-            {                
+            {
                 currentSuperState.SwitchToState("Idle");
             }
             else if (_playerMovementController.IsDashable() && _playerMovementController.inputManager.dash)
             {
                 currentSuperState.SwitchToState("Dash");
+            }
+            else if (_playerMovementController.inputManager.crouch && !_playerMovementController.IsSlideable())
+            {
+                currentSuperState.SwitchToState("Crouch");
             }
         }
 

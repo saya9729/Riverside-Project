@@ -12,6 +12,7 @@ namespace Enemy
         private EnemyStateManager _enemyStateManager;
 
         public GameObject particleSpark;
+        public GameObject particleBlood;
 
         void Start()
         {
@@ -27,6 +28,7 @@ namespace Enemy
                 //Vector3 particleDirection = hitPoint2.point - hitPoint1.point;
 
                 Instantiate(particleSpark, hitPoint.point, Quaternion.Euler(hitPoint.normal));
+                Instantiate(particleBlood, hitPoint.point, Quaternion.Euler(hitPoint.normal));
                 AudioInterface.PlayAudio("enemyHit");
 
                 _damageManager = collisionInfo.collider.gameObject.GetComponentInParent<Universal.AttackManager>();

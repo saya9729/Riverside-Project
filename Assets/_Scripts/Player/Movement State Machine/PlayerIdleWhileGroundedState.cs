@@ -52,6 +52,7 @@ namespace Player
         protected override void UpdateThisState()
         {
             CheckSwitchState();
+            _playerMovementController.MoveWhileGrounded();
         }
 
         protected override void InitializeVariable()

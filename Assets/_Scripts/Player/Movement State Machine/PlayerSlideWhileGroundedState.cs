@@ -28,7 +28,7 @@ namespace Player
             {
                 _playerMovementController.EnableDoubleJump();
                 _playerMovementController.SetAirborneInertiaDirection();
-                _playerMovementController.StopSpeedChange();
+                //_playerMovementController.StopSpeedChange(); useless because set target speed later
                 _playerMovementController.StopCoroutineSlideState();
                 _playerMovementController.SetSlideJumpTargetSpeed();
                 currentSuperState.SwitchToState("Airborne");
@@ -58,6 +58,7 @@ namespace Player
         protected override void UpdateThisState()
         {
             CheckSwitchState();
+            _playerMovementController.MoveWhileGrounded();
         }
     }
 }

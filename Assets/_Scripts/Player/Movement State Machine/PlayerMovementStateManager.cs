@@ -9,34 +9,35 @@ namespace Player
     [RequireComponent(typeof(CharacterController))]
     [RequireComponent(typeof(PlayerInput))]
     [RequireComponent(typeof(PlayerSkillManager))]
-    
+
     [RequireComponent(typeof(PlayerMovementIdleState))]
     [RequireComponent(typeof(PlayerRunState))]
     [RequireComponent(typeof(PlayerDashState))]
     [RequireComponent(typeof(PlayerSlideState))]
     [RequireComponent(typeof(PlayerCrouchState))]
+    [RequireComponent(typeof(PlayerWallRunState))]
     public class PlayerMovementStateManager : AbstractClass.State
     {
         [Header("Player")]
         [Tooltip("Run speed of the character in m/s")]
         public float runSpeed = 6.0f;
-        
+
         [Space]
         [Tooltip("Speed of the character in m/s")]
-        public float slideThresholdSpeed = 6.0f;        
-        public float slideSpeed = 6.0f;        
+        public float slideThresholdSpeed = 6.0f;
+        public float slideSpeed = 6.0f;
         public float slideDuration = 1f;
         public float slideJumpSpeed = 20f;
-        
+
         [Space]
         public float crouchSpeed = 6.0f;
-        
+
         [Space]
         [Tooltip("Acceleration and deceleration")]
         public float speedChangeRate = 10.0f;
         [Tooltip("Rotation speed of the character")]
         public float rotationSpeed = 1.0f;
-        
+
         public float airborneSteeringRate = 1f;
 
         [Space(10)]
@@ -104,10 +105,10 @@ namespace Player
         public Vector3 dashDirection = Vector3.zero;
 
         public float currentGravity = -15.0f;
-        
+
         public bool isAllowInput = true;
         public bool isJumpable = true;
-        public bool isDashable = true;        
+        public bool isDashable = true;
         public bool isDoubleJumpable = true;
 
         public bool isInDashState = false;
@@ -135,6 +136,7 @@ namespace Player
         private PlayerDashState _playerDashState;
         private PlayerSlideState _playerSlideState;
         private PlayerCrouchState _playerCrouchState;
+        private PlayerWallRunState _playerWallRunState;
 
         #region State Machine
         protected override void InitializeState()
@@ -144,12 +146,14 @@ namespace Player
             _playerDashState = GetComponent<PlayerDashState>();
             _playerSlideState = GetComponent<PlayerSlideState>();
             _playerCrouchState = GetComponent<PlayerCrouchState>();
+            _playerWallRunState = GetComponent<PlayerWallRunState>();
 
             _playerMovementIdleState.SetSuperState(this);
             _playerRunState.SetSuperState(this);
             _playerDashState.SetSuperState(this);
             _playerSlideState.SetSuperState(this);
             _playerCrouchState.SetSuperState(this);
+            _playerWallRunState.SetSuperState(this);
 
             SetSuperState(null);
             SetSubState(_playerMovementIdleState);
@@ -168,6 +172,10 @@ namespace Player
             //register listener
             this.RegisterListener(EventID.onDodgePress, (param) => onDodgePress());
         }
+        private void onDodgePress()
+        {
+            Debug.Log("event successfully register!");
+        }
 
         protected override void UpdateThisState()
         {
@@ -175,7 +183,9 @@ namespace Player
             HandleRunInput();
             SetMoveDirection();
             ApplyGravity();
-            Jump();            
+            Jump();
+            HandleSpeed();
+            CheckDashChargeCooldown();
         }
 
         public override void EnterState()
@@ -217,6 +227,9 @@ namespace Player
                 case "Crouch":
                     SetSubState(_playerCrouchState);
                     break;
+                case "WallRun":
+                    SetSubState(_playerWallRunState);
+                    break;
                 default:
                     break;
             }
@@ -243,8 +256,6 @@ namespace Player
         }
         private void LateUpdate()
         {
-            Move();
-            CheckDashChargeCooldown();
             Look();
         }
         private void OnDrawGizmosSelected()
@@ -264,11 +275,11 @@ namespace Player
             Vector3 boxPosition = new Vector3(transform.position.x, transform.position.y - groundedOffset, transform.position.z);
 
             // when selected, draw a gizmo in the position of, and matching radius of, the grounded collider
-            Gizmos.DrawCube(boxPosition, groundedBoxDimention*2);
+            Gizmos.DrawCube(boxPosition, groundedBoxDimention * 2);
         }
         #endregion
 
-        #region API
+        #region API   
         public void SetSlideJumpTargetSpeed()
         {
             targetSpeed = slideJumpSpeed;
@@ -277,7 +288,7 @@ namespace Player
         {
             return currentSpeed > slideThresholdSpeed;
         }
-        
+
         public bool IsDashable()
         {
             return isDashable && dashCurrentCount > 0;
@@ -352,9 +363,9 @@ namespace Player
         }
         public void SetAirborneInertiaDirectionWhileDoubleJump()
         {
-            if (inputDirection != Vector3.zero)
+            if (moveDirection != Vector3.zero)
             {
-                airborneInertiaDirection = inputDirection;
+                airborneInertiaDirection = moveDirection;
             }
         }
         public void SetAirborneInertiaDirectionWhileDash()
@@ -364,14 +375,14 @@ namespace Player
         public void SetDashDirection()
         {
             // TODO: dash to view point
-            dashDirection = transform.forward;
-            //dashDirection = inputDirection;
+            Vector3 rot = Quaternion.Euler(_cinemachineTargetPitch, 0.0f, 0.0f) * Vector3.forward;
+            dashDirection = transform.right * rot.x + transform.up * rot.y + transform.forward * rot.z;
         }
         public void ResetDashDirection()
         {
             dashDirection = Vector3.zero;
-        }        
-        
+        }
+
         public void ResetMoveDirection()
         {
             moveDirection = Vector3.zero;
@@ -389,6 +400,40 @@ namespace Player
         public void StopCoroutineSlideState()
         {
             StopCoroutine(StartSlideDuration());
+        }
+
+        public void MoveWhileGrounded()
+        {
+            // move the player            
+            // TODO: momentum conservation
+            characterController.Move(
+                    moveDirection * currentSpeed * Time.deltaTime
+                    + Vector3.up * verticalVelocity * Time.deltaTime);
+        }
+        public void MoveWhileAirborne()
+        {
+            HandleAirborneSteering();
+
+            characterController.Move(
+                    airborneInertiaDirection * currentSpeed * Time.deltaTime
+                    + Vector3.up * verticalVelocity * Time.deltaTime);
+
+        }
+        private void HandleAirborneSteering()
+        {
+            if (moveDirection != Vector3.zero)
+            {
+                airborneInertiaDirection = Vector3.Lerp(airborneInertiaDirection, moveDirection, Time.deltaTime * airborneSteeringRate);
+                airborneInertiaDirection.Normalize();
+            }
+        }
+        public void MoveWhileDash()
+        {
+            characterController.Move(dashDirection * dashSpeed * Time.unscaledDeltaTime);
+        }
+        public void MoveWhileWallRun()
+        {
+
         }
         #endregion
 
@@ -410,8 +455,12 @@ namespace Player
             {
                 moveDirection = inputDirection;
             }
+            else
+            {
+                moveDirection = Vector3.zero;
+            }
         }
-        
+
         private void ApplyGravity()
         {
             if (isGrounded)
@@ -436,7 +485,7 @@ namespace Player
                 {
                     // the square root of H * -2 * G = how much velocity needed to reach desired height
                     verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
-                    
+
                     //Audio
                     AudioInterface.PlayAudio("jump");
                 }
@@ -451,7 +500,7 @@ namespace Player
                     AudioInterface.PlayAudio("jump");
                 }
             }
-        }        
+        }
 
         private void CheckDashChargeCooldown()
         {
@@ -460,35 +509,13 @@ namespace Player
                 StartCoroutine(StartDashChargeCooldown());
             }
         }
-        private void Move()
+        private void HandleSpeed()
         {
             //smooth the speed change (momentum mechanic) 
             float inputMagnitude = inputManager.analogMovement ? inputManager.move.magnitude : 1f;
             currentSpeed = Mathf.Lerp(currentSpeed, targetSpeed * inputMagnitude, Time.deltaTime * speedChangeRate);
-            
-            // move the player
-            //characterController.Move(inputDirection.normalized * currentSpeed * Time.deltaTime + new Vector3(airborneDirection.x * airborneDefaultSpeed, verticalVelocity, airborneDirection.z * airborneDefaultSpeed) * Time.deltaTime + new Vector3(dashDirection.x * dashSpeed, 0f, dashDirection.z * dashSpeed) * Time.unscaledDeltaTime);
-            // TODO: dash to view point
-            if (isGrounded)
-            {
-                characterController.Move(
-                    moveDirection * currentSpeed * Time.deltaTime
-                    + new Vector3(0f, verticalVelocity, 0f) * Time.deltaTime
-                    + new Vector3(dashDirection.x * dashSpeed, 0f, dashDirection.z * dashSpeed) * Time.unscaledDeltaTime);
-            }
-            else
-            {
-                if (inputDirection != Vector3.zero)
-                {
-                    airborneInertiaDirection = Vector3.Lerp(airborneInertiaDirection, inputDirection, Time.deltaTime * airborneSteeringRate);
-                    airborneInertiaDirection.Normalize();
-                }
-                characterController.Move(
-                    airborneInertiaDirection * currentSpeed * Time.deltaTime
-                    + new Vector3(0f, verticalVelocity, 0f) * Time.deltaTime
-                    + new Vector3(dashDirection.x * dashSpeed, 0f, dashDirection.z * dashSpeed) * Time.unscaledDeltaTime);                
-            }
         }
+
         private void Look()
         {
             // TODO: perform check like this to optimize the update loop
@@ -510,6 +537,12 @@ namespace Player
                 // rotate the player left and right
                 transform.Rotate(Vector3.up * _rotationVelocity);
             }
+        }
+        private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
+        {
+            if (lfAngle < -360f) lfAngle += 360f;
+            if (lfAngle > 360f) lfAngle -= 360f;
+            return Mathf.Clamp(lfAngle, lfMin, lfMax);
         }
 
         #endregion
@@ -575,21 +608,6 @@ namespace Player
         {
             yield return new WaitForSeconds(slideDuration);
             SwitchToState("Crouch");
-        }
-        #endregion
-
-        #region Helper functions
-        
-        private void onDodgePress()
-        {
-            Debug.Log("event successfully register!");
-        }
-
-        private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
-        {
-            if (lfAngle < -360f) lfAngle += 360f;
-            if (lfAngle > 360f) lfAngle -= 360f;
-            return Mathf.Clamp(lfAngle, lfMin, lfMax);
         }
         #endregion
 

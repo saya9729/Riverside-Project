@@ -201,10 +201,6 @@ namespace Player
         {
             Debug.Log("event successfully register!");
         }
-        private void onDodgePress()
-        {
-            Debug.Log("event successfully register!");
-        }
 
         protected override void UpdateThisState()
         {
@@ -392,9 +388,9 @@ namespace Player
         }
         public void SetAirborneInertiaDirectionWhileDoubleJump()
         {
-            if (moveDirection != Vector3.zero)
+            if (inputDirection != Vector3.zero)
             {
-                airborneInertiaDirection = moveDirection;
+                airborneInertiaDirection = inputDirection;
             }
         }
         public void SetAirborneInertiaDirectionWhileDash()

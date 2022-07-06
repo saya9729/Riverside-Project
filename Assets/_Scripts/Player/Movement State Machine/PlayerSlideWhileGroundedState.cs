@@ -58,7 +58,7 @@ namespace Player
         protected override void UpdateThisState()
         {
             CheckSwitchState();
-            _playerMovementController.MoveWhileGrounded();
+            _playerMovementController.MoveWhileSlide();
         }
     }
 }

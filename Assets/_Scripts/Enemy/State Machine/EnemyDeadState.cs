@@ -22,7 +22,7 @@ namespace Enemy
             { 
 
             }
-
+            _enemyStateManager.DisableAttackHitbox();
             _enemyStateManager.EnableRagdoll();
             StartCoroutine(WaitAndDestroyThisObject());
         }

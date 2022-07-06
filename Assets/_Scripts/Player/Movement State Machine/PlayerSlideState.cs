@@ -19,7 +19,7 @@ namespace Player
 
         public override void ExitState()
         {
-            _playerMovementController.StopCoroutineSlideState();
+            
         }
 
         public override void SwitchToState(string p_stateType)

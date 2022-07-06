@@ -9,12 +9,14 @@ namespace Player
         public override void EnterState()
         {
             _playerMovementController.SetSlideTargetSpeed();
+            _playerMovementController.EnableSlideGravity();
             _playerMovementController.StartCoroutineSlideState();
         }
 
         public override void ExitState()
         {
-
+            _playerMovementController.DisableSlideGravity();
+            _playerMovementController.StopCoroutineSlideState();
         }
 
         public override void SwitchToState(string p_stateType)
@@ -28,8 +30,7 @@ namespace Player
             {
                 _playerMovementController.EnableDoubleJump();
                 _playerMovementController.SetAirborneInertiaDirection();
-                //_playerMovementController.StopSpeedChange(); useless because set target speed later
-                _playerMovementController.StopCoroutineSlideState();
+                //_playerMovementController.StopSpeedChange(); useless because set target speed later                
                 _playerMovementController.SetSlideJumpTargetSpeed();
                 currentSuperState.SwitchToState("Airborne");
             }

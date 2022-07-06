@@ -13,7 +13,7 @@ namespace Player
 
         public override void ExitState()
         {
-            _playerMovementController.EnableGravity();
+            _playerMovementController.EnableRunGravity();
         }
 
         public override void SwitchToState(string p_stateType)

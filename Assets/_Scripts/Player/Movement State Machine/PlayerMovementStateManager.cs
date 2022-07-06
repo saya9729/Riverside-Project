@@ -28,6 +28,7 @@ namespace Player
         public float slideSpeed = 6.0f;
         public float slideDuration = 1f;
         public float slideJumpSpeed = 20f;
+        public float slideGravity = -1000f;
 
         [Space]
         [Tooltip("Crouch speed of the character in m/s")]
@@ -133,6 +134,10 @@ namespace Player
         private Vector3 originalCharacterCenter;
         private float originalCamHolderHeight;
 
+        private IEnumerator _slideCoroutine;
+        private IEnumerator _crouchDownCoroutine;
+        private IEnumerator _standUpCoroutine;
+
         public PlayerInput playerInput;
         public CharacterController characterController;
         public InputManager inputManager;
@@ -183,7 +188,7 @@ namespace Player
 
         protected override void InitializeVariable()
         {
-            EnableGravity();
+            EnableRunGravity();
             //register listener
             this.RegisterListener(EventID.onDodgePress, (param) => onDodgePress());
 
@@ -335,9 +340,17 @@ namespace Player
             verticalVelocity = 0;
         }
 
-        public void EnableGravity()
+        public void EnableRunGravity()
         {
             currentGravity = gravity;
+        }
+        public void EnableSlideGravity()
+        {
+            currentGravity = slideGravity;
+        }
+        public void DisableSlideGravity()
+        {
+            EnableRunGravity();
         }
         public void SetRunTargetSpeed()
         {
@@ -411,11 +424,12 @@ namespace Player
         }
         public void StartCoroutineSlideState()
         {
-            StartCoroutine(StartSlideDuration());
+            _slideCoroutine = StartSlideDuration();
+            StartCoroutine(_slideCoroutine);
         }
         public void StopCoroutineSlideState()
         {
-            StopCoroutine(StartSlideDuration());
+            StopCoroutine(_slideCoroutine);
         }
 
         public void MoveWhileGrounded()
@@ -460,12 +474,15 @@ namespace Player
 
         public void StartCoroutineCrouchDown()
         {
-            StartCoroutine(CrouchDown());
+            _crouchDownCoroutine = CrouchDown();
+            StopCoroutine(_standUpCoroutine);
+            StartCoroutine(_crouchDownCoroutine);
         }
         public void StarCoroutineStandUp()
         {
-            StopCoroutine(CrouchDown());
-            StartCoroutine(StandUp());
+            _standUpCoroutine = StandUp();
+            StopCoroutine(_crouchDownCoroutine);
+            StartCoroutine(_standUpCoroutine);
         }
 
         #endregion
@@ -594,11 +611,11 @@ namespace Player
             {
                 characterController.height = Mathf.Lerp(characterController.height, crouchHeight, timeElapsed / timeToCrouch);
                 characterController.center = Vector3.Lerp(characterController.center, crouchCenter, timeElapsed / timeToCrouch);
-                
+
                 _capsuleCollider.height = characterController.height;
                 _capsuleCollider.center = characterController.center;
-                
-                cinemachineCameraTarget.transform.localPosition = new Vector3(cinemachineCameraTarget.transform.localPosition.x,originalCamHolderHeight - (originalCharacterHeight - characterController.height), cinemachineCameraTarget.transform.localPosition.z);
+
+                cinemachineCameraTarget.transform.localPosition = new Vector3(cinemachineCameraTarget.transform.localPosition.x, originalCamHolderHeight - (originalCharacterHeight - characterController.height), cinemachineCameraTarget.transform.localPosition.z);
                 timeElapsed += Time.deltaTime;
                 yield return null;
             }

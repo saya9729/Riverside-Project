@@ -15,7 +15,7 @@ namespace Player
         public override void ExitState()
         {
             _playerMovementController.EnableStepOffset();
-            _playerMovementController.EnableGravity();
+            _playerMovementController.EnableRunGravity();
         }
 
         public override void SwitchToState(string p_StateType)

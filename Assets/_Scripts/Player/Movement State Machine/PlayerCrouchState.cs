@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Player
 {
@@ -21,6 +20,7 @@ namespace Player
             {
                 SwitchToState("Airborne");
             }
+            _playerMovementController.StartCoroutineCrouchDown();
         }
 
         public override void ExitState()
@@ -46,9 +46,15 @@ namespace Player
 
         protected override void CheckSwitchState()
         {
-            if (!_playerMovementController.inputManager.crouch)
+            if (!_playerMovementController.inputManager.crouch && _playerMovementController.inputManager.move != Vector2.zero)
             {
+                _playerMovementController.StarCoroutineStandUp();
                 currentSuperState.SwitchToState("Run");
+            }
+            else if (!_playerMovementController.inputManager.crouch && _playerMovementController.inputManager.move == Vector2.zero)
+            {
+                _playerMovementController.StarCoroutineStandUp();
+                currentSuperState.SwitchToState("Idle");
             }
         }
 

@@ -534,7 +534,8 @@ namespace Player
             {
                 verticalVelocity += currentGravity * Time.deltaTime;
             }
-            if (isRoofed)
+            //ceiling bounce
+            if (isRoofed && !isGrounded)
             {
                 verticalVelocity = -verticalVelocity;
             }

@@ -61,13 +61,17 @@ namespace Player
 
         protected override void CheckSwitchState()
         {
-            if (_playerMovementController.moveDirection != Vector3.zero)
+            if (_playerMovementController.inputDirection != Vector3.zero)
             {
                 currentSuperState.SwitchToState("Run");
             }
             else if (_playerMovementController.IsDashable() && _playerMovementController.inputManager.dash)
             {
                 currentSuperState.SwitchToState("Dash");
+            }
+            else if (_playerMovementController.inputManager.crouch && !_playerMovementController.IsSlideable())
+            {
+                currentSuperState.SwitchToState("Crouch");
             }
         }
 

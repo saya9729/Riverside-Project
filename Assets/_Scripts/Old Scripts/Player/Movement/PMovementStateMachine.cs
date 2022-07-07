@@ -10,12 +10,12 @@ namespace Player
         [NonSerialized] public InputManager inputManager;
         [NonSerialized] public PlayerSkillManager playerSkillManager;
 
-        [NonSerialized] public PlayerGroundedState playerGroundedState;
+        //[NonSerialized] public PlayerGroundedState playerGroundedState;
         [NonSerialized] public PlayerCrouchState playerCrouchState;
-        [NonSerialized] public PlayerJumpState playerJumpState;
-        [NonSerialized] public PlayerIdleMovementState playerIdleMovementState;
+        //[NonSerialized] public PlayerJumpState playerJumpState;
+        //[NonSerialized] public PlayerIdleMovementState playerIdleMovementState;
         [NonSerialized] public PlayerRunWhileGroundedState playerRunState;
-        [NonSerialized] public PlayerDodgeState playerDodgeState;
+        //[NonSerialized] public PlayerDodgeState playerDodgeState;
 
         private void Start()
         {
@@ -24,7 +24,7 @@ namespace Player
             InitializeState();
 
 
-            _currentState = playerIdleMovementState;
+            //_currentState = playerIdleMovementState;
             _currentState.EnterState();
         }
 
@@ -37,11 +37,11 @@ namespace Player
 
         void InitializeState()
         {
-            playerIdleMovementState = GetComponent<PlayerIdleMovementState>();
+            //playerIdleMovementState = GetComponent<PlayerIdleMovementState>();
             playerRunState = GetComponent<PlayerRunWhileGroundedState>();
-            playerJumpState = GetComponent<PlayerJumpState>();
+            //playerJumpState = GetComponent<PlayerJumpState>();
             playerCrouchState = GetComponent<PlayerCrouchState>();
-            playerDodgeState = GetComponent<PlayerDodgeState>();
+            //playerDodgeState = GetComponent<PlayerDodgeState>();
         }
 
         private void FixedUpdate()

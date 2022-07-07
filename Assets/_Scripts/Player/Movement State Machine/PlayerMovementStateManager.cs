@@ -545,8 +545,9 @@ namespace Player
             {
                 if (isGrounded && inputManager.IsButtonDownThisFrame("Jump"))
                 {
+                    DisableSlideGravity();
                     // the square root of H * -2 * G = how much velocity needed to reach desired height
-                    verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * currentGravity);
+                    verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
 
                     //Audio
                     AudioInterface.PlayAudio("jump");
@@ -554,7 +555,7 @@ namespace Player
                 else if (isDoubleJumpable && inputManager.IsButtonDownThisFrame("Jump"))
                 {
                     // the square root of H * -2 * G = how much velocity needed to reach desired height
-                    verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * currentGravity);
+                    verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
                     DisableDoubleJump();
                     SetAirborneInertiaDirectionWhileDoubleJump();
 

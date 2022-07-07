@@ -310,7 +310,8 @@ namespace Player
             {
                 Gizmos.color = transparentRed;
             }
-            Gizmos.DrawRay(new Vector3(transform.position.x, transform.position.y + characterController.height + roofedOffset, transform.position.z), Vector3.up * roofedDistance);
+            Vector3 rayPosition = new Vector3(transform.position.x, transform.position.y + characterController.height + roofedOffset, transform.position.z);
+            Gizmos.DrawRay(rayPosition, Vector3.up * roofedDistance);
 
 
         }
@@ -533,6 +534,10 @@ namespace Player
             {
                 verticalVelocity += currentGravity * Time.deltaTime;
             }
+            if (isRoofed)
+            {
+                verticalVelocity = -verticalVelocity;
+            }
         }
         private void Jump()
         {
@@ -541,7 +546,7 @@ namespace Player
                 if (isGrounded && inputManager.IsButtonDownThisFrame("Jump"))
                 {
                     // the square root of H * -2 * G = how much velocity needed to reach desired height
-                    verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
+                    verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * currentGravity);
 
                     //Audio
                     AudioInterface.PlayAudio("jump");
@@ -549,7 +554,7 @@ namespace Player
                 else if (isDoubleJumpable && inputManager.IsButtonDownThisFrame("Jump"))
                 {
                     // the square root of H * -2 * G = how much velocity needed to reach desired height
-                    verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
+                    verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * currentGravity);
                     DisableDoubleJump();
                     SetAirborneInertiaDirectionWhileDoubleJump();
 

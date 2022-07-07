@@ -301,6 +301,18 @@ namespace Player
 
             // when selected, draw a gizmo in the position of, and matching radius of, the grounded collider
             Gizmos.DrawCube(boxPosition, groundedBoxDimention * 2);
+
+            if (isRoofed)
+            {
+                Gizmos.color = transparentGreen;
+            }
+            else
+            {
+                Gizmos.color = transparentRed;
+            }
+            Gizmos.DrawRay(new Vector3(transform.position.x, transform.position.y + characterController.height + roofedOffset, transform.position.z), Vector3.up * roofedDistance);
+
+
         }
         #endregion
 
@@ -497,7 +509,7 @@ namespace Player
         private void CheckRoofed()
         {
             // set sphere position, with offset
-            Vector3 rayPosition = new Vector3(transform.position.x, transform.position.y + roofedOffset, transform.position.z);
+            Vector3 rayPosition = new Vector3(transform.position.x, transform.position.y + characterController.height + roofedOffset, transform.position.z);
             isRoofed = Physics.Raycast(rayPosition, Vector3.up, roofedDistance, roofedLayers, QueryTriggerInteraction.Ignore);
         }
         private void HandleRunInput()

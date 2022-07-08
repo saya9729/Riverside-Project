@@ -51,7 +51,7 @@ namespace Player
             if (_countKey >= keyNumbers)
             {
                 isInteractable = true;
-                platform[0].SetActive(true);
+                platform[0].SetActive(!platform[0].activeSelf);
             }
             else
             {

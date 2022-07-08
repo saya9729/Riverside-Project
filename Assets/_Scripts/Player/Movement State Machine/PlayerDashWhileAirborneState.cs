@@ -7,25 +7,15 @@ namespace Player
         private PlayerMovementStateManager _playerMovementController;
         public override void EnterState()
         {
-            DisableStepOffset();
+            _playerMovementController.DisableStepOffset();
             _playerMovementController.SetDashDirection();
             _playerMovementController.SetAirborneInertiaDirectionWhileDash();
             _playerMovementController.DisableGravity();
         }
-
-        private void DisableStepOffset()
-        {
-            _playerMovementController.DisableStepOffset();
-        }
-        private void EnableStepOffset()
-        {
-            _playerMovementController.EnableStepOffset();
-        }
-
         public override void ExitState()
         {
-            EnableStepOffset();
-            _playerMovementController.EnableGravity();
+            _playerMovementController.EnableStepOffset();
+            _playerMovementController.EnableRunGravity();
         }
 
         public override void SwitchToState(string p_StateType)
@@ -63,6 +53,7 @@ namespace Player
         protected override void UpdateThisState()
         {
             CheckSwitchState();
+            _playerMovementController.MoveWhileDash();
         }
 
         protected override void InitializeVariable()

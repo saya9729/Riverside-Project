@@ -65,6 +65,14 @@ namespace Player
             {
                 currentSuperState.SwitchToState("Run");
             }
+            else if (_playerMovementController.IsDashable() && _playerMovementController.inputManager.dash)
+            {
+                currentSuperState.SwitchToState("Dash");
+            }
+            else if (_playerMovementController.inputManager.crouch && !_playerMovementController.IsSlideable())
+            {
+                currentSuperState.SwitchToState("Crouch");
+            }
         }
 
         protected override void InitializeComponent()

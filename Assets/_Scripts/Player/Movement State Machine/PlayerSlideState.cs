@@ -12,14 +12,14 @@ namespace Player
         private PlayerSlideWhileAirborneState _playerSlideWhileAirborneState;
         public override void EnterState()
         {
-            _playerMovementController.DisableInput();
+            _playerMovementController.SetSlideDirection();
             SwitchToState("Grounded");
+            _playerMovementController.StartCoroutineCrouchDown();
         }
 
         public override void ExitState()
         {
-            _playerMovementController.StopCoroutineSlideState();
-            _playerMovementController.EnableInput();
+            
         }
 
         public override void SwitchToState(string p_stateType)
@@ -42,10 +42,12 @@ namespace Player
         {
             if (!_playerMovementController.inputManager.crouch)
             {
+                _playerMovementController.StarCoroutineStandUp();
                 currentSuperState.SwitchToState("Run");
             }
             else if (_playerMovementController.IsDashable() && _playerMovementController.inputManager.dash)
             {
+                _playerMovementController.StarCoroutineStandUp();
                 currentSuperState.SwitchToState("Dash");
             }
         }

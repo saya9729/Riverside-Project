@@ -1351,6 +1351,9 @@ GameObject:
   - component: {fileID: 371761669073974169}
   - component: {fileID: 7068937514797835452}
   - component: {fileID: 952189984}
+  - component: {fileID: 3003289635027532452}
+  - component: {fileID: 5909370339120659369}
+  - component: {fileID: 1114245748727046708}
   m_Layer: 3
   m_Name: MainPlayer
   m_TagString: Player
@@ -1407,14 +1410,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentSuperState: {fileID: 0}
   currentSubState: {fileID: 0}
-  runWhileGroundedSpeed: 8
-  runWhileAirborneSpeed: 5
-  slideFastSpeed: 6
-  slideSlowSpeed: 6
-  slideFastDuration: 1
-  jumpBoostSpeed: 5
+  runSpeed: 8
+  slideThresholdSpeed: 7.5
+  slideSpeed: 15
+  slideDuration: 1
+  slideJumpSpeed: 20
+  crouchSpeed: 4
   speedChangeRate: 6
   rotationSpeed: 1
+  airborneSteeringRate: 5
   dashSpeed: 60
   dashDuration: 0.1
   dashCooldown: 0.2
@@ -1439,11 +1443,13 @@ MonoBehaviour:
   currentSpeed: 0
   targetSpeed: 0
   verticalVelocity: 0
+  moveDirection: {x: 0, y: 0, z: 0}
   airborneInertiaDirection: {x: 0, y: 0, z: 0}
   dashDirection: {x: 0, y: 0, z: 0}
   currentGravity: -15
-  isDashable: 1
+  isAllowInput: 1
   isJumpable: 1
+  isDashable: 1
   isDoubleJumpable: 1
   isInDashState: 0
   isInDashChargeCooldown: 0
@@ -1608,7 +1614,6 @@ MonoBehaviour:
   jump: 0
   dash: 0
   crouch: 0
-  slide: 0
   analogMovement: 0
   interact: 0
   pressInteractDown: 0
@@ -2122,6 +2127,48 @@ MonoBehaviour:
     m_Bits: 64
   canPush: 1
   strength: 1.1
+--- !u!114 &3003289635027532452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4261174648672795352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b51be3ac0c2a69940a356cfef1cc2792, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentSuperState: {fileID: 0}
+  currentSubState: {fileID: 0}
+--- !u!114 &5909370339120659369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4261174648672795352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b0f6d55fc1a26f4cb8d7b0d5790e7ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentSuperState: {fileID: 0}
+  currentSubState: {fileID: 0}
+--- !u!114 &1114245748727046708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4261174648672795352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 822c8df1c21efc94da1753af38f05339, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentSuperState: {fileID: 0}
+  currentSubState: {fileID: 0}
 --- !u!1 &4261174648711154787
 GameObject:
   m_ObjectHideFlags: 0

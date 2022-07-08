@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Enemy
@@ -14,12 +12,12 @@ namespace Enemy
         public GameObject particleSpark;
         public GameObject particleBlood;
 
-        void Start()
+        private void Start()
         {
             _enemyStateManager = GetComponentInParent<EnemyStateManager>();
         }
 
-        void OnCollisionEnter(Collision collisionInfo)
+        private void OnCollisionEnter(Collision collisionInfo)
         {
             if (collisionInfo.collider.CompareTag(playerAttackHitboxTag)) //collide with player attack's collider which has this tag
             {
@@ -32,18 +30,35 @@ namespace Enemy
                 AudioInterface.PlayAudio("enemyHit");
 
                 _damageManager = collisionInfo.collider.gameObject.GetComponentInParent<Universal.AttackManager>();
-               
+
                 if (_damageManager)
                 {
                     _enemyStateManager.ReceiveDamage(_damageManager.DealDamage());
                     //Debug.Log("received " + _damageManager.GetDamage() + " dmg");
                 }
-                else 
-                { 
+                else
+                {
                     //Debug.Log("Damage not assigned to attack source."); 
                 }
 
                 //Debug.Log("current HP: " + _playerStatisticManager.GetHealth());
+            }
+        }
+        private void OnTriggerEnter(Collider p_collider)
+        {
+            if (p_collider.CompareTag(playerAttackHitboxTag))
+            {
+                //reset _damageManager
+                _damageManager = null;
+                _damageManager =p_collider.GetComponentInParent<Universal.AttackManager>();
+                try
+                {
+                    _enemyStateManager.ReceiveDamage(_damageManager.DealDamage());
+                }
+                catch
+                {
+                    Debug.Log("Damage not assigned to attack source."); 
+                }
             }
         }
     }

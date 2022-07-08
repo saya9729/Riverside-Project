@@ -26,7 +26,7 @@ namespace Enemy
         private EnemyStatisticManager _enemyStatisticManager;
         private RagdollManager _ragdollManager;
         [NonSerialized] public Universal.AttackManager enemyAttackManager;
-        [NonSerialized] public Animator animator;        
+        [NonSerialized] public Animator animator;
         [NonSerialized] public NavMeshAgent navMeshAgent;
         private Rigidbody _rigidbody;
 
@@ -74,7 +74,7 @@ namespace Enemy
             DisableRagdoll();
             enemyAttackManager = GetComponent<Universal.AttackManager>();
             DisableAttackHitbox();
-            _rigidbody= GetComponent<Rigidbody>();
+            _rigidbody = GetComponent<Rigidbody>();
         }
 
         public void ReceiveDamage(float p_damage)
@@ -103,12 +103,12 @@ namespace Enemy
 
         protected override void UpdateThisState()
         {
-            
+
         }
 
         protected override void PhysicsUpdateThisState()
         {
-            
+
         }
 
         public override void ExitState()
@@ -126,10 +126,10 @@ namespace Enemy
             switch (p_stateType)
             {
                 case "DeadState":
-                    if (currentSubState!= _enemyDeadState)
+                    if (currentSubState != _enemyDeadState)
                     {
                         SetSubState(_enemyDeadState);
-                    }                    
+                    }
                     break;
                 case "PatrolState":
                     SetSubState(_enemyPatrolState);
@@ -139,10 +139,10 @@ namespace Enemy
                     break;
                 case "AttackState":
                     SetSubState(_enemyAttackState);
-                    break;                
+                    break;
                 case "WaitState":
                     SetSubState(_enemyWaitState);
-                    break;                
+                    break;
                 default:
                     break;
             }
@@ -168,7 +168,6 @@ namespace Enemy
         {
             enemyAttackManager.EnableHitbox();
         }
-        
 
         public bool IsPlayerInAttackRange()
         {
@@ -180,6 +179,7 @@ namespace Enemy
         }
         public bool IsPlayerInAggroRange()
         {
+            // TODO: optimization Physics.CheckSphere vs Vector3.Distance
             return Vector3.Distance(transform.position, player.transform.position) < aggroRange;
         }
 

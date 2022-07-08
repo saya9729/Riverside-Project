@@ -13,6 +13,7 @@ namespace Enemy
 
         public GameObject particleSpark;
         public GameObject particleBlood;
+        public BloodScreenManager bloodScreenManager;
 
         void Start()
         {
@@ -30,6 +31,7 @@ namespace Enemy
                 Instantiate(particleSpark, hitPoint.point, Quaternion.Euler(hitPoint.normal));
                 Instantiate(particleBlood, hitPoint.point, Quaternion.Euler(hitPoint.normal));
                 AudioInterface.PlayAudio("enemyHit");
+                bloodScreenManager.Play();
 
                 _damageManager = collisionInfo.collider.gameObject.GetComponentInParent<Universal.AttackManager>();
                

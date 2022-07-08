@@ -9,8 +9,8 @@ public class ImageController : MonoBehaviour
 
     private bool isDisplaying = false;
 
-    [SerializeField] float alphaDecreaseSpeed = 0.4f;
-    [SerializeField] float defaultAlpha = 0.9f;
+    [SerializeField] private float alphaDecreaseSpeed = 0.4f;
+    [SerializeField] private float defaultAlpha = 0.9f;
 
     void Start()
     {
@@ -31,7 +31,6 @@ public class ImageController : MonoBehaviour
         if (img.color.a > 0.05f)
         {
             tempColor2.a -= Time.deltaTime * alphaDecreaseSpeed;
-            Debug.Log(img.color.a);
         }
         else
         {

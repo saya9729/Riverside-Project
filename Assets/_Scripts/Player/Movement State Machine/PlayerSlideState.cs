@@ -40,15 +40,22 @@ namespace Player
 
         protected override void CheckSwitchState()
         {
-            if (!_playerMovementController.inputManager.crouch)
+            if (!_playerMovementController.isRoofed)
             {
-                _playerMovementController.StarCoroutineStandUp();
-                currentSuperState.SwitchToState("Run");
+                if (!_playerMovementController.inputManager.crouch)
+                {
+                    _playerMovementController.StarCoroutineStandUp();
+                    currentSuperState.SwitchToState("Run");
+                }
+                else if (_playerMovementController.IsDashable() && _playerMovementController.inputManager.dash)
+                {
+                    _playerMovementController.StarCoroutineStandUp();
+                    currentSuperState.SwitchToState("Dash");
+                }
             }
-            else if (_playerMovementController.IsDashable() && _playerMovementController.inputManager.dash)
+            else
             {
-                _playerMovementController.StarCoroutineStandUp();
-                currentSuperState.SwitchToState("Dash");
+                
             }
         }
 

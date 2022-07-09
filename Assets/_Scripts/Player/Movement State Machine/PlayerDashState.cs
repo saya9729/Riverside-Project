@@ -12,6 +12,8 @@ namespace Player
         public override void EnterState()
         {
             _playerMovementController.StartCoroutineDashState();
+            _playerMovementController.EnableAttackHitbox();
+            _playerMovementController.EnablePhaseThroughEnemy();
 
             if (_playerMovementController.isGrounded)
             {
@@ -25,7 +27,8 @@ namespace Player
 
         public override void ExitState()
         {
-
+            _playerMovementController.DisableAttackHitbox();
+            _playerMovementController.DisablePhaseThroughEnemy();
         }
 
         public override void SwitchToState(string p_stateType)

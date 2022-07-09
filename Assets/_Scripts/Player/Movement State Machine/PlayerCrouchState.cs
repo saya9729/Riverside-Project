@@ -46,15 +46,22 @@ namespace Player
 
         protected override void CheckSwitchState()
         {
-            if (!_playerMovementController.inputManager.crouch && _playerMovementController.inputManager.move != Vector2.zero)
+            if (!_playerMovementController.isRoofed)
             {
-                _playerMovementController.StarCoroutineStandUp();
-                currentSuperState.SwitchToState("Run");
+                if (!_playerMovementController.inputManager.crouch && _playerMovementController.inputManager.move != Vector2.zero)
+                {
+                    _playerMovementController.StarCoroutineStandUp();
+                    currentSuperState.SwitchToState("Run");
+                }
+                else if (!_playerMovementController.inputManager.crouch && _playerMovementController.inputManager.move == Vector2.zero)
+                {
+                    _playerMovementController.StarCoroutineStandUp();
+                    currentSuperState.SwitchToState("Idle");
+                }
             }
-            else if (!_playerMovementController.inputManager.crouch && _playerMovementController.inputManager.move == Vector2.zero)
+            else
             {
-                _playerMovementController.StarCoroutineStandUp();
-                currentSuperState.SwitchToState("Idle");
+                
             }
         }
 

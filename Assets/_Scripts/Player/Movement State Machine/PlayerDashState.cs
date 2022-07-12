@@ -23,10 +23,13 @@ namespace Player
             {
                 SwitchToState("Airborne");
             }
+
+            _playerMovementController.ResetTimeElapsed();
         }
 
         public override void ExitState()
         {
+            _playerMovementController.StarCoroutineRevertFOV();
             _playerMovementController.DisableAttackHitbox();
             _playerMovementController.DisablePhaseThroughEnemy();
         }
@@ -79,6 +82,7 @@ namespace Player
         protected override void UpdateThisState()
         {
             CheckSwitchState();
+            _playerMovementController.UpdateFOV();
         }
     }
 }

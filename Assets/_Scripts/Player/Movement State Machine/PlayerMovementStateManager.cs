@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Cinemachine;
 
 namespace Player
 {
@@ -34,7 +35,7 @@ namespace Player
         [Space]
         [Header("Crouch")]
         [Tooltip("Crouch speed of the character in m/s")]
-        [SerializeField] private float crouchSpeed = 6.0f;        
+        [SerializeField] private float crouchSpeed = 6.0f;
 
         [Space]
         [Header("Dash")]
@@ -44,15 +45,20 @@ namespace Player
         [SerializeField] private float dashDuration = 0.25f;
         [Tooltip("Time required to pass before being able to dash again")]
         [SerializeField] private float dashCooldown = 1f;
-        
+
         [SerializeField] private int dashMaxChargeCount = 2;
-        
+
         [SerializeField] private float dashChargeCooldown = 1f;
 
         [SerializeField] private float dashDistanceWhileTimeSlowMultiflier = 1f;
 
         [SerializeField] private string playerPhaseLayerName = "PlayerPhase";
 
+        private CinemachineVirtualCamera _cinemachineVirtualCamera;
+        private float _originFOV = 90f;
+        public float targetFOV = 135f;
+        public float FOVDecreaseSpeed = 100f;
+        public float timeElapsed = 0f;
 
         [Space]
         [Header("Change rate")]
@@ -62,7 +68,7 @@ namespace Player
         [SerializeField] private float rotationSpeed = 1.0f;
 
         [SerializeField] private float airborneSteeringRate = 1f;
-        
+
         [Space]
         [Header("Jump")]
         [Tooltip("The height the player can jump")]
@@ -85,7 +91,7 @@ namespace Player
         [SerializeField] private float crouchHeight = 1.6f;
         [SerializeField] private Vector3 crouchCenter = new Vector3(0, 0.93f, 0);
         [SerializeField] private float timeToCrouch = 0.25f;
-        
+
         [Space]
         [Header("Player Grounded")]
         [Tooltip("If the character is grounded or not. Not part of the CharacterController built in grounded check")]
@@ -96,14 +102,14 @@ namespace Player
         [SerializeField] private Vector3 groundedBoxDimention = new Vector3(1, 1, 1);
         [Tooltip("What layers the character uses as ground")]
         [SerializeField] private LayerMask groundLayers;
-        
+
         [Space]
         [Header("Player Roofed")]
         public bool isRoofed = true;
         [SerializeField] private float roofedOffset = 1.94f;
         [SerializeField] private float roofedDistance = 0.22f;
         [SerializeField] private LayerMask roofedLayers;
-        
+
         [Space]
         [Header("Cinemachine")]
         [Tooltip("The follow target set in the Cinemachine Virtual Camera that the camera will follow")]
@@ -111,12 +117,13 @@ namespace Player
         [Tooltip("How far in degrees can you move the camera up")]
         [SerializeField] private float topClamp = 90.0f;
         [Tooltip("How far in degrees can you move the camera down")]
+
         [SerializeField] private float bottomClamp = -90.0f;
-        
+
         [Space]
         [Header("Particle")]
         [SerializeField] private GameObject particleDash;
-        
+
         [Space]
         //input direction
         public Vector3 inputDirection;
@@ -130,7 +137,7 @@ namespace Player
 
         private float _rotationVelocity;
         private float verticalVelocity;
-        
+
         private Vector3 airborneInertiaDirection = Vector3.zero;
         private Vector3 slideDirection = Vector3.zero;
         private Vector3 dashDirection = Vector3.zero;
@@ -214,7 +221,12 @@ namespace Player
             originalCharacterHeight = characterController.height;
             originalCharacterCenter = characterController.center;
             originalCamHolderHeight = cinemachineCameraTarget.transform.localPosition.y;
+
+            _cinemachineVirtualCamera = FindObjectOfType<CinemachineVirtualCamera>();
+            _originFOV = _cinemachineVirtualCamera.m_Lens.FieldOfView;
+
             originalPlayerLayer = gameObject.layer;
+
         }
         private void onDodgePress()
         {
@@ -281,7 +293,7 @@ namespace Player
         #endregion
 
         #region Unity functions
-        
+
         private void Update()
         {
             UpdateAllState();
@@ -457,7 +469,14 @@ namespace Player
         {
             inputDirection = Vector3.zero;
         }
-
+        public void UpdateFOV()
+        {
+            if (timeElapsed < dashDuration)
+            {
+                _cinemachineVirtualCamera.m_Lens.FieldOfView = Mathf.Lerp(_originFOV, targetFOV, timeElapsed / dashDuration);
+                timeElapsed += Time.deltaTime;
+            }
+        }
         public void StartCoroutineDashState()
         {
             dashCurrentCount -= 1;
@@ -524,6 +543,14 @@ namespace Player
             _standUpCoroutine = StandUp();
             StopCoroutine(_crouchDownCoroutine);
             StartCoroutine(_standUpCoroutine);
+        }
+        public void StarCoroutineRevertFOV()
+        {
+            StartCoroutine(RevertFOV());
+        }
+        public void ResetTimeElapsed()
+        {
+            timeElapsed = 0f;
         }
 
         #endregion
@@ -697,7 +724,7 @@ namespace Player
         }
 
         private IEnumerator StartDashDuration()
-        {            
+        {
             isDashable = false;
             isInDashState = true;
             if (particleDash)
@@ -726,6 +753,20 @@ namespace Player
             isInDashState = false;
             ResetDashDirection();
             StartCoroutine(StartDashCooldown());
+        }
+
+        private IEnumerator RevertFOV()
+        {
+            while (_cinemachineVirtualCamera.m_Lens.FieldOfView > _originFOV)
+            {
+                _cinemachineVirtualCamera.m_Lens.FieldOfView -= Time.deltaTime * FOVDecreaseSpeed;
+                yield return null;
+            }
+
+            if (_cinemachineVirtualCamera.m_Lens.FieldOfView != _originFOV)
+            {
+                _cinemachineVirtualCamera.m_Lens.FieldOfView = _originFOV;
+            }
         }
 
         private IEnumerator StartSlideDuration()

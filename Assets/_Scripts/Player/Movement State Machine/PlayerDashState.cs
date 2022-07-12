@@ -11,7 +11,6 @@ namespace Player
         private PlayerDashWhileAirborneState _playerDashWhileAirborneState;
         public override void EnterState()
         {
-            _playerMovementController.timeElapsed = 0f;
             _playerMovementController.StartCoroutineDashState();
             _playerMovementController.EnableAttackHitbox();
             _playerMovementController.EnablePhaseThroughEnemy();
@@ -24,6 +23,8 @@ namespace Player
             {
                 SwitchToState("Airborne");
             }
+
+            _playerMovementController.ResetTimeElapsed();
         }
 
         public override void ExitState()

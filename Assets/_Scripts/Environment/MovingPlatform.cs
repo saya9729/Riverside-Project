@@ -32,20 +32,18 @@ namespace GameEnvironment
 
             transform.position = Vector3.MoveTowards(transform.position, waypoints[_currentWaypointIndex].transform.position, movingPlatformSpeed * Time.deltaTime);
         }
-        private void OnTriggerEnter(Collider other)
+        private void OnTriggerEnter(Collider p_other)
         {
-            if (other.CompareTag("Player"))
+            if (p_other.CompareTag("Player"))
             {
-                Debug.Log("Enter after");
-                other.gameObject.transform.SetParent(transform);
+                p_other.gameObject.transform.SetParent(transform);
             }
         }
-        private void OnTriggerExit(Collider other)
+        private void OnTriggerExit(Collider p_other)
         {
-            if (other.gameObject.tag == "Player")
+            if (p_other.CompareTag("Player"))
             {
-                Debug.Log("Exit after");
-                other.gameObject.transform.SetParent(_playerOldParrent);
+                p_other.gameObject.transform.SetParent(_playerOldParrent);
             }
         }
     }

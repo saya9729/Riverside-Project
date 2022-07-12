@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Cinemachine;
 
 namespace Player
 {
@@ -101,6 +102,12 @@ namespace Player
 
         public GameObject particleDash;
 
+        private CinemachineVirtualCamera _cinemachineVirtualCamera;
+        private float originFOV = 90f;
+        public float targetFOV = 135f;
+        public float FOVDecreaseSpeed = 100f;
+        public float timeElapsed = 0f;
+
         //input direction
         public Vector3 inputDirection;
 
@@ -196,6 +203,8 @@ namespace Player
             originalCharacterHeight = characterController.height;
             originalCharacterCenter = characterController.center;
             originalCamHolderHeight = cinemachineCameraTarget.transform.localPosition.y;
+            _cinemachineVirtualCamera = FindObjectOfType<CinemachineVirtualCamera>();
+            originFOV = _cinemachineVirtualCamera.m_Lens.FieldOfView;
         }
         private void onDodgePress()
         {
@@ -416,7 +425,14 @@ namespace Player
         {
             inputDirection = Vector3.zero;
         }
-
+        public void UpdateFOV()
+        {
+            if (timeElapsed < dashDuration)
+            {
+                _cinemachineVirtualCamera.m_Lens.FieldOfView = Mathf.Lerp(originFOV, targetFOV, timeElapsed / dashDuration);
+                timeElapsed += Time.deltaTime;
+            }
+        }
         public void StartCoroutineDashState()
         {
             dashCurrentCount -= 1;
@@ -483,6 +499,10 @@ namespace Player
             _standUpCoroutine = StandUp();
             StopCoroutine(_crouchDownCoroutine);
             StartCoroutine(_standUpCoroutine);
+        }
+        public void StarCoroutineRevertFOV()
+        {
+            StartCoroutine(RevertFOV());
         }
 
         #endregion
@@ -679,6 +699,20 @@ namespace Player
             isInDashState = false;
             ResetDashDirection();
             StartCoroutine(StartDashCooldown());
+        }
+
+        private IEnumerator RevertFOV()
+        {
+            while (_cinemachineVirtualCamera.m_Lens.FieldOfView > originFOV)
+            {
+                _cinemachineVirtualCamera.m_Lens.FieldOfView -= Time.deltaTime * FOVDecreaseSpeed;
+                yield return null;
+            }
+
+            if (_cinemachineVirtualCamera.m_Lens.FieldOfView != originFOV)
+            {
+                _cinemachineVirtualCamera.m_Lens.FieldOfView = originFOV;
+            }
         }
 
         private IEnumerator StartSlideDuration()

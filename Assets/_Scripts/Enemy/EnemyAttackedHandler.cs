@@ -10,14 +10,15 @@ namespace Enemy
 
         private Universal.AttackManager _damageManager;
         private EnemyStateManager _enemyStateManager;
+        private BloodScreenManager _bloodScreenManager;
 
         public GameObject particleSpark;
         public GameObject particleBlood;
-        public BloodScreenManager bloodScreenManager;
 
         void Start()
         {
             _enemyStateManager = GetComponentInParent<EnemyStateManager>();
+            _bloodScreenManager = FindObjectOfType<BloodScreenManager>();
         }
 
         void OnCollisionEnter(Collision collisionInfo)
@@ -31,17 +32,21 @@ namespace Enemy
                 Instantiate(particleSpark, hitPoint.point, Quaternion.Euler(hitPoint.normal));
                 Instantiate(particleBlood, hitPoint.point, Quaternion.Euler(hitPoint.normal));
                 AudioInterface.PlayAudio("enemyHit");
-                bloodScreenManager.Play();
+
+                if (_bloodScreenManager)
+                {
+                    _bloodScreenManager.Play();
+                }
 
                 _damageManager = collisionInfo.collider.gameObject.GetComponentInParent<Universal.AttackManager>();
-               
+
                 if (_damageManager)
                 {
                     _enemyStateManager.ReceiveDamage(_damageManager.DealDamage());
                     //Debug.Log("received " + _damageManager.GetDamage() + " dmg");
                 }
-                else 
-                { 
+                else
+                {
                     //Debug.Log("Damage not assigned to attack source."); 
                 }
 

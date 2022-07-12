@@ -11,6 +11,7 @@ namespace Player
         private PlayerDashWhileAirborneState _playerDashWhileAirborneState;
         public override void EnterState()
         {
+            _playerMovementController.timeElapsed = 0f;
             _playerMovementController.StartCoroutineDashState();
 
             if (_playerMovementController.isGrounded)
@@ -25,7 +26,7 @@ namespace Player
 
         public override void ExitState()
         {
-
+            _playerMovementController.StarCoroutineRevertFOV();
         }
 
         public override void SwitchToState(string p_stateType)
@@ -76,6 +77,7 @@ namespace Player
         protected override void UpdateThisState()
         {
             CheckSwitchState();
+            _playerMovementController.UpdateFOV();
         }
     }
 }

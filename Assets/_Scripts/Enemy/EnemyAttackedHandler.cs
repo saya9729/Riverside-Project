@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Enemy
@@ -14,14 +12,15 @@ namespace Enemy
 
         public GameObject particleSpark;
         public GameObject particleBlood;
+        public BloodScreenManager bloodScreenManager;
 
-        void Start()
+        private void Start()
         {
             _enemyStateManager = GetComponentInParent<EnemyStateManager>();
             _bloodScreenManager = FindObjectOfType<BloodScreenManager>();
         }
 
-        void OnCollisionEnter(Collision collisionInfo)
+        private void OnCollisionEnter(Collision collisionInfo)
         {
             if (collisionInfo.collider.CompareTag(playerAttackHitboxTag)) //collide with player attack's collider which has this tag
             {
@@ -32,6 +31,7 @@ namespace Enemy
                 Instantiate(particleSpark, hitPoint.point, Quaternion.Euler(hitPoint.normal));
                 Instantiate(particleBlood, hitPoint.point, Quaternion.Euler(hitPoint.normal));
                 AudioInterface.PlayAudio("enemyHit");
+                bloodScreenManager.Play();
 
                 if (_bloodScreenManager)
                 {
@@ -51,6 +51,23 @@ namespace Enemy
                 }
 
                 //Debug.Log("current HP: " + _playerStatisticManager.GetHealth());
+            }
+        }
+        private void OnTriggerEnter(Collider p_collider)
+        {
+            if (p_collider.CompareTag(playerAttackHitboxTag))
+            {
+                //reset _damageManager
+                _damageManager = null;
+                _damageManager =p_collider.GetComponentInParent<Universal.AttackManager>();
+                try
+                {
+                    _enemyStateManager.ReceiveDamage(_damageManager.DealDamage());
+                }
+                catch
+                {
+                    Debug.Log("Damage not assigned to attack source."); 
+                }
             }
         }
     }

@@ -19,88 +19,40 @@ namespace Player
     [RequireComponent(typeof(PlayerWallRunState))]
     public class PlayerMovementStateManager : AbstractClass.State
     {
-        [Header("Player")]
+        [Header("Run")]
         [Tooltip("Run speed of the character in m/s")]
-        public float runSpeed = 6.0f;
+        [SerializeField] private float runSpeed = 6.0f;
 
         [Space]
+        [Header("Slide")]
         [Tooltip("Speed of the character in m/s")]
-        public float slideThresholdSpeed = 6.0f;
-        public float slideSpeed = 6.0f;
-        public float slideDuration = 1f;
-        public float slideJumpSpeed = 20f;
-        public float slideGravity = -1000f;
+        [SerializeField] private float slideThresholdSpeed = 6.0f;
+        [SerializeField] private float slideSpeed = 6.0f;
+        [SerializeField] private float slideDuration = 1f;
+        [SerializeField] private float slideJumpSpeed = 20f;
+        [SerializeField] private float slideGravity = -1000f;
 
         [Space]
+        [Header("Crouch")]
         [Tooltip("Crouch speed of the character in m/s")]
-        public float crouchSpeed = 6.0f;
+        [SerializeField] private float crouchSpeed = 6.0f;        
 
         [Space]
-        [Tooltip("Acceleration and deceleration")]
-        public float speedChangeRate = 10.0f;
-        [Tooltip("Rotation speed of the character")]
-        public float rotationSpeed = 1.0f;
-
-        public float airborneSteeringRate = 1f;
-
-        [Space(10)]
+        [Header("Dash")]
         [Tooltip("Dash speed of the character in m/s")]
-        public float dashSpeed = 2f;
+        [SerializeField] private float dashSpeed = 2f;
         [Tooltip("Dashing duration of each dash")]
-        public float dashDuration = 0.25f;
+        [SerializeField] private float dashDuration = 0.25f;
         [Tooltip("Time required to pass before being able to dash again")]
-        public float dashCooldown = 1f;
+        [SerializeField] private float dashCooldown = 1f;
+        
+        [SerializeField] private int dashMaxChargeCount = 2;
+        
+        [SerializeField] private float dashChargeCooldown = 1f;
 
-        public float dashChargeCooldown = 1f;
+        [SerializeField] private float dashDistanceWhileTimeSlowMultiflier = 1f;
 
-        public float dashDistanceWhileTimeSlowMultiflier = 1f;
-
-        [Space(10)]
-        [Tooltip("The height the player can jump")]
-        public float jumpHeight = 1.2f;
-        [Tooltip("The character uses its own gravity value. The engine default is -9.81f")]
-        public float gravity = -15.0f;
-        //terminalVelocity must be negative
-        public float terminalVelocity = -53.0f;
-
-        [Space(10)]
-        [Tooltip("Time required to pass before being able to jump again. Set to 0f to instantly jump again")]
-        public float jumpCooldown = 0.1f;
-        [Tooltip("Time required to pass before entering the fall state. Useful for walking down stairs")]
-        public float airborneCooldown = 0.15f;
-
-        [Space(10)]
-        [Tooltip("Crouch height of character")]
-        public float crouchHeight = 1.6f;
-        public Vector3 crouchCenter = new Vector3(0, 0.93f, 0);
-        public float timeToCrouch = 0.25f;
-
-        [Header("Player Grounded")]
-        [Tooltip("If the character is grounded or not. Not part of the CharacterController built in grounded check")]
-        public bool isGrounded = true;
-        [Tooltip("Useful for rough ground")]
-        public float groundedOffset = -0.14f;
-
-        public Vector3 groundedBoxDimention = new Vector3(1, 1, 1);
-
-        [Tooltip("What layers the character uses as ground")]
-        public LayerMask groundLayers;
-
-        [Header("Player Roofed")]
-        public bool isRoofed = true;
-        public float roofedOffset = 1.94f;
-        public float roofedDistance = 0.22f;
-        public LayerMask roofedLayers;
-
-        [Header("Cinemachine")]
-        [Tooltip("The follow target set in the Cinemachine Virtual Camera that the camera will follow")]
-        public GameObject cinemachineCameraTarget;
-        [Tooltip("How far in degrees can you move the camera up")]
-        public float topClamp = 90.0f;
-        [Tooltip("How far in degrees can you move the camera down")]
-        public float bottomClamp = -90.0f;
-
-        public GameObject particleDash;
+        [SerializeField] private string playerPhaseLayerName = "PlayerPhase";
 
         private CinemachineVirtualCamera _cinemachineVirtualCamera;
         private float originFOV = 90f;
@@ -108,6 +60,71 @@ namespace Player
         public float FOVDecreaseSpeed = 100f;
         public float timeElapsed = 0f;
 
+        [Space]
+        [Header("Change rate")]
+        [Tooltip("Acceleration and deceleration")]
+        [SerializeField] private float speedChangeRate = 10.0f;
+        [Tooltip("Rotation speed of the character")]
+        [SerializeField] private float rotationSpeed = 1.0f;
+
+        [SerializeField] private float airborneSteeringRate = 1f;
+        
+        [Space]
+        [Header("Jump")]
+        [Tooltip("The height the player can jump")]
+        [SerializeField] private float jumpHeight = 1.2f;
+        [Tooltip("The character uses its own gravity value. The engine default is -9.81f")]
+        [SerializeField] private float gravity = -15.0f;
+        [Tooltip("Terminal Velocity must be negative")]
+        [SerializeField] private float terminalVelocity = -53.0f;
+
+        // Unused behaviors
+        //[Space]
+        //[Tooltip("Time required to pass before being able to jump again. Set to 0f to instantly jump again")]
+        //public float jumpCooldown = 0.1f;
+        //[Tooltip("Time required to pass before entering the fall state. Useful for walking down stairs")]
+        //public float airborneCooldown = 0.15f;
+
+        [Space]
+        [Header("Crouch")]
+        [Tooltip("Crouch height of character")]
+        [SerializeField] private float crouchHeight = 1.6f;
+        [SerializeField] private Vector3 crouchCenter = new Vector3(0, 0.93f, 0);
+        [SerializeField] private float timeToCrouch = 0.25f;
+        
+        [Space]
+        [Header("Player Grounded")]
+        [Tooltip("If the character is grounded or not. Not part of the CharacterController built in grounded check")]
+        public bool isGrounded = true;
+        [Tooltip("Useful for rough ground")]
+        [SerializeField] private float groundedOffset = -0.14f;
+
+        [SerializeField] private Vector3 groundedBoxDimention = new Vector3(1, 1, 1);
+        [Tooltip("What layers the character uses as ground")]
+        [SerializeField] private LayerMask groundLayers;
+        
+        [Space]
+        [Header("Player Roofed")]
+        public bool isRoofed = true;
+        [SerializeField] private float roofedOffset = 1.94f;
+        [SerializeField] private float roofedDistance = 0.22f;
+        [SerializeField] private LayerMask roofedLayers;
+        
+        [Space]
+        [Header("Cinemachine")]
+        [Tooltip("The follow target set in the Cinemachine Virtual Camera that the camera will follow")]
+        [SerializeField] private GameObject cinemachineCameraTarget;
+        [Tooltip("How far in degrees can you move the camera up")]
+        [SerializeField] private float topClamp = 90.0f;
+        [Tooltip("How far in degrees can you move the camera down")]
+
+        [SerializeField] private float bottomClamp = -90.0f;
+        
+        [Space]
+        [Header("Particle")]
+        [SerializeField] private GameObject particleDash;
+        
+        [Space]
         //input direction
         public Vector3 inputDirection;
 
@@ -115,42 +132,42 @@ namespace Player
         private float _cinemachineTargetPitch;
 
         // player stats
-        public float currentSpeed;
-        public float targetSpeed;
+        private float currentSpeed;
+        private float targetSpeed;
 
         private float _rotationVelocity;
-        public float verticalVelocity;
+        private float verticalVelocity;
+        
+        private Vector3 airborneInertiaDirection = Vector3.zero;
+        private Vector3 slideDirection = Vector3.zero;
+        private Vector3 dashDirection = Vector3.zero;
 
-        public Vector3 airborneInertiaDirection = Vector3.zero;
-        public Vector3 slideDirection = Vector3.zero;
-        public Vector3 dashDirection = Vector3.zero;
+        private float currentGravity = -15.0f;
 
-        public float currentGravity = -15.0f;
-
-        public bool isJumpable = true;
-        public bool isDashable = true;
-        public bool isDoubleJumpable = true;
+        private bool isAllowToJump = true;
+        private bool isDashable = true;
+        private bool isDoubleJumpable = true;
 
         public bool isInDashState = false;
-        public bool isInDashChargeCooldown = false;
-        public int dashMaxCount = 2;
-        public int dashCurrentCount = 2;
+        private bool isInDashChargeCooldown = false;
+        private int dashCurrentCount = 2;
 
         private float originalStepOffset;
         private float originalCharacterHeight;
         private Vector3 originalCharacterCenter;
         private float originalCamHolderHeight;
+        private LayerMask originalPlayerLayer;
 
         private IEnumerator _slideCoroutine;
         private IEnumerator _crouchDownCoroutine;
         private IEnumerator _standUpCoroutine;
 
-        public PlayerInput playerInput;
-        public CharacterController characterController;
+        private PlayerInput playerInput;
+        private CharacterController characterController;
         public InputManager inputManager;
-        public PlayerSkillManager playerSkillManager;
-        private GameObject _mainCamera;
-        private CapsuleCollider _capsuleCollider;
+        private PlayerSkillManager playerSkillManager;
+        private CapsuleCollider _characterCapsuleCollider;
+        private PlayerActionStateManager _playerActionStateManager;
 
         private const float _threshold = 0.01f;
 
@@ -190,7 +207,8 @@ namespace Player
             playerInput = GetComponent<PlayerInput>();
             inputManager = GetComponent<InputManager>();
             playerSkillManager = GetComponentInChildren<PlayerSkillManager>();
-            _capsuleCollider = GetComponent<CapsuleCollider>();
+            _characterCapsuleCollider = GetComponent<CapsuleCollider>();
+            _playerActionStateManager = GetComponent<PlayerActionStateManager>();
         }
 
         protected override void InitializeVariable()
@@ -203,8 +221,12 @@ namespace Player
             originalCharacterHeight = characterController.height;
             originalCharacterCenter = characterController.center;
             originalCamHolderHeight = cinemachineCameraTarget.transform.localPosition.y;
+
             _cinemachineVirtualCamera = FindObjectOfType<CinemachineVirtualCamera>();
             originFOV = _cinemachineVirtualCamera.m_Lens.FieldOfView;
+ 
+            originalPlayerLayer = gameObject.layer;
+
         }
         private void onDodgePress()
         {
@@ -271,14 +293,7 @@ namespace Player
         #endregion
 
         #region Unity functions
-        private void Awake()
-        {
-            // get a reference to our main camera
-            if (_mainCamera == null)
-            {
-                _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
-            }
-        }
+        
         private void Update()
         {
             UpdateAllState();
@@ -310,10 +325,39 @@ namespace Player
 
             // when selected, draw a gizmo in the position of, and matching radius of, the grounded collider
             Gizmos.DrawCube(boxPosition, groundedBoxDimention * 2);
+
+            if (isRoofed)
+            {
+                Gizmos.color = transparentGreen;
+            }
+            else
+            {
+                Gizmos.color = transparentRed;
+            }
+            Vector3 rayPosition = new Vector3(transform.position.x, transform.position.y + characterController.height + roofedOffset, transform.position.z);
+            Gizmos.DrawRay(rayPosition, Vector3.up * roofedDistance);
+
+
         }
         #endregion
 
-        #region API   
+        #region API
+        public void EnablePhaseThroughEnemy()
+        {
+            gameObject.layer = LayerMask.NameToLayer(playerPhaseLayerName);
+        }
+        public void DisablePhaseThroughEnemy()
+        {
+            gameObject.layer = originalPlayerLayer;
+        }
+        public void EnableAttackHitbox()
+        {
+            _playerActionStateManager.EnableAttackHitbox();
+        }
+        public void DisableAttackHitbox()
+        {
+            _playerActionStateManager.DisableAttackHitbox();
+        }
         public void SetSlideJumpTargetSpeed()
         {
             targetSpeed = slideJumpSpeed;
@@ -329,11 +373,11 @@ namespace Player
         }
         public void DisableJump()
         {
-            isJumpable = false;
+            isAllowToJump = false;
         }
         public void EnableJump()
         {
-            isJumpable = true;
+            isAllowToJump = true;
         }
         public void DisableDoubleJump()
         {
@@ -517,7 +561,7 @@ namespace Player
         private void CheckRoofed()
         {
             // set sphere position, with offset
-            Vector3 rayPosition = new Vector3(transform.position.x, transform.position.y + roofedOffset, transform.position.z);
+            Vector3 rayPosition = new Vector3(transform.position.x, transform.position.y + characterController.height + roofedOffset, transform.position.z);
             isRoofed = Physics.Raycast(rayPosition, Vector3.up, roofedDistance, roofedLayers, QueryTriggerInteraction.Ignore);
         }
         private void HandleRunInput()
@@ -541,13 +585,19 @@ namespace Player
             {
                 verticalVelocity += currentGravity * Time.deltaTime;
             }
+            //ceiling bounce
+            if (isRoofed && !isGrounded)
+            {
+                verticalVelocity = -verticalVelocity;
+            }
         }
         private void Jump()
         {
-            if (isJumpable)
+            if (isAllowToJump && !isRoofed)
             {
                 if (isGrounded && inputManager.IsButtonDownThisFrame("Jump"))
                 {
+                    DisableSlideGravity();
                     // the square root of H * -2 * G = how much velocity needed to reach desired height
                     verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
 
@@ -569,7 +619,7 @@ namespace Player
 
         private void CheckDashChargeCooldown()
         {
-            if (dashCurrentCount < dashMaxCount && !isInDashChargeCooldown && !isInDashState && isGrounded)
+            if (dashCurrentCount < dashMaxChargeCount && !isInDashChargeCooldown && !isInDashState && isGrounded)
             {
                 StartCoroutine(StartDashChargeCooldown());
             }
@@ -616,9 +666,9 @@ namespace Player
         // TODO: unused jump cooldown behavior
         //IEnumerator StartJumpCooldown()
         //{
-        //    isJumpable = false;
+        //    isAllowToJump = false;
         //    yield return new WaitForSeconds(jumpCooldown);
-        //    isJumpable = true;
+        //    isAllowToJump = true;
         //}
         //public void StartCoroutineStartJumpCooldown()
         //{
@@ -632,8 +682,8 @@ namespace Player
                 characterController.height = Mathf.Lerp(characterController.height, crouchHeight, timeElapsed / timeToCrouch);
                 characterController.center = Vector3.Lerp(characterController.center, crouchCenter, timeElapsed / timeToCrouch);
 
-                _capsuleCollider.height = characterController.height;
-                _capsuleCollider.center = characterController.center;
+                _characterCapsuleCollider.height = characterController.height;
+                _characterCapsuleCollider.center = characterController.center;
 
                 cinemachineCameraTarget.transform.localPosition = new Vector3(cinemachineCameraTarget.transform.localPosition.x, originalCamHolderHeight - (originalCharacterHeight - characterController.height), cinemachineCameraTarget.transform.localPosition.z);
                 timeElapsed += Time.deltaTime;
@@ -648,8 +698,8 @@ namespace Player
                 characterController.height = Mathf.Lerp(characterController.height, originalCharacterHeight, timeElapsed / timeToCrouch);
                 characterController.center = Vector3.Lerp(characterController.center, originalCharacterCenter, timeElapsed / timeToCrouch);
 
-                _capsuleCollider.height = characterController.height;
-                _capsuleCollider.center = characterController.center;
+                _characterCapsuleCollider.height = characterController.height;
+                _characterCapsuleCollider.center = characterController.center;
 
                 cinemachineCameraTarget.transform.localPosition = new Vector3(cinemachineCameraTarget.transform.localPosition.x, originalCamHolderHeight - (originalCharacterHeight - characterController.height), cinemachineCameraTarget.transform.localPosition.z);
                 timeElapsed += Time.deltaTime;
@@ -670,7 +720,7 @@ namespace Player
         }
 
         private IEnumerator StartDashDuration()
-        {
+        {            
             isDashable = false;
             isInDashState = true;
             if (particleDash)

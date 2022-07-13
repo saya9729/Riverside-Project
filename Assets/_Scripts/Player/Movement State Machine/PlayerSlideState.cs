@@ -11,8 +11,7 @@ namespace Player
         private PlayerSlideWhileGroundedState _playerSlideWhileGroundedState;
         private PlayerSlideWhileAirborneState _playerSlideWhileAirborneState;
         public override void EnterState()
-        {
-            _playerMovementController.SetSlideDirection();
+        {            
             SwitchToState("Grounded");
             _playerMovementController.StartCoroutineCrouchDown();
         }

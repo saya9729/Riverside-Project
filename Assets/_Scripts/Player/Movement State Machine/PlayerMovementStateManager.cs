@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Cinemachine;
 
 namespace Player
 {
@@ -53,6 +54,11 @@ namespace Player
 
         [SerializeField] private string playerPhaseLayerName = "PlayerPhase";
 
+        private CinemachineVirtualCamera _cinemachineVirtualCamera;
+        private float _originFOV = 90f;
+        public float targetFOV = 135f;
+        public float FOVDecreaseSpeed = 100f;
+        public float timeElapsed = 0f;
 
         [Space]
         [Header("Change rate")]
@@ -113,6 +119,7 @@ namespace Player
         [Tooltip("How far in degrees can you move the camera up")]
         [SerializeField] private float topClamp = 90.0f;
         [Tooltip("How far in degrees can you move the camera down")]
+
         [SerializeField] private float bottomClamp = -90.0f;
 
         [Space]
@@ -216,7 +223,12 @@ namespace Player
             originalCharacterHeight = characterController.height;
             originalCharacterCenter = characterController.center;
             originalCamHolderHeight = cinemachineCameraTarget.transform.localPosition.y;
+
+            _cinemachineVirtualCamera = FindObjectOfType<CinemachineVirtualCamera>();
+            _originFOV = _cinemachineVirtualCamera.m_Lens.FieldOfView;
+
             originalPlayerLayer = gameObject.layer;
+
         }
         private void onDodgePress()
         {
@@ -459,7 +471,14 @@ namespace Player
         {
             inputDirection = Vector3.zero;
         }
-
+        public void UpdateFOV()
+        {
+            if (timeElapsed < dashDuration)
+            {
+                _cinemachineVirtualCamera.m_Lens.FieldOfView = Mathf.Lerp(_originFOV, targetFOV, timeElapsed / dashDuration);
+                timeElapsed += Time.deltaTime;
+            }
+        }
         public void StartCoroutineDashState()
         {
             dashCurrentCount -= 1;
@@ -526,6 +545,14 @@ namespace Player
             _standUpCoroutine = StandUp();
             StopCoroutine(_crouchDownCoroutine);
             StartCoroutine(_standUpCoroutine);
+        }
+        public void StarCoroutineRevertFOV()
+        {
+            StartCoroutine(RevertFOV());
+        }
+        public void ResetTimeElapsed()
+        {
+            timeElapsed = 0f;
         }
 
         #endregion
@@ -725,6 +752,20 @@ namespace Player
             isInDashState = false;
             ResetDashDirection();
             StartCoroutine(StartDashCooldown());
+        }
+
+        private IEnumerator RevertFOV()
+        {
+            while (_cinemachineVirtualCamera.m_Lens.FieldOfView > _originFOV)
+            {
+                _cinemachineVirtualCamera.m_Lens.FieldOfView -= Time.deltaTime * FOVDecreaseSpeed;
+                yield return null;
+            }
+
+            if (_cinemachineVirtualCamera.m_Lens.FieldOfView != _originFOV)
+            {
+                _cinemachineVirtualCamera.m_Lens.FieldOfView = _originFOV;
+            }
         }
 
         private IEnumerator StartSlideDuration()

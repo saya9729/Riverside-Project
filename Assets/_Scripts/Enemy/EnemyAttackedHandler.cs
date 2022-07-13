@@ -8,6 +8,7 @@ namespace Enemy
 
         private Universal.AttackManager _damageManager;
         private EnemyStateManager _enemyStateManager;
+        private BloodScreenManager _bloodScreenManager;
 
         public GameObject particleSpark;
         public GameObject particleBlood;
@@ -16,6 +17,7 @@ namespace Enemy
         private void Start()
         {
             _enemyStateManager = GetComponentInParent<EnemyStateManager>();
+            _bloodScreenManager = FindObjectOfType<BloodScreenManager>();
         }
 
         private void OnCollisionEnter(Collision collisionInfo)
@@ -30,6 +32,11 @@ namespace Enemy
                 Instantiate(particleBlood, hitPoint.point, Quaternion.Euler(hitPoint.normal));
                 AudioInterface.PlayAudio("enemyHit");
                 bloodScreenManager.Play();
+
+                if (_bloodScreenManager)
+                {
+                    _bloodScreenManager.Play();
+                }
 
                 _damageManager = collisionInfo.collider.gameObject.GetComponentInParent<Universal.AttackManager>();
 

@@ -12,6 +12,7 @@ namespace Player
         public override void EnterState()
         {
             _playerMovementController.StartCoroutineDashState();
+            _playerMovementController.StartCoroutineChangeFOVWhileDash();
             _playerMovementController.EnableAttackHitbox();
             _playerMovementController.EnablePhaseThroughEnemy();
 
@@ -23,13 +24,12 @@ namespace Player
             {
                 SwitchToState("Airborne");
             }
-
-            _playerMovementController.ResetTimeElapsed();
         }
 
         public override void ExitState()
         {
-            _playerMovementController.StarCoroutineRevertFOV();
+            _playerMovementController.StarCoroutineRevertFOVAfterDash();
+            _playerMovementController.StarCoroutineRevertFOVAfterDash();
             _playerMovementController.DisableAttackHitbox();
             _playerMovementController.DisablePhaseThroughEnemy();
         }
@@ -82,7 +82,6 @@ namespace Player
         protected override void UpdateThisState()
         {
             CheckSwitchState();
-            _playerMovementController.UpdateFOV();
         }
     }
 }

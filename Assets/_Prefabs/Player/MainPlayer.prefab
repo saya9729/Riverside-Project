@@ -1426,8 +1426,9 @@ MonoBehaviour:
   dashChargeCooldown: 1
   dashDistanceWhileTimeSlowMultiflier: 1.5
   playerPhaseLayerName: PlayerPhase
-  speedChangeRate: 6
-  speedSmoothRate: 100
+  dashFOVMultiplier: 1.2
+  dashFOVRevertDuration: 0.25
+  speedChangeRate: 100
   rotationSpeed: 1
   airborneSteeringRate: 15
   jumpHeight: 2.5

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Player
 {
@@ -11,6 +12,7 @@ namespace Player
         [SerializeField] protected float sol = 0f;
 
         private Vector3 _initPosition = new Vector3(0.0f, 0.0f, 0.0f);
+        private int _playerCurrentLevel = 0;
         // after finished death statebmove all of PlayerDeathSequence to that
         private PlayerLoseSequence _playerLoseSequence;
         private PlayerSkillManager _playerSkill;
@@ -49,6 +51,7 @@ namespace Player
             _playerSkill = GetComponent<PlayerSkillManager>();
             _playerMovementController = GetComponent<PlayerMovementStateManager>();
             _initPosition = transform.position;
+            _playerCurrentLevel = PlayerPrefs.GetInt("CurrentScene", SceneManager.GetActiveScene().buildIndex);
 
             hudController.SetMaxHealth(maxHealth);
             hudController.SetSol(defaultSol);
@@ -96,12 +99,12 @@ namespace Player
 
         public void SavePlayerStatistic()
         {
-            SaveManager.SavePlayer(this);
+            SaveManager.SavePlayer(this, _playerCurrentLevel);
         }
 
         public void LoadPlayerStatistic()
         {
-            PlayerData playerData = SaveManager.LoadPlayer();
+            PlayerData playerData = SaveManager.LoadPlayer(_playerCurrentLevel);
             if (playerData == null)
             {
                 Debug.Log("generate default value");

@@ -17,8 +17,13 @@ namespace GameUI
         }
         public void NewGame()
         {
+            for (int sceneIndex = 1; sceneIndex < SceneManager.sceneCount; sceneIndex++)
+            {
+                SaveManager.DeletePlayer(sceneIndex);
+            }
+            PlayerPrefs.DeleteKey("CurrentScene");
+            PlayerPrefs.Save();
             StartGame();
-            SaveManager.DeletePlayer();
         }
         public void StartGame()
         {
@@ -37,8 +42,7 @@ namespace GameUI
 
         public void ToggleContinue()
         {
-            Debug.Log(SaveManager.FileSaveExist());
-            if (!SaveManager.FileSaveExist())
+            if (!SaveManager.FileSaveExist(PlayerPrefs.GetInt("CurrentScene", 0)))
             {
                 continueButton.interactable = false;
                 return;

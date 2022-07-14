@@ -616,7 +616,7 @@ namespace Player
                     SetAirborneInertiaDirectionWhileDoubleJump();
 
                     //Audio
-                    AudioInterface.PlayAudio("jump");
+                    AudioInterface.PlayAudio("secondJump");
                 }
             }
         }

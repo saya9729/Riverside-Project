@@ -1412,8 +1412,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentSuperState: {fileID: 0}
   currentSubState: {fileID: 0}
-  runSpeed: 8
-  slideThresholdSpeed: 7.5
+  runSpeed: 10
+  slideThresholdSpeed: 9.8
   slideSpeed: 15
   slideDuration: 1
   slideJumpSpeed: 20
@@ -1426,14 +1426,16 @@ MonoBehaviour:
   dashChargeCooldown: 1
   dashDistanceWhileTimeSlowMultiflier: 1.5
   playerPhaseLayerName: PlayerPhase
-  speedChangeRate: 6
+  dashFOVMultiplier: 1.2
+  dashFOVRevertDuration: 0.25
+  speedChangeRate: 100
   rotationSpeed: 1
-  airborneSteeringRate: 5
+  airborneSteeringRate: 15
   jumpHeight: 2.5
   gravity: -30
   terminalVelocity: -53
-  crouchHeight: 1
-  crouchCenter: {x: 0, y: 0.5, z: 0}
+  crouchHeight: 1.2
+  crouchCenter: {x: 0, y: 0.6, z: 0}
   timeToCrouch: 0.25
   isGrounded: 1
   groundedOffset: -0.07
@@ -1442,8 +1444,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4161
   isRoofed: 1
-  roofedOffset: 1.94
-  roofedDistance: 0.22
+  roofedOffset: 0
+  roofedDistance: 0.1
   roofedLayers:
     serializedVersion: 2
     m_Bits: 1

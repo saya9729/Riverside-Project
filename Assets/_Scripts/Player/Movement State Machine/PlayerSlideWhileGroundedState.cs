@@ -8,6 +8,7 @@ namespace Player
         private PlayerMovementStateManager _playerMovementController;
         public override void EnterState()
         {
+            _playerMovementController.SetSlideDirection();
             _playerMovementController.SetSlideTargetSpeed();
             _playerMovementController.EnableSlideGravity();
             _playerMovementController.StartCoroutineSlideState();

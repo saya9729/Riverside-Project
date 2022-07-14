@@ -64,6 +64,8 @@ namespace Player
         [Header("Change rate")]
         [Tooltip("Acceleration and deceleration")]
         [SerializeField] private float speedChangeRate = 10.0f;
+        [Tooltip("Acceleration and deceleration")]
+        [SerializeField] private float speedSmoothRate = 10.0f;
         [Tooltip("Rotation speed of the character")]
         [SerializeField] private float rotationSpeed = 1.0f;
 
@@ -632,7 +634,8 @@ namespace Player
         {
             //smooth the speed change (momentum mechanic) 
             float inputMagnitude = inputManager.analogMovement ? inputManager.move.magnitude : 1f;
-            currentSpeed = Mathf.Lerp(currentSpeed, targetSpeed * inputMagnitude, Time.deltaTime * speedChangeRate);
+            currentSpeed = Universal.Smoothing.LinearSmoothFixedRate(currentSpeed, targetSpeed * inputMagnitude, speedSmoothRate * Time.deltaTime);
+            //currentSpeed = Mathf.Lerp(currentSpeed, targetSpeed * inputMagnitude, Time.deltaTime * speedChangeRate);
         }
 
         private void Look()
@@ -680,33 +683,29 @@ namespace Player
         //}
         private IEnumerator CrouchDown()
         {
-            float timeElapsed = 0;
-            while (timeElapsed < timeToCrouch)
+            while(characterController.height> crouchHeight)
             {
-                characterController.height = Mathf.Lerp(characterController.height, crouchHeight, timeElapsed / timeToCrouch);
-                characterController.center = Vector3.Lerp(characterController.center, crouchCenter, timeElapsed / timeToCrouch);
+                characterController.height = Universal.Smoothing.LinearSmoothFixedTime(characterController.height, originalCharacterHeight, crouchHeight, Time.deltaTime, timeToCrouch);
+                characterController.center = Universal.Smoothing.LinearSmoothFixedTime(characterController.center, originalCharacterCenter, crouchCenter, Time.deltaTime, timeToCrouch);
 
                 _characterCapsuleCollider.height = characterController.height;
                 _characterCapsuleCollider.center = characterController.center;
 
                 cinemachineCameraTarget.transform.localPosition = new Vector3(cinemachineCameraTarget.transform.localPosition.x, originalCamHolderHeight - (originalCharacterHeight - characterController.height), cinemachineCameraTarget.transform.localPosition.z);
-                timeElapsed += Time.deltaTime;
                 yield return null;
             }
         }
         private IEnumerator StandUp()
         {
-            float timeElapsed = 0;
-            while (timeElapsed < timeToCrouch)
+            while (characterController.height < originalCharacterHeight)
             {
-                characterController.height = Mathf.Lerp(characterController.height, originalCharacterHeight, timeElapsed / timeToCrouch);
-                characterController.center = Vector3.Lerp(characterController.center, originalCharacterCenter, timeElapsed / timeToCrouch);
+                characterController.height = Universal.Smoothing.LinearSmoothFixedTime(characterController.height, crouchHeight, originalCharacterHeight, Time.deltaTime, timeToCrouch);
+                characterController.center = Universal.Smoothing.LinearSmoothFixedTime(characterController.center, crouchCenter, originalCharacterCenter, Time.deltaTime, timeToCrouch);
 
                 _characterCapsuleCollider.height = characterController.height;
                 _characterCapsuleCollider.center = characterController.center;
 
                 cinemachineCameraTarget.transform.localPosition = new Vector3(cinemachineCameraTarget.transform.localPosition.x, originalCamHolderHeight - (originalCharacterHeight - characterController.height), cinemachineCameraTarget.transform.localPosition.z);
-                timeElapsed += Time.deltaTime;
                 yield return null;
             }
         }

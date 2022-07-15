@@ -1430,7 +1430,7 @@ MonoBehaviour:
   dashFOVRevertDuration: 0.25
   speedChangeRate: 100
   rotationSpeed: 1
-  airborneSteeringRate: 15
+  airborneSteeringRate: 1000
   jumpHeight: 2.5
   gravity: -30
   terminalVelocity: -53

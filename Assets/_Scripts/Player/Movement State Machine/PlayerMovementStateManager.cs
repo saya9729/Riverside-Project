@@ -458,9 +458,8 @@ namespace Player
         }
         public void SetDashDirection()
         {
-            // TODO: dash to view point
-            Vector3 rot = Quaternion.Euler(_cinemachineTargetPitch, 0.0f, 0.0f) * Vector3.forward;
-            dashDirection = transform.right * rot.x + transform.up * rot.y + transform.forward * rot.z;
+            Vector3 localDirection = Quaternion.Euler(_cinemachineTargetPitch, 0.0f, 0.0f) * Vector3.forward;
+            dashDirection = transform.right * localDirection.x + transform.up * localDirection.y + transform.forward * localDirection.z;
         }
         public void ResetDashDirection()
         {
@@ -508,8 +507,7 @@ namespace Player
         {
             if (inputDirection != Vector3.zero)
             {
-                airborneInertiaDirection = Vector3.Lerp(airborneInertiaDirection, inputDirection, Time.deltaTime * airborneSteeringRate);
-                airborneInertiaDirection.Normalize();
+                airborneInertiaDirection = Vector3.RotateTowards(airborneInertiaDirection, inputDirection, airborneSteeringRate * Time.deltaTime, 0.0f);
             }
         }
         public void MoveWhileSlide()
@@ -716,7 +714,7 @@ namespace Player
             while (_characterController.height > crouchHeight)
             {
                 _characterController.height = Universal.Smoothing.LinearSmoothFixedTime(_characterController.height, _originalCharacterHeight, crouchHeight, Time.deltaTime, timeToCrouch);
-                _characterController.center = Universal.Smoothing.LinearSmoothFixedTime(_characterController.center, _originalCharacterCenter, crouchCenter, Time.deltaTime, timeToCrouch);
+                _characterController.center = Vector3.MoveTowards(_characterController.center, crouchCenter, Vector3.Distance(_originalCharacterCenter, crouchCenter) / timeToCrouch * Time.deltaTime);
 
                 _characterCapsuleCollider.height = _characterController.height;
                 _characterCapsuleCollider.center = _characterController.center;
@@ -730,7 +728,7 @@ namespace Player
             while (_characterController.height < _originalCharacterHeight)
             {
                 _characterController.height = Universal.Smoothing.LinearSmoothFixedTime(_characterController.height, crouchHeight, _originalCharacterHeight, Time.deltaTime, timeToCrouch);
-                _characterController.center = Universal.Smoothing.LinearSmoothFixedTime(_characterController.center, crouchCenter, _originalCharacterCenter, Time.deltaTime, timeToCrouch);
+                _characterController.center = Vector3.MoveTowards(_characterController.center, _originalCharacterCenter, Vector3.Distance(_originalCharacterCenter, crouchCenter) / timeToCrouch * Time.deltaTime);
 
                 _characterCapsuleCollider.height = _characterController.height;
                 _characterCapsuleCollider.center = _characterController.center;

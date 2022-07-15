@@ -8,7 +8,7 @@ namespace Player
     public class DoorInteract : Interactable
     {
         [Tooltip("Number of key need to open this door")]
-        public int keyNumbers = 3;
+        [SerializeField] private KeyInteract[] keyInteract;
         public GameObject[] platform;
 
         private HighlightEffect _highlightEffect;
@@ -21,6 +21,17 @@ namespace Player
             isInteractable = false;
             _highlightEffect.SetHighlighted(true);
             this.RegisterListener(EventID.onKeyCollected, (param) => OnKeyCollected((int)param));
+            foreach (var KeyInteract in keyInteract)
+            {
+                if (KeyInteract.IsInteractable())
+                {
+                    isInteractable = false;
+                }
+                else
+                {
+                    OnKeyCollected(1);
+                }
+            }
         }
 
         public override string GetDescription()
@@ -48,14 +59,11 @@ namespace Player
         {
             _countKey += p_count;
             Debug.Log("count key " + _countKey);
-            if (_countKey >= keyNumbers)
+           
+            if (_countKey >= keyInteract.Length)
             {
                 isInteractable = true;
                 platform[0].SetActive(!platform[0].activeSelf);
-            }
-            else
-            {
-                isInteractable = false;
             }
         }
     }

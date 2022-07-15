@@ -40,5 +40,9 @@ namespace Universal
                 LinearSmoothFixedRate(p_currentValue.y, p_endValue.y, smoothRateY * p_deltaTime),
                 LinearSmoothFixedRate(p_currentValue.z, p_endValue.z, smoothRateZ * p_deltaTime));
         }
+        public static float SineWaveSmooth(float p_amplitude, float p_timeElapsed, float p_period)
+        {
+            return p_amplitude * Mathf.PI * 2 / p_period * Mathf.Sin(p_timeElapsed * Mathf.PI * 2 / p_period);
+        }
     }
 }

@@ -1,36 +1,56 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace GameEnvironment
 {
     public class MovingPlatform : MonoBehaviour
     {
-        [SerializeField] private float movingPlatformSpeed = 1f;
-        [SerializeField] private Transform[] waypoints;
+        [System.Serializable]
+        private class PlatformWaypoint
+        {
+            public Transform waypoint;
+            public float timeToNextWaypoint = 2.5f;
+        }
+        
+        [SerializeField]  PlatformWaypoint[] platformWaypoint;
         private int _currentWaypointIndex = 0;
         private Transform _playerOldParrent;
+
+        private float _timeElapsed = 0f;
+        private float _distance = 1f;
 
         private void Start()
         {
             _playerOldParrent = GameObject.FindGameObjectWithTag("Player").transform.parent;
         }
-        void Update()
+
+        private void Update()
         {
-            MovingPlatformByWaypoint();
+            MovePlatformToWaypoint();
         }
-        private void MovingPlatformByWaypoint()
+        private void MovePlatformToWaypoint()
         {
-            if (Vector3.Distance(transform.position, waypoints[_currentWaypointIndex].transform.position) < 0.1f)
+            if (Vector3.Distance(transform.position, platformWaypoint[_currentWaypointIndex].waypoint.transform.position) < 0.1f)
             {
                 _currentWaypointIndex++;
-                if (_currentWaypointIndex >= waypoints.Length)
+                if (_currentWaypointIndex >= platformWaypoint.Length)
                 {
                     _currentWaypointIndex = 0;
                 }
+
+                _distance = Vector3.Distance(transform.position, platformWaypoint[_currentWaypointIndex].waypoint.transform.position);
+                _timeElapsed = 0;
             }
 
-            transform.position = Vector3.MoveTowards(transform.position, waypoints[_currentWaypointIndex].transform.position, movingPlatformSpeed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(
+                transform.position, 
+                platformWaypoint[_currentWaypointIndex].waypoint.transform.position, 
+                Universal.Smoothing.SineWaveSmooth(
+                    _distance / 2, _timeElapsed, 
+                    platformWaypoint[_currentWaypointIndex].timeToNextWaypoint * 2) * Time.deltaTime);
+            
+            _timeElapsed += Time.deltaTime;
+
+            //transform.position = Vector3.MoveTowards(transform.position, waypoints[_currentWaypointIndex].transform.position, movingPlatformSpeed * Time.deltaTime);
         }
         private void OnTriggerEnter(Collider p_other)
         {
@@ -47,4 +67,5 @@ namespace GameEnvironment
             }
         }
     }
+    
 }

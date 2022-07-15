@@ -26,13 +26,14 @@ namespace Player
         private void LoadSceneFromWinSequence() 
         {
             gameMenuCanvas.SetActive(false);
-            if (SceneManager.sceneCount < SceneManager.GetActiveScene().buildIndex + 1)
+            if ((SceneManager.GetActiveScene().buildIndex + 1) < SceneManager.sceneCountInBuildSettings)
             {
                 PlayerPrefs.SetInt("CurrentScene", SceneManager.GetActiveScene().buildIndex + 1);
             }
             else 
             { 
-                PlayerPrefs.SetInt("CurrentScene", 0); 
+                PlayerPrefs.SetInt("CurrentScene", 0);
+                Cursor.lockState = CursorLockMode.None;
             }
             PlayerPrefs.Save();
             SceneManager.LoadScene(PlayerPrefs.GetInt("CurrentScene", 0));
@@ -41,7 +42,6 @@ namespace Player
         {
             Time.timeScale = 1f;
             AudioInterface.StopAudio("timeskill");
-            Cursor.lockState = CursorLockMode.None;
         }
     }
 }

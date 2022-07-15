@@ -17,7 +17,7 @@ namespace GameUI
         }
         public void NewGame()
         {
-            for (int sceneIndex = 1; sceneIndex < SceneManager.sceneCount; sceneIndex++)
+            for (int sceneIndex = 1; sceneIndex < SceneManager.sceneCountInBuildSettings; sceneIndex++)
             {
                 SaveManager.DeletePlayer(sceneIndex);
             }
@@ -42,7 +42,7 @@ namespace GameUI
 
         public void ToggleContinue()
         {
-            if (!SaveManager.FileSaveExist(PlayerPrefs.GetInt("CurrentScene", 0)))
+            if (!SaveManager.FileSavePlayerExist(PlayerPrefs.GetInt("CurrentScene", 0)))
             {
                 continueButton.interactable = false;
                 return;

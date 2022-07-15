@@ -21,9 +21,9 @@ namespace Player
             isInteractable = false;
             _highlightEffect.SetHighlighted(true);
             this.RegisterListener(EventID.onKeyCollected, (param) => OnKeyCollected((int)param));
-            foreach (var KeyInteract in keyInteract)
+            foreach (KeyInteract key in keyInteract)
             {
-                if (KeyInteract.IsInteractable())
+                if (key.IsInteractable())
                 {
                     isInteractable = false;
                 }
@@ -59,8 +59,8 @@ namespace Player
         {
             _countKey += p_count;
             Debug.Log("count key " + _countKey);
-           
-            if (_countKey >= keyInteract.Length)
+
+            if (_countKey == keyInteract.Length)
             {
                 isInteractable = true;
                 platform[0].SetActive(!platform[0].activeSelf);

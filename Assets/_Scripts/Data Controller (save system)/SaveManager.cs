@@ -4,65 +4,81 @@ using UnityEngine;
 
 public static class SaveManager
 {
-    private static string _saveFileName = "/save";
+    private static string _saveFileNamePlayer = "/savePlayer";
+    private static string _saveFileNameEnvironment = "/saveEnvironment";
     private static string _saveFileExtension = ".sa";
     private static BinaryFormatter  _formatter = new BinaryFormatter();
 
-    public static void SavePlayer(Player.PlayerStatisticManager p_playerStatisticManager, float p_playerCurrentLevel)
+    private static void Save(string p_savePath, dynamic p_data)
     {
-        string savePath = Application.persistentDataPath + _saveFileName + p_playerCurrentLevel.ToString() + _saveFileExtension;
-        FileStream fileStream = new FileStream(savePath, FileMode.Create);
-        PlayerData playerData = new PlayerData(p_playerStatisticManager);
-
-        _formatter.Serialize(fileStream, playerData);
+        FileStream fileStream = new FileStream(p_savePath, FileMode.Create);
+        _formatter.Serialize(fileStream, p_data);
         fileStream.Close();
 
-        Debug.Log("Save " + savePath);
+        Debug.Log("Save " + p_savePath);
     }
-
-    public static PlayerData LoadPlayer(int p_playerCurrentLevel)
+    private static dynamic Load(string p_savePath)
     {
-        string savePath = Application.persistentDataPath + _saveFileName + p_playerCurrentLevel.ToString() + _saveFileExtension;
-        if (!FileSaveExist(p_playerCurrentLevel)) 
+        if (!FileSaveExist(p_savePath))
         {
-            Debug.LogWarning("save file not found: " + savePath);
+            Debug.LogWarning("save file not found: " + p_savePath);
             return null;
         }
-        FileStream fileStream = new FileStream(savePath, FileMode.Open);
+        FileStream fileStream = new FileStream(p_savePath, FileMode.Open);
 
-        PlayerData playerData = _formatter.Deserialize(fileStream) as PlayerData;
+        dynamic data = _formatter.Deserialize(fileStream) as PlayerData;
 
         fileStream.Close();
-        Debug.Log("Load " + savePath);
-        return playerData;
+        Debug.Log("Load " + p_savePath);
+        return data;
     }
-
-    public static void DeletePlayer(int p_playerCurrentLevel)
+    private static void Delete(string p_savePath)
     {
-        string savePath = Application.persistentDataPath + _saveFileName + p_playerCurrentLevel.ToString() + _saveFileExtension;
-        if (!FileSaveExist(p_playerCurrentLevel))
+        if (!FileSaveExist(p_savePath))
         {
-            Debug.LogWarning("save file not found: " + savePath);
+            Debug.LogWarning("save file not found: " + p_savePath);
         }
         else
         {
-            File.Delete(savePath);
+            File.Delete(p_savePath);
             // refresh editor view
 #if UNITY_EDITOR
             UnityEditor.AssetDatabase.Refresh();
 #endif
         }
     }
-
-    public static bool FileSaveExist(int p_playerCurrentLevel)
+    private static bool FileSaveExist(string p_savePath)
     {
-        string savePath = Application.persistentDataPath + _saveFileName + p_playerCurrentLevel.ToString() + _saveFileExtension;
-        if (!File.Exists(savePath))
+        if (!File.Exists(p_savePath))
         {
-            Debug.LogWarning("save file not found: " + savePath);
+            Debug.LogWarning("save file not found: " + p_savePath);
             return false;
         }
         return true;
+    }
+    public static void SavePlayer(Player.PlayerStatisticManager p_playerStatisticManager, float p_playerCurrentLevel)
+    {
+        string savePath = Application.persistentDataPath + _saveFileNamePlayer + p_playerCurrentLevel.ToString() + _saveFileExtension;
+        PlayerData playerData = new PlayerData(p_playerStatisticManager);
+        Save(savePath, playerData);
+    }
+
+    public static PlayerData LoadPlayer(int p_playerCurrentLevel)
+    {
+        string savePath = Application.persistentDataPath + _saveFileNamePlayer + p_playerCurrentLevel.ToString() + _saveFileExtension;
+        return (PlayerData)Load(savePath);
+    }
+
+    public static void DeletePlayer(int p_playerCurrentLevel)
+    {
+        string savePath = Application.persistentDataPath + _saveFileNamePlayer + p_playerCurrentLevel.ToString() + _saveFileExtension;
+        Delete(savePath);
+    }
+
+    public static bool FileSavePlayerExist(int p_playerCurrentLevel)
+    {
+        string savePath = Application.persistentDataPath + _saveFileNamePlayer + p_playerCurrentLevel.ToString() + _saveFileExtension;
+        return FileSaveExist(savePath);
     }
 
 }

@@ -52,10 +52,10 @@ namespace Player
 
         [SerializeField] private float dashDistanceWhileTimeSlowMultiflier = 1f;
 
-        [SerializeField] private string playerPhaseLayerName = "PlayerPhase";        
-        
+        [SerializeField] private string playerPhaseLayerName = "PlayerPhase";
+
         [SerializeField] private float dashFOVMultiplier = 1f;
-        
+
         [SerializeField] private float dashFOVRevertDuration = 1f;
 
         [Space]
@@ -96,8 +96,8 @@ namespace Player
         public bool isGrounded = true;
         [Tooltip("Useful for rough ground")]
         [SerializeField] private float groundedOffset = -0.14f;
-
-        [SerializeField] private Vector3 groundedBoxDimention = new Vector3(1, 1, 1);
+        [Tooltip("The radius of the grounded check. Should match the radius of the CharacterController")]
+        public float groundedRadius = 0.5f;
         [Tooltip("What layers the character uses as ground")]
         [SerializeField] private LayerMask groundLayers;
 
@@ -323,10 +323,10 @@ namespace Player
                 Gizmos.color = transparentRed;
             }
 
-            Vector3 boxPosition = new Vector3(transform.position.x, transform.position.y - groundedOffset, transform.position.z);
+            Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - groundedOffset, transform.position.z);
 
             // when selected, draw a gizmo in the position of, and matching radius of, the grounded collider
-            Gizmos.DrawCube(boxPosition, groundedBoxDimention * 2);
+            Gizmos.DrawSphere(spherePosition, groundedRadius);
 
             if (isRoofed)
             {
@@ -470,8 +470,8 @@ namespace Player
         public void ResetMoveDirection()
         {
             inputDirection = Vector3.zero;
-        }        
-        
+        }
+
         public void StartCoroutineDashState()
         {
             dashCurrentCount -= 1;
@@ -535,9 +535,9 @@ namespace Player
             }
             catch
             {
-                
+
             }
-            
+
             _crouchDownCoroutine = CrouchDown();
             StartCoroutine(_crouchDownCoroutine);
         }
@@ -550,8 +550,8 @@ namespace Player
             catch
             {
 
-            }            
-            
+            }
+
             _standUpCoroutine = StandUp();
             StartCoroutine(_standUpCoroutine);
         }
@@ -564,12 +564,12 @@ namespace Player
             catch
             {
 
-            }            
-            
-            _changeFOVWhileDashCoroutine = ChangeFOVWhileDash();            
+            }
+
+            _changeFOVWhileDashCoroutine = ChangeFOVWhileDash();
             StartCoroutine(_changeFOVWhileDashCoroutine);
         }
-        
+
         public void StarCoroutineRevertFOVAfterDash()
         {
             try
@@ -579,9 +579,9 @@ namespace Player
             catch
             {
 
-            }            
-            
-            _revertFOVAfterDashCoroutine = RevertFOVAfterDash();            
+            }
+
+            _revertFOVAfterDashCoroutine = RevertFOVAfterDash();
             StartCoroutine(_revertFOVAfterDashCoroutine);
         }
 
@@ -591,8 +591,8 @@ namespace Player
         private void CheckGrounded()
         {
             // set sphere position, with offset
-            Vector3 boxPosition = new Vector3(transform.position.x, transform.position.y - groundedOffset, transform.position.z);
-            isGrounded = Physics.CheckBox(boxPosition, groundedBoxDimention, Quaternion.identity, groundLayers, QueryTriggerInteraction.Ignore);
+            Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - groundedOffset, transform.position.z);
+            isGrounded = Physics.CheckSphere(spherePosition, groundedRadius, groundLayers, QueryTriggerInteraction.Ignore);
         }
         private void CheckRoofed()
         {
@@ -791,7 +791,7 @@ namespace Player
                 yield return null;
             }
         }
-        
+
         private IEnumerator RevertFOVAfterDash()
         {
             while (_cinemachineVirtualCamera.m_Lens.FieldOfView != _originalFOV)

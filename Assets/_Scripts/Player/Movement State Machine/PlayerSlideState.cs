@@ -46,7 +46,7 @@ namespace Player
                     _playerMovementController.StarCoroutineStandUp();
                     currentSuperState.SwitchToState("Run");
                 }
-                else if (_playerMovementController.IsDashable() && _playerMovementController.inputManager.dash)
+                else if (_playerMovementController.IsDashable() && _playerMovementController.inputManager.IsButtonDownThisFrame("Dash"))
                 {
                     _playerMovementController.StarCoroutineStandUp();
                     currentSuperState.SwitchToState("Dash");

@@ -28,17 +28,10 @@ namespace Universal
 
             return LinearSmoothFixedRate(p_currentValue, p_endValue, smoothRate * p_deltaTime);
         }
-
-        public static Vector3 LinearSmoothFixedTime(Vector3 p_currentValue, Vector3 p_startValue, Vector3 p_endValue, float p_deltaTime, float p_timeInterval)
+        
+        public static float SineWaveSmooth(float p_amplitude, float p_timeElapsed, float p_period)
         {
-            float smoothRateX = Mathf.Abs(p_endValue.x - p_startValue.x) / p_timeInterval;
-            float smoothRateY = Mathf.Abs(p_endValue.y - p_startValue.y) / p_timeInterval;
-            float smoothRateZ = Mathf.Abs(p_endValue.z - p_startValue.z) / p_timeInterval;
-
-            return new Vector3(
-                LinearSmoothFixedRate(p_currentValue.x, p_endValue.x, smoothRateX * p_deltaTime),
-                LinearSmoothFixedRate(p_currentValue.y, p_endValue.y, smoothRateY * p_deltaTime),
-                LinearSmoothFixedRate(p_currentValue.z, p_endValue.z, smoothRateZ * p_deltaTime));
+            return p_amplitude * Mathf.PI * 2 / p_period * Mathf.Sin(p_timeElapsed * Mathf.PI * 2 / p_period);
         }
     }
 }

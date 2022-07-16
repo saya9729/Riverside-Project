@@ -29,7 +29,6 @@ namespace Player
         public override void ExitState()
         {
             _playerMovementController.StarCoroutineRevertFOVAfterDash();
-            _playerMovementController.StarCoroutineRevertFOVAfterDash();
             _playerMovementController.DisableAttackHitbox();
             _playerMovementController.DisablePhaseThroughEnemy();
         }

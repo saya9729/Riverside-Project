@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using Footsteps;
 
 namespace Player
 {
@@ -8,6 +9,9 @@ namespace Player
         private PlayerMovementStateManager _playerMovementController;
         public override void EnterState()
         {
+            AudioInterface.PlayAudio("slide");
+            _playerMovementController.GetComponent<CharacterFootsteps>().enabled = false;
+
             _playerMovementController.SetSlideDirection();
             _playerMovementController.SetSlideTargetSpeed();
             _playerMovementController.EnableSlideGravity();
@@ -16,6 +20,9 @@ namespace Player
 
         public override void ExitState()
         {
+            AudioInterface.StopAudio("slide");
+            _playerMovementController.GetComponent<CharacterFootsteps>().enabled = true;
+
             _playerMovementController.DisableSlideGravity();
             _playerMovementController.StopCoroutineSlideState();
         }

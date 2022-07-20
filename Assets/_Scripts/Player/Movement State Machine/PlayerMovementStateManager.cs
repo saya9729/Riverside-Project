@@ -120,7 +120,7 @@ namespace Player
 
         [Space]
         [Header("Particle")]
-        [SerializeField] private GameObject particleDash;
+        public GameObject particleDash;
 
         [Space]
         //input direction
@@ -162,6 +162,8 @@ namespace Player
         private IEnumerator _standUpCoroutine;
         private IEnumerator _changeFOVWhileDashCoroutine;
         private IEnumerator _revertFOVAfterDashCoroutine;
+        private IEnumerator _changeFOVWhileSlideCoroutine;
+        private IEnumerator _revertFOVAfterSlideCoroutine;
 
         private PlayerInput _playerInput;
         private CharacterController _characterController;
@@ -584,6 +586,35 @@ namespace Player
             _revertFOVAfterDashCoroutine = RevertFOVAfterDash();            
             StartCoroutine(_revertFOVAfterDashCoroutine);
         }
+        public void StartCoroutineChangeFOVWhileSlide()
+        {
+            try
+            {
+                StopCoroutine(_revertFOVAfterSlideCoroutine);
+            }
+            catch
+            {
+
+            }            
+            
+            _changeFOVWhileSlideCoroutine = ChangeFOVWhileSlide();            
+            StartCoroutine(_changeFOVWhileSlideCoroutine);
+        }
+        
+        public void StarCoroutineRevertFOVAfterSlide()
+        {
+            try
+            {
+                StopCoroutine(_changeFOVWhileSlideCoroutine);
+            }
+            catch
+            {
+
+            }            
+            
+            _revertFOVAfterSlideCoroutine = RevertFOVAfterSlide();            
+            StartCoroutine(_revertFOVAfterSlideCoroutine);
+        }
 
         #endregion
 
@@ -697,6 +728,19 @@ namespace Player
             return Mathf.Clamp(lfAngle, lfMin, lfMax);
         }
 
+        public void RotateWindParticle()
+        {
+            Debug.Log(inputDirection + " " + _cinemachineVirtualCamera.transform.right);
+            particleDash.transform.localRotation = Quaternion.Euler(particleDash.transform.localRotation.x, 
+            Vector3.SignedAngle(new Vector3(-inputManager.move.x, 0f, inputManager.move.y), 
+            _cinemachineVirtualCamera.transform.right, Vector3.up) + 90f, particleDash.transform.localRotation.z);
+        }
+
+        public void ResetWindParticleRotation()
+        {
+            particleDash.transform.localRotation = Quaternion.Euler(180, 0, 0);
+        }
+
         #endregion
 
         #region Coroutine
@@ -793,6 +837,24 @@ namespace Player
         }
         
         private IEnumerator RevertFOVAfterDash()
+        {
+            while (_cinemachineVirtualCamera.m_Lens.FieldOfView != _originalFOV)
+            {
+                _cinemachineVirtualCamera.m_Lens.FieldOfView = Universal.Smoothing.LinearSmoothFixedTime(_cinemachineVirtualCamera.m_Lens.FieldOfView, _originalFOV * dashFOVMultiplier, _originalFOV, Time.deltaTime, dashFOVRevertDuration);
+                yield return null;
+            }
+        }
+
+        private IEnumerator ChangeFOVWhileSlide()
+        {
+            while (_cinemachineVirtualCamera.m_Lens.FieldOfView != _originalFOV * dashFOVMultiplier)
+            {
+                _cinemachineVirtualCamera.m_Lens.FieldOfView = Universal.Smoothing.LinearSmoothFixedTime(_cinemachineVirtualCamera.m_Lens.FieldOfView, _originalFOV, _originalFOV * dashFOVMultiplier, Time.deltaTime, slideDuration);
+                yield return null;
+            }
+        }
+        
+        private IEnumerator RevertFOVAfterSlide()
         {
             while (_cinemachineVirtualCamera.m_Lens.FieldOfView != _originalFOV)
             {

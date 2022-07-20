@@ -1430,7 +1430,7 @@ MonoBehaviour:
   dashFOVRevertDuration: 0.25
   speedChangeRate: 100
   rotationSpeed: 1
-  airborneSteeringRate: 15
+  airborneSteeringRate: 1000
   jumpHeight: 2.5
   gravity: -30
   terminalVelocity: -53
@@ -1438,8 +1438,8 @@ MonoBehaviour:
   crouchCenter: {x: 0, y: 0.6, z: 0}
   timeToCrouch: 0.25
   isGrounded: 1
-  groundedOffset: -0.07
-  groundedBoxDimention: {x: 0.17, y: 0.17, z: 0.17}
+  groundedOffset: 0
+  groundedRadius: 0.25
   groundLayers:
     serializedVersion: 2
     m_Bits: 4161

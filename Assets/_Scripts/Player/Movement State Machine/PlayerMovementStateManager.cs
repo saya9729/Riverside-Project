@@ -728,7 +728,6 @@ namespace Player
 
         public void RotateWindParticle()
         {
-            Debug.Log(inputDirection + " " + _cinemachineVirtualCamera.transform.right);
             particleDash.transform.localRotation = Quaternion.Euler(particleDash.transform.localRotation.x, 
             Vector3.SignedAngle(new Vector3(-inputManager.move.x, 0f, inputManager.move.y), 
             _cinemachineVirtualCamera.transform.right, Vector3.up) + 90f, particleDash.transform.localRotation.z);

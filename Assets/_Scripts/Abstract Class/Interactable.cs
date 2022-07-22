@@ -11,10 +11,7 @@ namespace AbstractClass
 
         public bool IsInteractable()
         {
-            if (isInteractable)
-                return true;
-            else
-                return false;
+            return isInteractable;
         }
     }
 }

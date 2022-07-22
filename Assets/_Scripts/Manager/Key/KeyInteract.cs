@@ -20,7 +20,6 @@ namespace Player
         {
             if (isInteractable)
             {
-                //Debug.Log("This make no sense");
                 return "[E]";
             }
             else

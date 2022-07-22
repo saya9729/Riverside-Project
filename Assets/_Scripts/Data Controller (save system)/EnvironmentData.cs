@@ -8,14 +8,7 @@ public class EnvironmentData
         isKeyInteractableArray = new bool[p_keyInteract.Length];
         for (int i = 0; i < p_keyInteract.Length; i++)
         {
-            if (p_keyInteract[i].IsInteractable())
-            {
-                isKeyInteractableArray[i] = true;
-            }
-            else 
-            { 
-                isKeyInteractableArray[i] = false; 
-            }
+            isKeyInteractableArray[i] = p_keyInteract[i].IsInteractable();
         }
     }
 }

@@ -71,11 +71,8 @@ namespace Player
                 {
                     case "DoorInteract":
                         _playerWinSequence.PlayPlayerWinSequence();
-                        _playerStatisticManager.RefreshPlayerStatistic();
-                        _playerStatisticManager.SavePlayerStatistic();
                         break;
                     case "KeyInteract":
-                        _playerStatisticManager.SavePlayerStatistic();
                         break;
                     default:
                         // Nothing

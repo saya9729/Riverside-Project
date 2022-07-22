@@ -5,7 +5,7 @@ namespace AbstractClass
 {
     public abstract class Interactable : MonoBehaviour
     {
-        public bool isInteractable = true;
+        protected bool isInteractable = true;
         public abstract string GetDescription();
         public abstract void Interact();
 

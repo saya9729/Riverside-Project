@@ -27,6 +27,7 @@ namespace Player
         }
         protected void InitializeVariable()
         {
+            this.RegisterListener(EventID.onSave, (param) => SavePlayerStatistic());
             _playerLoseSequence = GetComponent<PlayerLoseSequence>();
             _playerSkillManager = GetComponent<PlayerSkillManager>();
             _initPosition = transform.position;

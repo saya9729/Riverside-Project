@@ -20,6 +20,7 @@ namespace GameUI
             for (int sceneIndex = 1; sceneIndex < SceneManager.sceneCountInBuildSettings; sceneIndex++)
             {
                 SaveManager.DeletePlayer(sceneIndex);
+                SaveManager.DeleteEnvironment(sceneIndex);
             }
             PlayerPrefs.DeleteKey("CurrentScene");
             PlayerPrefs.Save();

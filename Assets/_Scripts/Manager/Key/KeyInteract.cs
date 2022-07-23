@@ -13,7 +13,6 @@ namespace Player
         {
             _highlightEffect = GetComponent<HighlightEffect>();
 
-            isInteractable = true;
             _highlightEffect.SetHighlighted(true);
         }
 
@@ -36,9 +35,14 @@ namespace Player
                 _highlightEffect.SetHighlighted(false);
                 isInteractable = false;
                 this.PostEvent(EventID.onKeyCollected, 1);
+                this.PostEvent(EventID.onSave);
             }
         }
-
+        public void SetInteractable(bool p_isInteractable)
+        {
+            isInteractable = p_isInteractable;
+        }
+        
         private void OnEnemyDead(int p_count)
         {
         }

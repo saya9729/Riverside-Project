@@ -10,8 +10,7 @@ namespace Player
         private PlayerActionStateManager _playerStateManager;
         private float _fixedDeltaTimeOldValue;
         [SerializeField] private float timeCoefficient = 0.1f;
-        [SerializeField] private float slowdownAmount;
-        public float slowdownAmountMax = 5f;
+
         [SerializeField] private float timeAddToPrefixAndSuffixes = 0.5f;
         private float _timeAddToPrefixAndSuffixesCoefficient = 1f;
         private float _a1, _b1, _c1;
@@ -31,7 +30,7 @@ namespace Player
             _a2 = -_a1;
             _b2 = _b1;
             _c2 = -(_a2 * 0f) - (_b2 * timeCoefficient);
-            slowdownAmount = slowdownAmountMax;
+            
         }
 
         IEnumerator StartOfSlowTimeCoroutine()
@@ -40,7 +39,7 @@ namespace Player
             _playerStateManager.volume.enabled = true;
             _playerStateManager.slowTimeIcon.SetActive(true);
             int index = 1;
-            while (_timeAddToPrefixAndSuffixesCoefficient != timeCoefficient && slowdownAmount != 0)
+            while (_timeAddToPrefixAndSuffixesCoefficient != timeCoefficient && _playerStateManager.playerStatisticManager.GetEnergy() != 0)
             {
                 yield return new WaitForSeconds(timeAddToPrefixAndSuffixes / 10f * _timeAddToPrefixAndSuffixesCoefficient);
                 StartOfSlowTime(index);
@@ -53,12 +52,10 @@ namespace Player
             _playerStateManager.volume.enabled = true;
             _playerStateManager.slowTimeIcon.SetActive(true);
 
-            while (slowdownAmount != 0)
+            while (_playerStateManager.playerStatisticManager.GetEnergy() != 0)
             {
                 yield return new WaitForSecondsRealtime(1);
-                slowdownAmount-= amountPerSecond;
-                slowdownAmount = Mathf.Clamp(slowdownAmount, 0f, slowdownAmountMax);                
-                this.PostEvent(EventID.onEnergyChange, slowdownAmount);
+                _playerStateManager.playerStatisticManager.DecreaseEnergy(amountPerSecond);
             }
             UnSlowTime();
 
@@ -66,7 +63,7 @@ namespace Player
         IEnumerator EndOfSlowTimeCoroutine()
         {
             int index = 1;
-            while (_timeAddToPrefixAndSuffixesCoefficient != 1f && slowdownAmount != 0)
+            while (_timeAddToPrefixAndSuffixesCoefficient != 1f && _playerStateManager.playerStatisticManager.GetEnergy() != 0)
             {
                 yield return new WaitForSeconds(timeAddToPrefixAndSuffixes / 10f * _timeAddToPrefixAndSuffixesCoefficient);
                 EndOfSlowTime(index);
@@ -80,7 +77,7 @@ namespace Player
             AudioInterface.StopAudio("timeskill");
             gameIsSlowDown = false;
             StopAllCoroutines();
-            PullFromSol(amountPullFromSol);
+            _playerStateManager.playerStatisticManager.PullFromSol(amountPullFromSol);
         }
         private void StartOfSlowTime(int _index)
         {
@@ -114,23 +111,6 @@ namespace Player
                 SlowTime();
             }
             else if(!p_toggle) { UnSlowTime(); }
-        }
-        IEnumerator PullFromSolCoroutine(float p_amount)
-        {
-            while (slowdownAmount < slowdownAmountMax && gameIsSlowDown==false)
-            {
-                yield return new WaitForSecondsRealtime(1);
-                if (_playerStateManager.playerStatisticManager.CanPullFromSol(p_amount))
-                {
-                    slowdownAmount += p_amount;
-                    this.PostEvent(EventID.onEnergyChange, slowdownAmount);
-                }
-            }
-        }
-
-        public void PullFromSol(float p_amount)
-        {
-            StartCoroutine(PullFromSolCoroutine(p_amount));
         }
     }
 }

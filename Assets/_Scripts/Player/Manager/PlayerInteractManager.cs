@@ -61,17 +61,18 @@ namespace Player
         {
             if (_playerInput.actions["Interact"].WasPressedThisFrame())
             {
+                if (!_interactable.IsInteractable())
+                {
+                    return;
+                }
                 _interactable.Interact();
                 string interactableName = _interactable.GetType().Name;
                 switch (interactableName)
                 {
                     case "DoorInteract":
                         _playerWinSequence.PlayPlayerWinSequence();
-                        _playerStatisticManager.RefreshPlayerStatistic();
-                        _playerStatisticManager.SavePlayerStatistic();
                         break;
                     case "KeyInteract":
-                        _playerStatisticManager.SavePlayerStatistic();
                         break;
                     default:
                         // Nothing

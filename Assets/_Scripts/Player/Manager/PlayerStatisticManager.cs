@@ -145,8 +145,8 @@ namespace Player
             hudController.SetHealth(health);
             sol = playerData.sol;
             hudController.SetSol(sol);
-            energy = playerData.energy;
-            hudController.SetEnergy(energy);
+            //energy = playerData.energy;
+            //hudController.SetEnergy(energy);
 
             Vector3 position;
             position.x = playerData.position[0];

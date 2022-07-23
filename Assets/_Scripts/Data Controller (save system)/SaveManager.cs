@@ -17,8 +17,6 @@ public static class SaveManager
         FileStream fileStream = new FileStream(p_savePath, FileMode.Create);
         _formatter.Serialize(fileStream, p_data);
         fileStream.Close();
-
-        Debug.Log("Save " + p_savePath);
     }
     private static dynamic Load(string p_savePath)
     {
@@ -31,7 +29,6 @@ public static class SaveManager
         dynamic data = _formatter.Deserialize(fileStream);
 
         fileStream.Close();
-        Debug.Log("Load " + p_savePath);
         return data;
     }
     private static void Delete(string p_savePath)

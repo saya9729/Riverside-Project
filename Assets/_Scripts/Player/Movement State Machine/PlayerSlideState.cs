@@ -11,14 +11,34 @@ namespace Player
         private PlayerSlideWhileGroundedState _playerSlideWhileGroundedState;
         private PlayerSlideWhileAirborneState _playerSlideWhileAirborneState;
         public override void EnterState()
-        {            
+        {
+            if (_playerMovementController.particleDash)
+            {
+                _playerMovementController.RotateWindParticle();
+                if (!_playerMovementController.particleDash.activeSelf)
+                {
+                    _playerMovementController.particleDash.SetActive(true);
+                }
+            }
+
+            _playerMovementController.StartCoroutineChangeFOVWhileSlide();
+
             SwitchToState("Grounded");
             _playerMovementController.StartCoroutineCrouchDown();
         }
 
         public override void ExitState()
         {
-            
+            if (_playerMovementController.particleDash)
+            {
+                _playerMovementController.ResetWindParticleRotation();
+                if (_playerMovementController.particleDash.activeSelf)
+                {
+                    _playerMovementController.particleDash.SetActive(false);
+                }
+            }
+
+            _playerMovementController.StarCoroutineRevertFOVAfterSlide();
         }
 
         public override void SwitchToState(string p_stateType)
@@ -54,7 +74,7 @@ namespace Player
             }
             else
             {
-                
+
             }
         }
 

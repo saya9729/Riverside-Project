@@ -192,7 +192,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: slide
     clip: {fileID: 8300000, guid: 3637345ac527747468b3c3ae219ad549, type: 3}
-    volume: 1
+    volume: 0.3
     volumeVariance: 1
     pitch: 1
     pitchVariance: 0

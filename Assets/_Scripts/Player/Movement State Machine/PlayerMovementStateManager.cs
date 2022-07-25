@@ -813,7 +813,7 @@ namespace Player
             }
             AudioInterface.PlayAudio("dash");
             yield return new WaitForSecondsRealtime(dashDuration);
-            //if (_playerSkillManager.gameIsSlowDown)
+            //if (_playerSkillStateManager.gameIsSlowDown)
             //{
             //    yield return new WaitForSeconds(dashDuration * Time.timeScale * dashDistanceWhileTimeSlowMultiflier);
             //}

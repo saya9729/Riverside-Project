@@ -18,7 +18,7 @@ namespace Player
         private int _playerCurrentLevel = 0;
         // after finished death statebmove all of PlayerDeathSequence to that
         private PlayerLoseSequence _playerLoseSequence;
-        private PlayerSkillManager _playerSkillManager;
+        private PlayerSkillStateManager _playerSkillStateManager;
         [SerializeField] private GameUI.HUDController hudController;
 
         private void Start()
@@ -29,7 +29,7 @@ namespace Player
         {
             this.RegisterListener(EventID.onSave, (param) => SavePlayerStatistic());
             _playerLoseSequence = GetComponent<PlayerLoseSequence>();
-            _playerSkillManager = GetComponent<PlayerSkillManager>();
+            _playerSkillStateManager = GetComponent<PlayerSkillStateManager>();
             _initPosition = transform.position;
             _playerCurrentLevel = PlayerPrefs.GetInt("CurrentScene", SceneManager.GetActiveScene().buildIndex);
 
@@ -61,7 +61,7 @@ namespace Player
 
         IEnumerator PullFromSolCoroutine(float p_amount)
         {
-            while (energy < maxEnergy && _playerSkillManager.gameIsSlowDown == false)
+            while (energy < maxEnergy && !_playerSkillStateManager.IsTimeSlowed())
             {
                 yield return new WaitForSecondsRealtime(1);
                 if (CanPullFromSol(p_amount))

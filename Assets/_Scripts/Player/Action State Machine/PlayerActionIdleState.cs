@@ -12,7 +12,7 @@ namespace Player
         {
             //Debug.Log("enter idle state");
             //Start animation
-            //_playerStateManager.playerAnimator.SetInteger("attack", 0); //return to idle
+            //_playerActionStateManager.playerAnimator.SetInteger("attack", 0); //return to idle
         }
 
         public override void ExitState()
@@ -37,11 +37,11 @@ namespace Player
                 _playerStateManager.SwitchToState("Attack");
             }
             // TODO: implement shooting later
-            //else if (_playerStateManager.inputManager.secondaryAttack)
+            //else if (_playerActionStateManager.inputManager.secondaryAttack)
             //{
             //    if (!aimManager.IsOnCooldown())
             //    {
-            //        _playerStateManager.SwitchState(_playerStateManager.playerSecondaryAttackState);
+            //        _playerActionStateManager.SwitchState(_playerActionStateManager.playerSecondaryAttackState);
             //    }
             //    else Debug.Log("Weapon on cooldown!");
             //}

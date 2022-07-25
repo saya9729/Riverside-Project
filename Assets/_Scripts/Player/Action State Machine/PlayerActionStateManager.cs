@@ -9,7 +9,7 @@ namespace Player
         //Manager
         [NonSerialized] public SelectionManager selectionManager;
 
-        [NonSerialized] public PlayerSkillManager playerSkillManager;
+        [NonSerialized] public PlayerSkillStateManager playerSkillManager;
         [NonSerialized] public InputManager inputManager;
         [NonSerialized] public PlayerStatisticManager playerStatisticManager;
         [NonSerialized] public Volume volume;
@@ -31,12 +31,12 @@ namespace Player
 
         protected override void UpdateThisState()
         {
-            if (inputManager.usingPocketWatch)
-            {
-                playerSkillManager.gameIsSlowDown = !playerSkillManager.gameIsSlowDown;
-                playerSkillManager.ToggleSlowGame(playerSkillManager.gameIsSlowDown);
-                inputManager.usingPocketWatch = false;
-            }
+            //if (inputManager.usingPocketWatch)
+            //{
+            //    playerSkillManager.gameIsSlowDown = !playerSkillManager.gameIsSlowDown;
+            //    playerSkillManager.ToggleSlowGame(playerSkillManager.gameIsSlowDown);
+            //    inputManager.usingPocketWatch = false;
+            //}
         }
 
         protected override void PhysicsUpdateThisState()
@@ -67,7 +67,7 @@ namespace Player
         protected override void InitializeComponent()
         {
             inputManager = GetComponent<InputManager>();
-            playerSkillManager = GetComponent<PlayerSkillManager>();
+            playerSkillManager = GetComponent<PlayerSkillStateManager>();
             playerStatisticManager = GetComponent<PlayerStatisticManager>();
             playerInteractManager = GetComponent<PlayerInteractManager>();
             playerAttackManager = GetComponent<Universal.AttackManager>();

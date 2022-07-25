@@ -8,7 +8,7 @@ namespace Player
     {
         //Manager
         [NonSerialized] public InputManager inputManager;
-        [NonSerialized] public PlayerSkillManager playerSkillManager;
+        [NonSerialized] public PlayerSkillStateManager playerSkillManager;
 
         //[NonSerialized] public PlayerGroundedState playerGroundedState;
         [NonSerialized] public PlayerCrouchState playerCrouchState;
@@ -32,7 +32,7 @@ namespace Player
         {
             //PlayerCapsule is the name of the object contain Player Input Component and cannot be change because of the Starter assets script
             inputManager = GetComponentInParent<InputManager>();
-            playerSkillManager = GameObject.Find("Manager").GetComponent<PlayerSkillManager>();
+            playerSkillManager = GameObject.Find("Manager").GetComponent<PlayerSkillStateManager>();
         }
 
         void InitializeState()
@@ -52,10 +52,10 @@ namespace Player
         void Update()
         {
             _currentState.UpdateState();
-            if (inputManager.usingPocketWatch)
-            {
-                playerSkillManager.SlowTime();
-            }
+            //if (inputManager.usingPocketWatch)
+            //{
+            //    playerSkillManager.SlowTime();
+            //}
         }
     }
 }

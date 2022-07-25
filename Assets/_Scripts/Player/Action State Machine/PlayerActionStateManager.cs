@@ -72,7 +72,7 @@ namespace Player
             playerInteractManager = GetComponent<PlayerInteractManager>();
             playerAttackManager = GetComponent<Universal.AttackManager>();
             DisableAttackHitbox();
-            animator = GetComponent<Animator>();
+            animator = GetComponentInChildren<Animator>();
         }
 
         protected override void InitializeVariable()

@@ -338,8 +338,14 @@ namespace Player
             {
                 Gizmos.color = transparentRed;
             }
-            Vector3 rayPosition = new Vector3(transform.position.x, transform.position.y + _characterController.height + roofedOffset, transform.position.z);
-            Gizmos.DrawRay(rayPosition, Vector3.up * roofedDistance);
+            try
+            {
+                Vector3 rayPosition = new Vector3(transform.position.x, transform.position.y + _characterController.height + roofedOffset, transform.position.z);
+                Gizmos.DrawRay(rayPosition, Vector3.up * roofedDistance);
+            }
+            catch
+            {
+            }
 
 
         }

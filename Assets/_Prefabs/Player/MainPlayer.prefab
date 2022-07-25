@@ -1889,6 +1889,8 @@ MonoBehaviour:
   maxHealth: 100
   defaultSol: 0
   sol: 0
+  energy: 0
+  maxEnergy: 5
   hudController: {fileID: 0}
 --- !u!114 &4261174648915321631
 MonoBehaviour:
@@ -1944,8 +1946,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeCoefficient: 0.1
-  slowdownAmount: 0
-  slowdownAmountMax: 5
   timeAddToPrefixAndSuffixes: 0.5
   amountPullFromSol: 1
   amountPerSecond: 1
@@ -1992,9 +1992,11 @@ MonoBehaviour:
   _enable: 1
   _amplitude: 0.1
   _frequency: 5
+  _resetSpeed: 10
+  _jumpBobDuration: 0.5
+  _jumpBobSpeed: 10
   _camera: {fileID: 0}
   _cameraHolder: {fileID: 0}
-  toggleSpeed: 3
 --- !u!114 &3426246971176556690
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2667,7 +2669,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5782168426523798305
 Transform:
   m_ObjectHideFlags: 0

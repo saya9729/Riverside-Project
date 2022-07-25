@@ -83,8 +83,8 @@ MonoBehaviour:
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: secondJump
-    clip: {fileID: 8300000, guid: ffc856d3030183044a059952073291ab, type: 3}
-    volume: 0.5
+    clip: {fileID: 8300000, guid: 1e15db5acf3453846a878381769a5e6b, type: 3}
+    volume: 1
     volumeVariance: 1
     pitch: 1
     pitchVariance: 0
@@ -110,8 +110,8 @@ MonoBehaviour:
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: jump
-    clip: {fileID: 8300000, guid: 1e15db5acf3453846a878381769a5e6b, type: 3}
-    volume: 1
+    clip: {fileID: 8300000, guid: cedada5a6946c234388d4e0f5dca2bd8, type: 3}
+    volume: 0.75
     volumeVariance: 1
     pitch: 1
     pitchVariance: 0
@@ -165,7 +165,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: ambience
     clip: {fileID: 8300000, guid: 27c4755f7d87ab4439d79e74c6ddcef8, type: 3}
-    volume: 1
+    volume: 0.5
     volumeVariance: 1
     pitch: 1
     pitchVariance: 0
@@ -183,7 +183,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: backgroundmusic
     clip: {fileID: 8300000, guid: 76cbfc0a011e3c943a3776c0ca026317, type: 3}
-    volume: 0.4
+    volume: 0.1
     volumeVariance: 1
     pitch: 1
     pitchVariance: 0

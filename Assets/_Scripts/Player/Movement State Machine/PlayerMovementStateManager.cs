@@ -9,9 +9,9 @@ namespace Player
     [RequireComponent(typeof(InputManager))]
     [RequireComponent(typeof(CharacterController))]
     [RequireComponent(typeof(PlayerInput))]
-    [RequireComponent(typeof(PlayerSkillManager))]
+    [RequireComponent(typeof(PlayerSkillStateManager))]
 
-    [RequireComponent(typeof(PlayerMovementIdleState))]
+    [RequireComponent(typeof(PlayerIdleMovementState))]
     [RequireComponent(typeof(PlayerRunState))]
     [RequireComponent(typeof(PlayerDashState))]
     [RequireComponent(typeof(PlayerSlideState))]
@@ -49,8 +49,6 @@ namespace Player
         [SerializeField] private int dashMaxChargeCount = 2;
 
         [SerializeField] private float dashChargeCooldown = 1f;
-
-        [SerializeField] private float dashDistanceWhileTimeSlowMultiflier = 1f;
 
         [SerializeField] private string playerPhaseLayerName = "PlayerPhase";
 
@@ -155,7 +153,8 @@ namespace Player
         private Vector3 _originalCharacterCenter;
         private float _originalCamHolderHeight;
         private int _originalPlayerLayer;
-        private float _originalFOV = 90f;
+        private float _originalFOV;
+        private float _originalDashChargeCooldown;
 
         private IEnumerator _slideCoroutine;
         private IEnumerator _crouchDownCoroutine;
@@ -168,7 +167,7 @@ namespace Player
         private PlayerInput _playerInput;
         private CharacterController _characterController;
         public InputManager inputManager;
-        private PlayerSkillManager _playerSkillManager;
+        private PlayerSkillStateManager _playerSkillManager;
         private CapsuleCollider _characterCapsuleCollider;
         private PlayerActionStateManager _playerActionStateManager;
         private CinemachineVirtualCamera _cinemachineVirtualCamera;
@@ -178,7 +177,7 @@ namespace Player
         private bool IsCurrentDeviceMouse => _playerInput.currentControlScheme == "KeyboardMouse";
 
         //States logic
-        private PlayerMovementIdleState _playerMovementIdleState;
+        private PlayerIdleMovementState _playerIdleMovementState;
         private PlayerRunState _playerRunState;
         private PlayerDashState _playerDashState;
         private PlayerSlideState _playerSlideState;
@@ -188,14 +187,14 @@ namespace Player
         #region State Machine
         protected override void InitializeState()
         {
-            _playerMovementIdleState = GetComponent<PlayerMovementIdleState>();
+            _playerIdleMovementState = GetComponent<PlayerIdleMovementState>();
             _playerRunState = GetComponent<PlayerRunState>();
             _playerDashState = GetComponent<PlayerDashState>();
             _playerSlideState = GetComponent<PlayerSlideState>();
             _playerCrouchState = GetComponent<PlayerCrouchState>();
             _playerWallRunState = GetComponent<PlayerWallRunState>();
 
-            _playerMovementIdleState.SetSuperState(this);
+            _playerIdleMovementState.SetSuperState(this);
             _playerRunState.SetSuperState(this);
             _playerDashState.SetSuperState(this);
             _playerSlideState.SetSuperState(this);
@@ -203,14 +202,14 @@ namespace Player
             _playerWallRunState.SetSuperState(this);
 
             SetSuperState(null);
-            SetSubState(_playerMovementIdleState);
+            SetSubState(_playerIdleMovementState);
         }
         protected override void InitializeComponent()
         {
             _characterController = GetComponent<CharacterController>();
             _playerInput = GetComponent<PlayerInput>();
             inputManager = GetComponent<InputManager>();
-            _playerSkillManager = GetComponentInChildren<PlayerSkillManager>();
+            _playerSkillManager = GetComponentInChildren<PlayerSkillStateManager>();
             _characterCapsuleCollider = GetComponent<CapsuleCollider>();
             _playerActionStateManager = GetComponent<PlayerActionStateManager>();
         }
@@ -230,6 +229,7 @@ namespace Player
             _originalFOV = _cinemachineVirtualCamera.m_Lens.FieldOfView;
 
             _originalPlayerLayer = gameObject.layer;
+            _originalDashChargeCooldown = dashChargeCooldown;
 
         }
         private void onDodgePress()
@@ -273,7 +273,7 @@ namespace Player
             switch (p_stateType)
             {
                 case "Idle":
-                    SetSubState(_playerMovementIdleState);
+                    SetSubState(_playerIdleMovementState);
                     break;
                 case "Run":
                     SetSubState(_playerRunState);
@@ -338,14 +338,28 @@ namespace Player
             {
                 Gizmos.color = transparentRed;
             }
-            Vector3 rayPosition = new Vector3(transform.position.x, transform.position.y + _characterController.height + roofedOffset, transform.position.z);
-            Gizmos.DrawRay(rayPosition, Vector3.up * roofedDistance);
+            try
+            {
+                Vector3 rayPosition = new Vector3(transform.position.x, transform.position.y + _characterController.height + roofedOffset, transform.position.z);
+                Gizmos.DrawRay(rayPosition, Vector3.up * roofedDistance);
+            }
+            catch
+            {
+            }
 
 
         }
         #endregion
 
         #region API
+        public void EnableUnlimitedDash()
+        {
+            dashChargeCooldown = 0;
+        }
+        public void DisableUnlimitedDash()
+        {
+            dashChargeCooldown = _originalDashChargeCooldown;
+        }
         public void EnablePhaseThroughEnemy()
         {
             gameObject.layer = LayerMask.NameToLayer(playerPhaseLayerName);
@@ -493,30 +507,30 @@ namespace Player
             // move the player            
             // TODO: momentum conservation
             _characterController.Move(
-                    inputDirection * currentSpeed * Time.deltaTime
-                    + Vector3.up * verticalVelocity * Time.deltaTime);
+                    inputDirection * currentSpeed * Time.unscaledDeltaTime
+                    + Vector3.up * verticalVelocity * Time.unscaledDeltaTime);
         }
         public void MoveWhileAirborne()
         {
             HandleAirborneSteering();
 
             _characterController.Move(
-                    airborneInertiaDirection * currentSpeed * Time.deltaTime
-                    + Vector3.up * verticalVelocity * Time.deltaTime);
+                    airborneInertiaDirection * currentSpeed * Time.unscaledDeltaTime
+                    + Vector3.up * verticalVelocity * Time.unscaledDeltaTime);
 
         }
         private void HandleAirborneSteering()
         {
             if (inputDirection != Vector3.zero)
             {
-                airborneInertiaDirection = Vector3.RotateTowards(airborneInertiaDirection, inputDirection, airborneSteeringRate * Time.deltaTime, 0.0f);
+                airborneInertiaDirection = Vector3.RotateTowards(airborneInertiaDirection, inputDirection, airborneSteeringRate * Time.unscaledDeltaTime, 0.0f);
             }
         }
         public void MoveWhileSlide()
         {
             _characterController.Move(
-                    slideDirection * currentSpeed * Time.deltaTime
-                    + Vector3.up * verticalVelocity * Time.deltaTime);
+                    slideDirection * currentSpeed * Time.unscaledDeltaTime
+                    + Vector3.up * verticalVelocity * Time.unscaledDeltaTime);
         }
         public void MoveWhileDash()
         {
@@ -693,8 +707,7 @@ namespace Player
         {
             //smooth the speed change (momentum mechanic) 
             float inputMagnitude = inputManager.analogMovement ? inputManager.move.magnitude : 1f;
-            currentSpeed = Universal.Smoothing.LinearSmoothFixedRate(currentSpeed, targetSpeed * inputMagnitude, speedChangeRate * Time.deltaTime);
-            //currentSpeed = Mathf.Lerp(currentSpeed, targetSpeed * inputMagnitude, Time.deltaTime * speedChangeRate);
+            currentSpeed = Mathf.MoveTowards(currentSpeed, targetSpeed * inputMagnitude, speedChangeRate * Time.unscaledDeltaTime);
         }
 
         private void Look()
@@ -756,8 +769,8 @@ namespace Player
         {
             while (_characterController.height > crouchHeight)
             {
-                _characterController.height = Universal.Smoothing.LinearSmoothFixedTime(_characterController.height, _originalCharacterHeight, crouchHeight, Time.deltaTime, timeToCrouch);
-                _characterController.center = Vector3.MoveTowards(_characterController.center, crouchCenter, Vector3.Distance(_originalCharacterCenter, crouchCenter) / timeToCrouch * Time.deltaTime);
+                _characterController.height = Universal.Smoothing.LinearSmoothFixedTime(_characterController.height, _originalCharacterHeight, crouchHeight, Time.unscaledDeltaTime, timeToCrouch);
+                _characterController.center = Vector3.MoveTowards(_characterController.center, crouchCenter, Vector3.Distance(_originalCharacterCenter, crouchCenter) / timeToCrouch * Time.unscaledDeltaTime);
 
                 _characterCapsuleCollider.height = _characterController.height;
                 _characterCapsuleCollider.center = _characterController.center;
@@ -770,8 +783,8 @@ namespace Player
         {
             while (_characterController.height < _originalCharacterHeight)
             {
-                _characterController.height = Universal.Smoothing.LinearSmoothFixedTime(_characterController.height, crouchHeight, _originalCharacterHeight, Time.deltaTime, timeToCrouch);
-                _characterController.center = Vector3.MoveTowards(_characterController.center, _originalCharacterCenter, Vector3.Distance(_originalCharacterCenter, crouchCenter) / timeToCrouch * Time.deltaTime);
+                _characterController.height = Universal.Smoothing.LinearSmoothFixedTime(_characterController.height, crouchHeight, _originalCharacterHeight, Time.unscaledDeltaTime, timeToCrouch);
+                _characterController.center = Vector3.MoveTowards(_characterController.center, _originalCharacterCenter, Vector3.Distance(_originalCharacterCenter, crouchCenter) / timeToCrouch * Time.unscaledDeltaTime);
 
                 _characterCapsuleCollider.height = _characterController.height;
                 _characterCapsuleCollider.center = _characterController.center;
@@ -782,13 +795,13 @@ namespace Player
         }
         private IEnumerator StartDashCooldown()
         {
-            yield return new WaitForSeconds(dashCooldown);
+            yield return new WaitForSecondsRealtime(dashCooldown);
             isDashable = true;
         }
         private IEnumerator StartDashChargeCooldown()
         {
             isInDashChargeCooldown = true;
-            yield return new WaitForSeconds(dashChargeCooldown);
+            yield return new WaitForSecondsRealtime(dashChargeCooldown);
             isInDashChargeCooldown = false;
             dashCurrentCount += 1;
         }
@@ -805,14 +818,15 @@ namespace Player
                 }
             }
             AudioInterface.PlayAudio("dash");
-            if (_playerSkillManager.gameIsSlowDown)
-            {
-                yield return new WaitForSeconds(dashDuration * Time.timeScale * dashDistanceWhileTimeSlowMultiflier);
-            }
-            else
-            {
-                yield return new WaitForSeconds(dashDuration);
-            }
+            yield return new WaitForSecondsRealtime(dashDuration);
+            //if (_playerSkillStateManager.gameIsSlowDown)
+            //{
+            //    yield return new WaitForSeconds(dashDuration * Time.timeScale * dashDistanceWhileTimeSlowMultiflier);
+            //}
+            //else
+            //{
+            //    yield return new WaitForSeconds(dashDuration);
+            //}
             if (particleDash)
             {
                 if (particleDash.activeSelf)
@@ -828,7 +842,7 @@ namespace Player
         {
             while (_cinemachineVirtualCamera.m_Lens.FieldOfView != _originalFOV * dashFOVMultiplier)
             {
-                _cinemachineVirtualCamera.m_Lens.FieldOfView = Universal.Smoothing.LinearSmoothFixedTime(_cinemachineVirtualCamera.m_Lens.FieldOfView, _originalFOV, _originalFOV * dashFOVMultiplier, Time.deltaTime, dashDuration);
+                _cinemachineVirtualCamera.m_Lens.FieldOfView = Universal.Smoothing.LinearSmoothFixedTime(_cinemachineVirtualCamera.m_Lens.FieldOfView, _originalFOV, _originalFOV * dashFOVMultiplier, Time.unscaledDeltaTime, dashDuration);
                 yield return null;
             }
         }
@@ -837,7 +851,7 @@ namespace Player
         {
             while (_cinemachineVirtualCamera.m_Lens.FieldOfView != _originalFOV)
             {
-                _cinemachineVirtualCamera.m_Lens.FieldOfView = Universal.Smoothing.LinearSmoothFixedTime(_cinemachineVirtualCamera.m_Lens.FieldOfView, _originalFOV * dashFOVMultiplier, _originalFOV, Time.deltaTime, dashFOVRevertDuration);
+                _cinemachineVirtualCamera.m_Lens.FieldOfView = Universal.Smoothing.LinearSmoothFixedTime(_cinemachineVirtualCamera.m_Lens.FieldOfView, _originalFOV * dashFOVMultiplier, _originalFOV, Time.unscaledDeltaTime, dashFOVRevertDuration);
                 yield return null;
             }
         }
@@ -863,7 +877,7 @@ namespace Player
 
         private IEnumerator StartSlideDuration()
         {
-            yield return new WaitForSeconds(slideDuration);
+            yield return new WaitForSecondsRealtime(slideDuration);
             SwitchToState("Crouch");
         }
         #endregion

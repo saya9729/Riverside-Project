@@ -5,7 +5,7 @@ namespace Player
 {
     //public class PlayerSecondaryAttackState : AbstractClass.State
     //{
-    //    private PlayerActionStateManager _playerStateManager;
+    //    private PlayerActionStateManager _playerActionStateManager;
     //    public GunRecoil gunRecoil;
 
     //    [Header("Secondary Attack (Shot)")]
@@ -22,7 +22,7 @@ namespace Player
 
     //    public void SecondaryAttack()
     //    {
-    //        //_playerStateManager.playerAnimator.SetInteger("attack", 2);
+    //        //_playerActionStateManager.playerAnimator.SetInteger("attack", 2);
     //        gunRecoil.Fire();
     //        AudioInterface.PlayAudio("shoot");
     //        StartCoroutine(WaitAnim());
@@ -47,7 +47,7 @@ namespace Player
     //    IEnumerator WaitAnim() //wait animation ready to shoot
     //    {
     //        int layer = 0;
-    //        AnimatorStateInfo animState = _playerStateManager.animator.GetCurrentAnimatorStateInfo(layer);
+    //        AnimatorStateInfo animState = _playerActionStateManager.animator.GetCurrentAnimatorStateInfo(layer);
     //        float shootLength = animState.normalizedTime % 1;
     //        yield return new WaitForSeconds(shootLength);
 
@@ -56,12 +56,12 @@ namespace Player
 
     //        Shoot();
 
-    //        _playerStateManager.SwitchState(_playerStateManager.playerActionIdleState);
+    //        _playerActionStateManager.SwitchState(_playerActionStateManager.playerActionIdleState);
     //    }
 
     //    private void Start()
     //    {
-    //        _playerStateManager = GetComponent<PlayerActionStateManager>();
+    //        _playerActionStateManager = GetComponent<PlayerActionStateManager>();
     //        _cam = GameObject.Find("MainCamera").GetComponent<Camera>();
     //    }
 
@@ -78,7 +78,7 @@ namespace Player
 
     //    public override void ExitState()
     //    {
-    //        //_playerStateManager.playerAnimator.SetInteger("attack", 0);
+    //        //_playerActionStateManager.playerAnimator.SetInteger("attack", 0);
     //        StopAllCoroutines(); // stop all shooting sequences
 
     //    }

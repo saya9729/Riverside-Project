@@ -13,16 +13,11 @@ namespace GameEnvironment
         
         [SerializeField]  PlatformWaypoint[] platformWaypoint;
         private int _currentWaypointIndex = 0;
-        private Transform _playerOldParrent;
+      
 
         private float _timeElapsed = 0f;
         private float _distance = 1f;
-
-        private void Start()
-        {
-            _playerOldParrent = GameObject.FindGameObjectWithTag("Player").transform.parent;
-        }
-
+        
         private void Update()
         {
             MovePlatformToWaypoint();
@@ -51,20 +46,6 @@ namespace GameEnvironment
             _timeElapsed += Time.deltaTime;
 
             //transform.position = Vector3.MoveTowards(transform.position, waypoints[_currentWaypointIndex].transform.position, movingPlatformSpeed * Time.deltaTime);
-        }
-        private void OnTriggerEnter(Collider p_other)
-        {
-            if (p_other.CompareTag("Player"))
-            {
-                p_other.gameObject.transform.SetParent(transform);
-            }
-        }
-        private void OnTriggerExit(Collider p_other)
-        {
-            if (p_other.CompareTag("Player"))
-            {
-                p_other.gameObject.transform.SetParent(_playerOldParrent);
-            }
         }
     }
     

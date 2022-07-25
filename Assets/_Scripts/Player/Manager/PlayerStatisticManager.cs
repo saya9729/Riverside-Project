@@ -13,7 +13,7 @@ namespace Player
         private Vector3 _initPosition = new Vector3(0.0f, 0.0f, 0.0f);
         // after finished death statebmove all of PlayerDeathSequence to that
         private PlayerLoseSequence _playerLoseSequence;
-        private PlayerSkillManager _playerSkill;
+        private PlayerSkillStateManager _playerSkill;
         private PlayerMovementStateManager _playerMovementController;
         [SerializeField] private GameUI.HUDController hudController;
 
@@ -46,13 +46,13 @@ namespace Player
         protected void InitializeVariable()
         {
             _playerLoseSequence = GetComponent<PlayerLoseSequence>();
-            _playerSkill = GetComponent<PlayerSkillManager>();
+            _playerSkill = GetComponent<PlayerSkillStateManager>();
             _playerMovementController = GetComponent<PlayerMovementStateManager>();
             _initPosition = transform.position;
 
             hudController.SetMaxHealth(maxHealth);
             hudController.SetSol(defaultSol);
-            hudController.SetMaxEnergy(_playerSkill.slowdownAmountMax);
+            //hudController.SetMaxEnergy(_playerSkill.slowdownAmountMax);
 
             LoadPlayerStatistic();
         }

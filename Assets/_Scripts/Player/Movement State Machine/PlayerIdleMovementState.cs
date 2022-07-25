@@ -5,7 +5,7 @@ namespace Player
 {
     [RequireComponent(typeof(PlayerIdleWhileGroundedState))]
     [RequireComponent(typeof(PlayerIdleWhileAirborneState))]
-    public class PlayerMovementIdleState : AbstractClass.State
+    public class PlayerIdleMovementState : AbstractClass.State
     {
         private PlayerMovementStateManager _playerMovementController;
         

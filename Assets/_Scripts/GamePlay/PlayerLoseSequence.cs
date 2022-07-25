@@ -27,7 +27,6 @@ namespace Player
         {
             gameMenuCanvas.SetActive(false);
             int scneneIndex = SceneManager.GetActiveScene().buildIndex;
-            SceneManager.UnloadScene(scneneIndex);
             SceneManager.LoadScene(scneneIndex);
         }
         private void StopComponent()

@@ -21,8 +21,6 @@ namespace Player
 
         [NonSerialized] public Animator animator;
 
-        public GameObject slowTimeIcon;
-
         #region State Machine
         public override void EnterState()
         {

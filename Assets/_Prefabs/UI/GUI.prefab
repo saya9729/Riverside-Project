@@ -6103,7 +6103,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2127575804
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6139,7 +6139,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2127575803}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
   m_Name: 
@@ -6454,6 +6454,10 @@ GameObject:
   - component: {fileID: 3428703037892767813}
   - component: {fileID: 6406417861496032886}
   - component: {fileID: 3727449029401798030}
+  - component: {fileID: 4838971491366427321}
+  - component: {fileID: 8054060447523958570}
+  - component: {fileID: 9131212108529270516}
+  - component: {fileID: 1659564081145823505}
   m_Layer: 0
   m_Name: CanvasManager
   m_TagString: Untagged
@@ -6505,8 +6509,63 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   solCount: {fileID: 1321589412}
+  slowTimeIcon: {fileID: 2127575805}
   healthBar: {fileID: 1068137487}
-  energyBar: {fileID: 674574627}
+  slowTimeBar: {fileID: 674574627}
+--- !u!114 &4838971491366427321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8490154037036485546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b37a70ebdde684f43a5fe7dc547c1b25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8054060447523958570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8490154037036485546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 720d6f76586099a49b1336b30840dd80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameMenuCanvas: {fileID: 1088059003}
+  loseTime: 1
+--- !u!114 &9131212108529270516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8490154037036485546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d83da995d3b2a64799832deed24fdde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameMenuCanvas: {fileID: 826453466}
+  winTime: 2
+--- !u!114 &1659564081145823505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8490154037036485546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab2ba348d3f729e4aa6522a7cac4b653, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactionDistance: 2
+  interactionText: {fileID: 616868975}
 --- !u!1001 &45812183
 PrefabInstance:
   m_ObjectHideFlags: 0

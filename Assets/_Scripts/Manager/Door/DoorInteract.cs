@@ -44,6 +44,7 @@ namespace Player
         {
             if (isInteractable)
             {
+                this.PostEvent(EventID.onWin);
                 _highlightEffect.SetHighlighted(false);
                 isInteractable = false;
             }

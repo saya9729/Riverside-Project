@@ -124,9 +124,6 @@ namespace Player
             //set original controller value
             _controllerOriginalHeight = _controller.height;
             _controllerOriginalCenter = _controller.center;
-
-            //register listener
-            this.RegisterListener(EventID.onDodgePress, (param) => onDodgePress());
         }
 
         private void Update()
@@ -313,10 +310,6 @@ namespace Player
             _input.dash = false;
         }
 
-        private void onDodgePress()
-        {
-            Debug.Log("event successfully register!");
-        }
         #endregion
 
         #region Crouch

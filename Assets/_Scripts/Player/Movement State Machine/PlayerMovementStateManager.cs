@@ -217,8 +217,6 @@ namespace Player
         protected override void InitializeVariable()
         {
             EnableRunGravity();
-            //register listener
-            this.RegisterListener(EventID.onDodgePress, (param) => onDodgePress());
 
             //set original controller value
             _originalCharacterHeight = _characterController.height;
@@ -231,10 +229,6 @@ namespace Player
             _originalPlayerLayer = gameObject.layer;
             _originalDashChargeCooldown = dashChargeCooldown;
 
-        }
-        private void onDodgePress()
-        {
-            Debug.Log("event successfully register!");
         }
 
         protected override void UpdateThisState()

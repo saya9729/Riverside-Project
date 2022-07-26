@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using System.Collections;
 using UnityEngine.UI;
 
 namespace GameUI
@@ -7,40 +8,69 @@ namespace GameUI
     public class HUDController : MonoBehaviour
     {
         [SerializeField] private TMPro.TextMeshProUGUI solCount;
+        [SerializeField] private RawImage slowTimeIcon;
         [SerializeField] private Slider healthBar;
-        [SerializeField] private Slider energyBar;
+        [SerializeField] private Slider slowTimeBar;
 
         private void Start()
         {
-            this.RegisterListener(EventID.onHPChanged, (param) => SetHealth((float)param));
-            this.RegisterListener(EventID.onEnergyChange, (param) => SetEnergy((float)param));
+            this.RegisterListener(EventID.onHPChanged, (param) => OnHealthChange((float)param));
+            this.RegisterListener(EventID.onHPMaxChanged, (param) => OnMaxHealthChange((float)param));
+            this.RegisterListener(EventID.onSolChange, (param) => OnSolChange((float)param));
+            this.RegisterListener(EventID.onSlowTime, (param) => OnSlowTime((float)param));
+            this.RegisterListener(EventID.onSlowTimeCoolDown, (param) => OnSlowTimeCoolDown((float)param));
+
+            slowTimeBar.maxValue = 1;
+            slowTimeBar.minValue = 0;
         }
 
-        public void SetMaxHealth(float p_health)
+        public void OnMaxHealthChange(float p_health)
         {
             healthBar.maxValue = p_health;
-            healthBar.value = p_health;
         }
 
-        public void SetHealth(float p_health)
+        public void OnHealthChange(float p_health)
         {
             healthBar.value = p_health;
         }
 
-        public void SetMaxEnergy(float p_energy)
-        {
-            energyBar.maxValue = p_energy;
-            energyBar.value = p_energy;
-        }
-
-        public void SetEnergy(float p_energy)
-        {
-            energyBar.value = p_energy;
-        }
-
-        public void SetSol(float p_sol)
+        public void OnSolChange(float p_sol)
         {
             solCount.text = p_sol.ToString();
+        }
+
+        public void OnSlowTime(float p_slowTimeDuration)
+        {
+            slowTimeIcon.enabled = true;
+            StartCoroutine(HandleSlowTimeBar(p_slowTimeDuration));
+        }
+
+        private IEnumerator HandleSlowTimeBar(float p_slowTimeDuration)
+        {
+            float timeElap  = 0;
+            while (timeElap < p_slowTimeDuration)
+            {
+                slowTimeBar.value = Universal.Smoothing.LinearSmoothFixedTime(slowTimeBar.value, slowTimeBar.maxValue, slowTimeBar.minValue, Time.unscaledDeltaTime, p_slowTimeDuration);
+                timeElap += Time.unscaledDeltaTime;
+                yield return null;
+            }
+            slowTimeIcon.enabled = false;
+        }
+
+        public void OnSlowTimeCoolDown(float p_slowTimeCoolDownDuration)
+        {
+            StartCoroutine(HandleSlowTimeBarCoolDown(p_slowTimeCoolDownDuration));
+        }
+
+        private IEnumerator HandleSlowTimeBarCoolDown(float p_slowTimeCoolDownDuration)
+        {
+            float timeElap = 0;
+            while (timeElap < p_slowTimeCoolDownDuration)
+            {
+                slowTimeBar.value = Universal.Smoothing.LinearSmoothFixedTime(slowTimeBar.value, slowTimeBar.minValue, slowTimeBar.maxValue, Time.unscaledDeltaTime, p_slowTimeCoolDownDuration);
+                timeElap += Time.unscaledDeltaTime;
+                yield return null;
+            }
         }
 
     }

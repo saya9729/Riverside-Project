@@ -5,11 +5,14 @@ using UnityEngine;
 public enum EventID
 {
     None = 0,
-    onDodgePress,
     onKeyCollected,
     onHPPotCollected,
     onHPChanged,
-    onEnergyChange,
+    onHPMaxChanged,
     onSolChange,
+    onSlowTime,
+    onSlowTimeCoolDown,
     onSave,
+    onLose,
+    onWin,
 }

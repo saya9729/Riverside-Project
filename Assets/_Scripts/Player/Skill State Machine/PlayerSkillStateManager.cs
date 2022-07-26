@@ -98,6 +98,7 @@ namespace Player
         {
             Time.timeScale = timeScaleWhileTimeSlow;
             _isSlowTimeAble = false;
+            this.PostEvent(EventID.onSlowTime, timeSlowDuration);
         }
 
         public void StartCoroutineRevertTimeScale()
@@ -125,6 +126,7 @@ namespace Player
         public void StartCoroutineStartSlowTimeCooldown()
         {
             StartCoroutine(StartSlowTimeCooldown());
+            this.PostEvent(EventID.onSlowTimeCoolDown, timeSlowCooldown);
         }
         #endregion
 

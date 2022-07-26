@@ -1267,7 +1267,7 @@ PrefabInstance:
     - target: {fileID: 6472696995289467074, guid: 21af9a2172057ed4ebb386270946d762, type: 3}
       propertyPath: hudController
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 7214233903958918682}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 21af9a2172057ed4ebb386270946d762, type: 3}
 --- !u!20 &3452617481270028943 stripped

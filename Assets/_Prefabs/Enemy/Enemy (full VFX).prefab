@@ -600,7 +600,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerAttackHitboxTag: PlayerAttack
   particleSpark: {fileID: 115120, guid: 5d8045b18ab2b684b9d2ffc1f4be669c, type: 3}
-  particleBlood: {fileID: 100016, guid: 1a4f9e527eb48044d88d4278007c7dda, type: 3}
+  particleBlood: {fileID: 764304066602274965, guid: 4a322f29a9e1fa54f90223de8bcf3a28, type: 3}
   bloodScreenManager: {fileID: 0}
 --- !u!1 &794709214795379660
 GameObject:
@@ -741,7 +741,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerAttackHitboxTag: PlayerAttack
   particleSpark: {fileID: 115120, guid: 5d8045b18ab2b684b9d2ffc1f4be669c, type: 3}
-  particleBlood: {fileID: 100016, guid: 1a4f9e527eb48044d88d4278007c7dda, type: 3}
+  particleBlood: {fileID: 764304066602274965, guid: 4a322f29a9e1fa54f90223de8bcf3a28, type: 3}
   bloodScreenManager: {fileID: 0}
 --- !u!1 &797407655921878078
 GameObject:
@@ -1276,7 +1276,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerAttackHitboxTag: PlayerAttack
   particleSpark: {fileID: 115120, guid: 5d8045b18ab2b684b9d2ffc1f4be669c, type: 3}
-  particleBlood: {fileID: 100016, guid: 1a4f9e527eb48044d88d4278007c7dda, type: 3}
+  particleBlood: {fileID: 764304066602274965, guid: 4a322f29a9e1fa54f90223de8bcf3a28, type: 3}
   bloodScreenManager: {fileID: 0}
 --- !u!1 &1751108492525788413
 GameObject:
@@ -1811,7 +1811,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerAttackHitboxTag: PlayerAttack
   particleSpark: {fileID: 115120, guid: 5d8045b18ab2b684b9d2ffc1f4be669c, type: 3}
-  particleBlood: {fileID: 100016, guid: 1a4f9e527eb48044d88d4278007c7dda, type: 3}
+  particleBlood: {fileID: 764304066602274965, guid: 4a322f29a9e1fa54f90223de8bcf3a28, type: 3}
   bloodScreenManager: {fileID: 0}
 --- !u!1 &2658789860258126316
 GameObject:
@@ -2426,7 +2426,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerAttackHitboxTag: PlayerAttack
   particleSpark: {fileID: 115120, guid: 5d8045b18ab2b684b9d2ffc1f4be669c, type: 3}
-  particleBlood: {fileID: 100016, guid: 1a4f9e527eb48044d88d4278007c7dda, type: 3}
+  particleBlood: {fileID: 764304066602274965, guid: 4a322f29a9e1fa54f90223de8bcf3a28, type: 3}
   bloodScreenManager: {fileID: 0}
 --- !u!1 &3401546001573157049
 GameObject:
@@ -2705,7 +2705,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerAttackHitboxTag: PlayerAttack
   particleSpark: {fileID: 115120, guid: 5d8045b18ab2b684b9d2ffc1f4be669c, type: 3}
-  particleBlood: {fileID: 100016, guid: 1a4f9e527eb48044d88d4278007c7dda, type: 3}
+  particleBlood: {fileID: 764304066602274965, guid: 4a322f29a9e1fa54f90223de8bcf3a28, type: 3}
   bloodScreenManager: {fileID: 0}
 --- !u!1 &3934644151313416519
 GameObject:
@@ -3152,7 +3152,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerAttackHitboxTag: PlayerAttack
   particleSpark: {fileID: 115120, guid: 5d8045b18ab2b684b9d2ffc1f4be669c, type: 3}
-  particleBlood: {fileID: 100016, guid: 1a4f9e527eb48044d88d4278007c7dda, type: 3}
+  particleBlood: {fileID: 764304066602274965, guid: 4a322f29a9e1fa54f90223de8bcf3a28, type: 3}
   bloodScreenManager: {fileID: 0}
 --- !u!1 &5146070328467641452
 GameObject:
@@ -3770,7 +3770,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerAttackHitboxTag: PlayerAttack
   particleSpark: {fileID: 115120, guid: 5d8045b18ab2b684b9d2ffc1f4be669c, type: 3}
-  particleBlood: {fileID: 100016, guid: 1a4f9e527eb48044d88d4278007c7dda, type: 3}
+  particleBlood: {fileID: 764304066602274965, guid: 4a322f29a9e1fa54f90223de8bcf3a28, type: 3}
   bloodScreenManager: {fileID: 0}
 --- !u!1 &6558840540038415439
 GameObject:
@@ -3911,7 +3911,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerAttackHitboxTag: PlayerAttack
   particleSpark: {fileID: 115120, guid: 5d8045b18ab2b684b9d2ffc1f4be669c, type: 3}
-  particleBlood: {fileID: 100016, guid: 1a4f9e527eb48044d88d4278007c7dda, type: 3}
+  particleBlood: {fileID: 764304066602274965, guid: 4a322f29a9e1fa54f90223de8bcf3a28, type: 3}
   bloodScreenManager: {fileID: 0}
 --- !u!1 &6644677918490639346
 GameObject:
@@ -4304,7 +4304,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerAttackHitboxTag: PlayerAttack
   particleSpark: {fileID: 115120, guid: 5d8045b18ab2b684b9d2ffc1f4be669c, type: 3}
-  particleBlood: {fileID: 100016, guid: 1a4f9e527eb48044d88d4278007c7dda, type: 3}
+  particleBlood: {fileID: 764304066602274965, guid: 4a322f29a9e1fa54f90223de8bcf3a28, type: 3}
   bloodScreenManager: {fileID: 0}
 --- !u!1 &7348618100657449616
 GameObject:
@@ -4867,7 +4867,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerAttackHitboxTag: PlayerAttack
   particleSpark: {fileID: 115120, guid: 5d8045b18ab2b684b9d2ffc1f4be669c, type: 3}
-  particleBlood: {fileID: 100016, guid: 1a4f9e527eb48044d88d4278007c7dda, type: 3}
+  particleBlood: {fileID: 764304066602274965, guid: 4a322f29a9e1fa54f90223de8bcf3a28, type: 3}
   bloodScreenManager: {fileID: 0}
 --- !u!1 &8629283040989107101
 GameObject:

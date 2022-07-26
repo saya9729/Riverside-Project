@@ -1524,7 +1524,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentSuperState: {fileID: 0}
   currentSubState: {fileID: 0}
-  slowTimeIcon: {fileID: 0}
 --- !u!114 &420212590
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1887,9 +1886,6 @@ MonoBehaviour:
   maxHealth: 100
   defaultSol: 0
   sol: 0
-  energy: 0
-  maxEnergy: 5
-  hudController: {fileID: 0}
 --- !u!114 &4261174648915321631
 MonoBehaviour:
   m_ObjectHideFlags: 0

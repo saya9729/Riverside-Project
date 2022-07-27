@@ -1950,8 +1950,8 @@ MonoBehaviour:
   _resetSpeed: 10
   _jumpBobDuration: 0.5
   _jumpBobSpeed: 10
-  _camera: {fileID: 0}
-  _cameraHolder: {fileID: 0}
+  _camera: {fileID: 4261174648711154786}
+  _cameraHolder: {fileID: 1411268371039590460}
 --- !u!114 &3426246971176556690
 MonoBehaviour:
   m_ObjectHideFlags: 0

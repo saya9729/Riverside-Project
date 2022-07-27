@@ -1418,7 +1418,7 @@ MonoBehaviour:
   slideJumpSpeed: 20
   slideGravity: -1000
   crouchSpeed: 4
-  dashSpeed: 60
+  dashSpeed: 100
   dashDuration: 0.1
   dashCooldown: 0.2
   dashMaxChargeCount: 2

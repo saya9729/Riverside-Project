@@ -69,6 +69,8 @@ namespace Player
         [Header("Jump")]
         [Tooltip("The height the player can jump")]
         [SerializeField] private float jumpHeight = 1.2f;
+
+        [SerializeField] private float coyoteTime = 0.2f;
         [Tooltip("The character uses its own gravity value. The engine default is -9.81f")]
         [SerializeField] private float gravity = -15.0f;
         [Tooltip("Terminal Velocity must be negative")]
@@ -140,7 +142,7 @@ namespace Player
 
         private float currentGravity = -15.0f;
 
-        private bool isAllowToJump = true;
+        private bool isCoyoteTime = false;
         private bool isDashable = true;
         private bool isDoubleJumpable = true;
 
@@ -163,6 +165,7 @@ namespace Player
         private IEnumerator _revertFOVAfterDashCoroutine;
         private IEnumerator _changeFOVWhileSlideCoroutine;
         private IEnumerator _revertFOVAfterSlideCoroutine;
+        private IEnumerator _coyoteTimeCountDownCoroutine;
 
         private PlayerInput _playerInput;
         private CharacterController _characterController;
@@ -383,14 +386,6 @@ namespace Player
         {
             return isDashable && dashCurrentCount > 0;
         }
-        public void DisableJump()
-        {
-            isAllowToJump = false;
-        }
-        public void EnableJump()
-        {
-            isAllowToJump = true;
-        }
         public void DisableDoubleJump()
         {
             isDoubleJumpable = false;
@@ -451,13 +446,14 @@ namespace Player
         {
             airborneInertiaDirection = new Vector3(_characterController.velocity.x, 0f, _characterController.velocity.z).normalized;
         }
-        public void SetAirborneInertiaDirectionWhileDoubleJump()
-        {
-            if (inputDirection != Vector3.zero)
-            {
-                airborneInertiaDirection = inputDirection;
-            }
-        }
+        //redundant behavior
+        //public void SetAirborneInertiaDirectionWhileDoubleJump()
+        //{
+        //    if (inputDirection != Vector3.zero)
+        //    {
+        //        airborneInertiaDirection = inputDirection;
+        //    }
+        //}
         public void SetAirborneInertiaDirectionWhileDash()
         {
             airborneInertiaDirection = dashDirection;
@@ -601,12 +597,12 @@ namespace Player
             catch
             {
 
-            }            
-            
-            _changeFOVWhileSlideCoroutine = ChangeFOVWhileSlide();            
+            }
+
+            _changeFOVWhileSlideCoroutine = ChangeFOVWhileSlide();
             StartCoroutine(_changeFOVWhileSlideCoroutine);
         }
-        
+
         public void StarCoroutineRevertFOVAfterSlide()
         {
             try
@@ -616,9 +612,9 @@ namespace Player
             catch
             {
 
-            }            
-            
-            _revertFOVAfterSlideCoroutine = RevertFOVAfterSlide();            
+            }
+
+            _revertFOVAfterSlideCoroutine = RevertFOVAfterSlide();
             StartCoroutine(_revertFOVAfterSlideCoroutine);
         }
 
@@ -627,9 +623,24 @@ namespace Player
         #region Movement
         private void CheckGrounded()
         {
+            bool lastFrameIsGrounded = isGrounded;
+
             // set sphere position, with offset
             Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - groundedOffset, transform.position.z);
             isGrounded = Physics.CheckSphere(spherePosition, groundedRadius, groundLayers, QueryTriggerInteraction.Ignore);
+
+            if (isGrounded != lastFrameIsGrounded && !isGrounded && _characterController.velocity.y <= 0)
+            {
+                isCoyoteTime = true;
+
+                _coyoteTimeCountDownCoroutine = StartCoyoteTimeCountDown();
+                StartCoroutine(_coyoteTimeCountDownCoroutine);
+            }
+        }
+        private IEnumerator StartCoyoteTimeCountDown()
+        {
+            yield return new WaitForSecondsRealtime(coyoteTime);
+            isCoyoteTime = false;
         }
         private void CheckRoofed()
         {
@@ -666,23 +677,43 @@ namespace Player
         }
         private void Jump()
         {
-            if (isAllowToJump && !isRoofed)
+            if (!isRoofed && inputManager.IsButtonDownThisFrame("Jump"))
             {
-                if (isGrounded && inputManager.IsButtonDownThisFrame("Jump"))
+                if (isGrounded)
                 {
                     DisableSlideGravity();
                     // the square root of H * -2 * G = how much velocity needed to reach desired height
-                    verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
+                    verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * currentGravity);
 
                     //Audio
                     AudioInterface.PlayAudio("jump");
                 }
-                else if (isDoubleJumpable && inputManager.IsButtonDownThisFrame("Jump"))
+                else if (isCoyoteTime)
+                {
+                    // slide coyote jump will be a lot higher than normal jump
+                    //DisableSlideGravity();
+                    // the square root of H * -2 * G = how much velocity needed to reach desired height
+                    verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * currentGravity);
+
+                    //Audio
+                    AudioInterface.PlayAudio("jump");
+
+                    try
+                    {
+                        StopCoroutine(_coyoteTimeCountDownCoroutine);
+                    }
+                    catch
+                    {
+
+                    }
+                    isCoyoteTime = false;
+                }
+                else if (isDoubleJumpable)
                 {
                     // the square root of H * -2 * G = how much velocity needed to reach desired height
-                    verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
+                    verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * currentGravity);
                     DisableDoubleJump();
-                    SetAirborneInertiaDirectionWhileDoubleJump();
+                    //SetAirborneInertiaDirectionWhileDoubleJump();
 
                     //Audio
                     AudioInterface.PlayAudio("secondJump");
@@ -735,8 +766,8 @@ namespace Player
 
         public void RotateWindParticle()
         {
-            particleDash.transform.localRotation = Quaternion.Euler(particleDash.transform.localRotation.x, 
-            Vector3.SignedAngle(new Vector3(-inputManager.move.x, 0f, inputManager.move.y), 
+            particleDash.transform.localRotation = Quaternion.Euler(particleDash.transform.localRotation.x,
+            Vector3.SignedAngle(new Vector3(-inputManager.move.x, 0f, inputManager.move.y),
             _cinemachineVirtualCamera.transform.right, Vector3.up) + 90f, particleDash.transform.localRotation.z);
         }
 
@@ -751,9 +782,9 @@ namespace Player
         // TODO: unused jump cooldown behavior
         //IEnumerator StartJumpCooldown()
         //{
-        //    isAllowToJump = false;
+        //    isCoyoteTime = false;
         //    yield return new WaitForSeconds(jumpCooldown);
-        //    isAllowToJump = true;
+        //    isCoyoteTime = true;
         //}
         //public void StartCoroutineStartJumpCooldown()
         //{
@@ -858,7 +889,7 @@ namespace Player
                 yield return null;
             }
         }
-        
+
         private IEnumerator RevertFOVAfterSlide()
         {
             while (_cinemachineVirtualCamera.m_Lens.FieldOfView != _originalFOV)

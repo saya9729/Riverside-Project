@@ -5,13 +5,12 @@
         private PlayerMovementStateManager _playerMovementController;
         public override void EnterState()
         {
-            _playerMovementController.DisableJump();
             _playerMovementController.SetDashDirection();
         }
 
         public override void ExitState()
         {
-            _playerMovementController.EnableJump();
+
         }
 
         protected override void PhysicsUpdateThisState()

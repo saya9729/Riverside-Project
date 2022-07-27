@@ -1430,6 +1430,7 @@ MonoBehaviour:
   rotationSpeed: 1
   airborneSteeringRate: 1000
   jumpHeight: 2.5
+  coyoteTime: 0.2
   gravity: -30
   terminalVelocity: -53
   crouchHeight: 1.2

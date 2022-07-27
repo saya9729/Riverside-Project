@@ -65,7 +65,6 @@ namespace Player
         public void OnDash(InputValue value)
         {
             dash = value.isPressed;
-            this.PostEvent(EventID.onDodgePress);
         }
 
         private void OnCrouch(InputValue value)

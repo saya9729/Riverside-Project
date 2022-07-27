@@ -21,8 +21,6 @@ namespace Player
 
         [NonSerialized] public Animator animator;
 
-        public GameObject slowTimeIcon;
-
         #region State Machine
         public override void EnterState()
         {
@@ -72,7 +70,7 @@ namespace Player
             playerInteractManager = GetComponent<PlayerInteractManager>();
             playerAttackManager = GetComponent<Universal.AttackManager>();
             DisableAttackHitbox();
-            animator = GetComponent<Animator>();
+            animator = GetComponentInChildren<Animator>();
         }
 
         protected override void InitializeVariable()

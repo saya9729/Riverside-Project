@@ -1055,10 +1055,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6315336025310343111}
     m_Modifications:
-    - target: {fileID: 1364083504908357735, guid: 9c489a8547f4d9e4387da15a4ff82c81, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8762286023885395077, guid: 9c489a8547f4d9e4387da15a4ff82c81, type: 3}
       propertyPath: m_Name
       value: PlayerFollowCamera
@@ -1113,7 +1109,7 @@ PrefabInstance:
       objectReference: {fileID: 4913780946936517810}
     - target: {fileID: 8762286023885395323, guid: 9c489a8547f4d9e4387da15a4ff82c81, type: 3}
       propertyPath: m_Lens.m_SensorSize.x
-      value: 1.7791971
+      value: 2.1544554
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c489a8547f4d9e4387da15a4ff82c81, type: 3}
@@ -1212,10 +1208,6 @@ PrefabInstance:
       propertyPath: interactionText
       value: 
       objectReference: {fileID: 6315336025733844987}
-    - target: {fileID: 420212591, guid: 21af9a2172057ed4ebb386270946d762, type: 3}
-      propertyPath: slowTimeIcon
-      value: 
-      objectReference: {fileID: 6315336025027860847}
     - target: {fileID: 4261174648672795352, guid: 21af9a2172057ed4ebb386270946d762, type: 3}
       propertyPath: m_Name
       value: MainPlayer
@@ -1269,17 +1261,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4261174648672795369, guid: 21af9a2172057ed4ebb386270946d762, type: 3}
-      propertyPath: runSpeed
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 4261174648672795369, guid: 21af9a2172057ed4ebb386270946d762, type: 3}
       propertyPath: particleDash
       value: 
       objectReference: {fileID: 6315336026197601121}
-    - target: {fileID: 4261174648672795369, guid: 21af9a2172057ed4ebb386270946d762, type: 3}
-      propertyPath: slideThresholdSpeed
-      value: 7.8
-      objectReference: {fileID: 0}
     - target: {fileID: 6472696995289467074, guid: 21af9a2172057ed4ebb386270946d762, type: 3}
       propertyPath: hudController
       value: 
@@ -1481,11 +1465,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 140622842827713401, guid: ba3907e2ab7081244b0b1f1553b3e45f, type: 3}
   m_PrefabInstance: {fileID: 6315336026350117780}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &6315336025027860847 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2127575803, guid: ba3907e2ab7081244b0b1f1553b3e45f, type: 3}
-  m_PrefabInstance: {fileID: 6315336026350117780}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6315336025263117807 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1088059003, guid: ba3907e2ab7081244b0b1f1553b3e45f, type: 3}
@@ -1507,17 +1486,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 826453466, guid: ba3907e2ab7081244b0b1f1553b3e45f, type: 3}
   m_PrefabInstance: {fileID: 6315336026350117780}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7214233903958918682 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3727449029401798030, guid: ba3907e2ab7081244b0b1f1553b3e45f, type: 3}
-  m_PrefabInstance: {fileID: 6315336026350117780}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 093f8300a9def4f4997d5770544c8e16, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8072304003714591182 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2855846346689890906, guid: ba3907e2ab7081244b0b1f1553b3e45f, type: 3}

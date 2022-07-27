@@ -1336,11 +1336,9 @@ GameObject:
   - component: {fileID: 4281189589155526853}
   - component: {fileID: 6472696995289467074}
   - component: {fileID: 4261174648915321631}
-  - component: {fileID: 420212560}
-  - component: {fileID: 420212561}
   - component: {fileID: 420212584}
   - component: {fileID: 420212585}
-  - component: {fileID: 420212586}
+  - component: {fileID: 1367961998}
   - component: {fileID: 3426246971176556690}
   - component: {fileID: 5912699282213203708}
   - component: {fileID: 5768543545569612113}
@@ -1354,7 +1352,8 @@ GameObject:
   - component: {fileID: 5909370339120659369}
   - component: {fileID: 1114245748727046708}
   - component: {fileID: 1617080341057532750}
-  - component: {fileID: 1400645489}
+  - component: {fileID: 2239440745040811265}
+  - component: {fileID: 2324975802631921240}
   m_Layer: 3
   m_Name: MainPlayer
   m_TagString: Player
@@ -1424,7 +1423,6 @@ MonoBehaviour:
   dashCooldown: 0.2
   dashMaxChargeCount: 2
   dashChargeCooldown: 1
-  dashDistanceWhileTimeSlowMultiflier: 1.5
   playerPhaseLayerName: PlayerPhase
   dashFOVMultiplier: 1.2
   dashFOVRevertDuration: 0.25
@@ -1526,7 +1524,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentSuperState: {fileID: 0}
   currentSubState: {fileID: 0}
-  slowTimeIcon: {fileID: 0}
 --- !u!114 &420212590
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1889,9 +1886,6 @@ MonoBehaviour:
   maxHealth: 100
   defaultSol: 0
   sol: 0
-  energy: 0
-  maxEnergy: 5
-  hudController: {fileID: 0}
 --- !u!114 &4261174648915321631
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1905,34 +1899,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   particle: {fileID: 1757638009583926746}
---- !u!114 &420212560
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4261174648672795352}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d83da995d3b2a64799832deed24fdde, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameMenuCanvas: {fileID: 0}
-  winTime: 2
---- !u!114 &420212561
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4261174648672795352}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 720d6f76586099a49b1336b30840dd80, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameMenuCanvas: {fileID: 0}
-  loseTime: 1.5
 --- !u!114 &420212584
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1945,10 +1911,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03139942e8a760840b6470483a745567, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeCoefficient: 0.1
-  timeAddToPrefixAndSuffixes: 0.5
-  amountPullFromSol: 1
-  amountPerSecond: 1
+  currentSuperState: {fileID: 0}
+  currentSubState: {fileID: 0}
+  timeScaleWhileTimeSlow: 0.5
+  timeSlowDuration: 1
+  timeSlowCooldown: 5
+  timeSlowRevertThreshold: 0.5
+  inputManager: {fileID: 0}
 --- !u!114 &420212585
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1963,20 +1932,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthPoint: 5
   countHPPot: 3
---- !u!114 &420212586
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4261174648672795352}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab2ba348d3f729e4aa6522a7cac4b653, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactionDistance: 2
-  interactionText: {fileID: 0}
 --- !u!114 &1367961998
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2182,7 +2137,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentSuperState: {fileID: 0}
   currentSubState: {fileID: 0}
---- !u!114 &1400645489
+--- !u!114 &2239440745040811265
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2191,17 +2146,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 4261174648672795352}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fba22778d5d06a4887b911b2352a73d, type: 3}
+  m_Script: {fileID: 11500000, guid: c662601b22c08a24abbfc7523f88d9f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enable: 1
-  _amplitude: 5
-  _frequency: 20
-  _resetSpeed: 10
-  _jumpBobDuration: 1
-  _jumpBobSpeed: 10
-  _camera: {fileID: 4261174648711154786}
-  _cameraHolder: {fileID: 1411268371039590460}
+  currentSuperState: {fileID: 0}
+  currentSubState: {fileID: 0}
+--- !u!114 &2324975802631921240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4261174648672795352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8b11da7e9b1f324fa29f06ba66fc7c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentSuperState: {fileID: 0}
+  currentSubState: {fileID: 0}
 --- !u!1 &4261174648711154787
 GameObject:
   m_ObjectHideFlags: 0
@@ -2225,7 +2188,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4261174648711154787}
-  m_LocalRotation: {x: -0, y: -0, z: -3.9557896e-31, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -3.9443036e-31, w: 1}
   m_LocalPosition: {x: 0, y: -0.097, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2988,7 +2951,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6141782131596564895}
-  m_LocalRotation: {x: -3.3218262e-24, y: -0.0000001196814, z: 6.147485e-17, w: 1}
+  m_LocalRotation: {x: -3.308722e-24, y: -0.000000119209275, z: 6.1232336e-17, w: 1}
   m_LocalPosition: {x: 0, y: 1.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

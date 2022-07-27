@@ -677,9 +677,9 @@ namespace Player
         }
         private void Jump()
         {
-            if (!isRoofed && inputManager.IsButtonDownThisFrame("Jump"))
+            if (!isRoofed)
             {
-                if (isGrounded)
+                if (isGrounded && inputManager.jump)
                 {
                     DisableSlideGravity();
                     // the square root of H * -2 * G = how much velocity needed to reach desired height
@@ -688,7 +688,7 @@ namespace Player
                     //Audio
                     AudioInterface.PlayAudio("jump");
                 }
-                else if (isCoyoteTime)
+                else if (isCoyoteTime && inputManager.IsButtonDownThisFrame("Jump"))
                 {
                     // slide coyote jump will be a lot higher than normal jump
                     //DisableSlideGravity();
@@ -708,7 +708,7 @@ namespace Player
                     }
                     isCoyoteTime = false;
                 }
-                else if (isDoubleJumpable)
+                else if (isDoubleJumpable && inputManager.IsButtonDownThisFrame("Jump"))
                 {
                     // the square root of H * -2 * G = how much velocity needed to reach desired height
                     verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * currentGravity);

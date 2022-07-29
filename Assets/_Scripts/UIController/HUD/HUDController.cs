@@ -19,6 +19,7 @@ namespace GameUI
             this.RegisterListener(EventID.onSolChange, (param) => OnSolChange((float)param));
             this.RegisterListener(EventID.onSlowTime, (param) => OnSlowTime((float)param));
             this.RegisterListener(EventID.onSlowTimeCoolDown, (param) => OnSlowTimeCoolDown((float)param));
+            this.RegisterListener(EventID.onDashCooldown, (param) => OnDashCooldown((float)param));
 
             slowTimeBar.maxValue = 1;
             slowTimeBar.minValue = 0;
@@ -71,6 +72,16 @@ namespace GameUI
                 timeElap += Time.unscaledDeltaTime;
                 yield return null;
             }
+        }
+
+        public void OnDashCooldown(float p_dashCooldownDuration)
+        {
+            StartCoroutine(HandleDashCoolDownBar(p_dashCooldownDuration));
+        }
+
+        private  IEnumerator HandleDashCoolDownBar(float p_dashCooldownDuration)
+        {
+            yield return null;
         }
 
     }

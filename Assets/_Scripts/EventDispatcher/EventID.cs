@@ -15,4 +15,6 @@ public enum EventID
     onSave,
     onLose,
     onWin,
+    onDashCooldown,
+    onDashChargeCooldown,
 }

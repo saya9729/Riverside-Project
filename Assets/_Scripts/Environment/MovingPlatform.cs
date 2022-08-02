@@ -36,15 +36,13 @@ namespace GameEnvironment
                 _timeElapsed = 0;
             }
 
+            _timeElapsed += Time.deltaTime;
             transform.position = Vector3.MoveTowards(
                 transform.position, 
                 platformWaypoint[_currentWaypointIndex].waypoint.transform.position, 
                 Universal.Smoothing.SineWaveSmooth(
                     _distance / 2, _timeElapsed, 
                     platformWaypoint[_currentWaypointIndex].timeToNextWaypoint * 2) * Time.deltaTime);
-            
-            _timeElapsed += Time.deltaTime;
-
             //transform.position = Vector3.MoveTowards(transform.position, waypoints[_currentWaypointIndex].transform.position, movingPlatformSpeed * Time.deltaTime);
         }
     }

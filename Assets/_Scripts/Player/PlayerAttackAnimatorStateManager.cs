@@ -7,18 +7,10 @@ namespace Player
         [SerializeField] private string switchToStateWhenExit = "Idle";
 
         // OnStateEnter is called before OnStateEnter is called on any state inside this state machine
-        override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-        {
-            try
-            {
-                _playerActionStateManager = animator.GetComponentInParent<PlayerActionStateManager>();
-                _playerActionStateManager.RandomAttackAnimation();
-            }
-            catch
-            {
-
-            }
-        }
+        //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        //{
+            
+        //}
 
         // OnStateUpdate is called before OnStateUpdate is called on any state inside this state machine
         //override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -53,10 +45,18 @@ namespace Player
         //}
 
         // OnStateMachineEnter is called when entering a state machine via its Entry Node
-        //override public void OnStateMachineEnter(Animator animator, int stateMachinePathHash)
-        //{
-        //    
-        //}
+        override public void OnStateMachineEnter(Animator animator, int stateMachinePathHash)
+        {
+            try
+            {
+                _playerActionStateManager = animator.GetComponentInParent<PlayerActionStateManager>();
+                _playerActionStateManager.RandomAttackAnimation();
+            }
+            catch
+            {
+
+            }
+        }
 
         // OnStateMachineExit is called when exiting a state machine via its Exit Node
         //override public void OnStateMachineExit(Animator animator, int stateMachinePathHash)

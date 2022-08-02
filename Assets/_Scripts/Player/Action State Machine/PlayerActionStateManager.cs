@@ -4,8 +4,13 @@ using UnityEngine.Rendering;
 
 namespace Player
 {
+    [RequireComponent(typeof(PlayerActionIdleState))]
+    [RequireComponent(typeof(PlayerAttackState))]
+    
     public class PlayerActionStateManager : AbstractClass.State
     {
+        [SerializeField] private int attackAnimationCount = 1;
+
         //Manager
         [NonSerialized] public SelectionManager selectionManager;
 
@@ -20,6 +25,8 @@ namespace Player
         [NonSerialized] public PlayerAttackState playerAttackState;
 
         [NonSerialized] public Animator animator;
+
+        private int _lastAnimationIndex = 0;
 
         #region State Machine
         public override void EnterState()
@@ -76,6 +83,7 @@ namespace Player
         protected override void InitializeVariable()
         {
             volume = GameObject.Find("PlayerFollowCamera").GetComponent<Volume>();
+            UnityEngine.Random.InitState(DateTime.Now.Millisecond);
         }
 
         public override void SwitchToState(string p_stateType)
@@ -103,7 +111,18 @@ namespace Player
         {
             playerAttackManager.EnableHitbox();
         }
-        
+
+        public void RandomAttackAnimation()
+        {
+            int nextAnimationIndex = UnityEngine.Random.Range(0, attackAnimationCount);
+            while (nextAnimationIndex == _lastAnimationIndex)
+            {
+                nextAnimationIndex = UnityEngine.Random.Range(0, attackAnimationCount);
+            }
+            _lastAnimationIndex = nextAnimationIndex;
+            animator.SetInteger("attackType", nextAnimationIndex);
+        }        
+
         #endregion
 
         #region Unity functions

@@ -822,6 +822,7 @@ namespace Player
         {
             yield return new WaitForSecondsRealtime(dashCooldown);
             isDashable = true;
+            this.PostEvent(EventID.onDashCooldown, dashCooldown);
         }
         private IEnumerator StartDashChargeCooldown()
         {
@@ -829,6 +830,7 @@ namespace Player
             yield return new WaitForSecondsRealtime(dashChargeCooldown);
             isInDashChargeCooldown = false;
             dashCurrentCount += 1;
+            this.PostEvent(EventID.onDashChargeCooldown, dashChargeCooldown);
         }
 
         private IEnumerator StartDashDuration()

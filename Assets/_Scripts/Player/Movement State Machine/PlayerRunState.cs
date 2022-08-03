@@ -21,11 +21,12 @@ namespace Player
             {
                 SwitchToState("Airborne");
             }
+            _playerMovementController.animator.SetBool("isRun",true);
         }
 
         public override void ExitState()
         {
-            
+            _playerMovementController.animator.SetBool("isRun", false);
         }
 
         public override void SwitchToState(string p_stateType)

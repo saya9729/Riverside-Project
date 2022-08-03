@@ -45,18 +45,10 @@ namespace Player
         //}
 
         // OnStateMachineEnter is called when entering a state machine via its Entry Node
-        override public void OnStateMachineEnter(Animator animator, int stateMachinePathHash)
-        {
-            try
-            {
-                _playerActionStateManager = animator.GetComponentInParent<PlayerActionStateManager>();
-                _playerActionStateManager.RandomAttackAnimation();
-            }
-            catch
-            {
+        //override public void OnStateMachineEnter(Animator animator, int stateMachinePathHash)
+        //{
 
-            }
-        }
+        //}
 
         // OnStateMachineExit is called when exiting a state machine via its Exit Node
         //override public void OnStateMachineExit(Animator animator, int stateMachinePathHash)

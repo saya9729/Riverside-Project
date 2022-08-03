@@ -4,23 +4,20 @@ using UnityEngine;
 
 public class ParticleManager : MonoBehaviour
 {
-    public GameObject particle;
+    private VFXManager _vfxManager;
 
-    void PlayParticle()
+    private void Start()
     {
-        if (particle)
-        {
-            if (!particle.activeSelf) particle.SetActive(true);
-        }
-        else Debug.LogWarning("Particle not assigned to anim event!");
+        _vfxManager = FindObjectOfType<VFXManager>();
     }
 
-    void StopParticle()
+    void PlayParticle(string particle)
     {
-        if (particle)
-        {
-            if (particle.activeSelf) particle.SetActive(false);
-        }
-        else Debug.LogWarning("Particle not assigned to anim event!");
+        _vfxManager.Enable(particle);
+    }
+
+    void StopParticle(string particle)
+    {
+        _vfxManager.Disable(particle);
     }
 }

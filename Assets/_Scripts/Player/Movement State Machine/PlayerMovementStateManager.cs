@@ -601,12 +601,12 @@ namespace Player
             catch
             {
 
-            }            
-            
-            _changeFOVWhileSlideCoroutine = ChangeFOVWhileSlide();            
+            }
+
+            _changeFOVWhileSlideCoroutine = ChangeFOVWhileSlide();
             StartCoroutine(_changeFOVWhileSlideCoroutine);
         }
-        
+
         public void StarCoroutineRevertFOVAfterSlide()
         {
             try
@@ -616,9 +616,9 @@ namespace Player
             catch
             {
 
-            }            
-            
-            _revertFOVAfterSlideCoroutine = RevertFOVAfterSlide();            
+            }
+
+            _revertFOVAfterSlideCoroutine = RevertFOVAfterSlide();
             StartCoroutine(_revertFOVAfterSlideCoroutine);
         }
 
@@ -675,7 +675,8 @@ namespace Player
                     verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
 
                     //Audio
-                    AudioInterface.PlayAudio("jump");
+                    this.PostEvent(EventID.onPlaySound, "jump");
+
                 }
                 else if (isDoubleJumpable && inputManager.IsButtonDownThisFrame("Jump"))
                 {
@@ -685,7 +686,7 @@ namespace Player
                     SetAirborneInertiaDirectionWhileDoubleJump();
 
                     //Audio
-                    AudioInterface.PlayAudio("secondJump");
+                    this.PostEvent(EventID.onPlaySound, "secondJump");
                 }
             }
         }
@@ -735,8 +736,8 @@ namespace Player
 
         public void RotateWindParticle()
         {
-            particleDash.transform.localRotation = Quaternion.Euler(particleDash.transform.localRotation.x, 
-            Vector3.SignedAngle(new Vector3(-inputManager.move.x, 0f, inputManager.move.y), 
+            particleDash.transform.localRotation = Quaternion.Euler(particleDash.transform.localRotation.x,
+            Vector3.SignedAngle(new Vector3(-inputManager.move.x, 0f, inputManager.move.y),
             _cinemachineVirtualCamera.transform.right, Vector3.up) + 90f, particleDash.transform.localRotation.z);
         }
 
@@ -804,14 +805,10 @@ namespace Player
         {
             isDashable = false;
             isInDashState = true;
-            if (particleDash)
-            {
-                if (!particleDash.activeSelf)
-                {
-                    particleDash.SetActive(true);
-                }
-            }
-            AudioInterface.PlayAudio("dash");
+
+            this.PostEvent(EventID.onPlayVFX, "dash");
+            this.PostEvent(EventID.onPlaySound, "dash");
+
             yield return new WaitForSecondsRealtime(dashDuration);
             //if (_playerSkillStateManager.gameIsSlowDown)
             //{
@@ -821,13 +818,9 @@ namespace Player
             //{
             //    yield return new WaitForSeconds(dashDuration);
             //}
-            if (particleDash)
-            {
-                if (particleDash.activeSelf)
-                {
-                    particleDash.SetActive(false);
-                }
-            }
+
+            this.PostEvent(EventID.onStopVFX, "dash");
+
             isInDashState = false;
             ResetDashDirection();
             StartCoroutine(StartDashCooldown());
@@ -858,7 +851,7 @@ namespace Player
                 yield return null;
             }
         }
-        
+
         private IEnumerator RevertFOVAfterSlide()
         {
             while (_cinemachineVirtualCamera.m_Lens.FieldOfView != _originalFOV)

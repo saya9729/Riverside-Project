@@ -4,25 +4,18 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-
-    public static AudioManager instance;
-
     public AudioMixerGroup mixerGroup;
 
     public Sound[] sounds;
 
+    void Start()
+    {
+        this.RegisterListener(EventID.onPlaySound, (param) => PlaySound((string)param));
+        this.RegisterListener(EventID.onStopSound, (param) => StopSound((string)param));
+    }
+
     void Awake()
     {
-        if (instance != null)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-
         foreach (Sound s in sounds)
         {
             s.source = gameObject.AddComponent<AudioSource>();
@@ -33,7 +26,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void Play(string sound)
+    public void PlaySound(string sound)
     {
         Sound s = Array.Find(sounds, item => item.name == sound);
         if (s == null)
@@ -48,19 +41,12 @@ public class AudioManager : MonoBehaviour
         s.source.Play();
     }
 
-    public void Stop(string sound)
+    public void StopSound(string sound)
     {
         Sound s = Array.Find(sounds, item => item.name == sound);
         if (s.source.isPlaying)
-		{
+        {
             s.source.Stop();
-		}
+        }
     }
-
-	public Sound GetSound(string sound)
-    {
-        Sound s = Array.Find(sounds, item => item.name == sound);
-
-		return s;
-	}
 }

@@ -9,7 +9,7 @@ namespace GameUI
     {
         public void QuitGameToMainMenu()
         {
-            AudioInterface.StopAudio("ambience");
+            this.PostEvent(EventID.onStopSound, "ambience");
             PlayerPrefs.SetInt("CurrentScene", SceneManager.GetActiveScene().buildIndex);
             PlayerPrefs.Save();
             SceneManager.LoadScene(0);

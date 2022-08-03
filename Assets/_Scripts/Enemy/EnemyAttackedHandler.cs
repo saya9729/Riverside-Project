@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 namespace Enemy
 {
@@ -9,10 +10,6 @@ namespace Enemy
         private Universal.AttackManager _damageManager;
         private EnemyStateManager _enemyStateManager;
         private BloodScreenManager _bloodScreenManager;
-
-        public GameObject particleSpark;
-        public GameObject particleBlood;
-        public BloodScreenManager bloodScreenManager;
 
         private void Start()
         {
@@ -26,12 +23,15 @@ namespace Enemy
             {
                 //Debug.Log("attacked by "+ collisionInfo.gameObject.name);
                 ContactPoint hitPoint = collisionInfo.GetContact(0);
-                //Vector3 particleDirection = hitPoint2.point - hitPoint1.point;
 
-                Instantiate(particleSpark, hitPoint.point, Quaternion.Euler(hitPoint.normal));
-                Instantiate(particleBlood, hitPoint.point, Quaternion.Euler(hitPoint.normal));
-                AudioInterface.PlayAudio("enemyHit");
-                bloodScreenManager.Play();
+                //particle
+                Tuple<string, Vector3, Quaternion> particleSparkInfo = new Tuple<string, Vector3, Quaternion>("enemyHitSpark", hitPoint.point, Quaternion.Euler(hitPoint.normal));
+                Tuple<string, Vector3, Quaternion> particleBloodInfo = new Tuple<string, Vector3, Quaternion>("enemyHitBlood", hitPoint.point, Quaternion.Euler(hitPoint.normal));
+                this.PostEvent(EventID.onSpawnVFX, particleSparkInfo);
+                this.PostEvent(EventID.onSpawnVFX, particleBloodInfo);
+
+                //audio
+                this.PostEvent(EventID.onPlaySound, "enemyHit");
 
                 if (_bloodScreenManager)
                 {

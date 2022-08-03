@@ -15,4 +15,11 @@ public enum EventID
     onSave,
     onLose,
     onWin,
+    //sound
+    onPlaySound,
+    onStopSound,
+    //vfx
+    onPlayVFX,
+    onStopVFX,
+    onSpawnVFX,
 }

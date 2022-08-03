@@ -10,6 +10,6 @@ public class PlaySound : MonoBehaviour
 
     void playsound(SoundName soundName)
     {
-        AudioInterface.PlayAudio(soundName.ToString());
+        this.PostEvent(EventID.onPlaySound, soundName.ToString());
     }
 }

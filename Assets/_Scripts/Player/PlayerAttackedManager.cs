@@ -28,7 +28,7 @@ namespace Player
             if (p_collider.CompareTag(enemyAttackHitboxTag)) //collide with enemy attack's collider which has this tag
             {
                 //Debug.Log("attacked by "+p_collider.gameObject.name);
-                AudioInterface.PlayAudio("playerHit");
+                this.PostEvent(EventID.onPlaySound, "playerHit");
                 if (PlayerHit && PlayerHit.GetComponent<Image>())
                 {
                     if (!PlayerHit.GetComponent<Image>().enabled)

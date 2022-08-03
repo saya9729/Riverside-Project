@@ -5,23 +5,19 @@ namespace Player
 {
     public class PlayerAttackState : AbstractClass.State
     {
-        private PlayerActionStateManager _playerStateManager;
-
-        [Header("Primary Attack (Slash)")]
-
-        int _attackTypeIndex = 0;
-
+        private PlayerActionStateManager _playerActionStateManager;
         #region State Machine
         public override void EnterState()
         {
             // TODO: handle change animation between attack pattern
-            _playerStateManager.animator.SetInteger("attackType", _attackTypeIndex);
-            _playerStateManager.animator.SetTrigger("isAttack");
+            //_playerActionStateManager.animator.SetInteger("attackType", _attackTypeIndex);
+            _playerActionStateManager.animator.SetTrigger("isAttack");
+            _playerActionStateManager.RandomAttackAnimation();
         }
 
         public override void ExitState()
         {
-
+            
         }
 
         protected override void UpdateThisState()
@@ -46,7 +42,7 @@ namespace Player
 
         protected override void InitializeComponent()
         {
-            _playerStateManager = GetComponent<PlayerActionStateManager>();
+            _playerActionStateManager = GetComponent<PlayerActionStateManager>();
         }
 
         protected override void InitializeVariable()
@@ -59,6 +55,6 @@ namespace Player
             throw new System.NotImplementedException();
         }
 #endregion
-
+        
     }
 }

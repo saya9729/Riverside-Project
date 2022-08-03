@@ -1,15 +1,15 @@
 using UnityEngine;
 namespace Player
 {
-    public class PlayerAnimatorAttackState : StateMachineBehaviour
+    public class PlayerAttackAnimatorStateManager : StateMachineBehaviour
     {
-        private PlayerActionStateManager _playerStateManager;
-        [SerializeField] private string switchToStateWhenExit = "Idle";        
+        private PlayerActionStateManager _playerActionStateManager;
+        [SerializeField] private string switchToStateWhenExit = "Idle";
 
         // OnStateEnter is called before OnStateEnter is called on any state inside this state machine
         //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         //{
-        //    
+            
         //}
 
         // OnStateUpdate is called before OnStateUpdate is called on any state inside this state machine
@@ -21,8 +21,15 @@ namespace Player
         // OnStateExit is called before OnStateExit is called on any state inside this state machine
         override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            _playerStateManager = animator.GetComponent<PlayerActionStateManager>();
-            _playerStateManager.SwitchToState(switchToStateWhenExit);
+            try
+            {
+                _playerActionStateManager = animator.GetComponentInParent<PlayerActionStateManager>();
+                _playerActionStateManager.SwitchToState(switchToStateWhenExit);
+            }
+            catch
+            {
+
+            }
         }
 
         // OnStateMove is called before OnStateMove is called on any state inside this state machine
@@ -38,10 +45,18 @@ namespace Player
         //}
 
         // OnStateMachineEnter is called when entering a state machine via its Entry Node
-        //override public void OnStateMachineEnter(Animator animator, int stateMachinePathHash)
-        //{
-        //    
-        //}
+        override public void OnStateMachineEnter(Animator animator, int stateMachinePathHash)
+        {
+            try
+            {
+                _playerActionStateManager = animator.GetComponentInParent<PlayerActionStateManager>();
+                _playerActionStateManager.RandomAttackAnimation();
+            }
+            catch
+            {
+
+            }
+        }
 
         // OnStateMachineExit is called when exiting a state machine via its Exit Node
         //override public void OnStateMachineExit(Animator animator, int stateMachinePathHash)

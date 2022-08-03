@@ -15,9 +15,13 @@ public enum EventID
     onSave,
     onLose,
     onWin,
+    onDashCooldown,
+    onDashChargeCooldown,
+
     //sound
     onPlaySound,
     onStopSound,
+    
     //vfx
     onPlayVFX,
     onStopVFX,

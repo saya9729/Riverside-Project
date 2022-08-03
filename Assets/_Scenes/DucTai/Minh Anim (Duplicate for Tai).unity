@@ -1712,8 +1712,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   solCount: {fileID: 4253844330112881446}
+  slowTimeIcon: {fileID: 0}
   healthBar: {fileID: 4253844328790603149}
-  energyBar: {fileID: 4253844328545319073}
+  slowTimeBar: {fileID: 0}
 --- !u!4 &686761984802256557
 Transform:
   m_ObjectHideFlags: 0
@@ -1755,7 +1756,6 @@ GameObject:
   m_Component:
   - component: {fileID: 543450652904399714}
   - component: {fileID: 5866666021077645592}
-  - component: {fileID: 5866666021077645593}
   m_Layer: 3
   m_Name: humanfps
   m_TagString: Untagged
@@ -9857,18 +9857,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &5866666021077645593
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 919132148917762520}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7e7e6fe42628e4ba733db63c101974, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &5943345138474655983
 Transform:
   m_ObjectHideFlags: 0

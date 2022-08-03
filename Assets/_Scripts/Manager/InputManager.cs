@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,44 +7,48 @@ namespace Player
 {
     public class InputManager : MonoBehaviour
     {
+        [SerializeField] private float jumpBufferTime = 0.1f;
+
         [NonSerialized] public PlayerInput _playerInput;
 
         //public bool interact;
-        public bool exit;
-        public bool usingPocketWatch;
-        public bool primaryLightAttack;
-        public bool secondaryAttack;
-        public float mouseScrollDelta;
-        public Vector2 mousePosition;
-        public bool useHealthPot;
-        public bool menu;
-        public bool pullFromSol;
-        public bool switchAim;
-        public bool cooldownWeapon;
+        [NonSerialized] public bool exit = false;
+        [NonSerialized] public bool usingPocketWatch = false;
+        [NonSerialized] public bool primaryLightAttack = false;
+        [NonSerialized] public bool secondaryAttack = false;
+        [NonSerialized] public float mouseScrollDelta = 0;
+        [NonSerialized] public Vector2 mousePosition = Vector2.zero;
+        [NonSerialized] public bool useHealthPot = false;
+        [NonSerialized] public bool menu = false;
+        [NonSerialized] public bool pullFromSol = false;
+        [NonSerialized] public bool switchAim = false;
+        [NonSerialized] public bool cooldownWeapon = false;
 
         [Header("Character Input Values")]
 
-        public Vector2 move;
-        public Vector2 look;
-        public bool jump;
-        public bool dash;
-        public bool crouch;
+        [NonSerialized] public Vector2 move = Vector2.zero;
+        [NonSerialized] public Vector2 look = Vector2.zero;
+        [NonSerialized] public bool jump = false;
+        [NonSerialized] public bool dash = false;
+        [NonSerialized] public bool crouch = false;
 
         [Header("Movement Settings")]
-        public bool analogMovement;
+        [NonSerialized] public bool analogMovement = false;
 
         [Header("Interact Input")]
-        public bool interact;
-        public bool pressInteractDown;
+        [NonSerialized] public bool interact = false;
+        [NonSerialized] public bool pressInteractDown = false;
 
 #if !UNITY_IOS || !UNITY_ANDROID
 
         [Header("Mouse Cursor Settings")]
-        public bool cursorLocked = true;
+        [NonSerialized] public bool cursorLocked = true;
 
-        public bool cursorInputForLook = true;
+        [NonSerialized] public bool cursorInputForLook = true;
 #endif
-        
+
+        private IEnumerator _jumpBufferCoroutine;
+
         public void OnMove(InputValue value)
         {
             MoveInput(value.Get<Vector2>());
@@ -59,7 +64,28 @@ namespace Player
 
         public void OnJump(InputValue value)
         {
-            JumpInput(value.isPressed);
+            if (value.isPressed)
+            {
+                jump = true;
+                try
+                {
+                    StopCoroutine(_jumpBufferCoroutine);
+                }
+                catch
+                {
+
+                }
+            }
+            else
+            {
+                _jumpBufferCoroutine = StartJumpBuffer();
+                StartCoroutine(_jumpBufferCoroutine);
+            }
+        }
+        private IEnumerator StartJumpBuffer()
+        {
+            yield return new WaitForSecondsRealtime(jumpBufferTime);
+            jump = false;
         }
 
         public void OnDash(InputValue value)
@@ -71,8 +97,8 @@ namespace Player
         {
             crouch = value.isPressed;
         }
-        
-        void OnUseHealthPotion(InputValue value)
+
+        private void OnUseHealthPotion(InputValue value)
         {
             useHealthPot = value.isPressed;
         }
@@ -85,11 +111,6 @@ namespace Player
         public void LookInput(Vector2 newLookDirection)
         {
             look = newLookDirection;
-        }
-
-        public void JumpInput(bool newJumpState)
-        {
-            jump = newJumpState;
         }
 
         public void OnInteract(InputValue p_value)
@@ -170,5 +191,5 @@ namespace Player
         }
     }
 
-    
+
 }

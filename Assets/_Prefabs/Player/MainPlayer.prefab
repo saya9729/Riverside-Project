@@ -1430,6 +1430,7 @@ MonoBehaviour:
   rotationSpeed: 1
   airborneSteeringRate: 1000
   jumpHeight: 2.5
+  coyoteTime: 0.2
   gravity: -30
   terminalVelocity: -53
   crouchHeight: 1.2
@@ -1524,6 +1525,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentSuperState: {fileID: 0}
   currentSubState: {fileID: 0}
+  attackAnimationCount: 7
 --- !u!114 &420212590
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1592,27 +1594,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be25c71012f5cb44b944d7148ad1949a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  exit: 0
-  usingPocketWatch: 0
-  primaryLightAttack: 0
-  secondaryAttack: 0
-  mouseScrollDelta: 0
-  mousePosition: {x: 0, y: 0}
-  useHealthPot: 0
-  menu: 0
-  pullFromSol: 0
-  switchAim: 0
-  cooldownWeapon: 0
-  move: {x: 0, y: 0}
-  look: {x: 0, y: 0}
-  jump: 0
-  dash: 0
-  crouch: 0
-  analogMovement: 0
-  interact: 0
-  pressInteractDown: 0
-  cursorLocked: 1
-  cursorInputForLook: 1
+  jumpBufferTime: 0.1
 --- !u!114 &4261174648672795355
 MonoBehaviour:
   m_ObjectHideFlags: 0

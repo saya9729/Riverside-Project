@@ -697,7 +697,7 @@ namespace Player
                     verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * currentGravity);
 
                     //Audio
-                    AudioInterface.PlayAudio("jump");
+                    this.PostEvent(EventID.onPlaySound, "jump");
 
                     try
                     {

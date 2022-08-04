@@ -821,8 +821,7 @@ namespace Player
         private IEnumerator StartDashCooldown()
         {
             yield return new WaitForSecondsRealtime(dashCooldown);
-            isDashable = true;
-            this.PostEvent(EventID.onDashCooldown, dashCooldown);
+            isDashable = true;            
         }
         private IEnumerator StartDashChargeCooldown()
         {
@@ -845,6 +844,7 @@ namespace Player
                 }
             }
             AudioInterface.PlayAudio("dash");
+            this.PostEvent(EventID.onDash, dashCurrentCount);
             yield return new WaitForSecondsRealtime(dashDuration);
             //if (_playerSkillStateManager.gameIsSlowDown)
             //{

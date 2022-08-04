@@ -1,6 +1,5 @@
-using UnityEngine;
-using UnityEngine.Events;
 using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace GameUI
@@ -11,6 +10,9 @@ namespace GameUI
         [SerializeField] private RawImage slowTimeIcon;
         [SerializeField] private Slider healthBar;
         [SerializeField] private Slider slowTimeBar;
+        [SerializeField] private Slider[] dashChargeCooldownBar;
+
+        private int _dashCurrentCount;
 
         private void Start()
         {
@@ -19,7 +21,8 @@ namespace GameUI
             this.RegisterListener(EventID.onSolChange, (param) => OnSolChange((float)param));
             this.RegisterListener(EventID.onSlowTime, (param) => OnSlowTime((float)param));
             this.RegisterListener(EventID.onSlowTimeCoolDown, (param) => OnSlowTimeCoolDown((float)param));
-            this.RegisterListener(EventID.onDashCooldown, (param) => OnDashCooldown((float)param));
+            this.RegisterListener(EventID.onDashChargeCooldown, (param) => OnDashChargeCooldown((float)param));
+            this.RegisterListener(EventID.onDash, (param) => OnDash((int)param));
 
             slowTimeBar.maxValue = 1;
             slowTimeBar.minValue = 0;
@@ -48,7 +51,7 @@ namespace GameUI
 
         private IEnumerator HandleSlowTimeBar(float p_slowTimeDuration)
         {
-            float timeElap  = 0;
+            float timeElap = 0;
             while (timeElap < p_slowTimeDuration)
             {
                 slowTimeBar.value = Universal.Smoothing.LinearSmoothFixedTime(slowTimeBar.value, slowTimeBar.maxValue, slowTimeBar.minValue, Time.unscaledDeltaTime, p_slowTimeDuration);
@@ -74,14 +77,45 @@ namespace GameUI
             }
         }
 
-        public void OnDashCooldown(float p_dashCooldownDuration)
+        private void OnDash(int p_dashCurrentCount)
         {
-            StartCoroutine(HandleDashCoolDownBar(p_dashCooldownDuration));
+            _dashCurrentCount = p_dashCurrentCount;
+            dashChargeCooldownBar[_dashCurrentCount].value = 0;
         }
 
-        private  IEnumerator HandleDashCoolDownBar(float p_dashCooldownDuration)
+        public void OnDashChargeCooldown(float p_dashChargeCooldownDuration)
         {
-            yield return null;
+            if (dashChargeCooldownBar[0].value == 0)
+            {
+                StartCoroutine(HandleDashChargeCoolDownBarRight(p_dashChargeCooldownDuration));
+            }
+            if (dashChargeCooldownBar[1].value == 0)
+            {
+                StartCoroutine(HandleDashChargeCoolDownBarLeft(p_dashChargeCooldownDuration));
+            }
+
+        }
+
+        private IEnumerator HandleDashChargeCoolDownBarRight(float p_dashChargeCooldownDuration)
+        {
+            float timeElap = 0;
+            while (timeElap < p_dashChargeCooldownDuration)
+            {
+                dashChargeCooldownBar[0].value = Universal.Smoothing.LinearSmoothFixedTime(dashChargeCooldownBar[0].value, 0, 1, Time.unscaledDeltaTime, p_dashChargeCooldownDuration);
+                timeElap += Time.unscaledDeltaTime;
+                yield return null;
+            }
+        }
+
+        private IEnumerator HandleDashChargeCoolDownBarLeft(float p_dashChargeCooldownDuration)
+        {
+            float timeElap = 0;
+            while (timeElap < p_dashChargeCooldownDuration)
+            {
+                dashChargeCooldownBar[1].value = Universal.Smoothing.LinearSmoothFixedTime(dashChargeCooldownBar[1].value, 0, 1, Time.unscaledDeltaTime, p_dashChargeCooldownDuration);
+                timeElap += Time.unscaledDeltaTime;
+                yield return null;
+            }
         }
 
     }

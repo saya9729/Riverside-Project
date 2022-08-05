@@ -10,12 +10,12 @@ public class VFXManager : MonoBehaviour
     {
         this.RegisterListener(EventID.onPlayVFX, (param) => Enable((VFXID)param));
         this.RegisterListener(EventID.onStopVFX, (param) => Disable((VFXID)param));
-        this.RegisterListener(EventID.onSpawnVFX, (param) => Spawn((Tuple<string, Vector3, Quaternion>)param));
+        this.RegisterListener(EventID.onSpawnVFX, (param) => Spawn((Tuple<VFXID, Vector3, Quaternion>)param));
     }
 
-    public void Spawn(Tuple<string, Vector3, Quaternion> p_spawnInfo)
+    public void Spawn(Tuple<VFXID, Vector3, Quaternion> p_spawnInfo)
     {
-        VFX f = Array.Find(vfxs, item => item.name == p_spawnInfo.Item1);
+        VFX f = Array.Find(vfxs, item => item.name == p_spawnInfo.Item1.ToString());
         if (f == null)
         {
             Debug.LogWarning("VFX " + name + " not found!");

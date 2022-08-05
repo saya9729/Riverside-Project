@@ -25,8 +25,8 @@ namespace Enemy
                 ContactPoint hitPoint = collisionInfo.GetContact(0);
 
                 //particle
-                Tuple<string, Vector3, Quaternion> particleSparkInfo = new Tuple<string, Vector3, Quaternion>("enemyHitSpark", hitPoint.point, Quaternion.Euler(hitPoint.normal));
-                Tuple<string, Vector3, Quaternion> particleBloodInfo = new Tuple<string, Vector3, Quaternion>("enemyHitBlood", hitPoint.point, Quaternion.Euler(hitPoint.normal));
+                Tuple<VFXID, Vector3, Quaternion> particleSparkInfo = new Tuple<VFXID, Vector3, Quaternion>(VFXID.enemyHitSpark, hitPoint.point, Quaternion.Euler(hitPoint.normal));
+                Tuple<VFXID, Vector3, Quaternion> particleBloodInfo = new Tuple<VFXID, Vector3, Quaternion>(VFXID.enemyHitBlood, hitPoint.point, Quaternion.Euler(hitPoint.normal));
                 this.PostEvent(EventID.onSpawnVFX, particleSparkInfo);
                 this.PostEvent(EventID.onSpawnVFX, particleBloodInfo);
 

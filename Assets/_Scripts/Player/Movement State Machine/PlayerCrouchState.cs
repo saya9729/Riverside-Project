@@ -21,11 +21,12 @@ namespace Player
                 SwitchToState("Airborne");
             }
             _playerMovementController.StartCoroutineCrouchDown();
+            _playerMovementController.animator.SetBool("isCrouch",true);
         }
 
         public override void ExitState()
         {
-
+            _playerMovementController.animator.SetBool("isCrouch", false);
         }
 
         public override void SwitchToState(string p_stateType)

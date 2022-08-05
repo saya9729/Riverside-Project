@@ -121,7 +121,16 @@ namespace Player
             }
             _lastAnimationIndex = nextAnimationIndex;
             animator.SetInteger("attackType", nextAnimationIndex);
-        }        
+        }  
+        
+        public void DisableMovementLayer()
+        {
+            animator.SetLayerWeight(1, 0);
+        }
+        public void EnableMovementLayer()
+        {
+            animator.SetLayerWeight(1, 1);
+        }
 
         #endregion
 

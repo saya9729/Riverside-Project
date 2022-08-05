@@ -8,25 +8,25 @@ public class VFXManager : MonoBehaviour
 
     void Start()
     {
-        this.RegisterListener(EventID.onPlayVFX, (param) => Enable((string)param));
-        this.RegisterListener(EventID.onStopVFX, (param) => Disable((string)param));
+        this.RegisterListener(EventID.onPlayVFX, (param) => Enable((VFXID)param));
+        this.RegisterListener(EventID.onStopVFX, (param) => Disable((VFXID)param));
         this.RegisterListener(EventID.onSpawnVFX, (param) => Spawn((Tuple<string, Vector3, Quaternion>)param));
     }
 
-    public void Spawn(Tuple<string, Vector3, Quaternion> spawnInfo)
+    public void Spawn(Tuple<string, Vector3, Quaternion> p_spawnInfo)
     {
-        VFX f = Array.Find(vfxs, item => item.name == spawnInfo.Item1);
+        VFX f = Array.Find(vfxs, item => item.name == p_spawnInfo.Item1);
         if (f == null)
         {
             Debug.LogWarning("VFX " + name + " not found!");
             return;
         }
-        Instantiate(f.source, spawnInfo.Item2, spawnInfo.Item3);
+        Instantiate(f.source, p_spawnInfo.Item2, p_spawnInfo.Item3);
     }
 
-    public void Enable(string vfx)
+    public void Enable(VFXID vfx)
     {
-        VFX f = Array.Find(vfxs, item => item.name == vfx);
+        VFX f = Array.Find(vfxs, item => item.name == vfx.ToString());
         if (f == null)
         {
             Debug.LogWarning("VFX " + name + " not found!");
@@ -38,9 +38,9 @@ public class VFXManager : MonoBehaviour
 		}
     }
 
-    public void Disable (string vfx)
+    public void Disable (VFXID vfx)
     {
-        VFX f = Array.Find(vfxs, item => item.name == vfx);
+        VFX f = Array.Find(vfxs, item => item.name == vfx.ToString());
         if (f == null)
         {
             Debug.LogWarning("VFX " + name + " not found!");

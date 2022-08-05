@@ -15,7 +15,7 @@ namespace Player
             if (_playerMovementController.particleDash)
             {
                 _playerMovementController.RotateWindParticle();
-                this.PostEvent(EventID.onPlayVFX, "dash");
+                this.PostEvent(EventID.onPlayVFX, VFXID.dash);
             }
 
             _playerMovementController.StartCoroutineChangeFOVWhileSlide();
@@ -29,7 +29,7 @@ namespace Player
             if (_playerMovementController.particleDash)
             {
                 _playerMovementController.ResetWindParticleRotation();
-                this.PostEvent(EventID.onStopVFX, "dash");
+                this.PostEvent(EventID.onStopVFX, VFXID.dash);
             }
 
             _playerMovementController.StarCoroutineRevertFOVAfterSlide();

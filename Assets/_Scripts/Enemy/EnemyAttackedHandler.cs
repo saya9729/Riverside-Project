@@ -31,7 +31,7 @@ namespace Enemy
                 this.PostEvent(EventID.onSpawnVFX, particleBloodInfo);
 
                 //audio
-                this.PostEvent(EventID.onPlaySound, "enemyHit");
+                this.PostEvent(EventID.onPlaySound, AudioID.enemyHit);
 
                 if (_bloodScreenManager)
                 {

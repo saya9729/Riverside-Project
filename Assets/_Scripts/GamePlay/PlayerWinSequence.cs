@@ -41,7 +41,7 @@ namespace Player
         private void StopComponent()
         {
             Time.timeScale = 1f;
-            this.PostEvent(EventID.onStopSound, "timeskill");
+            this.PostEvent(EventID.onStopSound, AudioID.timeskill);
         }
     }
 }

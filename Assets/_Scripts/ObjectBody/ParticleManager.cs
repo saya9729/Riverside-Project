@@ -11,13 +11,13 @@ public class ParticleManager : MonoBehaviour
         _vfxManager = FindObjectOfType<VFXManager>();
     }
 
-    void PlayParticle(string particle)
+    void PlayParticle(VFXID vfxName)
     {
-        _vfxManager.Enable(particle);
+        _vfxManager.Enable(vfxName);
     }
 
-    void StopParticle(string particle)
+    void StopParticle(VFXID vfxName)
     {
-        _vfxManager.Disable(particle);
+        _vfxManager.Disable(vfxName);
     }
 }

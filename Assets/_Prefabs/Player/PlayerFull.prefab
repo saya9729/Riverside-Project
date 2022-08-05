@@ -1139,6 +1139,38 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3992406662529760462}
     m_Modifications:
+    - target: {fileID: 238849833, guid: ba3907e2ab7081244b0b1f1553b3e45f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 3692040847362585029}
+    - target: {fileID: 238849833, guid: ba3907e2ab7081244b0b1f1553b3e45f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: PlaySoundUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 243291526, guid: ba3907e2ab7081244b0b1f1553b3e45f, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 3692040847362585029}
+    - target: {fileID: 243291526, guid: ba3907e2ab7081244b0b1f1553b3e45f, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: PlaySoundUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 834084453, guid: ba3907e2ab7081244b0b1f1553b3e45f, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 3692040847362585029}
+    - target: {fileID: 834084453, guid: ba3907e2ab7081244b0b1f1553b3e45f, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: PlaySoundUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 939801494, guid: ba3907e2ab7081244b0b1f1553b3e45f, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 939801494, guid: ba3907e2ab7081244b0b1f1553b3e45f, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1031345476, guid: ba3907e2ab7081244b0b1f1553b3e45f, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -1162,6 +1194,30 @@ PrefabInstance:
     - target: {fileID: 1674878112, guid: ba3907e2ab7081244b0b1f1553b3e45f, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1845609766, guid: ba3907e2ab7081244b0b1f1553b3e45f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 3692040847362585029}
+    - target: {fileID: 1845609766, guid: ba3907e2ab7081244b0b1f1553b3e45f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: PlaySoundUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 2029067567, guid: ba3907e2ab7081244b0b1f1553b3e45f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2029067567, guid: ba3907e2ab7081244b0b1f1553b3e45f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2029067567, guid: ba3907e2ab7081244b0b1f1553b3e45f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_StringArgument
+      value: UiSlide
+      objectReference: {fileID: 0}
+    - target: {fileID: 2119496634, guid: ba3907e2ab7081244b0b1f1553b3e45f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 140622842827713401, guid: ba3907e2ab7081244b0b1f1553b3e45f, type: 3}
       propertyPath: m_Pivot.x
@@ -1481,6 +1537,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 75004afa3be65fa47adf69f890124f17, type: 3}
+--- !u!114 &3692040847362585029 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 313883228491555876, guid: 75004afa3be65fa47adf69f890124f17, type: 3}
+  m_PrefabInstance: {fileID: 3992406662621582817}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c40b11c8d990991489d0a741d39ff49c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &3692040847362585050 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 313883228491555899, guid: 75004afa3be65fa47adf69f890124f17, type: 3}

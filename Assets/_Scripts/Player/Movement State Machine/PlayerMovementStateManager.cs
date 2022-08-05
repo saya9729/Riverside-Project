@@ -686,7 +686,7 @@ namespace Player
                     verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * currentGravity);
 
                     //Audio
-                    this.PostEvent(EventID.onPlaySound, "jump");
+                    this.PostEvent(EventID.onPlaySound, AudioID.jump);
 
                 }
                 else if (isCoyoteTime && inputManager.IsButtonDownThisFrame("Jump"))
@@ -697,7 +697,7 @@ namespace Player
                     verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * currentGravity);
 
                     //Audio
-                    this.PostEvent(EventID.onPlaySound, "jump");
+                    this.PostEvent(EventID.onPlaySound, AudioID.jump);
 
                     try
                     {
@@ -717,7 +717,7 @@ namespace Player
                     //SetAirborneInertiaDirectionWhileDoubleJump();
 
                     //Audio
-                    this.PostEvent(EventID.onPlaySound, "secondJump");
+                    this.PostEvent(EventID.onPlaySound, AudioID.secondJump);
                 }
             }
         }
@@ -839,8 +839,8 @@ namespace Player
             isDashable = false;
             isInDashState = true;
 
-            this.PostEvent(EventID.onPlayVFX, "dash");
-            this.PostEvent(EventID.onPlaySound, "dash");
+            this.PostEvent(EventID.onPlayVFX, VFXID.dash);
+            this.PostEvent(EventID.onPlaySound, AudioID.dash);
 
             yield return new WaitForSecondsRealtime(dashDuration);
             //if (_playerSkillStateManager.gameIsSlowDown)
@@ -852,7 +852,7 @@ namespace Player
             //    yield return new WaitForSeconds(dashDuration);
             //}
 
-            this.PostEvent(EventID.onStopVFX, "dash");
+            this.PostEvent(EventID.onStopVFX, VFXID.dash);
 
             isInDashState = false;
             ResetDashDirection();

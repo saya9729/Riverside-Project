@@ -1418,8 +1418,8 @@ MonoBehaviour:
   slideJumpSpeed: 20
   slideGravity: -1000
   crouchSpeed: 4
-  dashSpeed: 100
-  dashDuration: 0.1
+  dashSpeed: 71.428
+  dashDuration: 0.14
   dashCooldown: 0.2
   dashMaxChargeCount: 2
   dashChargeCooldown: 1
@@ -1455,6 +1455,7 @@ MonoBehaviour:
   inputDirection: {x: 0, y: 0, z: 0}
   isInDashState: 0
   inputManager: {fileID: 0}
+  animator: {fileID: 0}
 --- !u!114 &7578550057046820834
 MonoBehaviour:
   m_ObjectHideFlags: 0

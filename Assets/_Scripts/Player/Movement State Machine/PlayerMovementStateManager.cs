@@ -174,6 +174,7 @@ namespace Player
         private CapsuleCollider _characterCapsuleCollider;
         private PlayerActionStateManager _playerActionStateManager;
         private CinemachineVirtualCamera _cinemachineVirtualCamera;
+        public Animator animator;
 
         private const float _threshold = 0.01f;
 
@@ -215,6 +216,7 @@ namespace Player
             _playerSkillManager = GetComponentInChildren<PlayerSkillStateManager>();
             _characterCapsuleCollider = GetComponent<CapsuleCollider>();
             _playerActionStateManager = GetComponent<PlayerActionStateManager>();
+            animator = GetComponentInChildren<Animator>();
         }
 
         protected override void InitializeVariable()
@@ -688,16 +690,19 @@ namespace Player
                     //Audio
                     this.PostEvent(EventID.onPlaySound, AudioID.jump);
 
+                    animator.SetTrigger("isJump");
                 }
                 else if (isCoyoteTime && inputManager.IsButtonDownThisFrame("Jump"))
                 {
                     // slide coyote jump will be a lot higher than normal jump
-                    //DisableSlideGravity();
+                    DisableSlideGravity();
                     // the square root of H * -2 * G = how much velocity needed to reach desired height
                     verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * currentGravity);
 
                     //Audio
                     this.PostEvent(EventID.onPlaySound, AudioID.jump);
+
+                    animator.SetTrigger("isJump");
 
                     try
                     {
@@ -718,6 +723,8 @@ namespace Player
 
                     //Audio
                     this.PostEvent(EventID.onPlaySound, AudioID.secondJump);
+
+                    animator.SetTrigger("isJump");
                 }
             }
         }

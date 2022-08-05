@@ -22,6 +22,7 @@ namespace Player
 
             SwitchToState("Grounded");
             _playerMovementController.StartCoroutineCrouchDown();
+            _playerMovementController.animator.SetBool("isSlide",true);
         }
 
         public override void ExitState()
@@ -33,6 +34,7 @@ namespace Player
             }
 
             _playerMovementController.StarCoroutineRevertFOVAfterSlide();
+            _playerMovementController.animator.SetBool("isSlide", false);
         }
 
         public override void SwitchToState(string p_stateType)

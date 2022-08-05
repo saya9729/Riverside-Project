@@ -13,11 +13,12 @@ namespace Player
             //_playerActionStateManager.animator.SetInteger("attackType", _attackTypeIndex);
             _playerActionStateManager.animator.SetTrigger("isAttack");
             _playerActionStateManager.RandomAttackAnimation();
+            _playerActionStateManager.DisableMovementLayer();
         }
 
         public override void ExitState()
         {
-            
+            _playerActionStateManager.EnableMovementLayer();
         }
 
         protected override void UpdateThisState()

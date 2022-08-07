@@ -13,7 +13,7 @@ namespace Universal
 
         public static float SineWaveSmooth(float p_amplitude, float p_timeElapsed, float p_period)
         {
-            return p_amplitude * Mathf.PI * 2 / p_period * Mathf.Sin(p_timeElapsed * Mathf.PI * 2 / p_period);
+            return Mathf.Abs(p_amplitude * Mathf.PI * 2 / p_period * Mathf.Sin(p_timeElapsed * Mathf.PI * 2 / p_period));
         }
     }
 }

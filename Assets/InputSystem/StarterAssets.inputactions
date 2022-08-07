@@ -339,7 +339,18 @@
                 {
                     "name": "",
                     "id": "20e092cb-d5a5-499c-8282-6a54b760544b",
-                    "path": "<Keyboard>/ctrl",
+                    "path": "<Keyboard>/c",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Crouch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "40f4f2df-304a-4ba4-ae32-3a43a0aeb07b",
+                    "path": "<Keyboard>/leftCtrl",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

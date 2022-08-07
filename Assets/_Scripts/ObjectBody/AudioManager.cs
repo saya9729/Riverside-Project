@@ -4,25 +4,18 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-
-    public static AudioManager instance;
-
     public AudioMixerGroup mixerGroup;
 
     public Sound[] sounds;
 
+    void Start()
+    {
+        this.RegisterListener(EventID.onPlaySound, (param) => PlaySound((AudioID)param));
+        this.RegisterListener(EventID.onStopSound, (param) => StopSound((AudioID)param));
+    }
+
     void Awake()
     {
-        if (instance != null)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-
         foreach (Sound s in sounds)
         {
             s.source = gameObject.AddComponent<AudioSource>();
@@ -33,9 +26,9 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void Play(string sound)
+    public void PlaySound(AudioID audioName)
     {
-        Sound s = Array.Find(sounds, item => item.name == sound);
+        Sound s = Array.Find(sounds, item => item.name == audioName.ToString());
         if (s == null)
         {
             Debug.LogWarning("Sound: " + name + " not found!");
@@ -48,19 +41,27 @@ public class AudioManager : MonoBehaviour
         s.source.Play();
     }
 
-    public void Stop(string sound)
+    public void StopSound(AudioID audioName)
     {
-        Sound s = Array.Find(sounds, item => item.name == sound);
+        Sound s = Array.Find(sounds, item => item.name == audioName.ToString());
         if (s.source.isPlaying)
-		{
+        {
             s.source.Stop();
-		}
+        }
     }
 
-	public Sound GetSound(string sound)
+    public void PlaySoundUI(string audioName)
     {
-        Sound s = Array.Find(sounds, item => item.name == sound);
+        Sound s = Array.Find(sounds, item => item.name == audioName);
+        if (s == null)
+        {
+            Debug.LogWarning("Sound: " + name + " not found!");
+            return;
+        }
 
-		return s;
-	}
+        s.source.volume = s.volume * (1f + UnityEngine.Random.Range(-s.volumeVariance / 2f, s.volumeVariance / 2f));
+        s.source.pitch = s.pitch * (1f + UnityEngine.Random.Range(-s.pitchVariance / 2f, s.pitchVariance / 2f));
+
+        s.source.Play();
+    }
 }

@@ -688,7 +688,7 @@ namespace Player
                     verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * currentGravity);
 
                     //Audio
-                    AudioInterface.PlayAudio("jump");
+                    this.PostEvent(EventID.onPlaySound, AudioID.jump);
 
                     animator.SetTrigger("isJump");
                 }
@@ -700,7 +700,7 @@ namespace Player
                     verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * currentGravity);
 
                     //Audio
-                    AudioInterface.PlayAudio("jump");
+                    this.PostEvent(EventID.onPlaySound, AudioID.jump);
 
                     animator.SetTrigger("isJump");
 
@@ -722,7 +722,7 @@ namespace Player
                     //SetAirborneInertiaDirectionWhileDoubleJump();
 
                     //Audio
-                    AudioInterface.PlayAudio("secondJump");
+                    this.PostEvent(EventID.onPlaySound, AudioID.secondJump);
 
                     animator.SetTrigger("isJump");
                 }
@@ -845,14 +845,10 @@ namespace Player
         {
             isDashable = false;
             isInDashState = true;
-            if (particleDash)
-            {
-                if (!particleDash.activeSelf)
-                {
-                    particleDash.SetActive(true);
-                }
-            }
-            AudioInterface.PlayAudio("dash");
+
+            this.PostEvent(EventID.onPlayVFX, VFXID.dash);
+            this.PostEvent(EventID.onPlaySound, AudioID.dash);
+
             yield return new WaitForSecondsRealtime(dashDuration);
             //if (_playerSkillStateManager.gameIsSlowDown)
             //{
@@ -862,13 +858,9 @@ namespace Player
             //{
             //    yield return new WaitForSeconds(dashDuration);
             //}
-            if (particleDash)
-            {
-                if (particleDash.activeSelf)
-                {
-                    particleDash.SetActive(false);
-                }
-            }
+
+            this.PostEvent(EventID.onStopVFX, VFXID.dash);
+
             isInDashState = false;
             ResetDashDirection();
             StartCoroutine(StartDashCooldown());

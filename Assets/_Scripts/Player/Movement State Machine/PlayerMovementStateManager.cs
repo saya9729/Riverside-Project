@@ -515,7 +515,19 @@ namespace Player
         {
             if (inputDirection != Vector3.zero)
             {
-                airborneInertiaDirection = Vector3.RotateTowards(airborneInertiaDirection, inputDirection, airborneSteeringRate * Time.unscaledDeltaTime, 0.0f);
+                if (inputManager.move.y >= 0)
+                {
+                    airborneInertiaDirection = Vector3.RotateTowards(airborneInertiaDirection, inputDirection, airborneSteeringRate * Time.unscaledDeltaTime, 0.0f);
+                }
+                else
+                {
+                    Vector2 steeringDirection = transform.right * inputManager.move.x;
+                    steeringDirection.Normalize();
+                    airborneInertiaDirection = Vector3.RotateTowards(airborneInertiaDirection, steeringDirection, airborneSteeringRate * Time.unscaledDeltaTime, 0.0f);                    
+                                       
+                    currentSpeed = Mathf.MoveTowards(currentSpeed, 0, speedChangeRate * Time.unscaledDeltaTime);
+                    StopSpeedChange();
+                }
             }
         }
         public void MoveWhileSlide()
@@ -738,6 +750,7 @@ namespace Player
         }
         private void HandleSpeed()
         {
+            // TODO: analog handling is wrong or rather, by the use of vector normalizing, the analog input is not handled correctly 
             //smooth the speed change (momentum mechanic) 
             float inputMagnitude = inputManager.analogMovement ? inputManager.move.magnitude : 1f;
             currentSpeed = Mathf.MoveTowards(currentSpeed, targetSpeed * inputMagnitude, speedChangeRate * Time.unscaledDeltaTime);

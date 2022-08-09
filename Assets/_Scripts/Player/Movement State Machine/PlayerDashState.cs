@@ -24,6 +24,8 @@ namespace Player
             {
                 SwitchToState("Airborne");
             }
+            
+            _playerMovementController.animator.SetBool("isDash",true);
         }
 
         public override void ExitState()
@@ -31,6 +33,7 @@ namespace Player
             _playerMovementController.StarCoroutineRevertFOVAfterDash();
             _playerMovementController.DisableAttackHitbox();
             _playerMovementController.DisablePhaseThroughEnemy();
+            _playerMovementController.animator.SetBool("isDash", false);
         }
 
         public override void SwitchToState(string p_stateType)

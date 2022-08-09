@@ -32,7 +32,7 @@ namespace Player
         private void StopComponent()
         {
             Time.timeScale = 1f;
-            AudioInterface.StopAudio("timeskill");
+            this.PostEvent(EventID.onStopSound, AudioID.timeskill);
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Player
         private PlayerMovementStateManager _playerMovementController;
         public override void EnterState()
         {
-            AudioInterface.PlayAudio("slide");
+            this.PostEvent(EventID.onPlaySound, AudioID.slide);
             _playerMovementController.GetComponent<CharacterFootsteps>().enabled = false;
 
             _playerMovementController.SetSlideDirection();
@@ -20,7 +20,7 @@ namespace Player
 
         public override void ExitState()
         {
-            AudioInterface.StopAudio("slide");
+            this.PostEvent(EventID.onStopSound, AudioID.slide);
             _playerMovementController.GetComponent<CharacterFootsteps>().enabled = true;
 
             _playerMovementController.DisableSlideGravity();

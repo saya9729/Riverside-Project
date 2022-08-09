@@ -15,16 +15,14 @@ namespace Player
             if (_playerMovementController.particleDash)
             {
                 _playerMovementController.RotateWindParticle();
-                if (!_playerMovementController.particleDash.activeSelf)
-                {
-                    _playerMovementController.particleDash.SetActive(true);
-                }
+                this.PostEvent(EventID.onPlayVFX, VFXID.dash);
             }
 
             _playerMovementController.StartCoroutineChangeFOVWhileSlide();
 
             SwitchToState("Grounded");
             _playerMovementController.StartCoroutineCrouchDown();
+            _playerMovementController.animator.SetBool("isSlide",true);
         }
 
         public override void ExitState()
@@ -32,13 +30,11 @@ namespace Player
             if (_playerMovementController.particleDash)
             {
                 _playerMovementController.ResetWindParticleRotation();
-                if (_playerMovementController.particleDash.activeSelf)
-                {
-                    _playerMovementController.particleDash.SetActive(false);
-                }
+                this.PostEvent(EventID.onStopVFX, VFXID.dash);
             }
 
             _playerMovementController.StarCoroutineRevertFOVAfterSlide();
+            _playerMovementController.animator.SetBool("isSlide", false);
         }
 
         public override void SwitchToState(string p_stateType)

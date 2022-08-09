@@ -8,7 +8,7 @@ namespace GameEnvironment
         private class PlatformWaypoint
         {
             public Transform waypoint;
-            public float timeToNextWaypoint = 2.5f;
+            public float timeToThisWaypoint = 2.5f;
         }
         
         [SerializeField]  PlatformWaypoint[] platformWaypoint;
@@ -35,16 +35,23 @@ namespace GameEnvironment
                 _distance = Vector3.Distance(transform.position, platformWaypoint[_currentWaypointIndex].waypoint.transform.position);
                 _timeElapsed = 0;
             }
-
-            transform.position = Vector3.MoveTowards(
-                transform.position, 
-                platformWaypoint[_currentWaypointIndex].waypoint.transform.position, 
-                Universal.Smoothing.SineWaveSmooth(
-                    _distance / 2, _timeElapsed, 
-                    platformWaypoint[_currentWaypointIndex].timeToNextWaypoint * 2) * Time.deltaTime);
-            
-            _timeElapsed += Time.deltaTime;
-
+            else
+            {
+                _timeElapsed += Time.deltaTime;
+            }
+            if (platformWaypoint[_currentWaypointIndex].timeToThisWaypoint == 0)
+            {
+                transform.position = platformWaypoint[_currentWaypointIndex].waypoint.transform.position;
+            }
+            else
+            {
+                transform.position = Vector3.MoveTowards(
+                    transform.position,
+                    platformWaypoint[_currentWaypointIndex].waypoint.transform.position,
+                    Universal.Smoothing.SineWaveSmooth(
+                        _distance / 2, _timeElapsed,
+                        platformWaypoint[_currentWaypointIndex].timeToThisWaypoint * 2) * Time.deltaTime);
+            }
             //transform.position = Vector3.MoveTowards(transform.position, waypoints[_currentWaypointIndex].transform.position, movingPlatformSpeed * Time.deltaTime);
         }
     }

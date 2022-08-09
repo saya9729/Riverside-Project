@@ -174,6 +174,7 @@ namespace Player
         private CapsuleCollider _characterCapsuleCollider;
         private PlayerActionStateManager _playerActionStateManager;
         private CinemachineVirtualCamera _cinemachineVirtualCamera;
+        public Animator animator;
 
         private const float _threshold = 0.01f;
 
@@ -215,6 +216,7 @@ namespace Player
             _playerSkillManager = GetComponentInChildren<PlayerSkillStateManager>();
             _characterCapsuleCollider = GetComponent<CapsuleCollider>();
             _playerActionStateManager = GetComponent<PlayerActionStateManager>();
+            animator = GetComponentInChildren<Animator>();
         }
 
         protected override void InitializeVariable()
@@ -686,17 +688,21 @@ namespace Player
                     verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * currentGravity);
 
                     //Audio
-                    AudioInterface.PlayAudio("jump");
+                    this.PostEvent(EventID.onPlaySound, AudioID.jump);
+
+                    animator.SetTrigger("isJump");
                 }
                 else if (isCoyoteTime && inputManager.IsButtonDownThisFrame("Jump"))
                 {
                     // slide coyote jump will be a lot higher than normal jump
-                    //DisableSlideGravity();
+                    DisableSlideGravity();
                     // the square root of H * -2 * G = how much velocity needed to reach desired height
                     verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * currentGravity);
 
                     //Audio
-                    AudioInterface.PlayAudio("jump");
+                    this.PostEvent(EventID.onPlaySound, AudioID.jump);
+
+                    animator.SetTrigger("isJump");
 
                     try
                     {
@@ -716,7 +722,9 @@ namespace Player
                     //SetAirborneInertiaDirectionWhileDoubleJump();
 
                     //Audio
-                    AudioInterface.PlayAudio("secondJump");
+                    this.PostEvent(EventID.onPlaySound, AudioID.secondJump);
+
+                    animator.SetTrigger("isJump");
                 }
             }
         }
@@ -836,15 +844,11 @@ namespace Player
         {
             isDashable = false;
             isInDashState = true;
-            if (particleDash)
-            {
-                if (!particleDash.activeSelf)
-                {
-                    particleDash.SetActive(true);
-                }
-            }
-            AudioInterface.PlayAudio("dash");
-            this.PostEvent(EventID.onDash, dashCurrentCount);
+
+            this.PostEvent(EventID.onPlayVFX, VFXID.dash);
+            this.PostEvent(EventID.onPlaySound, AudioID.dash);
+             this.PostEvent(EventID.onDash, dashCurrentCount);
+
             yield return new WaitForSecondsRealtime(dashDuration);
             //if (_playerSkillStateManager.gameIsSlowDown)
             //{
@@ -854,13 +858,9 @@ namespace Player
             //{
             //    yield return new WaitForSeconds(dashDuration);
             //}
-            if (particleDash)
-            {
-                if (particleDash.activeSelf)
-                {
-                    particleDash.SetActive(false);
-                }
-            }
+
+            this.PostEvent(EventID.onStopVFX, VFXID.dash);
+
             isInDashState = false;
             ResetDashDirection();
             StartCoroutine(StartDashCooldown());

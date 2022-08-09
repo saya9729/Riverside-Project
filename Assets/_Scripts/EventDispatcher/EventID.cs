@@ -17,4 +17,13 @@ public enum EventID
     onWin,
     onDash,
     onDashChargeCooldown,
+
+    //sound
+    onPlaySound,
+    onStopSound,
+    
+    //vfx
+    onPlayVFX,
+    onStopVFX,
+    onSpawnVFX,
 }

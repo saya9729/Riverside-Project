@@ -65,6 +65,8 @@ namespace Player
 
         [SerializeField] private float airborneSteeringRate = 1f;
 
+        [SerializeField] private float airborneSpeedChangeRate = 1f;
+
         [Space]
         [Header("Jump")]
         [Tooltip("The height the player can jump")]
@@ -525,7 +527,7 @@ namespace Player
                     steeringDirection.Normalize();
                     airborneInertiaDirection = Vector3.RotateTowards(airborneInertiaDirection, steeringDirection, airborneSteeringRate * Time.unscaledDeltaTime, 0.0f);                    
                                        
-                    currentSpeed = Mathf.MoveTowards(currentSpeed, 0, speedChangeRate * Time.unscaledDeltaTime);
+                    currentSpeed = Mathf.MoveTowards(currentSpeed, 0, airborneSpeedChangeRate * Time.unscaledDeltaTime);
                     StopSpeedChange();
                 }
             }

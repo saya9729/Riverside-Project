@@ -19,4 +19,5 @@ public enum AudioID
     playerHit,
     backgroundmusic,
     slide,
+    subAmbience,
 }

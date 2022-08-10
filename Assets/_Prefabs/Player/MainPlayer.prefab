@@ -1429,6 +1429,7 @@ MonoBehaviour:
   speedChangeRate: 100
   rotationSpeed: 1
   airborneSteeringRate: 1000
+  airborneSpeedChangeRate: 40
   jumpHeight: 2.5
   coyoteTime: 0.2
   gravity: -30
@@ -1881,7 +1882,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99386c86e3d92d046bff005aaf667e45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  particle: {fileID: 1757638009583926746}
 --- !u!114 &420212584
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3771,11 +3771,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ebb43584561027a4aa8ebd9745da045a, type: 3}
---- !u!1 &1757638009583926746 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1757638009908014222, guid: ebb43584561027a4aa8ebd9745da045a, type: 3}
-  m_PrefabInstance: {fileID: 1018417492}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1757638009584231998 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1757638009908229994, guid: ebb43584561027a4aa8ebd9745da045a, type: 3}

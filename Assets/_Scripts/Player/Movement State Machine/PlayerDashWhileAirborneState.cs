@@ -52,8 +52,8 @@ namespace Player
 
         protected override void UpdateThisState()
         {
-            CheckSwitchState();
             _playerMovementController.MoveWhileDash();
+            CheckSwitchState();
         }
 
         protected override void InitializeVariable()

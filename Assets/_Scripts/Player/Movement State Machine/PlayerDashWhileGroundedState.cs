@@ -45,8 +45,8 @@
 
         protected override void UpdateThisState()
         {
-            CheckSwitchState();
             _playerMovementController.MoveWhileDash();
+            CheckSwitchState();            
         }
 
         public override void SwitchToState(string p_StateType)

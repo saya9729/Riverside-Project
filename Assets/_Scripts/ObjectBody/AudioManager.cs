@@ -1,6 +1,7 @@
 using UnityEngine.Audio;
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class AudioManager : MonoBehaviour
     {
         this.RegisterListener(EventID.onPlaySound, (param) => PlaySound((AudioID)param));
         this.RegisterListener(EventID.onStopSound, (param) => StopSound((AudioID)param));
+
+        PlaySceneAudio();
     }
 
     void Awake()
@@ -63,5 +66,18 @@ public class AudioManager : MonoBehaviour
         s.source.pitch = s.pitch * (1f + UnityEngine.Random.Range(-s.pitchVariance / 2f, s.pitchVariance / 2f));
 
         s.source.Play();
+    }
+
+    public void PlaySceneAudio()
+    {
+        if (SceneManager.GetActiveScene().buildIndex == 0)
+        {
+            PlaySound(AudioID.backgroundmusic);
+        }
+        else 
+        {
+            PlaySound(AudioID.ambience);
+            PlaySound(AudioID.subAmbience);
+        }
     }
 }

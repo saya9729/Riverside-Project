@@ -2543,6 +2543,7 @@ MonoBehaviour:
   speedChangeRate: 100
   rotationSpeed: 1
   airborneSteeringRate: 1000
+  airborneSpeedChangeRate: 40
   jumpHeight: 2.5
   coyoteTime: 0.2
   gravity: -30

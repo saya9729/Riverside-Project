@@ -8,25 +8,29 @@ namespace Player
         private PlayerSkillStateManager _playerSkillStateManager;
         public override void EnterState()
         {
-            _playerSkillStateManager.SetTimeSlow();            
+            this.PostEvent(EventID.onPlaySound, AudioID.timeskill);
+
+            _playerSkillStateManager.SetTimeSlow();
             _playerSkillStateManager.StartCoroutineRevertTimeScale();
             _playerSkillStateManager.EnableUnlimitedDash();
         }
 
         public override void ExitState()
         {
+            this.PostEvent(EventID.onStopSound, AudioID.timeskill);
+
             _playerSkillStateManager.DisableUnlimitedDash();
             _playerSkillStateManager.StartCoroutineStartSlowTimeCooldown();
         }
 
         public override void SwitchToState(string p_stateType)
         {
-            
+
         }
 
         protected override void CheckSwitchState()
         {
-            
+
         }
 
         protected override void InitializeComponent()
@@ -36,22 +40,22 @@ namespace Player
 
         protected override void InitializeState()
         {
-            
+
         }
 
         protected override void InitializeVariable()
         {
-            
+
         }
 
         protected override void PhysicsUpdateThisState()
         {
-            
+
         }
 
         protected override void UpdateThisState()
         {
-            
+
         }
 
         //private PlayerActionStateManager _playerActionStateManager;

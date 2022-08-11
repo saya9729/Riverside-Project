@@ -10,6 +10,7 @@ namespace GameUI
         public void QuitGameToMainMenu()
         {
             this.PostEvent(EventID.onStopSound, AudioID.ambience);
+            this.PostEvent(EventID.onStopSound, AudioID.subAmbience);
             PlayerPrefs.SetInt("CurrentScene", SceneManager.GetActiveScene().buildIndex);
             PlayerPrefs.Save();
             SceneManager.LoadScene(0);

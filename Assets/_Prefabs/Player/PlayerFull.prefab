@@ -1480,6 +1480,11 @@ Camera:
   m_CorrespondingSourceObject: {fileID: 8669075144931780097, guid: 21af9a2172057ed4ebb386270946d762, type: 3}
   m_PrefabInstance: {fileID: 3992406661801205639}
   m_PrefabAsset: {fileID: 0}
+--- !u!20 &7409290367566989504 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 5887602061375018823, guid: 21af9a2172057ed4ebb386270946d762, type: 3}
+  m_PrefabInstance: {fileID: 3992406661801205639}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3992406662621582817
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1564,6 +1569,10 @@ PrefabInstance:
       propertyPath: m_Cameras.Array.data[0]
       value: 
       objectReference: {fileID: 5704193057780660614}
+    - target: {fileID: -8880394892423058891, guid: 2d3a85ecde41a8246a79669975912b74, type: 3}
+      propertyPath: m_Cameras.Array.data[1]
+      value: 
+      objectReference: {fileID: 7409290367566989504}
     - target: {fileID: 60889540790196130, guid: 2d3a85ecde41a8246a79669975912b74, type: 3}
       propertyPath: m_IsActive
       value: 0

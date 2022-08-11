@@ -4315,6 +4315,7 @@ GameObject:
   - component: {fileID: 5100167268225798779}
   - component: {fileID: 1723896566524768223}
   - component: {fileID: 5835366409146457402}
+  - component: {fileID: 7832013178425742485}
   m_Layer: 3
   m_Name: humanfps
   m_TagString: Untagged
@@ -4377,6 +4378,18 @@ MonoBehaviour:
   multiplier: 1
   triggerVelocity: 0.5
   jumpOffset: 7
+--- !u!114 &7832013178425742485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6737635003077249257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 554a73524e8c57243a76c0284d4bf381, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6812033088200873622
 GameObject:
   m_ObjectHideFlags: 0

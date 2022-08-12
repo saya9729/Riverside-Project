@@ -48,8 +48,8 @@ namespace Player
 
         protected override void UpdateThisState()
         {
-            CheckSwitchState();
             _playerMovementController.MoveWhileWallRun();
+            CheckSwitchState();            
         }
     }
 }

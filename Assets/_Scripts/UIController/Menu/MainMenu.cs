@@ -11,8 +11,6 @@ namespace GameUI
         [SerializeField] private Button continueButton;
         public void Start()
         {
-            this.PostEvent(EventID.onPlaySound, AudioID.ambience);
-            this.PostEvent(EventID.onPlaySound, AudioID.backgroundmusic);
             ToggleContinue();
         }
         public void NewGame()

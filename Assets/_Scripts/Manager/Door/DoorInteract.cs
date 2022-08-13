@@ -56,7 +56,10 @@ namespace Player
             if (_countKey == keyInteractArray.Length)
             {
                 isInteractable = true;
-                platform[0].SetActive(!platform[0].activeSelf);
+                for(int i = 0; i < platform.Length; i++)
+                {
+                    platform[i].SetActive(!platform[i].activeSelf);
+                }
             }
         }
         public void SaveKeyInteractState()

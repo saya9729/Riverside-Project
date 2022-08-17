@@ -6,9 +6,12 @@ namespace Player
     public class PlayerSlowTimeSkillState : AbstractClass.State
     {
         private PlayerSkillStateManager _playerSkillStateManager;
+        private PlayerActionStateManager _playerActionStateManager;
         public override void EnterState()
         {
             this.PostEvent(EventID.onPlaySound, AudioID.timeskill);
+
+            _playerActionStateManager.volume.enabled = true;
 
             _playerSkillStateManager.SetTimeSlow();
             _playerSkillStateManager.StartCoroutineRevertTimeScale();
@@ -18,6 +21,8 @@ namespace Player
         public override void ExitState()
         {
             this.PostEvent(EventID.onStopSound, AudioID.timeskill);
+
+            _playerActionStateManager.volume.enabled = false;
 
             _playerSkillStateManager.DisableUnlimitedDash();
             _playerSkillStateManager.StartCoroutineStartSlowTimeCooldown();
@@ -36,6 +41,7 @@ namespace Player
         protected override void InitializeComponent()
         {
             _playerSkillStateManager = GetComponent<PlayerSkillStateManager>();
+            _playerActionStateManager = GetComponent<PlayerActionStateManager>();
         }
 
         protected override void InitializeState()
@@ -55,7 +61,7 @@ namespace Player
 
         protected override void UpdateThisState()
         {
-
+            _playerActionStateManager.DeadEyeEffect();
         }
 
         //private PlayerActionStateManager _playerActionStateManager;

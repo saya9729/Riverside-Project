@@ -1381,6 +1381,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3992406662529760462}
     m_Modifications:
+    - target: {fileID: 420212591, guid: 21af9a2172057ed4ebb386270946d762, type: 3}
+      propertyPath: deadEyeVariance
+      value: 0.8
+      objectReference: {fileID: 0}
     - target: {fileID: 4261174648672795352, guid: 21af9a2172057ed4ebb386270946d762, type: 3}
       propertyPath: m_Name
       value: MainPlayer
@@ -1730,6 +1734,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3992406662529760462}
     m_Modifications:
+    - target: {fileID: 6104320187119309124, guid: 9c489a8547f4d9e4387da15a4ff82c81, type: 3}
+      propertyPath: weight
+      value: 0.8
+      objectReference: {fileID: 0}
     - target: {fileID: 8762286023885395077, guid: 9c489a8547f4d9e4387da15a4ff82c81, type: 3}
       propertyPath: m_Name
       value: PlayerFollowCamera

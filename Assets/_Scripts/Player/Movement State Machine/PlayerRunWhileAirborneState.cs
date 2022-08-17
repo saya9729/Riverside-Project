@@ -10,24 +10,16 @@ namespace Player
         {
             try
             {
-                DisableStepOffset();
+                _playerMovementController.DisableStepOffset();
             }
             catch
             {
                 Start();
-                DisableStepOffset();                
+                _playerMovementController.DisableStepOffset();
             }
         }
 
         public override void ExitState()
-        {
-            EnableStepOffset();
-        }
-        private void DisableStepOffset()
-        {
-            _playerMovementController.DisableStepOffset();
-        }
-        private void EnableStepOffset()
         {
             _playerMovementController.EnableStepOffset();
         }
@@ -42,6 +34,10 @@ namespace Player
             if (_playerMovementController.isGrounded)
             {
                 currentSuperState.SwitchToState("Grounded");
+            }
+            else if (_playerMovementController.CheckLedgeGrab())
+            {
+                currentSuperState.currentSuperState.SwitchToState("LedgeGrab");
             }
         }
 

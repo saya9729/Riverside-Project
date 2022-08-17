@@ -8,12 +8,12 @@ namespace Player
         private PlayerMovementStateManager _playerMovementController;
         public override void EnterState()
         {
-
+            _playerMovementController.DisableStepOffset();
         }
 
         public override void ExitState()
         {
-
+            _playerMovementController.EnableStepOffset();
         }
 
         public override void SwitchToState(string p_stateType)
@@ -26,6 +26,10 @@ namespace Player
             if (_playerMovementController.isGrounded)
             {
                 currentSuperState.SwitchToState("Grounded");
+            }
+            else if (_playerMovementController.CheckLedgeGrab())
+            {
+                currentSuperState.currentSuperState.SwitchToState("LedgeGrab");
             }
         }
 

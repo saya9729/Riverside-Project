@@ -1,36 +1,34 @@
-﻿using System.Collections;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-
 namespace Player
 {
-    public class PlayerCrouchWhileAirborneState : AbstractClass.State
+    public class PlayerLedgeGrabState : AbstractClass.State
     {
         private PlayerMovementStateManager _playerMovementController;
         public override void EnterState()
         {
             _playerMovementController.DisableStepOffset();
+            _playerMovementController.DisableGravity();
+            _playerMovementController.SetLedgeGrabDirection();
+            _playerMovementController.StartCoroutineLedgeGrabState();
         }
 
         public override void ExitState()
         {
             _playerMovementController.EnableStepOffset();
+            _playerMovementController.EnableRunGravity();
+            _playerMovementController.StopCoroutineLedgeGrabState();
         }
 
-        public override void SwitchToState(string p_StateType)
+        public override void SwitchToState(string p_stateType)
         {
-            throw new System.NotImplementedException();
+            
         }
 
         protected override void CheckSwitchState()
         {
-            if (_playerMovementController.isGrounded)
-            {
-                currentSuperState.SwitchToState("Grounded");
-            }
-            else if (_playerMovementController.CheckLedgeGrab())
-            {
-                currentSuperState.currentSuperState.SwitchToState("LedgeGrab");
-            }
+            
         }
 
         protected override void InitializeComponent()
@@ -40,23 +38,23 @@ namespace Player
 
         protected override void InitializeState()
         {
-
+            
         }
 
         protected override void InitializeVariable()
         {
-
+            
         }
 
         protected override void PhysicsUpdateThisState()
         {
-
+            
         }
 
         protected override void UpdateThisState()
         {
-            _playerMovementController.MoveWhileAirborne();
-            CheckSwitchState();            
+            _playerMovementController.MoveWhileLedgeGrab();
+            CheckSwitchState();
         }
     }
 }

@@ -29,6 +29,10 @@ namespace Player
             {
                 currentSuperState.currentSuperState.SwitchToState("Run");
             }
+            else if (_playerMovementController.CheckLedgeGrab())
+            {
+                currentSuperState.currentSuperState.SwitchToState("LedgeGrab");
+            }
             else if (_playerMovementController.isGrounded)
             {
                 currentSuperState.SwitchToState("Grounded");

@@ -22,13 +22,13 @@ namespace Player
         override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             try
-            {
-                _playerActionStateManager = animator.GetComponentInParent<PlayerActionStateManager>();
+            {                
                 _playerActionStateManager.SwitchToState(switchToStateWhenExit);
             }
             catch
             {
-
+                _playerActionStateManager = animator.GetComponentInParent<PlayerActionStateManager>();
+                _playerActionStateManager.SwitchToState(switchToStateWhenExit);
             }
         }
 

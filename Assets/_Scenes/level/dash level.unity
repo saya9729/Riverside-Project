@@ -287,6 +287,53 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &8342352
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8342353}
+  - component: {fileID: 8342354}
+  m_Layer: 0
+  m_Name: '[generated-meshes]'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8342353
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8342352}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1751864243}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8342354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8342352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c3643d4978096d4880d7edbf4f65a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Version: 1
+  owner: {fileID: 1751864242}
+  helperSurfaces: []
 --- !u!1 &33412656
 GameObject:
   m_ObjectHideFlags: 0
@@ -1391,7 +1438,7 @@ MonoBehaviour:
     meshQuery:
       layers: 33554440
       maskAndChannels: 8
-    surfaceParameter: 51706
+    surfaceParameter: 30006
     meshQueryIndex: 3
     subMeshQueryIndex: 0
     geometryHashValue: 1934001855843455275
@@ -1407,7 +1454,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh540518
+  m_Name: pb_Mesh29634
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1753,7 +1800,7 @@ MonoBehaviour:
     meshQuery:
       layers: 16777223
       maskAndChannels: 234881031
-    surfaceParameter: 47276
+    surfaceParameter: 30010
     meshQueryIndex: 1
     subMeshQueryIndex: 0
     geometryHashValue: -5984194333148627419
@@ -2230,9 +2277,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   platformWaypoint:
   - waypoint: {fileID: 569371320}
-    timeToNextWaypoint: 5
+    timeToThisWaypoint: 2.5
   - waypoint: {fileID: 1098489412}
-    timeToNextWaypoint: 5
+    timeToThisWaypoint: 2.5
 --- !u!23 &219004728
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2641,9 +2688,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   platformWaypoint:
   - waypoint: {fileID: 2768376421005787681}
-    timeToNextWaypoint: 5
+    timeToThisWaypoint: 2.5
   - waypoint: {fileID: 1033477786222516592}
-    timeToNextWaypoint: 5
+    timeToThisWaypoint: 2.5
 --- !u!114 &242792192
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3890,7 +3937,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh540114
+  m_Name: pb_Mesh29216
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -6592,9 +6639,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   platformWaypoint:
   - waypoint: {fileID: 655183603}
-    timeToNextWaypoint: 5
+    timeToThisWaypoint: 2.5
   - waypoint: {fileID: 202828173}
-    timeToNextWaypoint: 5
+    timeToThisWaypoint: 2.5
 --- !u!23 &588599134
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -7879,7 +7926,7 @@ MonoBehaviour:
     meshQuery:
       layers: 16777223
       maskAndChannels: 234881031
-    surfaceParameter: 51646
+    surfaceParameter: 30012
     meshQueryIndex: 9
     subMeshQueryIndex: 0
     geometryHashValue: -8749910151488653592
@@ -8037,11 +8084,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   platformWaypoint:
   - waypoint: {fileID: 1990724639}
-    timeToNextWaypoint: 2.5
+    timeToThisWaypoint: 2.5
   - waypoint: {fileID: 905012556}
-    timeToNextWaypoint: 5
+    timeToThisWaypoint: 2.5
   - waypoint: {fileID: 310322092}
-    timeToNextWaypoint: 2.5
+    timeToThisWaypoint: 2.5
 --- !u!23 &691965280
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -9268,98 +9315,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9027705651544316505, guid: 06c9ed3baabf58147b62d2683f353ec1, type: 3}
   m_PrefabInstance: {fileID: 676946980}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &748675631
-GameObject:
-  m_ObjectHideFlags: 17
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 748675634}
-  - component: {fileID: 748675633}
-  - component: {fileID: 748675632}
-  m_Layer: 0
-  m_Name: '[default-CSGModel]'
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 124
-  m_IsActive: 1
---- !u!54 &748675632
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 748675631}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 126
-  m_CollisionDetection: 0
---- !u!114 &748675633
-MonoBehaviour:
-  m_ObjectHideFlags: 17
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 748675631}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8672dcc90e16b0a489a41edf56e016f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PrefabBehaviour: 0
-  PrefabSourceAlignment: 4
-  PrefabDestinationAlignment: 0
-  Version: 1.1
-  infiniteBrush: {fileID: 0}
-  Settings: 1025
-  VertexChannels: 14
-  ReceiveGI: 2
-  MeshColliderCookingOptions: 14
-  ShowGeneratedMeshes: 0
-  DefaultPhysicsMaterial: {fileID: 13400000, guid: 0c5fdfb44d6f19646a41a0720fbf751a, type: 2}
-  exportType: 0
-  originType: 0
-  exportColliders: 0
-  exportPath: 
-  angleError: 1
-  areaError: 1
-  hardAngle: 60
-  packMargin: 20
-  scaleInLightmap: 1
-  autoUVMaxDistance: 0.5
-  autoUVMaxAngle: 89
-  minimumChartSize: 4
---- !u!4 &748675634
-Transform:
-  m_ObjectHideFlags: 17
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 748675631}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1513550985}
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &777435904
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh539902
+  m_Name: pb_Mesh29012
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -9523,7 +9485,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh540332
+  m_Name: pb_Mesh29442
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -10679,7 +10641,7 @@ MonoBehaviour:
     meshQuery:
       layers: 16777223
       maskAndChannels: 234881031
-    surfaceParameter: 51446
+    surfaceParameter: 29998
     meshQueryIndex: 7
     subMeshQueryIndex: 0
     geometryHashValue: -8428246480857344071
@@ -12073,7 +12035,7 @@ MonoBehaviour:
     meshQuery:
       layers: 33554440
       maskAndChannels: 8
-    surfaceParameter: 51706
+    surfaceParameter: 30006
     meshQueryIndex: 3
     subMeshQueryIndex: 0
     geometryHashValue: 1934001855843455275
@@ -13025,7 +12987,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh540054
+  m_Name: pb_Mesh29156
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -13254,7 +13216,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh539884
+  m_Name: pb_Mesh28994
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -13495,9 +13457,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   platformWaypoint:
   - waypoint: {fileID: 1045495020}
-    timeToNextWaypoint: 5
+    timeToThisWaypoint: 2.5
   - waypoint: {fileID: 879963876}
-    timeToNextWaypoint: 5
+    timeToThisWaypoint: 2.5
 --- !u!23 &1204042537
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -15769,7 +15731,7 @@ MonoBehaviour:
     meshQuery:
       layers: 16777223
       maskAndChannels: 234881031
-    surfaceParameter: 47756
+    surfaceParameter: 30000
     meshQueryIndex: 0
     subMeshQueryIndex: 0
     geometryHashValue: 3941905344324358598
@@ -18239,53 +18201,6 @@ Transform:
   m_Father: {fileID: 625717521}
   m_RootOrder: 37
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1513550984
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1513550985}
-  - component: {fileID: 1513550986}
-  m_Layer: 0
-  m_Name: '[generated-meshes]'
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1513550985
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1513550984}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 748675634}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1513550986
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1513550984}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c3643d4978096d4880d7edbf4f65a50, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Version: 1
-  owner: {fileID: 748675633}
-  helperSurfaces: []
 --- !u!1001 &1522961483
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18442,9 +18357,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   platformWaypoint:
   - waypoint: {fileID: 693016023}
-    timeToNextWaypoint: 5
+    timeToThisWaypoint: 2.5
   - waypoint: {fileID: 518365585}
-    timeToNextWaypoint: 5
+    timeToThisWaypoint: 2.5
 --- !u!23 &1565741575
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -18822,7 +18737,7 @@ Transform:
   m_Children:
   - {fileID: 1906425124}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1683616086
 GameObject:
@@ -20190,6 +20105,91 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &1751864240
+GameObject:
+  m_ObjectHideFlags: 17
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1751864243}
+  - component: {fileID: 1751864242}
+  - component: {fileID: 1751864241}
+  m_Layer: 0
+  m_Name: '[default-CSGModel]'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 124
+  m_IsActive: 1
+--- !u!54 &1751864241
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1751864240}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
+--- !u!114 &1751864242
+MonoBehaviour:
+  m_ObjectHideFlags: 17
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1751864240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8672dcc90e16b0a489a41edf56e016f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PrefabBehaviour: 0
+  PrefabSourceAlignment: 4
+  PrefabDestinationAlignment: 0
+  Version: 1.1
+  infiniteBrush: {fileID: 0}
+  Settings: 1025
+  VertexChannels: 14
+  ReceiveGI: 2
+  MeshColliderCookingOptions: 14
+  ShowGeneratedMeshes: 0
+  DefaultPhysicsMaterial: {fileID: 13400000, guid: 0c5fdfb44d6f19646a41a0720fbf751a, type: 2}
+  exportType: 0
+  originType: 0
+  exportColliders: 0
+  exportPath: 
+  angleError: 1
+  areaError: 1
+  hardAngle: 60
+  packMargin: 20
+  scaleInLightmap: 1
+  autoUVMaxDistance: 0.5
+  autoUVMaxAngle: 89
+  minimumChartSize: 4
+--- !u!4 &1751864243
+Transform:
+  m_ObjectHideFlags: 17
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1751864240}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8342353}
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &1752641608
 Mesh:
   m_ObjectHideFlags: 0
@@ -20459,7 +20459,7 @@ MonoBehaviour:
     meshQuery:
       layers: 16777223
       maskAndChannels: 234881031
-    surfaceParameter: 49354
+    surfaceParameter: 30020
     meshQueryIndex: 2
     subMeshQueryIndex: 0
     geometryHashValue: -2219407707577839478
@@ -20521,9 +20521,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   platformWaypoint:
   - waypoint: {fileID: 1206024085}
-    timeToNextWaypoint: 5
+    timeToThisWaypoint: 2.5
   - waypoint: {fileID: 685294526}
-    timeToNextWaypoint: 5
+    timeToThisWaypoint: 2.5
 --- !u!23 &1756066685
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -23051,7 +23051,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh540700
+  m_Name: pb_Mesh29816
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -23215,7 +23215,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh540596
+  m_Name: pb_Mesh29716
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -23792,9 +23792,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   platformWaypoint:
   - waypoint: {fileID: 1382583660}
-    timeToNextWaypoint: 5
+    timeToThisWaypoint: 2.5
   - waypoint: {fileID: 1201985013}
-    timeToNextWaypoint: 5
+    timeToThisWaypoint: 2.5
 --- !u!23 &1962755330
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -25774,6 +25774,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 884213442328323427, guid: b4c530cf76a4fa0458ddad8231763b3f, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 884213442328323427, guid: b4c530cf76a4fa0458ddad8231763b3f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3135699870979179297, guid: b4c530cf76a4fa0458ddad8231763b3f, type: 3}
       propertyPath: m_LocalPosition.y
       value: 1.8000002
@@ -25881,6 +25889,14 @@ PrefabInstance:
     - target: {fileID: 6315336026129331920, guid: b4c530cf76a4fa0458ddad8231763b3f, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6489062722766573163, guid: b4c530cf76a4fa0458ddad8231763b3f, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6489062722766573163, guid: b4c530cf76a4fa0458ddad8231763b3f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b4c530cf76a4fa0458ddad8231763b3f, type: 3}
@@ -26228,7 +26244,7 @@ MonoBehaviour:
     meshQuery:
       layers: 16777223
       maskAndChannels: 234881031
-    surfaceParameter: 46742
+    surfaceParameter: 30026
     meshQueryIndex: 10
     subMeshQueryIndex: 0
     geometryHashValue: 1021510128195989363
@@ -27188,7 +27204,7 @@ MonoBehaviour:
     meshQuery:
       layers: 16777223
       maskAndChannels: 234881031
-    surfaceParameter: 49636
+    surfaceParameter: 30002
     meshQueryIndex: 8
     subMeshQueryIndex: 0
     geometryHashValue: -1740049382575633739

@@ -10,6 +10,7 @@ namespace Player
     public class PlayerActionStateManager : AbstractClass.State
     {
         [SerializeField] private int attackAnimationCount = 1;
+        [SerializeField] private float deadEyeVariance = 0.8f;
 
         //Manager
         [NonSerialized] public SelectionManager selectionManager;
@@ -130,6 +131,11 @@ namespace Player
         public void EnableMovementLayer()
         {
             animator.SetLayerWeight(1, 1);
+        }
+
+        public void DeadEyeEffect()
+        {
+            volume.weight = Mathf.PingPong(Time.time, 1 - deadEyeVariance) + deadEyeVariance;
         }
 
         #endregion

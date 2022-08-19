@@ -8,11 +8,11 @@ namespace GameUI
 {
     public class MainMenu : MonoBehaviour
     {
-        [SerializeField] private Button continueButton;
-        public void Start()
-        {
-            ToggleContinue();
-        }
+        //[SerializeField] private Button continueButton;
+        //public void Start()
+        //{
+        //    ToggleContinue();
+        //}
         public void NewGame()
         {
             for (int sceneIndex = 1; sceneIndex < SceneManager.sceneCountInBuildSettings; sceneIndex++)
@@ -39,14 +39,14 @@ namespace GameUI
             Application.Quit();
         }
 
-        public void ToggleContinue()
-        {
-            if (!SaveManager.FileSavePlayerExist(PlayerPrefs.GetInt("CurrentScene", 0)))
-            {
-                continueButton.interactable = false;
-                return;
-            }
-            continueButton.interactable = true;
-        }
+        //public void ToggleContinue()
+        //{
+        //    if (!SaveManager.FileSavePlayerExist(PlayerPrefs.GetInt("CurrentScene", 0)))
+        //    {
+        //        continueButton.interactable = false;
+        //        return;
+        //    }
+        //    continueButton.interactable = true;
+        //}
     }
 }

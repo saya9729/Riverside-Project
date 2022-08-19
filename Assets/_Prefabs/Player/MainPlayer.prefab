@@ -2442,7 +2442,6 @@ GameObject:
   - component: {fileID: 4261174648672795362}
   - component: {fileID: 4261174648672795365}
   - component: {fileID: 4261174648672795355}
-  - component: {fileID: 4261174648672795364}
   - component: {fileID: 3768049887350293756}
   - component: {fileID: 4281189589155526853}
   - component: {fileID: 6472696995289467074}
@@ -2465,6 +2464,7 @@ GameObject:
   - component: {fileID: 1617080341057532750}
   - component: {fileID: 2239440745040811265}
   - component: {fileID: 2324975802631921240}
+  - component: {fileID: 3299687075460278512}
   m_Layer: 3
   m_Name: MainPlayer
   m_TagString: Player
@@ -2537,6 +2537,14 @@ MonoBehaviour:
   playerPhaseLayerName: PlayerPhase
   dashFOVMultiplier: 1.2
   dashFOVRevertDuration: 0.25
+  ledgeGrabDuration: 1
+  ledgeGrabSpeed: 5
+  ledgeGrabClimbAngle: 45
+  ledgeGrabBoxSize: {x: 0.75, y: 0.34, z: 0.78}
+  ledgeGrabBoxCenterOffset: {x: 0, y: 1.8, z: 0.64}
+  ledgeGrabLayers:
+    serializedVersion: 2
+    m_Bits: 512
   speedChangeRate: 100
   rotationSpeed: 1
   airborneSteeringRate: 1000
@@ -2553,7 +2561,7 @@ MonoBehaviour:
   groundedRadius: 0.25
   groundLayers:
     serializedVersion: 2
-    m_Bits: 4161
+    m_Bits: 4673
   isRoofed: 1
   roofedOffset: 0
   roofedDistance: 0.1
@@ -2806,20 +2814,6 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!136 &4261174648672795364
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4261174648672795352}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.25
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &3768049887350293756
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3149,6 +3143,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f8b11da7e9b1f324fa29f06ba66fc7c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentSuperState: {fileID: 0}
+  currentSubState: {fileID: 0}
+--- !u!114 &3299687075460278512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4261174648672795352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 016e4858ad3e85444a599d76ae14753d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   currentSuperState: {fileID: 0}

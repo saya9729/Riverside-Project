@@ -47,7 +47,7 @@ MonoBehaviour:
   mixerGroup: {fileID: 24300002, guid: e49f289e8a6f19b4799b5efb2231d9c0, type: 2}
   sounds:
   - name: slash
-    clip: {fileID: 8300000, guid: 22e08fabdcb25374ebae4df23a31b472, type: 3}
+    clip: {fileID: 8300000, guid: 02dced28083b2464b91412272d1a1497, type: 3}
     volume: 1
     volumeVariance: 1
     pitch: 1
@@ -83,7 +83,7 @@ MonoBehaviour:
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: secondJump
-    clip: {fileID: 8300000, guid: 114bde2643c1320499775ca212ddc2b2, type: 3}
+    clip: {fileID: 8300000, guid: 2a7a65e1ded649944ab71833e17e9c43, type: 3}
     volume: 1
     volumeVariance: 1
     pitch: 1
@@ -101,7 +101,7 @@ MonoBehaviour:
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: timeskill
-    clip: {fileID: 8300000, guid: 2c2f9beca1bae004c881368b905ef5c5, type: 3}
+    clip: {fileID: 8300000, guid: d51530628708e3b4192612183dd72015, type: 3}
     volume: 1
     volumeVariance: 1
     pitch: 1
@@ -110,7 +110,7 @@ MonoBehaviour:
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: jump
-    clip: {fileID: 8300000, guid: dbf643b9dc7c5dc4cb4f2a00b572f1ea, type: 3}
+    clip: {fileID: 8300000, guid: 1249f260756a783438b1b1503952b243, type: 3}
     volume: 0.75
     volumeVariance: 1
     pitch: 1
@@ -119,7 +119,7 @@ MonoBehaviour:
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: dash
-    clip: {fileID: 8300000, guid: f637ad0e9eb105d4ca6bfa5cbee5858f, type: 3}
+    clip: {fileID: 8300000, guid: 07e1a65b35ee1ca439d5441a5812fe1e, type: 3}
     volume: 1
     volumeVariance: 1
     pitch: 1
@@ -128,7 +128,7 @@ MonoBehaviour:
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: enemyHit
-    clip: {fileID: 8300000, guid: b7e984c1b2164f444befda510bf0fe2c, type: 3}
+    clip: {fileID: 8300000, guid: 67662b5af43020a40b48c54a56a31dd9, type: 3}
     volume: 1
     volumeVariance: 1
     pitch: 1
@@ -164,7 +164,7 @@ MonoBehaviour:
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: ambience
-    clip: {fileID: 8300000, guid: d97a4bc55becbfa4aa0b9e8033e83e2a, type: 3}
+    clip: {fileID: 8300000, guid: 7b290aab422b2b74cbc5abcb15b99a52, type: 3}
     volume: 0.4
     volumeVariance: 1
     pitch: 1
@@ -173,7 +173,7 @@ MonoBehaviour:
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: playerHit
-    clip: {fileID: 8300000, guid: a65cea32356518c48a30f70095e2ec18, type: 3}
+    clip: {fileID: 8300000, guid: a7363a3e0843cc5488ad7d32237303f9, type: 3}
     volume: 1
     volumeVariance: 1
     pitch: 1
@@ -191,7 +191,7 @@ MonoBehaviour:
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: slide
-    clip: {fileID: 8300000, guid: 955c3a73f7279a44799c00ecb2c450cb, type: 3}
+    clip: {fileID: 8300000, guid: 1af05474abbac724eb02866f88ba35b8, type: 3}
     volume: 1
     volumeVariance: 1
     pitch: 1
@@ -200,7 +200,7 @@ MonoBehaviour:
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: subAmbience
-    clip: {fileID: 8300000, guid: 2695b310b45547f4bae9fcbbe2e5fca2, type: 3}
+    clip: {fileID: 8300000, guid: 7efa65e413d2e8c40ad82bfc9627f4cf, type: 3}
     volume: 0.1
     volumeVariance: 1
     pitch: 1

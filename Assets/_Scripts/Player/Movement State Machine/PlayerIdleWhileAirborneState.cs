@@ -10,38 +10,34 @@ namespace Player
         {
             try
             {
-                DisableStepOffset();
+                _playerMovementController.DisableStepOffset();
             }
             catch
             {
                 Start();
-                DisableStepOffset();
+                _playerMovementController.DisableStepOffset();
             }
         }
 
         public override void ExitState()
         {
-            EnableStepOffset();
+            _playerMovementController.DisableStepOffset();
         }
 
         public override void SwitchToState(string p_StateType)
         {
             throw new System.NotImplementedException();
         }
-        private void DisableStepOffset()
-        {
-            _playerMovementController.DisableStepOffset();
-        }
-        private void EnableStepOffset()
-        {
-            _playerMovementController.EnableStepOffset();
-        }
-
+        
         protected override void CheckSwitchState()
         {
             if (_playerMovementController.isGrounded)
             {
                 currentSuperState.SwitchToState("Grounded");
+            }
+            else if (_playerMovementController.CheckLedgeGrab())
+            {
+                currentSuperState.currentSuperState.SwitchToState("LedgeGrab");
             }
         }
 

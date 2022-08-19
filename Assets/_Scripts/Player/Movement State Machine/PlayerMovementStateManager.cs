@@ -1,6 +1,7 @@
 using Cinemachine;
 using System;
 using System.Collections;
+using System.Runtime.Remoting.Messaging;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -17,6 +18,7 @@ namespace Player
     [RequireComponent(typeof(PlayerSlideState))]
     [RequireComponent(typeof(PlayerCrouchState))]
     [RequireComponent(typeof(PlayerWallRunState))]
+    [RequireComponent(typeof(PlayerLedgeGrabState))]
     public class PlayerMovementStateManager : AbstractClass.State
     {
         [Header("Run")]
@@ -55,6 +57,20 @@ namespace Player
         [SerializeField] private float dashFOVMultiplier = 1f;
 
         [SerializeField] private float dashFOVRevertDuration = 1f;
+
+        [Space]
+        [Header("Ledge grab")]
+        [SerializeField] private float ledgeGrabDuration = 2f;
+
+        [SerializeField] private float ledgeGrabSpeed = 2f;
+
+        [SerializeField][Range(0, 90)] private float ledgeGrabClimbAngle = 45;
+
+        [SerializeField] private Vector3 ledgeGrabBoxSize = Vector3.one;
+
+        [SerializeField] private Vector3 ledgeGrabBoxCenterOffset = Vector3.zero;
+
+        [SerializeField] private LayerMask ledgeGrabLayers;
 
         [Space]
         [Header("Change rate")]
@@ -141,6 +157,7 @@ namespace Player
         private Vector3 airborneInertiaDirection = Vector3.zero;
         private Vector3 slideDirection = Vector3.zero;
         private Vector3 dashDirection = Vector3.zero;
+        private Vector3 ledgeGrabDirection = Vector3.zero;
 
         private float currentGravity = -15.0f;
 
@@ -168,6 +185,7 @@ namespace Player
         private IEnumerator _changeFOVWhileSlideCoroutine;
         private IEnumerator _revertFOVAfterSlideCoroutine;
         private IEnumerator _coyoteTimeCountDownCoroutine;
+        private IEnumerator _ledgeGrabCoroutine;
 
         private PlayerInput _playerInput;
         private CharacterController _characterController;
@@ -189,6 +207,7 @@ namespace Player
         private PlayerSlideState _playerSlideState;
         private PlayerCrouchState _playerCrouchState;
         private PlayerWallRunState _playerWallRunState;
+        private PlayerLedgeGrabState _playerLedgeGrabState;
 
         #region State Machine
         protected override void InitializeState()
@@ -199,6 +218,7 @@ namespace Player
             _playerSlideState = GetComponent<PlayerSlideState>();
             _playerCrouchState = GetComponent<PlayerCrouchState>();
             _playerWallRunState = GetComponent<PlayerWallRunState>();
+            _playerLedgeGrabState = GetComponent<PlayerLedgeGrabState>();
 
             _playerIdleMovementState.SetSuperState(this);
             _playerRunState.SetSuperState(this);
@@ -206,6 +226,7 @@ namespace Player
             _playerSlideState.SetSuperState(this);
             _playerCrouchState.SetSuperState(this);
             _playerWallRunState.SetSuperState(this);
+            _playerLedgeGrabState.SetSuperState(this);
 
             SetSuperState(null);
             SetSubState(_playerIdleMovementState);
@@ -291,6 +312,9 @@ namespace Player
                 case "WallRun":
                     SetSubState(_playerWallRunState);
                     break;
+                case "LedgeGrab":
+                    SetSubState(_playerLedgeGrabState);
+                    break;
                 default:
                     break;
             }
@@ -339,6 +363,7 @@ namespace Player
             {
                 Gizmos.color = transparentRed;
             }
+
             try
             {
                 Vector3 rayPosition = new Vector3(transform.position.x, transform.position.y + _characterController.height + roofedOffset, transform.position.z);
@@ -346,9 +371,12 @@ namespace Player
             }
             catch
             {
+
             }
 
-
+            Gizmos.color = transparentGreen;
+            Vector3 boxPosition = transform.position + transform.rotation * ledgeGrabBoxCenterOffset;
+            Gizmos.DrawWireCube(boxPosition, ledgeGrabBoxSize);
         }
         #endregion
 
@@ -481,6 +509,12 @@ namespace Player
             inputDirection = Vector3.zero;
         }
 
+        public void SetLedgeGrabDirection()
+        {
+            Vector3 localDirection = Quaternion.Euler(-ledgeGrabClimbAngle, 0.0f, 0.0f) * Vector3.forward;
+            ledgeGrabDirection = transform.right * localDirection.x + transform.up * localDirection.y + transform.forward * localDirection.z;
+        }
+
         public void StartCoroutineDashState()
         {
             dashCurrentCount -= 1;
@@ -525,8 +559,8 @@ namespace Player
                 {
                     Vector2 steeringDirection = transform.right * inputManager.move.x;
                     steeringDirection.Normalize();
-                    airborneInertiaDirection = Vector3.RotateTowards(airborneInertiaDirection, steeringDirection, airborneSteeringRate * Time.unscaledDeltaTime, 0.0f);                    
-                                       
+                    airborneInertiaDirection = Vector3.RotateTowards(airborneInertiaDirection, steeringDirection, airborneSteeringRate * Time.unscaledDeltaTime, 0.0f);
+
                     currentSpeed = Mathf.MoveTowards(currentSpeed, 0, airborneSpeedChangeRate * Time.unscaledDeltaTime);
                     StopSpeedChange();
                 }
@@ -545,6 +579,12 @@ namespace Player
         public void MoveWhileWallRun()
         {
 
+        }
+
+        public void MoveWhileLedgeGrab()
+        {
+            _characterController.Move(
+                ledgeGrabDirection * ledgeGrabSpeed * Time.unscaledDeltaTime);
         }
 
         public void StartCoroutineCrouchDown()
@@ -632,6 +672,34 @@ namespace Player
 
             _revertFOVAfterSlideCoroutine = RevertFOVAfterSlide();
             StartCoroutine(_revertFOVAfterSlideCoroutine);
+        }
+
+        public void StartCoroutineLedgeGrabState()
+        {
+            StopCoroutineLedgeGrabState();
+            _ledgeGrabCoroutine = StartLedgeGrabDuration();
+            StartCoroutine(_ledgeGrabCoroutine);
+        }
+
+        public void StopCoroutineLedgeGrabState()
+        {
+            try
+            {
+                StopCoroutine(_ledgeGrabCoroutine);
+            }
+            catch
+            {
+
+            }
+        }
+
+        public bool CheckLedgeGrab()
+        {
+            Vector3 boxPosition = transform.position + transform.rotation * ledgeGrabBoxCenterOffset;
+            return Physics.CheckBox(boxPosition, ledgeGrabBoxSize / 2, transform.rotation, ledgeGrabLayers);
+            //bool result= Physics.CheckBox(boxPosition, ledgeGrabBoxSize / 2, transform.rotation, ledgeGrabLayers);
+            //Debug.Log(result);
+            //return result;
         }
 
         #endregion
@@ -865,14 +933,6 @@ namespace Player
              this.PostEvent(EventID.onDash, dashCurrentCount);
 
             yield return new WaitForSecondsRealtime(dashDuration);
-            //if (_playerSkillStateManager.gameIsSlowDown)
-            //{
-            //    yield return new WaitForSeconds(dashDuration * Time.timeScale * dashDistanceWhileTimeSlowMultiflier);
-            //}
-            //else
-            //{
-            //    yield return new WaitForSeconds(dashDuration);
-            //}
 
             this.PostEvent(EventID.onStopVFX, VFXID.dash);
 
@@ -921,6 +981,12 @@ namespace Player
         {
             yield return new WaitForSecondsRealtime(slideDuration);
             SwitchToState("Crouch");
+        }
+
+        private IEnumerator StartLedgeGrabDuration()
+        {
+            yield return new WaitForSecondsRealtime(ledgeGrabDuration);
+            SwitchToState("Idle");
         }
         #endregion
 

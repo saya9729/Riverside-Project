@@ -7,36 +7,36 @@ namespace GameUI
     public class HUDController : MonoBehaviour
     {
         [SerializeField] private TMPro.TextMeshProUGUI solCount;
-        [SerializeField] private RawImage slowTimeIcon;
-        [SerializeField] private Slider healthBar;
+        [SerializeField] private Image slowTimeIcon;
+        //[SerializeField] private Slider healthBar;
         [SerializeField] private Slider slowTimeBar;
-        [SerializeField] private Slider[] dashChargeCooldownBar;
+        //[SerializeField] private Slider[] dashChargeCooldownBar;
 
         private int _dashCurrentCount;
 
         private void Start()
         {
-            this.RegisterListener(EventID.onHPChanged, (param) => OnHealthChange((float)param));
-            this.RegisterListener(EventID.onHPMaxChanged, (param) => OnMaxHealthChange((float)param));
+            //this.RegisterListener(EventID.onHPChanged, (param) => OnHealthChange((float)param));
+            //this.RegisterListener(EventID.onHPMaxChanged, (param) => OnMaxHealthChange((float)param));
             this.RegisterListener(EventID.onSolChange, (param) => OnSolChange((float)param));
             this.RegisterListener(EventID.onSlowTime, (param) => OnSlowTime((float)param));
             this.RegisterListener(EventID.onSlowTimeCoolDown, (param) => OnSlowTimeCoolDown((float)param));
-            this.RegisterListener(EventID.onDashChargeCooldown, (param) => OnDashChargeCooldown((float)param));
-            this.RegisterListener(EventID.onDash, (param) => OnDash((int)param));
+            //this.RegisterListener(EventID.onDashChargeCooldown, (param) => OnDashChargeCooldown((float)param));
+            //this.RegisterListener(EventID.onDash, (param) => OnDash((int)param));
 
             slowTimeBar.maxValue = 1;
             slowTimeBar.minValue = 0;
         }
 
-        public void OnMaxHealthChange(float p_health)
-        {
-            healthBar.maxValue = p_health;
-        }
+        //public void OnMaxHealthChange(float p_health)
+        //{
+        //    healthBar.maxValue = p_health;
+        //}
 
-        public void OnHealthChange(float p_health)
-        {
-            healthBar.value = p_health;
-        }
+        //public void OnHealthChange(float p_health)
+        //{
+        //    healthBar.value = p_health;
+        //}
 
         public void OnSolChange(float p_sol)
         {
@@ -77,46 +77,46 @@ namespace GameUI
             }
         }
 
-        private void OnDash(int p_dashCurrentCount)
-        {
-            _dashCurrentCount = p_dashCurrentCount;
-            dashChargeCooldownBar[_dashCurrentCount].value = 0;
-        }
+        //private void OnDash(int p_dashCurrentCount)
+        //{
+        //    _dashCurrentCount = p_dashCurrentCount;
+        //    dashChargeCooldownBar[_dashCurrentCount].value = 0;
+        //}
 
-        public void OnDashChargeCooldown(float p_dashChargeCooldownDuration)
-        {
-            if (dashChargeCooldownBar[0].value == 0)
-            {
-                StartCoroutine(HandleDashChargeCoolDownBarRight(p_dashChargeCooldownDuration));
-            }
-            if (dashChargeCooldownBar[1].value == 0)
-            {
-                StartCoroutine(HandleDashChargeCoolDownBarLeft(p_dashChargeCooldownDuration));
-            }
+        //public void OnDashChargeCooldown(float p_dashChargeCooldownDuration)
+        //{
+        //    if (dashChargeCooldownBar[0].value == 0)
+        //    {
+        //        StartCoroutine(HandleDashChargeCoolDownBarRight(p_dashChargeCooldownDuration));
+        //    }
+        //    if (dashChargeCooldownBar[1].value == 0)
+        //    {
+        //        StartCoroutine(HandleDashChargeCoolDownBarLeft(p_dashChargeCooldownDuration));
+        //    }
 
-        }
+        //}
 
-        private IEnumerator HandleDashChargeCoolDownBarRight(float p_dashChargeCooldownDuration)
-        {
-            float timeElap = 0;
-            while (timeElap < p_dashChargeCooldownDuration)
-            {
-                dashChargeCooldownBar[0].value = Universal.Smoothing.LinearSmoothFixedTime(dashChargeCooldownBar[0].value, 0, 1, Time.unscaledDeltaTime, p_dashChargeCooldownDuration);
-                timeElap += Time.unscaledDeltaTime;
-                yield return null;
-            }
-        }
+        //private IEnumerator HandleDashChargeCoolDownBarRight(float p_dashChargeCooldownDuration)
+        //{
+        //    float timeElap = 0;
+        //    while (timeElap < p_dashChargeCooldownDuration)
+        //    {
+        //        dashChargeCooldownBar[0].value = Universal.Smoothing.LinearSmoothFixedTime(dashChargeCooldownBar[0].value, 0, 1, Time.unscaledDeltaTime, p_dashChargeCooldownDuration);
+        //        timeElap += Time.unscaledDeltaTime;
+        //        yield return null;
+        //    }
+        //}
 
-        private IEnumerator HandleDashChargeCoolDownBarLeft(float p_dashChargeCooldownDuration)
-        {
-            float timeElap = 0;
-            while (timeElap < p_dashChargeCooldownDuration)
-            {
-                dashChargeCooldownBar[1].value = Universal.Smoothing.LinearSmoothFixedTime(dashChargeCooldownBar[1].value, 0, 1, Time.unscaledDeltaTime, p_dashChargeCooldownDuration);
-                timeElap += Time.unscaledDeltaTime;
-                yield return null;
-            }
-        }
+        //private IEnumerator HandleDashChargeCoolDownBarLeft(float p_dashChargeCooldownDuration)
+        //{
+        //    float timeElap = 0;
+        //    while (timeElap < p_dashChargeCooldownDuration)
+        //    {
+        //        dashChargeCooldownBar[1].value = Universal.Smoothing.LinearSmoothFixedTime(dashChargeCooldownBar[1].value, 0, 1, Time.unscaledDeltaTime, p_dashChargeCooldownDuration);
+        //        timeElap += Time.unscaledDeltaTime;
+        //        yield return null;
+        //    }
+        //}
 
     }
 }

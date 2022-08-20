@@ -6374,6 +6374,9 @@ MonoBehaviour:
   solCount: {fileID: 1922346567322896347}
   slowTimeIcon: {fileID: 6007603495342471614}
   slowTimeBar: {fileID: 5822816863356968477}
+  keyCountSlider: {fileID: 6664648784094042535}
+  dashChargeSlider: {fileID: 7663269335041516335}
+  dashIconSlider: {fileID: 1565277654216593345}
 --- !u!114 &4838971491366427321
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6439,7 +6442,7 @@ GameObject:
   - component: {fileID: 6269006138459932717}
   - component: {fileID: 7663269335041516335}
   m_Layer: 5
-  m_Name: DashCounts
+  m_Name: DashCharges
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -20,4 +20,9 @@ public enum AudioID
     backgroundmusic,
     slide,
     subAmbience,
+    slash1,
+    slash2,
+    slash3,
+    slash4,
+    slash5,
 }

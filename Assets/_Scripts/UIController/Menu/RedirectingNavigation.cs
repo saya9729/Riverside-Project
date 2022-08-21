@@ -20,7 +20,7 @@ public class RedirectingNavigation : MonoBehaviour, IPointerDownHandler
         SelectObject();
     }
 
-    public void OnPointerDown(PointerEventData eventData)
+    public void OnPointerDown(PointerEventData p_eventData)
     {
         SelectObject();
     }
@@ -28,9 +28,9 @@ public class RedirectingNavigation : MonoBehaviour, IPointerDownHandler
     {
         SelectObject();
     }
-    public void OnApplicationFocus(bool hasFocus)
+    public void OnApplicationFocus(bool p_hasFocus)
     {
-        if (hasFocus)
+        if (p_hasFocus)
         {
             SelectObject();
         }

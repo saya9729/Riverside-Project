@@ -17,20 +17,20 @@ public class HoverEffect : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     {
         EnableEffect(false);
     }
-    public void OnPointerEnter(PointerEventData eventData)
+    public void OnPointerEnter(PointerEventData p_eventData)
     {
         EventSystem.current.SetSelectedGameObject(this.gameObject);
         EnableEffect(true);
     }
 
-    public void OnPointerExit(PointerEventData eventData)
+    public void OnPointerExit(PointerEventData p_eventData)
     {
     }
-    public void OnSelect(BaseEventData eventData)
+    public void OnSelect(BaseEventData p_eventData)
     {
         EnableEffect(true);
     }
-    public void OnDeselect(BaseEventData eventData)
+    public void OnDeselect(BaseEventData p_eventData)
     {
         EnableEffect(false);
     }

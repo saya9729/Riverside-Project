@@ -6,28 +6,36 @@ public class HoverEffect : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 {
     [SerializeField] private Image image;
 
+    public void EnableEffect(bool p_enable)
+    {
+        if (image)
+        {
+            image.enabled = p_enable;
+        }
+    }
     private void Start()
     {
-        if (image != null)
-        {
-            image.enabled = false;
-        }
+        EnableEffect(false);
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
-        image.enabled = true;
+        EventSystem.current.SetSelectedGameObject(this.gameObject);
+        EnableEffect(true);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        image.enabled = false;
     }
     public void OnSelect(BaseEventData eventData)
     {
-        image.enabled = true;
+        EnableEffect(true);
     }
     public void OnDeselect(BaseEventData eventData)
     {
-        image.enabled = false;
+        EnableEffect(false);
+    }
+    public void OnDisable()
+    {
+        EnableEffect(false);
     }
 }

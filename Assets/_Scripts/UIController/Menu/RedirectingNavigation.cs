@@ -2,19 +2,37 @@ using UnityEngine.EventSystems;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class RedirectingNavigation : Selectable
+public class RedirectingNavigation : MonoBehaviour, IPointerDownHandler
 {
 
-    [SerializeField] private Slider slider;
+    [SerializeField] private Selectable selectable;
 
-    protected override void Start()
+    public void SelectObject()
     {
-        slider.Select();
-        base.Start();
+        if (selectable)
+        {
+            selectable.Select();
+            selectable.GetComponent<HoverEffect>().EnableEffect(true);
+        }
+    }
+    private void Start()
+    {
+        SelectObject();
     }
 
-    public override void OnPointerDown(PointerEventData eventData)
+    public void OnPointerDown(PointerEventData eventData)
     {
-        slider.Select();
+        SelectObject();
+    }
+    public void OnEnable()
+    {
+        SelectObject();
+    }
+    public void OnApplicationFocus(bool hasFocus)
+    {
+        if (hasFocus)
+        {
+            SelectObject();
+        }
     }
 }

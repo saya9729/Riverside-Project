@@ -24,6 +24,13 @@ namespace GameUI
             PlayerPrefs.Save();
             StartGame();
         }
+        public void StartChapter(int p_chapter)
+        {
+            SceneManager.LoadScene(p_chapter);
+            PlayerPrefs.SetInt("CurrentScene", p_chapter);
+            PlayerPrefs.Save();
+            Cursor.lockState = CursorLockMode.Locked;
+        }
         public void StartGame()
         {
             int nextScene = PlayerPrefs.GetInt("CurrentScene", SceneManager.GetActiveScene().buildIndex + 1);

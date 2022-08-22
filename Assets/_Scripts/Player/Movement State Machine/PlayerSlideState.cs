@@ -19,6 +19,7 @@ namespace Player
             }
 
             _playerMovementController.StartCoroutineChangeFOVWhileSlide();
+            _playerMovementController.StartCoroutineSlideState();
 
             SwitchToState("Grounded");
             _playerMovementController.StartCoroutineCrouchDown();

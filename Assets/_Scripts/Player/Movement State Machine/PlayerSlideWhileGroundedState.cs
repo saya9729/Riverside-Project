@@ -15,7 +15,6 @@ namespace Player
             _playerMovementController.SetSlideDirection();
             _playerMovementController.SetSlideTargetSpeed();
             _playerMovementController.EnableSlideGravity();
-            _playerMovementController.StartCoroutineSlideState();
         }
 
         public override void ExitState()
@@ -24,7 +23,6 @@ namespace Player
             _playerMovementController.GetComponent<CharacterFootsteps>().enabled = true;
 
             _playerMovementController.DisableSlideGravity();
-            _playerMovementController.StopCoroutineSlideState();
         }
 
         public override void SwitchToState(string p_stateType)

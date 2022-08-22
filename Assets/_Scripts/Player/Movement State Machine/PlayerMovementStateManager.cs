@@ -33,6 +33,7 @@ namespace Player
         [SerializeField] private float slideDuration = 1f;
         [SerializeField] private float slideJumpSpeed = 20f;
         [SerializeField] private float slideGravity = -1000f;
+        [SerializeField] private float slideCooldownDuration = 1f;
 
         [Space]
         [Header("Crouch")]
@@ -82,6 +83,8 @@ namespace Player
         [SerializeField] private float airborneSteeringRate = 1f;
 
         [SerializeField] private float airborneSpeedChangeRate = 1f;
+        
+        [SerializeField] private float airborneSpeedChangeThresholdAngle = 1f;
 
         [Space]
         [Header("Jump")]
@@ -164,6 +167,7 @@ namespace Player
         private bool isCoyoteTime = false;
         private bool isDashable = true;
         private bool isDoubleJumpable = true;
+        private bool isSlideable = true;
 
         public bool isInDashState = false;
         private bool isInDashChargeCooldown = false;
@@ -186,12 +190,12 @@ namespace Player
         private IEnumerator _revertFOVAfterSlideCoroutine;
         private IEnumerator _coyoteTimeCountDownCoroutine;
         private IEnumerator _ledgeGrabCoroutine;
+        private IEnumerator _slideCooldownCoroutine;
 
         private PlayerInput _playerInput;
         private CharacterController _characterController;
         public InputManager inputManager;
         private PlayerSkillStateManager _playerSkillManager;
-        private CapsuleCollider _characterCapsuleCollider;
         private PlayerActionStateManager _playerActionStateManager;
         private CinemachineVirtualCamera _cinemachineVirtualCamera;
         public Animator animator;
@@ -237,7 +241,6 @@ namespace Player
             _playerInput = GetComponent<PlayerInput>();
             inputManager = GetComponent<InputManager>();
             _playerSkillManager = GetComponentInChildren<PlayerSkillStateManager>();
-            _characterCapsuleCollider = GetComponent<CapsuleCollider>();
             _playerActionStateManager = GetComponent<PlayerActionStateManager>();
             animator = GetComponentInChildren<Animator>();
         }
@@ -268,6 +271,7 @@ namespace Player
             Jump();
             HandleSpeed();
             CheckDashChargeCooldown();
+            CheckSlideCooldown();
         }
 
         public override void EnterState()
@@ -411,7 +415,7 @@ namespace Player
         }
         public bool IsSlideable()
         {
-            return currentSpeed > slideThresholdSpeed;
+            return currentSpeed > slideThresholdSpeed && isSlideable;
         }
 
         public bool IsDashable()
@@ -478,7 +482,7 @@ namespace Player
         {
             airborneInertiaDirection = new Vector3(_characterController.velocity.x, 0f, _characterController.velocity.z).normalized;
         }
-        //redundant behavior
+        // TODO: redundant behavior
         //public void SetAirborneInertiaDirectionWhileDoubleJump()
         //{
         //    if (inputDirection != Vector3.zero)
@@ -525,10 +529,6 @@ namespace Player
             _slideCoroutine = StartSlideDuration();
             StartCoroutine(_slideCoroutine);
         }
-        public void StopCoroutineSlideState()
-        {
-            StopCoroutine(_slideCoroutine);
-        }
 
         public void MoveWhileGrounded()
         {
@@ -551,20 +551,33 @@ namespace Player
         {
             if (inputDirection != Vector3.zero)
             {
-                if (inputManager.move.y >= 0)
+                if (Vector3.Angle(-airborneInertiaDirection, inputDirection) <= airborneSpeedChangeThresholdAngle)
                 {
-                    airborneInertiaDirection = Vector3.RotateTowards(airborneInertiaDirection, inputDirection, airborneSteeringRate * Time.unscaledDeltaTime, 0.0f);
-                }
-                else
-                {
-                    Vector2 steeringDirection = transform.right * inputManager.move.x;
-                    steeringDirection.Normalize();
-                    airborneInertiaDirection = Vector3.RotateTowards(airborneInertiaDirection, steeringDirection, airborneSteeringRate * Time.unscaledDeltaTime, 0.0f);
-
                     currentSpeed = Mathf.MoveTowards(currentSpeed, 0, airborneSpeedChangeRate * Time.unscaledDeltaTime);
                     StopSpeedChange();
                 }
+                else
+                {
+                    airborneInertiaDirection = Vector3.RotateTowards(airborneInertiaDirection, inputDirection, airborneSteeringRate * Time.unscaledDeltaTime, 0.0f);
+                }
             }
+            // legacy code, might need in the future
+            //if (inputDirection != Vector3.zero)
+            //{
+            //    if (inputManager.move.y >= 0)
+            //    {
+            //        airborneInertiaDirection = Vector3.RotateTowards(airborneInertiaDirection, inputDirection, airborneSteeringRate * Time.unscaledDeltaTime, 0.0f);
+            //    }
+            //    else
+            //    {
+            //        Vector2 steeringDirection = transform.right * inputManager.move.x;
+            //        steeringDirection.Normalize();
+            //        airborneInertiaDirection = Vector3.RotateTowards(airborneInertiaDirection, steeringDirection, airborneSteeringRate * Time.unscaledDeltaTime, 0.0f);
+
+            //        currentSpeed = Mathf.MoveTowards(currentSpeed, 0, airborneSpeedChangeRate * Time.unscaledDeltaTime);
+            //        StopSpeedChange();
+            //    }
+            //}
         }
         public void MoveWhileSlide()
         {
@@ -775,8 +788,7 @@ namespace Player
                     animator.SetTrigger("isJump");
                 }
                 else if (isCoyoteTime && inputManager.IsButtonDownThisFrame("Jump"))
-                {
-                    // slide coyote jump will be a lot higher than normal jump
+                {                    
                     DisableSlideGravity();
                     // the square root of H * -2 * G = how much velocity needed to reach desired height
                     verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * currentGravity);
@@ -817,6 +829,27 @@ namespace Player
             {
                 StartCoroutine(StartDashChargeCooldown());
             }
+        }
+        private void CheckSlideCooldown()
+        {
+            if (!isSlideable && inputManager.crouch)
+            {
+                ResetSlideCooldown();
+            }
+            
+        }
+        private void ResetSlideCooldown()
+        {
+            try
+            {
+                StopCoroutine(_slideCooldownCoroutine);
+            }
+            catch
+            {
+                
+            }
+            _slideCooldownCoroutine = StartSlideCooldown();
+            StartCoroutine(_slideCooldownCoroutine);
         }
         private void HandleSpeed()
         {
@@ -888,9 +921,6 @@ namespace Player
                 _characterController.height = Universal.Smoothing.LinearSmoothFixedTime(_characterController.height, _originalCharacterHeight, crouchHeight, Time.unscaledDeltaTime, timeToCrouch);
                 _characterController.center = Vector3.MoveTowards(_characterController.center, crouchCenter, Vector3.Distance(_originalCharacterCenter, crouchCenter) / timeToCrouch * Time.unscaledDeltaTime);
 
-                _characterCapsuleCollider.height = _characterController.height;
-                _characterCapsuleCollider.center = _characterController.center;
-
                 cinemachineCameraTarget.transform.localPosition = new Vector3(cinemachineCameraTarget.transform.localPosition.x, _originalCamHolderHeight - (_originalCharacterHeight - _characterController.height), cinemachineCameraTarget.transform.localPosition.z);
                 yield return null;
             }
@@ -901,9 +931,6 @@ namespace Player
             {
                 _characterController.height = Universal.Smoothing.LinearSmoothFixedTime(_characterController.height, crouchHeight, _originalCharacterHeight, Time.unscaledDeltaTime, timeToCrouch);
                 _characterController.center = Vector3.MoveTowards(_characterController.center, _originalCharacterCenter, Vector3.Distance(_originalCharacterCenter, crouchCenter) / timeToCrouch * Time.unscaledDeltaTime);
-
-                _characterCapsuleCollider.height = _characterController.height;
-                _characterCapsuleCollider.center = _characterController.center;
 
                 cinemachineCameraTarget.transform.localPosition = new Vector3(cinemachineCameraTarget.transform.localPosition.x, _originalCamHolderHeight - (_originalCharacterHeight - _characterController.height), cinemachineCameraTarget.transform.localPosition.z);
                 yield return null;
@@ -979,14 +1006,22 @@ namespace Player
 
         private IEnumerator StartSlideDuration()
         {
-            yield return new WaitForSecondsRealtime(slideDuration);
+            isSlideable = false;            
+            yield return new WaitForSecondsRealtime(slideDuration);            
             SwitchToState("Crouch");
+            ResetSlideCooldown();
         }
 
         private IEnumerator StartLedgeGrabDuration()
         {
             yield return new WaitForSecondsRealtime(ledgeGrabDuration);
             SwitchToState("Idle");
+        }
+
+        private IEnumerator StartSlideCooldown()
+        {
+            yield return new WaitForSecondsRealtime(slideCooldownDuration);
+            isSlideable = true;
         }
         #endregion
 

@@ -208,3 +208,48 @@ MonoBehaviour:
     loop: 1
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
+  - name: slash1
+    clip: {fileID: 8300000, guid: 880b78c93bd003545a4349df279471eb, type: 3}
+    volume: 0.1
+    volumeVariance: 1
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: slash2
+    clip: {fileID: 8300000, guid: 02dced28083b2464b91412272d1a1497, type: 3}
+    volume: 0.1
+    volumeVariance: 1
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: slash3
+    clip: {fileID: 8300000, guid: 880b78c93bd003545a4349df279471eb, type: 3}
+    volume: 0.1
+    volumeVariance: 1
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: slash4
+    clip: {fileID: 8300000, guid: 02dced28083b2464b91412272d1a1497, type: 3}
+    volume: 0.1
+    volumeVariance: 1
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: slash5
+    clip: {fileID: 8300000, guid: 880b78c93bd003545a4349df279471eb, type: 3}
+    volume: 0.1
+    volumeVariance: 1
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}

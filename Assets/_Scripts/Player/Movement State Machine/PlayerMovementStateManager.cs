@@ -1,7 +1,6 @@
 using Cinemachine;
 using System;
 using System.Collections;
-using System.Runtime.Remoting.Messaging;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -939,8 +938,7 @@ namespace Player
         private IEnumerator StartDashCooldown()
         {
             yield return new WaitForSecondsRealtime(dashCooldown);
-            isDashable = true;
-            this.PostEvent(EventID.onDashCooldown, dashCooldown);
+            isDashable = true;            
         }
         private IEnumerator StartDashChargeCooldown()
         {
@@ -958,6 +956,7 @@ namespace Player
 
             this.PostEvent(EventID.onPlayVFX, VFXID.dash);
             this.PostEvent(EventID.onPlaySound, AudioID.dash);
+            this.PostEvent(EventID.onDash);
 
             yield return new WaitForSecondsRealtime(dashDuration);
 

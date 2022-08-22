@@ -11,7 +11,7 @@ namespace GameUI
         {
             this.PostEvent(EventID.onStopSound, AudioID.ambience);
             this.PostEvent(EventID.onStopSound, AudioID.subAmbience);
-            PlayerPrefs.SetInt("CurrentScene", SceneManager.GetActiveScene().buildIndex);
+            PlayerPrefs.SetInt(PlayerPrefEnum.CurrentScene.ToString(), SceneManager.GetActiveScene().buildIndex);
             PlayerPrefs.Save();
             this.PostEvent(EventID.onSave);
             SceneManager.LoadScene(0);

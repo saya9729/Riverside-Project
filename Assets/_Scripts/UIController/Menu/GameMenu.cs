@@ -13,6 +13,7 @@ namespace GameUI
             this.PostEvent(EventID.onStopSound, AudioID.subAmbience);
             PlayerPrefs.SetInt("CurrentScene", SceneManager.GetActiveScene().buildIndex);
             PlayerPrefs.Save();
+            this.PostEvent(EventID.onSave);
             SceneManager.LoadScene(0);
             Time.timeScale = 1f;
         }

@@ -23,7 +23,7 @@ namespace Player
         {
             this.RegisterListener(EventID.onSave, (param) => SavePlayerStatistic());
             _initPosition = transform.position;
-            _playerCurrentLevel = PlayerPrefs.GetInt("CurrentScene", SceneManager.GetActiveScene().buildIndex);
+            _playerCurrentLevel = PlayerPrefs.GetInt(PlayerPrefEnum.CurrentScene.ToString(), SceneManager.GetActiveScene().buildIndex);
 
             this.PostEvent(EventID.onHPMaxChanged, maxHealth);
 

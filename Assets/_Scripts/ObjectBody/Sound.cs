@@ -4,7 +4,15 @@ using UnityEngine;
 [System.Serializable]
 public class Sound {
 
+	public enum AudioType
+	{
+		Effect,
+		Music
+	}
+
 	public string name;
+
+	public AudioType audioType;
 
 	public AudioClip clip;
 

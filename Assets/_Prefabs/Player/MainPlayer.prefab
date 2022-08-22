@@ -2647,6 +2647,7 @@ MonoBehaviour:
   currentSuperState: {fileID: 0}
   currentSubState: {fileID: 0}
   attackAnimationCount: 7
+  deadEyeVariance: 0.8
 --- !u!114 &420212590
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4215,6 +4216,7 @@ GameObject:
   - component: {fileID: 1723896566524768223}
   - component: {fileID: 5835366409146457402}
   - component: {fileID: 7832013178425742485}
+  - component: {fileID: 8685669934958379069}
   m_Layer: 3
   m_Name: humanfps
   m_TagString: Untagged
@@ -4287,6 +4289,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 554a73524e8c57243a76c0284d4bf381, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8685669934958379069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6737635003077249257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2faf3922b39a3a4093377bc4f65bd8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &6812033088200873622
@@ -5840,6 +5854,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -60.423
       objectReference: {fileID: 0}
+    - target: {fileID: -6589478131183654229, guid: 17933da4d08e50e49bdb9cfd08729819, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -6589478131183654229, guid: 17933da4d08e50e49bdb9cfd08729819, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 327f1b5951f35f1498c92972a5290546, type: 2}
     - target: {fileID: -4978982304825113580, guid: 17933da4d08e50e49bdb9cfd08729819, type: 3}
       propertyPath: m_Layer
       value: 3

@@ -723,10 +723,10 @@ namespace Player
 
         public void ConvertRelativePlatformVelocityToAbsoluteVelocity()
         {
-            Debug.Log("Platform velocity: " + platformVelocity.magnitude + " Current speed: " + currentSpeed);
+            //Debug.Log("Platform velocity: " + platformVelocity.magnitude + " Current speed: " + currentSpeed);
             Vector3 absoluteVelocity = platformVelocity + new Vector3(_characterController.velocity.x, 0f, _characterController.velocity.z).normalized * currentSpeed;
             currentSpeed = absoluteVelocity.magnitude;
-            Debug.Log("Absolute velocity: " + currentSpeed);
+            //Debug.Log("Absolute velocity: " + currentSpeed);
         }
 
         #endregion

@@ -34,10 +34,9 @@ namespace Player
         {
             if (!_playerMovementController.isGrounded)
             {
-                _playerMovementController.EnableDoubleJump();
-                _playerMovementController.SetAirborneInertiaDirection();
-                //_playerMovementController.StopSpeedChange(); useless because set target speed later                
+                _playerMovementController.EnableDoubleJump();              
                 _playerMovementController.SetSlideJumpTargetSpeed();
+                _playerMovementController.ConvertRelativePlatformVelocityToAbsoluteVelocity();
                 currentSuperState.SwitchToState("Airborne");
             }
         }
@@ -59,12 +58,11 @@ namespace Player
 
         protected override void PhysicsUpdateThisState()
         {
-
+            _playerMovementController.MoveWhileSlide();
         }
 
         protected override void UpdateThisState()
-        {
-            _playerMovementController.MoveWhileSlide();
+        {            
             CheckSwitchState();            
         }
     }

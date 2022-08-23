@@ -82,7 +82,7 @@ namespace Player
         [SerializeField] private float airborneSteeringRate = 1f;
 
         [SerializeField] private float airborneSpeedChangeRate = 1f;
-        
+
         [SerializeField] private float airborneSpeedChangeThresholdAngle = 1f;
 
         [Space]
@@ -156,6 +156,7 @@ namespace Player
         private float _rotationVelocity;
         private float verticalVelocity;
 
+        private Vector3 platformVelocity = Vector3.zero;
         private Vector3 airborneInertiaDirection = Vector3.zero;
         private Vector3 slideDirection = Vector3.zero;
         private Vector3 dashDirection = Vector3.zero;
@@ -262,13 +263,9 @@ namespace Player
         }
 
         protected override void UpdateThisState()
-        {
-            CheckGrounded();
-            CheckRoofed();
+        {            
             HandleRunInput();
-            ApplyGravity();
             Jump();
-            HandleSpeed();
             CheckDashChargeCooldown();
             CheckSlideCooldown();
         }
@@ -280,7 +277,11 @@ namespace Player
 
         protected override void PhysicsUpdateThisState()
         {
-
+            CheckGrounded();
+            CheckRoofed();
+            CheckPlatformVelocity();
+            ApplyGravity();            
+            HandleSpeed();            
         }
 
         public override void ExitState()
@@ -380,6 +381,9 @@ namespace Player
             Gizmos.color = transparentGreen;
             Vector3 boxPosition = transform.position + transform.rotation * ledgeGrabBoxCenterOffset;
             Gizmos.DrawWireCube(boxPosition, ledgeGrabBoxSize);
+
+            Gizmos.color = transparentRed;
+            Gizmos.DrawRay(transform.position, Vector3.down * groundedRadius);
         }
         #endregion
 
@@ -535,7 +539,8 @@ namespace Player
             // TODO: momentum conservation
             _characterController.Move(
                     inputDirection * currentSpeed * Time.unscaledDeltaTime
-                    + Vector3.up * verticalVelocity * Time.unscaledDeltaTime);
+                    + Vector3.up * verticalVelocity * Time.unscaledDeltaTime
+                    + platformVelocity * Time.unscaledDeltaTime);
         }
         public void MoveWhileAirborne()
         {
@@ -582,7 +587,8 @@ namespace Player
         {
             _characterController.Move(
                     slideDirection * currentSpeed * Time.unscaledDeltaTime
-                    + Vector3.up * verticalVelocity * Time.unscaledDeltaTime);
+                    + Vector3.up * verticalVelocity * Time.unscaledDeltaTime
+                    + platformVelocity * Time.unscaledDeltaTime);
         }
         public void MoveWhileDash()
         {
@@ -596,7 +602,8 @@ namespace Player
         public void MoveWhileLedgeGrab()
         {
             _characterController.Move(
-                ledgeGrabDirection * ledgeGrabSpeed * Time.unscaledDeltaTime);
+                ledgeGrabDirection * ledgeGrabSpeed * Time.unscaledDeltaTime
+                + platformVelocity * Time.unscaledDeltaTime);
         }
 
         public void StartCoroutineCrouchDown()
@@ -714,6 +721,14 @@ namespace Player
             //return result;
         }
 
+        public void ConvertRelativePlatformVelocityToAbsoluteVelocity()
+        {
+            Debug.Log("Platform velocity: " + platformVelocity.magnitude + " Current speed: " + currentSpeed);
+            Vector3 absoluteVelocity = platformVelocity + new Vector3(_characterController.velocity.x, 0f, _characterController.velocity.z).normalized * currentSpeed;
+            currentSpeed = absoluteVelocity.magnitude;
+            Debug.Log("Absolute velocity: " + currentSpeed);
+        }
+
         #endregion
 
         #region Movement
@@ -737,6 +752,22 @@ namespace Player
         {
             yield return new WaitForSecondsRealtime(coyoteTime);
             isCoyoteTime = false;
+        }
+
+        private void CheckPlatformVelocity()
+        {
+            RaycastHit raycastHit;
+            if (Physics.Raycast(transform.position, Vector3.down, out raycastHit, groundedRadius, groundLayers))
+            {
+                try
+                {
+                    platformVelocity = raycastHit.transform.GetComponent<Rigidbody>().velocity;
+                }
+                catch
+                {
+                    platformVelocity = Vector3.zero;
+                }
+            }
         }
         private void CheckRoofed()
         {
@@ -787,7 +818,7 @@ namespace Player
                     animator.SetTrigger("isJump");
                 }
                 else if (isCoyoteTime && inputManager.IsButtonDownThisFrame("Jump"))
-                {                    
+                {
                     DisableSlideGravity();
                     // the square root of H * -2 * G = how much velocity needed to reach desired height
                     verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * currentGravity);
@@ -835,7 +866,7 @@ namespace Player
             {
                 ResetSlideCooldown();
             }
-            
+
         }
         private void ResetSlideCooldown()
         {
@@ -845,7 +876,7 @@ namespace Player
             }
             catch
             {
-                
+
             }
             _slideCooldownCoroutine = StartSlideCooldown();
             StartCoroutine(_slideCooldownCoroutine);
@@ -938,7 +969,7 @@ namespace Player
         private IEnumerator StartDashCooldown()
         {
             yield return new WaitForSecondsRealtime(dashCooldown);
-            isDashable = true;            
+            isDashable = true;
         }
         private IEnumerator StartDashChargeCooldown()
         {
@@ -1005,8 +1036,8 @@ namespace Player
 
         private IEnumerator StartSlideDuration()
         {
-            isSlideable = false;            
-            yield return new WaitForSecondsRealtime(slideDuration);            
+            isSlideable = false;
+            yield return new WaitForSecondsRealtime(slideDuration);
             SwitchToState("Crouch");
             ResetSlideCooldown();
         }

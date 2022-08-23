@@ -15,7 +15,7 @@
 
         protected override void PhysicsUpdateThisState()
         {
-
+            _playerMovementController.MoveWhileDash();
         }
 
         protected override void CheckSwitchState()
@@ -27,8 +27,7 @@
             else if (!_playerMovementController.isGrounded)
             {
                 _playerMovementController.EnableDoubleJump();
-                _playerMovementController.SetAirborneInertiaDirection();
-                _playerMovementController.StopSpeedChange();
+                _playerMovementController.ConvertRelativePlatformVelocityToAbsoluteVelocity();
                 currentSuperState.SwitchToState("Airborne");
             }
         }
@@ -45,7 +44,6 @@
 
         protected override void UpdateThisState()
         {
-            _playerMovementController.MoveWhileDash();
             CheckSwitchState();            
         }
 

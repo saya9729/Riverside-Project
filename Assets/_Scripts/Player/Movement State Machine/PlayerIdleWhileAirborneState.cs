@@ -8,6 +8,7 @@ namespace Player
         private PlayerMovementStateManager _playerMovementController;
         public override void EnterState()
         {
+            _playerMovementController.SetAirborneInertiaDirection();
             try
             {
                 _playerMovementController.DisableStepOffset();
@@ -17,6 +18,7 @@ namespace Player
                 Start();
                 _playerMovementController.DisableStepOffset();
             }
+            _playerMovementController.StopSpeedChange();
         }
 
         public override void ExitState()
@@ -53,12 +55,11 @@ namespace Player
 
         protected override void PhysicsUpdateThisState()
         {
-            
+            _playerMovementController.MoveWhileAirborne();
         }
 
         protected override void UpdateThisState()
         {
-            _playerMovementController.MoveWhileAirborne();
             CheckSwitchState();
         }
 

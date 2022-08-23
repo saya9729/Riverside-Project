@@ -10,5 +10,6 @@ public enum PlayerPrefEnum
     MusicVolume,
 
 
-    HUD
+    HUD,
+    Refresh
 }

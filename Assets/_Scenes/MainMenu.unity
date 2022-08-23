@@ -577,10 +577,50 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 97601187}
+    - target: {fileID: 784454538064165362, guid: 4f56455d1c7e33d4c9fac2bb1f5b0ac9, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 784454538064165362, guid: 4f56455d1c7e33d4c9fac2bb1f5b0ac9, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 784454538165029308, guid: 4f56455d1c7e33d4c9fac2bb1f5b0ac9, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 784454538165029308, guid: 4f56455d1c7e33d4c9fac2bb1f5b0ac9, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 784454538165029308, guid: 4f56455d1c7e33d4c9fac2bb1f5b0ac9, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1889622828533534286, guid: 4f56455d1c7e33d4c9fac2bb1f5b0ac9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 97601187}
+    - target: {fileID: 5700220655816938520, guid: 4f56455d1c7e33d4c9fac2bb1f5b0ac9, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700220655816938520, guid: 4f56455d1c7e33d4c9fac2bb1f5b0ac9, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700220655917917270, guid: 4f56455d1c7e33d4c9fac2bb1f5b0ac9, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700220655917917270, guid: 4f56455d1c7e33d4c9fac2bb1f5b0ac9, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700220655917917270, guid: 4f56455d1c7e33d4c9fac2bb1f5b0ac9, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6823558442875522668, guid: 4f56455d1c7e33d4c9fac2bb1f5b0ac9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -592,6 +632,10 @@ PrefabInstance:
     - target: {fileID: 6923155297900124352, guid: 4f56455d1c7e33d4c9fac2bb1f5b0ac9, type: 3}
       propertyPath: m_Name
       value: MainMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 6923155297900124352, guid: 4f56455d1c7e33d4c9fac2bb1f5b0ac9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6923155297900124356, guid: 4f56455d1c7e33d4c9fac2bb1f5b0ac9, type: 3}
       propertyPath: m_Pivot.x
@@ -675,6 +719,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6923155297900124356, guid: 4f56455d1c7e33d4c9fac2bb1f5b0ac9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6923155298718947957, guid: 4f56455d1c7e33d4c9fac2bb1f5b0ac9, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6923155298718947957, guid: 4f56455d1c7e33d4c9fac2bb1f5b0ac9, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6923155298886969915, guid: 4f56455d1c7e33d4c9fac2bb1f5b0ac9, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6923155298886969915, guid: 4f56455d1c7e33d4c9fac2bb1f5b0ac9, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6923155298886969915, guid: 4f56455d1c7e33d4c9fac2bb1f5b0ac9, type: 3}
+      propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

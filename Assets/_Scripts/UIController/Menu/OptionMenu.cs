@@ -43,13 +43,13 @@ namespace GameUI
             float MasterVolumeCurrentValue = PlayerPrefs.GetFloat(PlayerPrefEnum.MasterVolume.ToString(), 1f);
             float MusicVolumeCurrentValue = PlayerPrefs.GetFloat(PlayerPrefEnum.MusicVolume.ToString(), 1f);
             float EffectsVolumeCurrentValue = PlayerPrefs.GetFloat(PlayerPrefEnum.EffectsVolume.ToString(), 1f);
-
+            
             //Set the music volume to the saved volume
             sliderMaster.value = MasterVolumeCurrentValue;
             sliderMusic.value = MusicVolumeCurrentValue;
             sliderEffects.value = EffectsVolumeCurrentValue;
 
-            HUD.isOn = Convert.ToBoolean(PlayerPrefs.GetFloat(PlayerPrefEnum.HUD.ToString(), 1f));
+            HUD.isOn = Convert.ToBoolean(PlayerPrefs.GetInt(PlayerPrefEnum.HUD.ToString(), 1));
         }
         public void SetMasterVolume(float p_volume)
         {

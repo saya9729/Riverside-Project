@@ -1,4 +1,3 @@
-using UnityEngine.EventSystems;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;

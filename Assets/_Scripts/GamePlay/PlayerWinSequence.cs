@@ -31,8 +31,8 @@ namespace Player
                 PlayerPrefs.SetInt(PlayerPrefEnum.CurrentScene.ToString(), SceneManager.GetActiveScene().buildIndex + 1);
             }
             else 
-            { 
-                PlayerPrefs.SetInt(PlayerPrefEnum.CurrentScene.ToString(), 0);
+            {
+                PlayerPrefs.DeleteKey(PlayerPrefEnum.CurrentScene.ToString());
                 Cursor.lockState = CursorLockMode.None;
             }
             PlayerPrefs.Save();

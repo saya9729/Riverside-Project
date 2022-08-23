@@ -1,59 +1,31 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 namespace GameUI
 {
     public class MainMenu : MonoBehaviour
     {
-        //[SerializeField] private Button continueButton;
-        //public void Start()
-        //{
-        //    ToggleContinue();
-        //}
-        public void NewGame()
+        public void DeleteSaveGame()
         {
             for (int sceneIndex = 1; sceneIndex < SceneManager.sceneCountInBuildSettings; sceneIndex++)
             {
                 SaveManager.DeletePlayer(sceneIndex);
                 SaveManager.DeleteEnvironment(sceneIndex);
             }
-            PlayerPrefs.DeleteKey("CurrentScene");
+            PlayerPrefs.DeleteKey(PlayerPrefEnum.CurrentScene.ToString());
             PlayerPrefs.Save();
-            StartGame();
         }
         public void StartChapter(int p_chapter)
         {
             SceneManager.LoadScene(p_chapter);
-            PlayerPrefs.SetInt("CurrentScene", p_chapter);
+            PlayerPrefs.SetInt(PlayerPrefEnum.CurrentScene.ToString(), p_chapter);
             PlayerPrefs.Save();
             Cursor.lockState = CursorLockMode.Locked;
         }
-        public void StartGame()
-        {
-            int nextScene = PlayerPrefs.GetInt("CurrentScene", SceneManager.GetActiveScene().buildIndex + 1);
-            SceneManager.LoadScene(nextScene);
-            PlayerPrefs.SetInt("CurrentScene", nextScene);
-            PlayerPrefs.Save();
-            Cursor.lockState = CursorLockMode.Locked;
-        }
-
         public void QuitButton()
         {
             Debug.Log("Quit");
             Application.Quit();
         }
-
-        //public void ToggleContinue()
-        //{
-        //    if (!SaveManager.FileSavePlayerExist(PlayerPrefs.GetInt("CurrentScene", 0)))
-        //    {
-        //        continueButton.interactable = false;
-        //        return;
-        //    }
-        //    continueButton.interactable = true;
-        //}
     }
 }

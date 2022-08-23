@@ -3,6 +3,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
+// This just only cover escape key
+[RequireComponent(typeof(Button))]
 public class ButtonClickThroughKey : MonoBehaviour
 {
     private Button _button;

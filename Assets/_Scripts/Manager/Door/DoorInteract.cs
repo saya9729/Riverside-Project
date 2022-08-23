@@ -19,7 +19,7 @@ namespace Player
         private void Start()
         {
             _highlightEffect = GetComponent<HighlightEffect>();
-            _playerCurrentLevel = PlayerPrefs.GetInt("CurrentScene", SceneManager.GetActiveScene().buildIndex);
+            _playerCurrentLevel = PlayerPrefs.GetInt(PlayerPrefEnum.CurrentScene.ToString(), SceneManager.GetActiveScene().buildIndex);
             isInteractable = false;
             _highlightEffect.SetHighlighted(true);
             this.RegisterListener(EventID.onKeyCollected, (param) => OnKeyCollected((int)param));

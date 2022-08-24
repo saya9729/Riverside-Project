@@ -2564,13 +2564,17 @@ MonoBehaviour:
   groundLayers:
     serializedVersion: 2
     m_Bits: 4673
-  platformCheckDistance: 0.25
   isRoofed: 1
   roofedOffset: 0
   roofedDistance: 0.8
   roofedLayers:
     serializedVersion: 2
     m_Bits: 513
+  movingPlatformLayers:
+    serializedVersion: 2
+    m_Bits: 512
+  platformRaycastOriginOffset: 0.1
+  platformRaycastLength: 0.35
   cinemachineCameraTarget: {fileID: 6141782131596564895}
   topClamp: 80
   bottomClamp: -89

@@ -129,6 +129,12 @@ namespace Player
         [SerializeField] private LayerMask roofedLayers;
 
         [Space]
+        [Header("Moving Platform")]
+        [SerializeField] private LayerMask movingPlatformLayers;
+        [SerializeField] private float platformRaycastOriginOffset = 0.5f;
+        [SerializeField] private float platformRaycastLength = 0.25f;
+
+        [Space]
         [Header("Cinemachine")]
         [Tooltip("The follow target set in the Cinemachine Virtual Camera that the camera will follow")]
         [SerializeField] private GameObject cinemachineCameraTarget;
@@ -383,7 +389,8 @@ namespace Player
             Gizmos.DrawWireCube(boxPosition, ledgeGrabBoxSize);
 
             Gizmos.color = transparentRed;
-            Gizmos.DrawRay(transform.position, Vector3.down * groundedRadius);
+            Vector3 rayOrigin = transform.position + Vector3.up * platformRaycastOriginOffset;
+            Gizmos.DrawRay(rayOrigin, Vector3.down * platformRaycastLength);
         }
         #endregion
 
@@ -719,15 +726,7 @@ namespace Player
             //bool result= Physics.CheckBox(boxPosition, ledgeGrabBoxSize / 2, transform.rotation, ledgeGrabLayers);
             //Debug.Log(result);
             //return result;
-        }
-
-        public void ConvertRelativePlatformVelocityToAbsoluteVelocity()
-        {
-            //Debug.Log("Platform velocity: " + platformVelocity.magnitude + " Current speed: " + currentSpeed);
-            Vector3 absoluteVelocity = platformVelocity + new Vector3(_characterController.velocity.x, 0f, _characterController.velocity.z).normalized * currentSpeed;
-            currentSpeed = absoluteVelocity.magnitude;
-            //Debug.Log("Absolute velocity: " + currentSpeed);
-        }
+        }        
 
         #endregion
 
@@ -756,19 +755,54 @@ namespace Player
 
         private void CheckPlatformVelocity()
         {
+            Vector3 previousFramePlatformVelocity = platformVelocity;
+
+            Vector3 rayOrigin = transform.position + Vector3.up * platformRaycastOriginOffset;
             RaycastHit raycastHit;
-            if (Physics.Raycast(transform.position, Vector3.down, out raycastHit, groundedRadius, groundLayers))
+            if (Physics.Raycast(rayOrigin, Vector3.down, out raycastHit, platformRaycastLength, movingPlatformLayers))
             {
                 try
                 {
-                    platformVelocity = raycastHit.transform.GetComponent<Rigidbody>().velocity;
+                    platformVelocity = raycastHit.collider.GetComponent<Rigidbody>().velocity;
                 }
                 catch
                 {
                     platformVelocity = Vector3.zero;
                 }
             }
+            else
+            {
+                platformVelocity = Vector3.zero;
+            }
+
+            if (previousFramePlatformVelocity != platformVelocity && platformVelocity==Vector3.zero)
+            {
+                ConvertRelativePlatformVelocityToAbsoluteVelocity(previousFramePlatformVelocity);
+            }
+            else if (previousFramePlatformVelocity != platformVelocity && previousFramePlatformVelocity == Vector3.zero)
+            {
+                ConvertAbsoluteVelocityToRelativePlatformVelocity();
+            }
         }
+        
+        private void ConvertRelativePlatformVelocityToAbsoluteVelocity(Vector3 p_previousFramePlatformVelocity)
+        {
+            //Debug.Log("Platform velocity: " + platformVelocity.magnitude + " Current speed: " + currentSpeed);
+            Vector3 absoluteVelocity = new Vector3(p_previousFramePlatformVelocity.x, 0, p_previousFramePlatformVelocity.z) + new Vector3(_characterController.velocity.x, 0f, _characterController.velocity.z).normalized * currentSpeed;
+            currentSpeed = absoluteVelocity.magnitude;
+
+            verticalVelocity = p_previousFramePlatformVelocity.y + _characterController.velocity.y;
+            //Debug.Log("Absolute velocity: " + currentSpeed);
+        }
+
+        private void ConvertAbsoluteVelocityToRelativePlatformVelocity()
+        {
+            Vector3 relativeVelocity = new Vector3(_characterController.velocity.x, 0f, _characterController.velocity.z).normalized * currentSpeed - new Vector3(platformVelocity.x, 0f, platformVelocity.z);
+            currentSpeed = relativeVelocity.magnitude;
+
+            verticalVelocity = _characterController.velocity.y - platformVelocity.y;
+        }
+        
         private void CheckRoofed()
         {
             // set sphere position, with offset

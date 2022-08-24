@@ -269,7 +269,7 @@ namespace Player
         }
 
         protected override void UpdateThisState()
-        {            
+        {
             HandleRunInput();
             Jump();
             CheckDashChargeCooldown();
@@ -286,8 +286,8 @@ namespace Player
             CheckGrounded();
             CheckRoofed();
             CheckPlatformVelocity();
-            ApplyGravity();            
-            HandleSpeed();            
+            ApplyGravity();
+            HandleSpeed();
         }
 
         public override void ExitState()
@@ -513,10 +513,6 @@ namespace Player
             Vector3 localDirection = Quaternion.Euler(_cinemachineTargetPitch, 0.0f, 0.0f) * Vector3.forward;
             dashDirection = transform.right * localDirection.x + transform.up * localDirection.y + transform.forward * localDirection.z;
         }
-        public void ResetDashDirection()
-        {
-            dashDirection = Vector3.zero;
-        }
 
         public void ResetMoveDirection()
         {
@@ -726,7 +722,7 @@ namespace Player
             //bool result= Physics.CheckBox(boxPosition, ledgeGrabBoxSize / 2, transform.rotation, ledgeGrabLayers);
             //Debug.Log(result);
             //return result;
-        }        
+        }
 
         #endregion
 
@@ -775,7 +771,7 @@ namespace Player
                 platformVelocity = Vector3.zero;
             }
 
-            if (previousFramePlatformVelocity != platformVelocity && platformVelocity==Vector3.zero)
+            if (previousFramePlatformVelocity != platformVelocity && platformVelocity == Vector3.zero)
             {
                 ConvertRelativePlatformVelocityToAbsoluteVelocity(previousFramePlatformVelocity);
             }
@@ -784,7 +780,7 @@ namespace Player
                 ConvertAbsoluteVelocityToRelativePlatformVelocity();
             }
         }
-        
+
         private void ConvertRelativePlatformVelocityToAbsoluteVelocity(Vector3 p_previousFramePlatformVelocity)
         {
             //Debug.Log("Platform velocity: " + platformVelocity.magnitude + " Current speed: " + currentSpeed);
@@ -802,7 +798,7 @@ namespace Player
 
             verticalVelocity = _characterController.velocity.y - platformVelocity.y;
         }
-        
+
         private void CheckRoofed()
         {
             // set sphere position, with offset
@@ -1028,7 +1024,6 @@ namespace Player
             this.PostEvent(EventID.onStopVFX, VFXID.dash);
 
             isInDashState = false;
-            ResetDashDirection();
             StartCoroutine(StartDashCooldown());
         }
         private IEnumerator ChangeFOVWhileDash()

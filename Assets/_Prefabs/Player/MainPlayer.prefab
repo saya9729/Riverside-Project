@@ -2573,8 +2573,8 @@ MonoBehaviour:
   movingPlatformLayers:
     serializedVersion: 2
     m_Bits: 512
-  platformRaycastOriginOffset: 0.1
-  platformRaycastLength: 0.35
+  platformRaycastOriginOffset: 0.3
+  platformRaycastLength: 0.55
   cinemachineCameraTarget: {fileID: 6141782131596564895}
   topClamp: 80
   bottomClamp: -89

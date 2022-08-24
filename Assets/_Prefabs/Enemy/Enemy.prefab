@@ -4120,6 +4120,7 @@ GameObject:
   - component: {fileID: 8486861511581787013}
   - component: {fileID: 8486861511581787015}
   - component: {fileID: 4244212050229475525}
+  - component: {fileID: 2288198621261976286}
   m_Layer: 0
   m_Name: mixamorig:Hips
   m_TagString: Untagged
@@ -4187,6 +4188,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerAttackHitboxTag: PlayerAttack
+--- !u!114 &2288198621261976286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8486861511581787064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9363ad54c2a8b9849aaf5bdf38b7daf8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8503652448725205219
 GameObject:
   m_ObjectHideFlags: 0

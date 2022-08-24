@@ -26,8 +26,7 @@ namespace Player
             if (!_playerMovementController.isGrounded)
             {
                 _playerMovementController.EnableDoubleJump();
-                _playerMovementController.SetAirborneInertiaDirection();
-                _playerMovementController.StopSpeedChange();
+                _playerMovementController.ConvertRelativePlatformVelocityToAbsoluteVelocity();
                 currentSuperState.SwitchToState("Airborne");
             }
         }
@@ -49,12 +48,11 @@ namespace Player
 
         protected override void PhysicsUpdateThisState()
         {
-
+            _playerMovementController.MoveWhileGrounded();
         }
 
         protected override void UpdateThisState()
-        {
-            _playerMovementController.MoveWhileGrounded();
+        {            
             CheckSwitchState();
         }
     }

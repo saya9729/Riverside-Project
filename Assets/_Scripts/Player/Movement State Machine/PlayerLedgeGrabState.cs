@@ -48,12 +48,11 @@ namespace Player
 
         protected override void PhysicsUpdateThisState()
         {
-            
+            _playerMovementController.MoveWhileLedgeGrab();
         }
 
         protected override void UpdateThisState()
-        {
-            _playerMovementController.MoveWhileLedgeGrab();
+        {            
             CheckSwitchState();
         }
     }

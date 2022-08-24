@@ -2,6 +2,7 @@ using AbstractClass;
 using HighlightPlus;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System;
 
 namespace Player
 {
@@ -19,7 +20,7 @@ namespace Player
         private void Start()
         {
             _highlightEffect = GetComponent<HighlightEffect>();
-            _playerCurrentLevel = PlayerPrefs.GetInt("CurrentScene", SceneManager.GetActiveScene().buildIndex);
+            _playerCurrentLevel = PlayerPrefs.GetInt(PlayerPrefEnum.CurrentScene.ToString(), SceneManager.GetActiveScene().buildIndex);
             isInteractable = false;
             _highlightEffect.SetHighlighted(true);
             this.RegisterListener(EventID.onKeyCollected, (param) => OnKeyCollected((int)param));
@@ -74,7 +75,10 @@ namespace Player
                 return;
             }
             EnvironmentData environmentData = SaveManager.LoadEnvironment(_playerCurrentLevel);
-            if (environmentData == null)
+
+            bool refresh = Convert.ToBoolean(PlayerPrefs.GetInt(PlayerPrefEnum.Refresh.ToString(), 0));
+
+            if (environmentData == null || refresh)
             {
                 Debug.Log("generate default value");
                 RefreshEnvironmentData();
@@ -85,7 +89,7 @@ namespace Player
                 keyInteractArray[i].SetInteractable(environmentData.isKeyInteractableArray[i]);
                 if (!keyInteractArray[i].IsInteractable())
                 {
-                    OnKeyCollected(1);
+                    this.PostEvent(EventID.onKeyCollected, 1);
                 }
             }
         }
@@ -100,6 +104,7 @@ namespace Player
             {
                 key.SetInteractable(true);
             }
+            SaveKeyInteractState();
         }
     }
 }

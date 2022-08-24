@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace GameEnvironment
 {
+    [RequireComponent(typeof(Rigidbody))]
     public class MovingPlatform : MonoBehaviour
     {
         [System.Serializable]
@@ -10,15 +11,24 @@ namespace GameEnvironment
             public Transform waypoint;
             public float timeToThisWaypoint = 2.5f;
         }
-        
-        [SerializeField]  PlatformWaypoint[] platformWaypoint;
+
+        [SerializeField] private PlatformWaypoint[] platformWaypoint;
         private int _currentWaypointIndex = 0;
-      
+
 
         private float _timeElapsed = 0f;
         private float _distance = 1f;
-        
-        private void Update()
+        private Rigidbody _rigidbody;
+
+        private void Start()
+        {
+            _rigidbody = GetComponent<Rigidbody>();
+            //_rigidbody.isKinematic = true;
+            _rigidbody.useGravity = false;
+            _rigidbody.freezeRotation = true;
+        }
+
+        private void FixedUpdate()
         {
             MovePlatformToWaypoint();
         }
@@ -45,15 +55,19 @@ namespace GameEnvironment
             }
             else
             {
-                transform.position = Vector3.MoveTowards(
-                    transform.position,
-                    platformWaypoint[_currentWaypointIndex].waypoint.transform.position,
-                    Universal.Smoothing.SineWaveSmooth(
+                _rigidbody.velocity = (platformWaypoint[_currentWaypointIndex].waypoint.transform.position - transform.position).normalized
+                    * Universal.Smoothing.SineWaveSmooth(
                         _distance / 2, _timeElapsed,
-                        platformWaypoint[_currentWaypointIndex].timeToThisWaypoint * 2) * Time.deltaTime);
+                        platformWaypoint[_currentWaypointIndex].timeToThisWaypoint * 2);
+                //transform.position = Vector3.MoveTowards(
+                //    transform.position,
+                //    platformWaypoint[_currentWaypointIndex].waypoint.transform.position,
+                //    Universal.Smoothing.SineWaveSmooth(
+                //        _distance / 2, _timeElapsed,
+                //        platformWaypoint[_currentWaypointIndex].timeToThisWaypoint * 2) * Time.deltaTime);
             }
             //transform.position = Vector3.MoveTowards(transform.position, waypoints[_currentWaypointIndex].transform.position, movingPlatformSpeed * Time.deltaTime);
         }
     }
-    
+
 }

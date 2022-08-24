@@ -28,15 +28,15 @@ namespace Player
             gameMenuCanvas.SetActive(false);
             if ((SceneManager.GetActiveScene().buildIndex + 1) < SceneManager.sceneCountInBuildSettings)
             {
-                PlayerPrefs.SetInt("CurrentScene", SceneManager.GetActiveScene().buildIndex + 1);
+                PlayerPrefs.SetInt(PlayerPrefEnum.CurrentScene.ToString(), SceneManager.GetActiveScene().buildIndex + 1);
             }
             else 
-            { 
-                PlayerPrefs.SetInt("CurrentScene", 0);
+            {
+                PlayerPrefs.DeleteKey(PlayerPrefEnum.CurrentScene.ToString());
                 Cursor.lockState = CursorLockMode.None;
             }
             PlayerPrefs.Save();
-            SceneManager.LoadScene(PlayerPrefs.GetInt("CurrentScene", 0));
+            SceneManager.LoadScene(PlayerPrefs.GetInt(PlayerPrefEnum.CurrentScene.ToString(), 0));
         }
         private void StopComponent()
         {

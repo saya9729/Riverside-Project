@@ -44,9 +44,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c40b11c8d990991489d0a741d39ff49c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mixerGroup: {fileID: 24300002, guid: e49f289e8a6f19b4799b5efb2231d9c0, type: 2}
+  musicMixerGroup: {fileID: -4153727278072326025, guid: e49f289e8a6f19b4799b5efb2231d9c0, type: 2}
+  effectsMixerGroup: {fileID: 2495693591402656832, guid: e49f289e8a6f19b4799b5efb2231d9c0, type: 2}
   sounds:
   - name: slash
+    audioType: 0
     clip: {fileID: 8300000, guid: 02dced28083b2464b91412272d1a1497, type: 3}
     volume: 1
     volumeVariance: 1
@@ -56,6 +58,7 @@ MonoBehaviour:
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: stab
+    audioType: 0
     clip: {fileID: 8300000, guid: 910eac5dd3b45634f923de418c131353, type: 3}
     volume: 1
     volumeVariance: 1
@@ -65,6 +68,7 @@ MonoBehaviour:
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: shoot
+    audioType: 0
     clip: {fileID: 8300000, guid: 8018acccaecddce498259f8e5a93b440, type: 3}
     volume: 1
     volumeVariance: 1
@@ -74,6 +78,7 @@ MonoBehaviour:
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: reload
+    audioType: 0
     clip: {fileID: 8300000, guid: 45b719c1e7b02bb48b085d63925c25ae, type: 3}
     volume: 1
     volumeVariance: 1
@@ -83,6 +88,7 @@ MonoBehaviour:
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: secondJump
+    audioType: 0
     clip: {fileID: 8300000, guid: 2a7a65e1ded649944ab71833e17e9c43, type: 3}
     volume: 1
     volumeVariance: 1
@@ -92,6 +98,7 @@ MonoBehaviour:
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: collect
+    audioType: 0
     clip: {fileID: 8300000, guid: ce390347349862b4f93adb9bf0e2ae8a, type: 3}
     volume: 1
     volumeVariance: 1
@@ -101,6 +108,7 @@ MonoBehaviour:
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: timeskill
+    audioType: 0
     clip: {fileID: 8300000, guid: d51530628708e3b4192612183dd72015, type: 3}
     volume: 1
     volumeVariance: 1
@@ -110,6 +118,7 @@ MonoBehaviour:
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: jump
+    audioType: 0
     clip: {fileID: 8300000, guid: 1249f260756a783438b1b1503952b243, type: 3}
     volume: 0.75
     volumeVariance: 1
@@ -119,6 +128,7 @@ MonoBehaviour:
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: dash
+    audioType: 0
     clip: {fileID: 8300000, guid: 07e1a65b35ee1ca439d5441a5812fe1e, type: 3}
     volume: 1
     volumeVariance: 1
@@ -128,6 +138,7 @@ MonoBehaviour:
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: enemyHit
+    audioType: 0
     clip: {fileID: 8300000, guid: 67662b5af43020a40b48c54a56a31dd9, type: 3}
     volume: 1
     volumeVariance: 1
@@ -137,6 +148,7 @@ MonoBehaviour:
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: HUD
+    audioType: 0
     clip: {fileID: 8300000, guid: 8018acccaecddce498259f8e5a93b440, type: 3}
     volume: 1
     volumeVariance: 1
@@ -146,6 +158,7 @@ MonoBehaviour:
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: UiClick
+    audioType: 0
     clip: {fileID: 8300000, guid: 74c92bfbfff8dad4683739664b18b886, type: 3}
     volume: 1
     volumeVariance: 1
@@ -155,6 +168,7 @@ MonoBehaviour:
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: UiSlide
+    audioType: 0
     clip: {fileID: 8300000, guid: 9a07d36a92ad0324abb071abdbd9c437, type: 3}
     volume: 1
     volumeVariance: 1
@@ -164,6 +178,7 @@ MonoBehaviour:
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: ambience
+    audioType: 1
     clip: {fileID: 8300000, guid: 7b290aab422b2b74cbc5abcb15b99a52, type: 3}
     volume: 0.4
     volumeVariance: 1
@@ -173,6 +188,7 @@ MonoBehaviour:
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: playerHit
+    audioType: 0
     clip: {fileID: 8300000, guid: a7363a3e0843cc5488ad7d32237303f9, type: 3}
     volume: 1
     volumeVariance: 1
@@ -182,6 +198,7 @@ MonoBehaviour:
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: backgroundmusic
+    audioType: 1
     clip: {fileID: 8300000, guid: 76cbfc0a011e3c943a3776c0ca026317, type: 3}
     volume: 0.5
     volumeVariance: 1
@@ -191,6 +208,7 @@ MonoBehaviour:
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: slide
+    audioType: 0
     clip: {fileID: 8300000, guid: 1af05474abbac724eb02866f88ba35b8, type: 3}
     volume: 1
     volumeVariance: 1
@@ -200,6 +218,7 @@ MonoBehaviour:
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: subAmbience
+    audioType: 1
     clip: {fileID: 8300000, guid: 7efa65e413d2e8c40ad82bfc9627f4cf, type: 3}
     volume: 0.1
     volumeVariance: 1
@@ -209,6 +228,7 @@ MonoBehaviour:
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: slash1
+    audioType: 0
     clip: {fileID: 8300000, guid: 880b78c93bd003545a4349df279471eb, type: 3}
     volume: 0.1
     volumeVariance: 1
@@ -218,6 +238,7 @@ MonoBehaviour:
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: slash2
+    audioType: 0
     clip: {fileID: 8300000, guid: 02dced28083b2464b91412272d1a1497, type: 3}
     volume: 0.1
     volumeVariance: 1
@@ -227,6 +248,7 @@ MonoBehaviour:
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: slash3
+    audioType: 0
     clip: {fileID: 8300000, guid: 880b78c93bd003545a4349df279471eb, type: 3}
     volume: 0.1
     volumeVariance: 1
@@ -236,6 +258,7 @@ MonoBehaviour:
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: slash4
+    audioType: 0
     clip: {fileID: 8300000, guid: 02dced28083b2464b91412272d1a1497, type: 3}
     volume: 0.1
     volumeVariance: 1
@@ -245,6 +268,7 @@ MonoBehaviour:
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: slash5
+    audioType: 0
     clip: {fileID: 8300000, guid: 880b78c93bd003545a4349df279471eb, type: 3}
     volume: 0.1
     volumeVariance: 1

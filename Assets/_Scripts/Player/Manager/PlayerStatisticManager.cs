@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using System.Collections;
+using System;
 
 namespace Player
 {
@@ -23,7 +23,7 @@ namespace Player
         {
             this.RegisterListener(EventID.onSave, (param) => SavePlayerStatistic());
             _initPosition = transform.position;
-            _playerCurrentLevel = PlayerPrefs.GetInt("CurrentScene", SceneManager.GetActiveScene().buildIndex);
+            _playerCurrentLevel = PlayerPrefs.GetInt(PlayerPrefEnum.CurrentScene.ToString(), SceneManager.GetActiveScene().buildIndex);
 
             this.PostEvent(EventID.onHPMaxChanged, maxHealth);
 
@@ -96,7 +96,10 @@ namespace Player
         public void LoadPlayerStatistic()
         {
             PlayerData playerData = SaveManager.LoadPlayer(_playerCurrentLevel);
-            if (playerData == null)
+
+            bool refresh = Convert.ToBoolean(PlayerPrefs.GetInt(PlayerPrefEnum.Refresh.ToString(), 0));
+
+            if (playerData == null || refresh)
             {
                 Debug.Log("generate default value");
                 RefreshPlayerStatistic();
@@ -119,6 +122,7 @@ namespace Player
             transform.position = _initPosition;
 
             RefreshUI();
+            SavePlayerStatistic();
         }
 
         private void RefreshUI()

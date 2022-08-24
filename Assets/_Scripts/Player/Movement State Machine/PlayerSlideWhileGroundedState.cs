@@ -15,7 +15,6 @@ namespace Player
             _playerMovementController.SetSlideDirection();
             _playerMovementController.SetSlideTargetSpeed();
             _playerMovementController.EnableSlideGravity();
-            _playerMovementController.StartCoroutineSlideState();
         }
 
         public override void ExitState()
@@ -24,7 +23,6 @@ namespace Player
             _playerMovementController.GetComponent<CharacterFootsteps>().enabled = true;
 
             _playerMovementController.DisableSlideGravity();
-            _playerMovementController.StopCoroutineSlideState();
         }
 
         public override void SwitchToState(string p_stateType)
@@ -36,10 +34,9 @@ namespace Player
         {
             if (!_playerMovementController.isGrounded)
             {
-                _playerMovementController.EnableDoubleJump();
-                _playerMovementController.SetAirborneInertiaDirection();
-                //_playerMovementController.StopSpeedChange(); useless because set target speed later                
+                _playerMovementController.EnableDoubleJump();              
                 _playerMovementController.SetSlideJumpTargetSpeed();
+                _playerMovementController.ConvertRelativePlatformVelocityToAbsoluteVelocity();
                 currentSuperState.SwitchToState("Airborne");
             }
         }
@@ -61,12 +58,11 @@ namespace Player
 
         protected override void PhysicsUpdateThisState()
         {
-
+            _playerMovementController.MoveWhileSlide();
         }
 
         protected override void UpdateThisState()
-        {
-            _playerMovementController.MoveWhileSlide();
+        {            
             CheckSwitchState();            
         }
     }

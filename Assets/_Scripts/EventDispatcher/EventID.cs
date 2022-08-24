@@ -15,7 +15,7 @@ public enum EventID
     onSave,
     onLose,
     onWin,
-    onDashCooldown,
+    onDash,
     onDashChargeCooldown,
 
     //sound

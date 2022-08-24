@@ -7,10 +7,12 @@ namespace Player
         private PlayerMovementStateManager _playerMovementController;
         public override void EnterState()
         {
+            _playerMovementController.SetAirborneInertiaDirection();
             _playerMovementController.DisableStepOffset();
             _playerMovementController.SetDashDirection();
             _playerMovementController.SetAirborneInertiaDirectionWhileDash();
             _playerMovementController.DisableGravity();
+            _playerMovementController.StopSpeedChange();
         }
         public override void ExitState()
         {
@@ -51,12 +53,11 @@ namespace Player
 
         protected override void PhysicsUpdateThisState()
         {
-
+            _playerMovementController.MoveWhileDash();
         }
 
         protected override void UpdateThisState()
-        {
-            _playerMovementController.MoveWhileDash();
+        {            
             CheckSwitchState();
         }
 

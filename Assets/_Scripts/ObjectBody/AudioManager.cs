@@ -5,7 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour
 {
-    public AudioMixerGroup mixerGroup;
+    public AudioMixerGroup musicMixerGroup;
+    public AudioMixerGroup effectsMixerGroup;
 
     public Sound[] sounds;
 
@@ -25,7 +26,15 @@ public class AudioManager : MonoBehaviour
             s.source.clip = s.clip;
             s.source.loop = s.loop;
 
-            s.source.outputAudioMixerGroup = mixerGroup;
+            switch (s.audioType)
+            {
+                case Sound.AudioType.Effect:
+                    s.source.outputAudioMixerGroup = effectsMixerGroup;
+                    break;
+                case Sound.AudioType.Music:
+                    s.source.outputAudioMixerGroup = musicMixerGroup;
+                    break;
+            }
         }
     }
 

@@ -157,6 +157,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "OpenObjecttive",
+                    "type": "PassThrough",
+                    "id": "b337c4a7-0a34-4785-a89e-1836ffb80706",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -476,6 +485,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Cooldown Weapon",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "611407fc-3b86-4f2c-b50d-cd3fdd3e2a8f",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OpenObjecttive",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

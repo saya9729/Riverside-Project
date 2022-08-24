@@ -2505,7 +2505,7 @@ CharacterController:
   m_Radius: 0.25
   m_SlopeLimit: 45
   m_StepOffset: 0.25
-  m_SkinWidth: 0.08
+  m_SkinWidth: 0.03
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &4261174648672795369
@@ -2528,6 +2528,7 @@ MonoBehaviour:
   slideDuration: 1
   slideJumpSpeed: 20
   slideGravity: -1000
+  slideCooldownDuration: 0.25
   crouchSpeed: 4
   dashSpeed: 71.428
   dashDuration: 0.14
@@ -2549,6 +2550,7 @@ MonoBehaviour:
   rotationSpeed: 1
   airborneSteeringRate: 1000
   airborneSpeedChangeRate: 40
+  airborneSpeedChangeThresholdAngle: 45
   jumpHeight: 2.5
   coyoteTime: 0.2
   gravity: -30
@@ -2562,12 +2564,13 @@ MonoBehaviour:
   groundLayers:
     serializedVersion: 2
     m_Bits: 4673
+  platformCheckDistance: 0.25
   isRoofed: 1
   roofedOffset: 0
-  roofedDistance: 0.1
+  roofedDistance: 0.8
   roofedLayers:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 513
   cinemachineCameraTarget: {fileID: 6141782131596564895}
   topClamp: 80
   bottomClamp: -89

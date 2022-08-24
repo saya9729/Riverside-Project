@@ -86,6 +86,7 @@ namespace GameUI
         {
             PlayerPrefs.SetInt(PlayerPrefEnum.HUD.ToString(), p_isHUD ? 1 : 0);
             PlayerPrefs.Save();
+            this.PostEvent(EventID.onToggleUI, p_isHUD);
         }
     }
 }

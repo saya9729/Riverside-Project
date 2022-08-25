@@ -22,53 +22,63 @@ namespace Enemy
             if (collisionInfo.collider.CompareTag(playerAttackHitboxTag)) //collide with player attack's collider which has this tag
             {
                 //Debug.Log("attacked by "+ collisionInfo.gameObject.name);
-                ContactPoint hitPoint = collisionInfo.GetContact(0);
+                try
+                {
+                    ContactPoint hitPoint = collisionInfo.GetContact(0);
 
-                //particle
-                Tuple<VFXID, Vector3, Quaternion> particleSparkInfo = new Tuple<VFXID, Vector3, Quaternion>(VFXID.enemyHitSpark, hitPoint.point, Quaternion.Euler(hitPoint.normal));
-                Tuple<VFXID, Vector3, Quaternion> particleBloodInfo = new Tuple<VFXID, Vector3, Quaternion>(VFXID.enemyHitBlood, hitPoint.point, Quaternion.Euler(hitPoint.normal));
-                this.PostEvent(EventID.onSpawnVFX, particleSparkInfo);
-                this.PostEvent(EventID.onSpawnVFX, particleBloodInfo);
+                    //particle
+                    Tuple<VFXID, Vector3, Quaternion> particleSparkInfo = new Tuple<VFXID, Vector3, Quaternion>(VFXID.enemyHitSpark, hitPoint.point, Quaternion.Euler(hitPoint.normal));
+                    Tuple<VFXID, Vector3, Quaternion> particleBloodInfo = new Tuple<VFXID, Vector3, Quaternion>(VFXID.enemyHitBlood, hitPoint.point, Quaternion.Euler(hitPoint.normal));
+                    this.PostEvent(EventID.onSpawnVFX, particleSparkInfo);
+                    this.PostEvent(EventID.onSpawnVFX, particleBloodInfo);
 
-                //audio
-                this.PostEvent(EventID.onPlaySound, AudioID.enemyHit);
-
-                if (_bloodScreenManager)
+                    //audio
+                    this.PostEvent(EventID.onPlaySound, AudioID.enemyHit);
+                }
+                catch
+                {
+                    Debug.Log("No contact: "+ collisionInfo.contactCount);                    
+                }
+                
+                try
                 {
                     _bloodScreenManager.Play();
                 }
-
-                _damageManager = collisionInfo.collider.gameObject.GetComponentInParent<Universal.AttackManager>();
-
-                if (_damageManager)
+                catch
                 {
-                    _enemyStateManager.ReceiveDamage(_damageManager.DealDamage());
-                    //Debug.Log("received " + _damageManager.GetDamage() + " dmg");
+                    Debug.Log("No blood screen manager found");
                 }
-                else
+
+                try
                 {
-                    //Debug.Log("Damage not assigned to attack source."); 
+                    _damageManager = collisionInfo.collider.GetComponentInParent<Universal.AttackManager>();
+                    _enemyStateManager.ReceiveDamage(_damageManager.DealDamage());
+                    //Debug.Log("received " + _damageManager.DealDamage() + " dmg");
+                }
+                catch
+                {
+                    Debug.Log("Damage not assigned to attack source.");
                 }
 
                 //Debug.Log("current HP: " + _playerStatisticManager.GetHealth());
             }
         }
-        private void OnTriggerEnter(Collider p_collider)
-        {
-            if (p_collider.CompareTag(playerAttackHitboxTag))
-            {
-                //reset _damageManager
-                _damageManager = null;
-                _damageManager =p_collider.GetComponentInParent<Universal.AttackManager>();
-                try
-                {
-                    _enemyStateManager.ReceiveDamage(_damageManager.DealDamage());
-                }
-                catch
-                {
-                    Debug.Log("Damage not assigned to attack source."); 
-                }
-            }
-        }
+        //private void OnTriggerEnter(Collider p_collider)
+        //{
+        //    if (p_collider.CompareTag(playerAttackHitboxTag))
+        //    {
+        //        //reset _damageManager
+        //        _damageManager = null;
+        //        _damageManager =p_collider.GetComponentInParent<Universal.AttackManager>();
+        //        try
+        //        {
+        //            _enemyStateManager.ReceiveDamage(_damageManager.DealDamage());
+        //        }
+        //        catch
+        //        {
+        //            Debug.Log("Damage not assigned to attack source."); 
+        //        }
+        //    }
+        //}
     }
 }

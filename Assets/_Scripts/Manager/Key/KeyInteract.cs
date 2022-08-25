@@ -1,6 +1,7 @@
 using AbstractClass;
 using HighlightPlus;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Player
 {
@@ -37,6 +38,7 @@ namespace Player
                 this.PostEvent(EventID.onKeyCollected, 1);
                 this.PostEvent(EventID.onSave);
                 PlayerPrefs.SetInt(PlayerPrefEnum.Refresh.ToString(), 0);
+                PlayerPrefs.SetInt(PlayerPrefEnum.CurrentScene.ToString(), SceneManager.GetActiveScene().buildIndex);
                 PlayerPrefs.Save();
             }
         }

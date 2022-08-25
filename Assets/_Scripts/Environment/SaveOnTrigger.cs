@@ -8,6 +8,8 @@ public class SaveOnTrigger : MonoBehaviour
         if (p_other.CompareTag("Player"))
         {
             this.PostEvent(EventID.onSave);
+            PlayerPrefs.SetInt(PlayerPrefEnum.Refresh.ToString(), 0);
+            PlayerPrefs.Save();
         }
     }
 }

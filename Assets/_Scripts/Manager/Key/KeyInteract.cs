@@ -36,6 +36,8 @@ namespace Player
                 isInteractable = false;
                 this.PostEvent(EventID.onKeyCollected, 1);
                 this.PostEvent(EventID.onSave);
+                PlayerPrefs.SetInt(PlayerPrefEnum.Refresh.ToString(), 0);
+                PlayerPrefs.Save();
             }
         }
         public void SetInteractable(bool p_isInteractable)

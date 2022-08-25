@@ -376,7 +376,7 @@ namespace Player
 
             try
             {
-                Vector3 rayPosition = new Vector3(transform.position.x, transform.position.y + _characterController.height + roofedOffset, transform.position.z);
+                Vector3 rayPosition = new Vector3(transform.position.x, transform.position.y + roofedOffset, transform.position.z);
                 Gizmos.DrawRay(rayPosition, Vector3.up * roofedDistance);
             }
             catch
@@ -802,7 +802,7 @@ namespace Player
         private void CheckRoofed()
         {
             // set sphere position, with offset
-            Vector3 rayPosition = new Vector3(transform.position.x, transform.position.y + _characterController.height + roofedOffset, transform.position.z);
+            Vector3 rayPosition = new Vector3(transform.position.x, transform.position.y + roofedOffset, transform.position.z);
             isRoofed = Physics.Raycast(rayPosition, Vector3.up, roofedDistance, roofedLayers, QueryTriggerInteraction.Ignore);
         }
         private void HandleRunInput()

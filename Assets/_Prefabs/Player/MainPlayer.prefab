@@ -2565,7 +2565,7 @@ MonoBehaviour:
     m_Bits: 4673
   isRoofed: 1
   roofedOffset: 0
-  roofedDistance: 0.8
+  roofedDistance: 2
   roofedLayers:
     serializedVersion: 2
     m_Bits: 513
@@ -5692,6 +5692,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: dfdc2b2da053de34585f197f0c208d61, type: 3}
+      propertyPath: m_TagString
+      value: PlayerAttack
+      objectReference: {fileID: 0}
     - target: {fileID: 2831596841542958909, guid: dfdc2b2da053de34585f197f0c208d61, type: 3}
       propertyPath: m_Layer
       value: 3
@@ -5829,6 +5833,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 17933da4d08e50e49bdb9cfd08729819, type: 3}
       propertyPath: m_Layer
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 17933da4d08e50e49bdb9cfd08729819, type: 3}
+      propertyPath: m_TagString
+      value: PlayerAttack
       objectReference: {fileID: 0}
     - target: {fileID: 1347314574705995286, guid: 17933da4d08e50e49bdb9cfd08729819, type: 3}
       propertyPath: m_Layer

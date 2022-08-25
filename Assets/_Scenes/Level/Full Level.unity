@@ -917,6 +917,7 @@ GameObject:
   - component: {fileID: 24203535}
   - component: {fileID: 24203534}
   - component: {fileID: 24203533}
+  - component: {fileID: 24203539}
   m_Layer: 0
   m_Name: Death_moving_platform (2)
   m_TagString: EnemyAttack
@@ -1254,6 +1255,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 24203531}
   m_Mesh: {fileID: 1270875494}
+--- !u!54 &24203539
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 24203531}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &24482453
 GameObject:
   m_ObjectHideFlags: 0
@@ -1269,6 +1286,7 @@ GameObject:
   - component: {fileID: 24482457}
   - component: {fileID: 24482456}
   - component: {fileID: 24482455}
+  - component: {fileID: 24482461}
   m_Layer: 0
   m_Name: Death_moving_platform (3)
   m_TagString: EnemyAttack
@@ -1604,6 +1622,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 24482453}
   m_Mesh: {fileID: 1063828377}
+--- !u!54 &24482461
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 24482453}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &32687615
 GameObject:
   m_ObjectHideFlags: 0
@@ -2954,7 +2988,7 @@ MonoBehaviour:
     meshQuery:
       layers: 16777223
       maskAndChannels: 234881031
-    surfaceParameter: 30778
+    surfaceParameter: 30052
     meshQueryIndex: 8
     subMeshQueryIndex: 0
     geometryHashValue: 2910625108346761718
@@ -3658,7 +3692,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-27746
+  m_Name: pb_Mesh292138
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -4375,7 +4409,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh29164
+  m_Name: pb_Mesh291886
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -6221,7 +6255,7 @@ MonoBehaviour:
     meshQuery:
       layers: 16777223
       maskAndChannels: 234881031
-    surfaceParameter: 30784
+    surfaceParameter: 86814
     meshQueryIndex: 1
     subMeshQueryIndex: 0
     geometryHashValue: -1896647630524338764
@@ -7254,7 +7288,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh29526
+  m_Name: pb_Mesh292376
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -8471,6 +8505,7 @@ GameObject:
   - component: {fileID: 242792192}
   - component: {fileID: 242792198}
   - component: {fileID: 242792199}
+  - component: {fileID: 242792200}
   m_Layer: 0
   m_Name: Death_moving_platform
   m_TagString: EnemyAttack
@@ -8789,10 +8824,10 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 242792184}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 1020487366}
 --- !u!114 &242792199
@@ -8808,6 +8843,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 100
+--- !u!54 &242792200
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 242792184}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &259988702
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9679,6 +9730,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2353603861572801886, guid: b4c530cf76a4fa0458ddad8231763b3f, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2353603861572801886, guid: b4c530cf76a4fa0458ddad8231763b3f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2470558613245118575, guid: b4c530cf76a4fa0458ddad8231763b3f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3159986535540030215, guid: b4c530cf76a4fa0458ddad8231763b3f, type: 3}
       propertyPath: m_LocalPosition.y
       value: 1.8
@@ -9731,9 +9794,25 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4649724585095615306, guid: b4c530cf76a4fa0458ddad8231763b3f, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4649724585095615306, guid: b4c530cf76a4fa0458ddad8231763b3f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5424386155931455528, guid: b4c530cf76a4fa0458ddad8231763b3f, type: 3}
       propertyPath: m_LocalPosition.y
       value: 1.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8567965645097856076, guid: b4c530cf76a4fa0458ddad8231763b3f, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8567965645097856076, guid: b4c530cf76a4fa0458ddad8231763b3f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b4c530cf76a4fa0458ddad8231763b3f, type: 3}
@@ -11479,10 +11558,9 @@ GameObject:
   - component: {fileID: 338424966}
   - component: {fileID: 338424965}
   - component: {fileID: 338424964}
-  - component: {fileID: 338424963}
   - component: {fileID: 338424962}
-  - component: {fileID: 338424961}
-  m_Layer: 0
+  - component: {fileID: 338424968}
+  m_Layer: 9
   m_Name: moving_platform (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11504,19 +11582,6 @@ Transform:
   m_Father: {fileID: 806937875}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &338424961
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 338424959}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 17.838827, y: 1.9657001, z: 11.086395}
-  m_Center: {x: 0, y: 1, z: 0}
 --- !u!64 &338424962
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -11528,21 +11593,9 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 972686540}
---- !u!114 &338424963
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 338424959}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bc4f3a82ed935b419a99294a6271e12, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &338424964
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11827,6 +11880,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 338424959}
   m_Mesh: {fileID: 972686540}
+--- !u!54 &338424968
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 338424959}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &345735848
 GameObject:
   m_ObjectHideFlags: 0
@@ -11842,6 +11911,7 @@ GameObject:
   - component: {fileID: 345735852}
   - component: {fileID: 345735851}
   - component: {fileID: 345735850}
+  - component: {fileID: 345735856}
   m_Layer: 0
   m_Name: Death_moving_platform (3)
   m_TagString: EnemyAttack
@@ -12177,6 +12247,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 345735848}
   m_Mesh: {fileID: 1140084235}
+--- !u!54 &345735856
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 345735848}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &346805093
 GameObject:
   m_ObjectHideFlags: 0
@@ -14695,10 +14781,9 @@ GameObject:
   - component: {fileID: 448660171}
   - component: {fileID: 448660170}
   - component: {fileID: 448660169}
-  - component: {fileID: 448660166}
   - component: {fileID: 448660173}
   - component: {fileID: 448660174}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: moving_platform (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14720,18 +14805,6 @@ Transform:
   m_Father: {fileID: 1715986979}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &448660166
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 448660164}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bc4f3a82ed935b419a99294a6271e12, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &448660169
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15027,22 +15100,25 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 923540949}
---- !u!65 &448660174
-BoxCollider:
+--- !u!54 &448660174
+Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 448660164}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 17.838827, y: 1.9657001, z: 11.086395}
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &449811100
 GameObject:
   m_ObjectHideFlags: 16
@@ -15148,7 +15224,7 @@ MonoBehaviour:
     meshQuery:
       layers: 16777223
       maskAndChannels: 234881031
-    surfaceParameter: 30782
+    surfaceParameter: 30060
     meshQueryIndex: 6
     subMeshQueryIndex: 0
     geometryHashValue: -8990431400364361546
@@ -15632,7 +15708,7 @@ MonoBehaviour:
     meshQuery:
       layers: 16777223
       maskAndChannels: 234881031
-    surfaceParameter: 30774
+    surfaceParameter: 30048
     meshQueryIndex: 7
     subMeshQueryIndex: 0
     geometryHashValue: 4705945425769217643
@@ -16281,6 +16357,7 @@ GameObject:
   - component: {fileID: 607558703}
   - component: {fileID: 607558702}
   - component: {fileID: 607558701}
+  - component: {fileID: 607558707}
   m_Layer: 0
   m_Name: Death_moving_platform (4)
   m_TagString: EnemyAttack
@@ -16616,6 +16693,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 607558699}
   m_Mesh: {fileID: 697688454}
+--- !u!54 &607558707
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 607558699}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &608157727
 GameObject:
   m_ObjectHideFlags: 0
@@ -16890,10 +16983,9 @@ GameObject:
   - component: {fileID: 615331637}
   - component: {fileID: 615331636}
   - component: {fileID: 615331635}
-  - component: {fileID: 615331634}
   - component: {fileID: 615331633}
-  - component: {fileID: 615331632}
-  m_Layer: 0
+  - component: {fileID: 615331639}
+  m_Layer: 9
   m_Name: moving_platform (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16915,19 +17007,6 @@ Transform:
   m_Father: {fileID: 1237860578}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &615331632
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 615331630}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 17.838827, y: 1.9657001, z: 11.086395}
-  m_Center: {x: 0, y: 1, z: 0}
 --- !u!64 &615331633
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -16939,21 +17018,9 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 116158452}
---- !u!114 &615331634
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 615331630}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bc4f3a82ed935b419a99294a6271e12, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &615331635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17238,6 +17305,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 615331630}
   m_Mesh: {fileID: 116158452}
+--- !u!54 &615331639
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 615331630}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &618688131
 GameObject:
   m_ObjectHideFlags: 17
@@ -17920,7 +18003,7 @@ MonoBehaviour:
     meshQuery:
       layers: 16777223
       maskAndChannels: 234881031
-    surfaceParameter: 30770
+    surfaceParameter: 30064
     meshQueryIndex: 9
     subMeshQueryIndex: 0
     geometryHashValue: -1759267160610698885
@@ -19135,7 +19218,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-108304
+  m_Name: pb_Mesh291864
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -20640,6 +20723,7 @@ GameObject:
   - component: {fileID: 788803752}
   - component: {fileID: 788803751}
   - component: {fileID: 788803750}
+  - component: {fileID: 788803756}
   m_Layer: 0
   m_Name: Death_moving_platform (2)
   m_TagString: EnemyAttack
@@ -20975,6 +21059,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 788803748}
   m_Mesh: {fileID: 1347641073}
+--- !u!54 &788803756
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 788803748}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &791098692
 GameObject:
   m_ObjectHideFlags: 0
@@ -20988,10 +21088,9 @@ GameObject:
   - component: {fileID: 791098699}
   - component: {fileID: 791098698}
   - component: {fileID: 791098697}
-  - component: {fileID: 791098694}
   - component: {fileID: 791098701}
   - component: {fileID: 791098702}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: moving_platform (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21013,18 +21112,6 @@ Transform:
   m_Father: {fileID: 1237860578}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &791098694
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 791098692}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bc4f3a82ed935b419a99294a6271e12, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &791098697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21320,22 +21407,25 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 1474118926}
---- !u!65 &791098702
-BoxCollider:
+--- !u!54 &791098702
+Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 791098692}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 8.122925, y: 1.9657001, z: 8.407184}
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &795373950
 GameObject:
   m_ObjectHideFlags: 0
@@ -21921,6 +22011,7 @@ GameObject:
   - component: {fileID: 823138804}
   - component: {fileID: 823138803}
   - component: {fileID: 823138802}
+  - component: {fileID: 823138808}
   m_Layer: 0
   m_Name: Death_moving_platform (6)
   m_TagString: EnemyAttack
@@ -22256,6 +22347,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 823138800}
   m_Mesh: {fileID: 833796615}
+--- !u!54 &823138808
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 823138800}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &823768042
 GameObject:
   m_ObjectHideFlags: 0
@@ -22581,7 +22688,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-108306
+  m_Name: pb_Mesh292064
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -22745,7 +22852,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh30076
+  m_Name: pb_Mesh293100
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -23460,10 +23567,9 @@ GameObject:
   - component: {fileID: 886107935}
   - component: {fileID: 886107934}
   - component: {fileID: 886107933}
-  - component: {fileID: 886107932}
   - component: {fileID: 886107931}
-  - component: {fileID: 886107930}
-  m_Layer: 0
+  - component: {fileID: 886107937}
+  m_Layer: 9
   m_Name: moving_platform (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23485,19 +23591,6 @@ Transform:
   m_Father: {fileID: 1237860578}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &886107930
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 886107928}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 17.838827, y: 1.9657001, z: 11.086395}
-  m_Center: {x: 0, y: 1, z: 0}
 --- !u!64 &886107931
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -23509,21 +23602,9 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 1988450263}
---- !u!114 &886107932
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 886107928}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bc4f3a82ed935b419a99294a6271e12, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &886107933
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23808,6 +23889,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 886107928}
   m_Mesh: {fileID: 1988450263}
+--- !u!54 &886107937
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 886107928}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &891474615
 GameObject:
   m_ObjectHideFlags: 0
@@ -24084,6 +24181,7 @@ GameObject:
   - component: {fileID: 891579622}
   - component: {fileID: 891579621}
   - component: {fileID: 891579620}
+  - component: {fileID: 891579626}
   m_Layer: 0
   m_Name: Death_moving_platform (5)
   m_TagString: EnemyAttack
@@ -24419,6 +24517,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 891579618}
   m_Mesh: {fileID: 76547505}
+--- !u!54 &891579626
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 891579618}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &911378379
 GameObject:
   m_ObjectHideFlags: 0
@@ -24845,7 +24959,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh29084
+  m_Name: pb_Mesh291768
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -25252,6 +25366,7 @@ GameObject:
   - component: {fileID: 965559072}
   - component: {fileID: 965559071}
   - component: {fileID: 965559070}
+  - component: {fileID: 965559076}
   m_Layer: 0
   m_Name: Death_moving_platform (1)
   m_TagString: EnemyAttack
@@ -25587,6 +25702,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 965559068}
   m_Mesh: {fileID: 1348028910}
+--- !u!54 &965559076
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 965559068}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &965808781
 GameObject:
   m_ObjectHideFlags: 0
@@ -25885,7 +26016,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-144596
+  m_Name: pb_Mesh291660
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -27953,7 +28084,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh28956
+  m_Name: pb_Mesh291548
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -28701,7 +28832,7 @@ MonoBehaviour:
     meshQuery:
       layers: 33554440
       maskAndChannels: 8
-    surfaceParameter: 30798
+    surfaceParameter: 30056
     meshQueryIndex: 2
     subMeshQueryIndex: 0
     geometryHashValue: -7635854155357530369
@@ -28717,7 +28848,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh28778
+  m_Name: pb_Mesh291320
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -30228,7 +30359,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-27744
+  m_Name: pb_Mesh291678
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -30759,6 +30890,7 @@ GameObject:
   - component: {fileID: 1156920739}
   - component: {fileID: 1156920738}
   - component: {fileID: 1156920737}
+  - component: {fileID: 1156920743}
   m_Layer: 0
   m_Name: Death_moving_platform (4)
   m_TagString: EnemyAttack
@@ -31094,6 +31226,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1156920735}
   m_Mesh: {fileID: 209699202}
+--- !u!54 &1156920743
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1156920735}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1165876152
 GameObject:
   m_ObjectHideFlags: 0
@@ -33199,7 +33347,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh28762
+  m_Name: pb_Mesh291304
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -33770,7 +33918,7 @@ MonoBehaviour:
     meshQuery:
       layers: 16777223
       maskAndChannels: 234881031
-    surfaceParameter: 30772
+    surfaceParameter: 30078
     meshQueryIndex: 10
     subMeshQueryIndex: 0
     geometryHashValue: 4782631988076598653
@@ -34397,7 +34545,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh29822
+  m_Name: pb_Mesh292756
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -34857,7 +35005,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh29252
+  m_Name: pb_Mesh292014
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -35021,7 +35169,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh29394
+  m_Name: pb_Mesh292194
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -36160,7 +36308,7 @@ MonoBehaviour:
     meshQuery:
       layers: 16777223
       maskAndChannels: 234881031
-    surfaceParameter: 30776
+    surfaceParameter: 30050
     meshQueryIndex: 0
     subMeshQueryIndex: 0
     geometryHashValue: -2859340817881662046
@@ -39453,7 +39601,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh29268
+  m_Name: pb_Mesh292030
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -41288,7 +41436,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh29874
+  m_Name: pb_Mesh292818
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -42366,10 +42514,9 @@ GameObject:
   - component: {fileID: 1626211656}
   - component: {fileID: 1626211655}
   - component: {fileID: 1626211654}
-  - component: {fileID: 1626211653}
   - component: {fileID: 1626211652}
-  - component: {fileID: 1626211651}
-  m_Layer: 0
+  - component: {fileID: 1626211658}
+  m_Layer: 9
   m_Name: moving_platform (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42391,19 +42538,6 @@ Transform:
   m_Father: {fileID: 856487172}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &1626211651
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1626211649}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 17.838827, y: 1.9657001, z: 11.086395}
-  m_Center: {x: 0, y: 1, z: 0}
 --- !u!64 &1626211652
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -42415,21 +42549,9 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 1330143270}
---- !u!114 &1626211653
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1626211649}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bc4f3a82ed935b419a99294a6271e12, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1626211654
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42714,6 +42836,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1626211649}
   m_Mesh: {fileID: 1330143270}
+--- !u!54 &1626211658
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1626211649}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1642855490
 GameObject:
   m_ObjectHideFlags: 0
@@ -43936,6 +44074,7 @@ GameObject:
   - component: {fileID: 1739357128}
   - component: {fileID: 1739357127}
   - component: {fileID: 1739357126}
+  - component: {fileID: 1739357132}
   m_Layer: 0
   m_Name: Death_moving_platform (5)
   m_TagString: EnemyAttack
@@ -44271,6 +44410,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1739357124}
   m_Mesh: {fileID: 1529773365}
+--- !u!54 &1739357132
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1739357124}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!43 &1752641608
 Mesh:
   m_ObjectHideFlags: 0
@@ -48540,7 +48695,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh29334
+  m_Name: pb_Mesh292114
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -52278,6 +52433,7 @@ GameObject:
   - component: {fileID: 2125802238}
   - component: {fileID: 2125802237}
   - component: {fileID: 2125802236}
+  - component: {fileID: 2125802242}
   m_Layer: 0
   m_Name: Death_moving_platform (3)
   m_TagString: EnemyAttack
@@ -52613,6 +52769,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2125802234}
   m_Mesh: {fileID: 845582037}
+--- !u!54 &2125802242
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2125802234}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &2129160804
 GameObject:
   m_ObjectHideFlags: 0

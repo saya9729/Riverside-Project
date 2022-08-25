@@ -39,13 +39,13 @@ namespace Enemy
 
         protected override void UpdateThisState()
         {
-            _enemyStateManager.targetDestination = _enemyStateManager.player.transform;
-            _enemyStateManager.LookAtTarget();
+            
         }
 
         protected override void PhysicsUpdateThisState()
         {
-            
+            _enemyStateManager.targetDestination = _enemyStateManager.player.transform;
+            _enemyStateManager.LookAtTarget();
         }
 
         protected override void CheckSwitchState()

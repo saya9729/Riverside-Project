@@ -24,9 +24,8 @@ namespace Enemy
         }
 
         protected override void UpdateThisState()
-        {
-            CheckSwitchState();
-            UpdateChaseDestination();
+        {            
+            CheckSwitchState();            
         }       
 
         public override void ExitState()
@@ -37,7 +36,7 @@ namespace Enemy
 
         protected override void PhysicsUpdateThisState()
         {
-            
+            UpdateChaseDestination();
         }
 
         protected override void CheckSwitchState()

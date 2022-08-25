@@ -4175,9 +4175,9 @@ MonoBehaviour:
   currentSubState: {fileID: 0}
   attackRange: 1.7
   faceTargetRotateSpeed: 10
-  chaseRange: 10
+  chaseRange: 20
   chaseSpeed: 20
-  aggroRange: 10
+  aggroRange: 20
   patrolSpeed: 3.5
   solValue: 1
 --- !u!114 &8503652448725205226
@@ -4256,7 +4256,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentSuperState: {fileID: 0}
   currentSubState: {fileID: 0}
-  waitAtWaypointTime: 0.5
+  waitAtWaypointTime: 0
 --- !u!114 &8503652448725205216
 MonoBehaviour:
   m_ObjectHideFlags: 0

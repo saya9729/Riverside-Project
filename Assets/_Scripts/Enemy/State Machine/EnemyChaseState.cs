@@ -12,6 +12,7 @@ namespace Enemy
         {
             //Debug.Log("Enemy Enter Chase State");
             _enemyStateManager.animator.SetTrigger("Chase");
+            _enemyStateManager.SetChaseSpeed();
         }
 
         private void UpdateChaseDestination()

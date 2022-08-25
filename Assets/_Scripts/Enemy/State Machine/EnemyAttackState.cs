@@ -14,23 +14,23 @@ namespace Enemy
             //Debug.Log("Enemy Enter Attack State");
             _enemyStateManager.animator.SetTrigger("Attack");
             // TODO: Turn into trigger by animation event later
-            StartCoroutine(WaitAndDecide());
+            //StartCoroutine(WaitAndDecide());
         }
 
-        IEnumerator WaitAndDecide()
-        {
-            float attackLength = 0;
-            foreach (AnimationClip clip in _enemyStateManager.animationClips)
-            {
-                if (clip.name == attackAnimationName)
-                {
-                    attackLength = clip.length;
-                    break;
-                }
-            }
-            yield return new WaitForSeconds(attackLength);
-            CheckSwitchState();
-        }
+        //IEnumerator WaitAndDecide()
+        //{
+        //    float attackLength = 0;
+        //    foreach (AnimationClip clip in _enemyStateManager.animationClips)
+        //    {
+        //        if (clip.name == attackAnimationName)
+        //        {
+        //            attackLength = clip.length;
+        //            break;
+        //        }
+        //    }
+        //    yield return new WaitForSeconds(attackLength);
+        //    CheckSwitchState();
+        //}
 
         public override void ExitState()
         {
@@ -50,18 +50,18 @@ namespace Enemy
 
         protected override void CheckSwitchState()
         {
-            if (_enemyStateManager.IsPlayerInAttackRange())
-            {
-                _enemyStateManager.SwitchToState("AttackState");
-            }
-            else if (_enemyStateManager.IsPlayerInChaseRange())
-            {
-                _enemyStateManager.SwitchToState("ChaseState");
-            }
-            else
-            {
-                _enemyStateManager.SwitchToState("WaitState");
-            }
+            //if (_enemyStateManager.IsPlayerInAttackRange())
+            //{
+            //    _enemyStateManager.SwitchToState("AttackState");
+            //}
+            //else if (_enemyStateManager.IsPlayerInChaseRange())
+            //{
+            //    _enemyStateManager.SwitchToState("ChaseState");
+            //}
+            //else
+            //{
+            //    _enemyStateManager.SwitchToState("WaitState");
+            //}
         }
 
         protected override void InitializeState()

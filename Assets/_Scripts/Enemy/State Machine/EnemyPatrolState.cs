@@ -25,6 +25,7 @@ namespace Enemy
                 _enemyStateManager.animator.SetTrigger("Patrol");
             }
             UpdateDestination();
+            _enemyStateManager.SetPatrolSpeed();
         }
 
         protected override void UpdateThisState()

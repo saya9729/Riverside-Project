@@ -1,5 +1,4 @@
 using UnityEngine;
-using System;
 
 namespace GameUI
 {
@@ -7,10 +6,7 @@ namespace GameUI
     {
         private Player.InputManager _inputManager;
         [SerializeField] private GameObject gameMenuCanvas;
-        [SerializeField] private GameObject gameUICanvas;
-        [SerializeField] private GameObject gameOptionMenuCanvas;
-        [SerializeField] private GameObject gameMenuButtonCanvas;
-        private bool _gameIsPause = false;
+
         void Start()
         {
             Initialize();
@@ -21,7 +17,7 @@ namespace GameUI
         {
             if (_inputManager.menu)
             {
-                TogglePauseGame();
+                PauseTheGame();
                 _inputManager.menu = false;
             }
         }
@@ -30,15 +26,26 @@ namespace GameUI
         {
             _inputManager = GameObject.FindGameObjectWithTag("Player").GetComponent<Player.InputManager>();
         }
-        public void TogglePauseGame()
+        public void PauseTheGame()
         {
-            _gameIsPause = !_gameIsPause;
-            gameMenuCanvas.SetActive(_gameIsPause);
-            gameUICanvas.SetActive(!_gameIsPause);
-            gameOptionMenuCanvas.SetActive(false);
-            gameMenuButtonCanvas.SetActive(_gameIsPause);
-            Time.timeScale = _gameIsPause ? 0f : 1f;
-            Cursor.lockState = _gameIsPause ? CursorLockMode.None : CursorLockMode.Locked;
+            if (_inputManager)
+            {
+                _inputManager._playerInput.DeactivateInput();
+            }
+            gameMenuCanvas.SetActive(true);
+            Time.timeScale = 0f;
+            Cursor.lockState =  CursorLockMode.None;
+        }
+
+
+        public void UnPauseTheGame()
+        {
+            if (_inputManager)
+            {
+                _inputManager._playerInput.ActivateInput();
+            }
+            Time.timeScale = 1f;
+            Cursor.lockState = CursorLockMode.Locked;
         }
     }
 }

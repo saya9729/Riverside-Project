@@ -70,3 +70,6 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+Assets/_Environment/Environment/Military Bunker Construction Pack v1.0.unitypackage.meta
+Assets/_Environment/Environment/Steampunk Industrial Revolution v1.0.unitypackage.meta
+Assets/_Environment/Environment/Steampunk Industries v1.3.unitypackage.meta

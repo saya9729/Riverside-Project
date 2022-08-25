@@ -170,7 +170,10 @@ namespace Player
 
         private void OnApplicationFocus(bool hasFocus)
         {
-            SetCursorState(cursorLocked);
+            if (_playerInput.inputIsActive)
+            { 
+                SetCursorState(cursorLocked); 
+            }
         }
 
         private void SetCursorState(bool newState)

@@ -26,4 +26,7 @@ public enum EventID
     onPlayVFX,
     onStopVFX,
     onSpawnVFX,
+
+    //UI
+    onToggleUI
 }

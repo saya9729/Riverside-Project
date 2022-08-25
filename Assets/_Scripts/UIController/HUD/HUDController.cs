@@ -1,11 +1,13 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 namespace GameUI
 {
     public class HUDController : MonoBehaviour
     {
+        [SerializeField] private GameObject gameUICanvas;
         [SerializeField] private TMPro.TextMeshProUGUI solCount;
         [SerializeField] private Image slowTimeIcon;
         //[SerializeField] private Slider healthBar;
@@ -27,10 +29,13 @@ namespace GameUI
             this.RegisterListener(EventID.onKeyCollected, (param) => OnKeyCollectedDisplay((int)param));
             this.RegisterListener(EventID.onDashChargeCooldown, (param) => OnDashChargeCooldown((float)param));
             this.RegisterListener(EventID.onDash, (param) => OnDash());
+            this.RegisterListener(EventID.onToggleUI, (param) => OnToggleUI((bool)param));
 
             slowTimeBar.maxValue = 1;
             slowTimeBar.minValue = 0;
             keyCountSlider.value = 0;
+
+            gameUICanvas.SetActive(Convert.ToBoolean(PlayerPrefs.GetInt(PlayerPrefEnum.HUD.ToString(), 1)));
         }
 
         //public void OnMaxHealthChange(float p_health)
@@ -97,6 +102,11 @@ namespace GameUI
             {
                 dashChargeSlider.value -= 1;
             }        
+        }
+
+        private void OnToggleUI(bool p_toggle)
+        {
+            gameUICanvas.SetActive(p_toggle);
         }
 
         public void OnDashChargeCooldown(float p_dashChargeCooldownDuration)

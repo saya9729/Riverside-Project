@@ -25,7 +25,8 @@ namespace Player
             _highlightEffect.SetHighlighted(true);
             this.RegisterListener(EventID.onKeyCollected, (param) => OnKeyCollected((int)param));
             this.RegisterListener(EventID.onSave, (param) => SaveKeyInteractState());
-       
+            this.RegisterListener(EventID.onRefresh, (param) => RefreshEnvironmentData());
+
             LoadKeyInteractState();
         }
 
@@ -45,9 +46,9 @@ namespace Player
         {
             if (isInteractable)
             {
-                this.PostEvent(EventID.onWin);
                 PlayerPrefs.SetInt(PlayerPrefEnum.Refresh.ToString(), 1);
                 PlayerPrefs.Save();
+                this.PostEvent(EventID.onWin);
                 _highlightEffect.SetHighlighted(false);
                 isInteractable = false;
             }
@@ -91,8 +92,9 @@ namespace Player
                 keyInteractArray[i].SetInteractable(environmentData.isKeyInteractableArray[i]);
                 if (!keyInteractArray[i].IsInteractable())
                 {
-                    this.PostEvent(EventID.onKeyCollected, 1);
+                    OnKeyCollected(1);
                 }
+                keyInteractArray[i].gameObject.SetActive(environmentData.isKeyInteractableArray[i]);
             }
         }
         public void RefreshEnvironmentData()

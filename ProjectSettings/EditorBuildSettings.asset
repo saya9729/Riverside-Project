@@ -9,16 +9,16 @@ EditorBuildSettings:
     path: Assets/_Scenes/MainMenu.unity
     guid: 56a4c6c5c7680874dba4f715569b94a7
   - enabled: 1
-    path: Assets/_Scenes/Level/jump level.unity
+    path: Assets/_Scenes/level/jump level.unity
     guid: aa1bb5184532600468a9837788af2cd4
   - enabled: 1
-    path: Assets/_Scenes/Level/dash level.unity
+    path: Assets/_Scenes/level/dash level.unity
     guid: d951331665603f44a8e006b722720aa1
   - enabled: 1
-    path: Assets/_Scenes/Level/Crouch level.unity
+    path: Assets/_Scenes/level/Crouch level.unity
     guid: a02e6f60ce876934691d061cf1ca743c
   - enabled: 1
-    path: Assets/_Scenes/Level/Full Level.unity
+    path: Assets/_Scenes/level/Full Level.unity
     guid: 4c28226d94bec524dba3b98724ca25b2
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 9e7be553448fa2546aea5752021cbcf7, type: 2}

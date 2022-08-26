@@ -22,17 +22,21 @@ namespace Player
         {
             gameMenuCanvas.SetActive(true);
             StartCoroutine(WinAnnouncementCoroutine());
+            
+           
+            this.PostEvent(EventID.onRefresh);
         }
         private void LoadSceneFromWinSequence() 
         {
             gameMenuCanvas.SetActive(false);
-            if ((SceneManager.GetActiveScene().buildIndex + 2) < SceneManager.sceneCountInBuildSettings)
+            if ((SceneManager.GetActiveScene().buildIndex + 2) <= SceneManager.sceneCountInBuildSettings)
             {
                 PlayerPrefs.SetInt(PlayerPrefEnum.CurrentScene.ToString(), SceneManager.GetActiveScene().buildIndex + 1);
             }
             else 
             {
                 PlayerPrefs.DeleteKey(PlayerPrefEnum.CurrentScene.ToString());
+                Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
             }
             PlayerPrefs.Save();

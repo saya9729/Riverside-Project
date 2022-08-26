@@ -36,6 +36,7 @@ public class StartGameMenu : MonoBehaviour
         SceneManager.LoadScene(p_chapter);
         PlayerPrefs.SetInt(PlayerPrefEnum.CurrentScene.ToString(), p_chapter);
         PlayerPrefs.Save();
+        Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
 

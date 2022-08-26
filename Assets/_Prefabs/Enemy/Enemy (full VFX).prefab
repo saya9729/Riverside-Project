@@ -1994,8 +1994,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20052af4e8a9fbc4cb86bdcfbfa1bbf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
-  maxHealth: 100
+  health: 500
+  maxHealth: 500
 --- !u!114 &3286430603433348233
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2142,7 +2142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb328871131972d41a7087c21c6913a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 100
+  damage: 20
 --- !u!54 &6600225234698716541
 Rigidbody:
   m_ObjectHideFlags: 0

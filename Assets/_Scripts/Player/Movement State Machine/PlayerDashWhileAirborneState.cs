@@ -6,8 +6,7 @@ namespace Player
     {
         private PlayerMovementStateManager _playerMovementController;
         public override void EnterState()
-        {
-            _playerMovementController.SetAirborneInertiaDirection();
+        {            
             _playerMovementController.DisableStepOffset();
             _playerMovementController.SetDashDirection();
             _playerMovementController.SetAirborneInertiaDirectionWhileDash();

@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 44221641421506608}
   - component: {fileID: 44221641421506623}
   - component: {fileID: 44221641421506621}
-  - component: {fileID: 5082679160111585918}
   m_Layer: 0
   m_Name: mixamorig:LeftArm
   m_TagString: Untagged
@@ -125,19 +124,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9363ad54c2a8b9849aaf5bdf38b7daf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5082679160111585918
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 44221641421506609}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6b61a814c8442b4b9d031f81745b227, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerAttackHitboxTag: PlayerAttack
 --- !u!1 &87097857840693837
 GameObject:
   m_ObjectHideFlags: 0
@@ -151,7 +137,6 @@ GameObject:
   - component: {fileID: 6435993381725849624}
   - component: {fileID: 6435993381725849625}
   - component: {fileID: 6435993381725849830}
-  - component: {fileID: 3470254095795080745}
   m_Layer: 0
   m_Name: mixamorig:RightForeArm
   m_TagString: Untagged
@@ -263,19 +248,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9363ad54c2a8b9849aaf5bdf38b7daf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3470254095795080745
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 87097857840693837}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6b61a814c8442b4b9d031f81745b227, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerAttackHitboxTag: PlayerAttack
 --- !u!1 &185089024194728093
 GameObject:
   m_ObjectHideFlags: 0
@@ -928,7 +900,6 @@ GameObject:
   - component: {fileID: 2127170809719422675}
   - component: {fileID: 2127170809719422676}
   - component: {fileID: 2127170809719422677}
-  - component: {fileID: 3013694039564136698}
   m_Layer: 0
   m_Name: mixamorig:Head
   m_TagString: Untagged
@@ -1042,19 +1013,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9363ad54c2a8b9849aaf5bdf38b7daf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3013694039564136698
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2127170809719422678}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6b61a814c8442b4b9d031f81745b227, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerAttackHitboxTag: PlayerAttack
 --- !u!1 &2352423340857442302
 GameObject:
   m_ObjectHideFlags: 0
@@ -1163,7 +1121,6 @@ GameObject:
   - component: {fileID: 836853038059097585}
   - component: {fileID: 836853038059097599}
   - component: {fileID: 836853038059097584}
-  - component: {fileID: 6628818079303245522}
   m_Layer: 0
   m_Name: mixamorig:RightUpLeg
   m_TagString: Untagged
@@ -1275,19 +1232,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9363ad54c2a8b9849aaf5bdf38b7daf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6628818079303245522
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3452191396078258489}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6b61a814c8442b4b9d031f81745b227, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerAttackHitboxTag: PlayerAttack
 --- !u!1 &3569022125815082788
 GameObject:
   m_ObjectHideFlags: 0
@@ -1629,7 +1573,6 @@ GameObject:
   - component: {fileID: 3945356423110505333}
   - component: {fileID: 3945356423110505334}
   - component: {fileID: 3945356423110505335}
-  - component: {fileID: 4568179090393873400}
   m_Layer: 0
   m_Name: mixamorig:RightLeg
   m_TagString: Untagged
@@ -1741,19 +1684,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9363ad54c2a8b9849aaf5bdf38b7daf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4568179090393873400
-MonoBehaviour:
+--- !u!1 &4208293342747995984
+GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4115517142044561658}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1585687619444305413}
+  - component: {fileID: 2107628999975877040}
+  m_Layer: 11
+  m_Name: Hitbox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1585687619444305413
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4208293342747995984}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9027705651544316505}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &2107628999975877040
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4208293342747995984}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6b61a814c8442b4b9d031f81745b227, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerAttackHitboxTag: PlayerAttack
+  m_Radius: 0.8
+  m_Height: 7
+  m_Direction: 1
+  m_Center: {x: 0, y: 3.5, z: 0}
 --- !u!1 &4231510105276974447
 GameObject:
   m_ObjectHideFlags: 0
@@ -2455,7 +2431,6 @@ GameObject:
   - component: {fileID: 5480615580215994567}
   - component: {fileID: 5480615580215994616}
   - component: {fileID: 5480615580215994565}
-  - component: {fileID: 2587480845879493324}
   m_Layer: 0
   m_Name: mixamorig:LeftForeArm
   m_TagString: Untagged
@@ -2567,19 +2542,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9363ad54c2a8b9849aaf5bdf38b7daf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2587480845879493324
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5480615580215994617}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6b61a814c8442b4b9d031f81745b227, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerAttackHitboxTag: PlayerAttack
 --- !u!1 &5558877456023980234
 GameObject:
   m_ObjectHideFlags: 0
@@ -2813,7 +2775,6 @@ GameObject:
   - component: {fileID: 5809619537496129471}
   - component: {fileID: 5809619537496129456}
   - component: {fileID: 5809619537496129457}
-  - component: {fileID: 9059694311753710235}
   m_Layer: 0
   m_Name: mixamorig:LeftLeg
   m_TagString: Untagged
@@ -2925,19 +2886,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9363ad54c2a8b9849aaf5bdf38b7daf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &9059694311753710235
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5809619537496129458}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6b61a814c8442b4b9d031f81745b227, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerAttackHitboxTag: PlayerAttack
 --- !u!1 &5850374615331738358
 GameObject:
   m_ObjectHideFlags: 0
@@ -2983,7 +2931,6 @@ GameObject:
   - component: {fileID: 5856760854732126110}
   - component: {fileID: 5856760854732126108}
   - component: {fileID: 5856760854732126109}
-  - component: {fileID: 3841839952490382756}
   m_Layer: 0
   m_Name: mixamorig:LeftUpLeg
   m_TagString: Untagged
@@ -3095,19 +3042,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9363ad54c2a8b9849aaf5bdf38b7daf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3841839952490382756
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5856760854732126111}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6b61a814c8442b4b9d031f81745b227, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerAttackHitboxTag: PlayerAttack
 --- !u!1 &5979484676667361398
 GameObject:
   m_ObjectHideFlags: 0
@@ -3953,7 +3887,6 @@ GameObject:
   - component: {fileID: 8033028542557606152}
   - component: {fileID: 8033028542557606166}
   - component: {fileID: 8033028542557606167}
-  - component: {fileID: 6362361517334518722}
   m_Layer: 0
   m_Name: mixamorig:Spine
   m_TagString: Untagged
@@ -4064,19 +3997,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9363ad54c2a8b9849aaf5bdf38b7daf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6362361517334518722
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8033028542557606153}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6b61a814c8442b4b9d031f81745b227, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerAttackHitboxTag: PlayerAttack
 --- !u!1 &8407109934303450311
 GameObject:
   m_ObjectHideFlags: 0
@@ -4119,7 +4039,7 @@ GameObject:
   - component: {fileID: 3537727836168895181}
   - component: {fileID: 8486861511581787013}
   - component: {fileID: 8486861511581787015}
-  - component: {fileID: 4244212050229475525}
+  - component: {fileID: 2288198621261976286}
   m_Layer: 0
   m_Name: mixamorig:Hips
   m_TagString: Untagged
@@ -4174,7 +4094,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &4244212050229475525
+--- !u!114 &2288198621261976286
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4183,10 +4103,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 8486861511581787064}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6b61a814c8442b4b9d031f81745b227, type: 3}
+  m_Script: {fileID: 11500000, guid: 9363ad54c2a8b9849aaf5bdf38b7daf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerAttackHitboxTag: PlayerAttack
 --- !u!1 &8503652448725205219
 GameObject:
   m_ObjectHideFlags: 0
@@ -4213,6 +4132,7 @@ GameObject:
   - component: {fileID: 2457831318686037459}
   - component: {fileID: 6159385252871296250}
   - component: {fileID: 3167127992458585358}
+  - component: {fileID: 8476752129105299818}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -4235,6 +4155,7 @@ Transform:
   - {fileID: 6856989941597982035}
   - {fileID: 4360778670866884822}
   - {fileID: 3537727836168895181}
+  - {fileID: 1585687619444305413}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4253,9 +4174,11 @@ MonoBehaviour:
   currentSuperState: {fileID: 0}
   currentSubState: {fileID: 0}
   attackRange: 1.7
-  chaseRange: 10
-  aggroRange: 10
   faceTargetRotateSpeed: 10
+  chaseRange: 20
+  chaseSpeed: 20
+  aggroRange: 20
+  patrolSpeed: 3.5
   solValue: 1
 --- !u!114 &8503652448725205226
 MonoBehaviour:
@@ -4333,7 +4256,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentSuperState: {fileID: 0}
   currentSubState: {fileID: 0}
-  waitAtWaypointTime: 0.5
+  waitAtWaypointTime: 0
 --- !u!114 &8503652448725205216
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4506,7 +4429,7 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -4660,6 +4583,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   particle: {fileID: 4537830210254231962}
+--- !u!114 &8476752129105299818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8503652448725205219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6b61a814c8442b4b9d031f81745b227, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerAttackHitboxTag: PlayerAttack
 --- !u!1 &8709189217910128628
 GameObject:
   m_ObjectHideFlags: 0
@@ -4673,7 +4609,6 @@ GameObject:
   - component: {fileID: 8709189217910128627}
   - component: {fileID: 8709189217910128625}
   - component: {fileID: 8709189217910128626}
-  - component: {fileID: 328997855946839637}
   m_Layer: 0
   m_Name: mixamorig:RightArm
   m_TagString: Untagged
@@ -4785,19 +4720,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9363ad54c2a8b9849aaf5bdf38b7daf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &328997855946839637
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8709189217910128628}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6b61a814c8442b4b9d031f81745b227, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerAttackHitboxTag: PlayerAttack
 --- !u!1 &8854910408112304971
 GameObject:
   m_ObjectHideFlags: 0

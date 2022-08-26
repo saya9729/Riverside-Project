@@ -23,7 +23,9 @@ TagManager:
   - Enemy
   - Platform
   - Post procesing
-  - 
+  - Moving Platform
+  - Ledge Grab
+  - Enemy Hitbox
   - 
   - 
   - 

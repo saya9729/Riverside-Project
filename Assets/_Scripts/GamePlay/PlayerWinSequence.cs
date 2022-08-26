@@ -26,7 +26,7 @@ namespace Player
         private void LoadSceneFromWinSequence() 
         {
             gameMenuCanvas.SetActive(false);
-            if ((SceneManager.GetActiveScene().buildIndex + 1) < SceneManager.sceneCountInBuildSettings)
+            if ((SceneManager.GetActiveScene().buildIndex + 2) < SceneManager.sceneCountInBuildSettings)
             {
                 PlayerPrefs.SetInt(PlayerPrefEnum.CurrentScene.ToString(), SceneManager.GetActiveScene().buildIndex + 1);
             }

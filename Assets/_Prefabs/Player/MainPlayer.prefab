@@ -2486,7 +2486,6 @@ Transform:
   m_Children:
   - {fileID: 5192468107551509903}
   - {fileID: 1411268371039590460}
-  - {fileID: 4570016253186691709}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2545,7 +2544,7 @@ MonoBehaviour:
   ledgeGrabBoxCenterOffset: {x: 0, y: 1.8, z: 0.64}
   ledgeGrabLayers:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 1536
   speedChangeRate: 100
   rotationSpeed: 1
   airborneSteeringRate: 1000
@@ -2564,13 +2563,17 @@ MonoBehaviour:
   groundLayers:
     serializedVersion: 2
     m_Bits: 4673
-  platformCheckDistance: 0.25
   isRoofed: 1
   roofedOffset: 0
-  roofedDistance: 0.8
+  roofedDistance: 2
   roofedLayers:
     serializedVersion: 2
     m_Bits: 513
+  movingPlatformLayers:
+    serializedVersion: 2
+    m_Bits: 512
+  platformRaycastOriginOffset: 0.3
+  platformRaycastLength: 0.55
   cinemachineCameraTarget: {fileID: 6141782131596564895}
   topClamp: 80
   bottomClamp: -89
@@ -5038,64 +5041,6 @@ Transform:
   m_Father: {fileID: 7158318968600694926}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &7884158759825265132
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4570016253186691709}
-  - component: {fileID: 3183858273703034378}
-  - component: {fileID: 2676217726652233559}
-  m_Layer: 3
-  m_Name: Dash Attack Hitbox
-  m_TagString: PlayerAttack
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4570016253186691709
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7884158759825265132}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 1.31, z: 1.38}
-  m_LocalScale: {x: 1, y: 2.0256395, z: 0.63135}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4261174648672795367}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &3183858273703034378
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7884158759825265132}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2676217726652233559
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7884158759825265132}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0969d6ae38428a540be7fed5fe0d0c9e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8015718730456979874
 GameObject:
   m_ObjectHideFlags: 0
@@ -5747,6 +5692,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: dfdc2b2da053de34585f197f0c208d61, type: 3}
+      propertyPath: m_TagString
+      value: PlayerAttack
+      objectReference: {fileID: 0}
     - target: {fileID: 2831596841542958909, guid: dfdc2b2da053de34585f197f0c208d61, type: 3}
       propertyPath: m_Layer
       value: 3
@@ -5884,6 +5833,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 17933da4d08e50e49bdb9cfd08729819, type: 3}
       propertyPath: m_Layer
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 17933da4d08e50e49bdb9cfd08729819, type: 3}
+      propertyPath: m_TagString
+      value: PlayerAttack
       objectReference: {fileID: 0}
     - target: {fileID: 1347314574705995286, guid: 17933da4d08e50e49bdb9cfd08729819, type: 3}
       propertyPath: m_Layer

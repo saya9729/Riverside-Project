@@ -35,9 +35,13 @@ namespace Enemy
         [NonSerialized] public Transform targetDestination;
 
         [SerializeField] private float attackRange = 1f;
+        [SerializeField] private float faceTargetRotateSpeed = 10f;
+        
         [SerializeField] private float chaseRange = 10f;
-        [SerializeField] private float aggroRange = 10f;
-        [SerializeField] private float faceTargetRotateSpeed = 1f;
+        [SerializeField] private float chaseSpeed = 10f;
+        
+        [SerializeField] private float aggroRange = 10f;        
+        [SerializeField] private float patrolSpeed = 3.5f;        
 
         public float solValue = 10f;
 
@@ -202,6 +206,16 @@ namespace Enemy
         {
             navMeshAgent.isStopped = false;
             navMeshAgent.SetDestination(p_destination);
+        }
+
+        public void SetPatrolSpeed()
+        {
+            navMeshAgent.speed = patrolSpeed;
+        }
+
+        public void SetChaseSpeed()
+        {
+            navMeshAgent.speed = chaseSpeed;
         }
 
     }

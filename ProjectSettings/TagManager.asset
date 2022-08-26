@@ -20,9 +20,9 @@ TagManager:
   - Pushable
   - PlayerPhase
   - Enemy
-  - Platform
-  - 
-  - 
+  - Moving Platform
+  - Ledge Grab
+  - Enemy Hitbox
   - 
   - 
   - 

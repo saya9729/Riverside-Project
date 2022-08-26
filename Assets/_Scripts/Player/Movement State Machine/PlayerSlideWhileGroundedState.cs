@@ -36,7 +36,6 @@ namespace Player
             {
                 _playerMovementController.EnableDoubleJump();              
                 _playerMovementController.SetSlideJumpTargetSpeed();
-                _playerMovementController.ConvertRelativePlatformVelocityToAbsoluteVelocity();
                 currentSuperState.SwitchToState("Airborne");
             }
         }

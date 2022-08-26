@@ -32,7 +32,6 @@ namespace Player
             if (!_playerMovementController.isGrounded)
             {
                 _playerMovementController.EnableDoubleJump();
-                _playerMovementController.ConvertRelativePlatformVelocityToAbsoluteVelocity();
                 currentSuperState.SwitchToState("Airborne");
             }
             else if (_playerMovementController.inputManager.crouch && _playerMovementController.IsSlideable())

@@ -12,6 +12,7 @@ namespace Enemy
         {
             //Debug.Log("Enemy Enter Chase State");
             _enemyStateManager.animator.SetTrigger("Chase");
+            _enemyStateManager.SetChaseSpeed();
         }
 
         private void UpdateChaseDestination()
@@ -23,9 +24,8 @@ namespace Enemy
         }
 
         protected override void UpdateThisState()
-        {
-            CheckSwitchState();
-            UpdateChaseDestination();
+        {            
+            CheckSwitchState();            
         }       
 
         public override void ExitState()
@@ -36,7 +36,7 @@ namespace Enemy
 
         protected override void PhysicsUpdateThisState()
         {
-            
+            UpdateChaseDestination();
         }
 
         protected override void CheckSwitchState()

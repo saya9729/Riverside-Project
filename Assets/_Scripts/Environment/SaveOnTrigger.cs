@@ -1,5 +1,6 @@
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SaveOnTrigger : MonoBehaviour
 {
@@ -8,6 +9,9 @@ public class SaveOnTrigger : MonoBehaviour
         if (p_other.CompareTag("Player"))
         {
             this.PostEvent(EventID.onSave);
+            PlayerPrefs.SetInt(PlayerPrefEnum.Refresh.ToString(), 0);
+            PlayerPrefs.SetInt(PlayerPrefEnum.CurrentScene.ToString(), SceneManager.GetActiveScene().buildIndex);
+            PlayerPrefs.Save();
         }
     }
 }

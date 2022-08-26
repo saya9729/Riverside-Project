@@ -27,7 +27,6 @@
             else if (!_playerMovementController.isGrounded)
             {
                 _playerMovementController.EnableDoubleJump();
-                _playerMovementController.ConvertRelativePlatformVelocityToAbsoluteVelocity();
                 currentSuperState.SwitchToState("Airborne");
             }
         }

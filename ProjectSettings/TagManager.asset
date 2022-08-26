@@ -10,6 +10,7 @@ TagManager:
   - EnemyAttack
   - Enemy
   - PlayerAttack
+  - Missile
   layers:
   - Default
   - TransparentFX
@@ -20,6 +21,8 @@ TagManager:
   - Pushable
   - PlayerPhase
   - Enemy
+  - Platform
+  - Post procesing
   - Moving Platform
   - Ledge Grab
   - Enemy Hitbox

@@ -13,6 +13,7 @@ public enum EventID
     onSlowTime,
     onSlowTimeCoolDown,
     onSave,
+    onRefresh,
     onLose,
     onWin,
     onDash,

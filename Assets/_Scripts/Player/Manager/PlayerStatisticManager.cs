@@ -22,6 +22,7 @@ namespace Player
         protected void InitializeVariable()
         {
             this.RegisterListener(EventID.onSave, (param) => SavePlayerStatistic());
+            this.RegisterListener(EventID.onRefresh, (param) => RefreshPlayerStatistic());
             _initPosition = transform.position;
             _playerCurrentLevel = PlayerPrefs.GetInt(PlayerPrefEnum.CurrentScene.ToString(), SceneManager.GetActiveScene().buildIndex);
 

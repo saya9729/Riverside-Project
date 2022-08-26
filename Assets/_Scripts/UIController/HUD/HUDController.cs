@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using UnityEngine.SceneManagement;
 
 namespace GameUI
 {
@@ -36,6 +37,20 @@ namespace GameUI
             keyCountSlider.value = 0;
 
             gameUICanvas.SetActive(Convert.ToBoolean(PlayerPrefs.GetInt(PlayerPrefEnum.HUD.ToString(), 1)));
+
+            bool refresh = Convert.ToBoolean(PlayerPrefs.GetInt(PlayerPrefEnum.Refresh.ToString(), 0));
+            if (refresh)
+            {
+                return;
+            }
+            EnvironmentData environmentData = SaveManager.LoadEnvironment(PlayerPrefs.GetInt(PlayerPrefEnum.CurrentScene.ToString(), SceneManager.GetActiveScene().buildIndex));
+            for (int i = 0; i < environmentData.isKeyInteractableArray.Length; i++)
+            {
+                if (!environmentData.isKeyInteractableArray[i])
+                {
+                    OnKeyCollectedDisplay(1);
+                }
+            }
         }
 
         //public void OnMaxHealthChange(float p_health)

@@ -15,6 +15,8 @@ namespace Player
             _highlightEffect = GetComponent<HighlightEffect>();
 
             _highlightEffect.SetHighlighted(true);
+
+            this.gameObject.SetActive(true);
         }
 
         public override string GetDescription()
@@ -40,6 +42,7 @@ namespace Player
                 PlayerPrefs.SetInt(PlayerPrefEnum.Refresh.ToString(), 0);
                 PlayerPrefs.SetInt(PlayerPrefEnum.CurrentScene.ToString(), SceneManager.GetActiveScene().buildIndex);
                 PlayerPrefs.Save();
+                this.gameObject.SetActive(false);
             }
         }
         public void SetInteractable(bool p_isInteractable)

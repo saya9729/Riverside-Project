@@ -34,6 +34,7 @@ namespace GameUI
             }
             gameMenuCanvas.SetActive(true);
             Time.timeScale = 0f;
+            Cursor.visible = true;
             Cursor.lockState =  CursorLockMode.None;
         }
 
@@ -45,6 +46,7 @@ namespace GameUI
                 _inputManager._playerInput.ActivateInput();
             }
             Time.timeScale = 1f;
+            Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
         }
     }

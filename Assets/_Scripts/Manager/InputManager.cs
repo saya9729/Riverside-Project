@@ -189,6 +189,7 @@ namespace Player
 
         private void SetCursorState(bool newState)
         {
+            Cursor.visible = !newState;
             Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
         }
 

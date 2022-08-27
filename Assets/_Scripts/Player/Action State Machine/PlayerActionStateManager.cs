@@ -13,6 +13,8 @@ namespace Player
         [SerializeField] private float deadEyeVariance = 0.8f;
 
         //Manager
+        [NonSerialized] public SelectionManager selectionManager;
+
         [NonSerialized] public PlayerSkillStateManager playerSkillManager;
         [NonSerialized] public InputManager inputManager;
         [NonSerialized] public PlayerStatisticManager playerStatisticManager;
